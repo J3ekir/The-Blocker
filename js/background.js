@@ -2,7 +2,6 @@ import storage from "./storage.js";
 
 let creating;
 var settings;
-var themes = ["dark", "light"];
 var types = {
     "user": ["userArray", "userCount"],
     "avatar": ["avatarArray", "avatarCount"],
