@@ -2,7 +2,7 @@ chrome.runtime.sendMessage({
     type: "tabHandlerCSS"
 });
 
-var tabWrapper = document.querySelector(`.tab-wrapper.widget-group`);
+var tabWrapper = dom.qs(`.tab-wrapper.widget-group`);
 var buttons = tabWrapper.firstElementChild.firstElementChild.firstElementChild.children;
 var cloneMenuHandler = tabWrapper.firstElementChild.cloneNode(true);
 var cloneButtons = cloneMenuHandler.firstElementChild.firstElementChild.children;
@@ -13,7 +13,7 @@ init();
 
 
 async function init() {
-    var result = await chrome.storage.local.get("settingsBottomWidget");
+    var result = await storage.get("settingsBottomWidget");
 
     if (!result["settingsBottomWidget"]) {
         return;

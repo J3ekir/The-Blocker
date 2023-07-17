@@ -28,5 +28,3 @@ dom.qs = function (query) {
 dom.qsa = function (query) {
     return document.querySelectorAll(query);
 }
-
-export default dom;

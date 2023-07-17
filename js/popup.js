@@ -1,7 +1,3 @@
-import dom from "./dom.js";
-import i18n from "./i18n.js";
-import storage from "./storage.js";
-
 i18n.render();
 
 var result;

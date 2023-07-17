@@ -1,8 +1,4 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
-import dom from "./dom.js";
-import i18n from "./i18n.js";
-import storage from "./storage.js";
-
 var buttons = ["settingsButtonsUser", "settingsButtonsAvatar", "settingsButtonsSignature"];
 var inputs = dom.qsa("[data-setting-name]");
 var language = dom.qs("#language");
@@ -32,7 +28,7 @@ async function init() {
 async function languageChanged(event) {
     var selectedLanguage = language.value;
     await storage.set({"language": selectedLanguage});
-    i18n.render();
+    i18n.setData();
     parent.postMessage({
         type: "language",
         language: selectedLanguage,

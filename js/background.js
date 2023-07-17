@@ -1,4 +1,4 @@
-import storage from "./storage.js";
+importScripts("storage.js");
 
 let creating;
 var settings;

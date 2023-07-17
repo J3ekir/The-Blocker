@@ -12,8 +12,7 @@
     },
     "author": "Vavien.",
     "background": {
-        "service_worker": "js/background.js",
-        "type": "module"
+        "service_worker": "js/background.js"
     },
     "content_scripts": [
         {
@@ -30,6 +29,8 @@
                 "https://www.technopat.net/sosyal/"
             ],
             "js": [
+                "js/dom.js",
+                "js/storage.js",
                 "js/tabHandler.js"
             ],
             "run_at": "document_end"
@@ -39,6 +40,8 @@
                 "https://www.technopat.net/sosyal/konu/*"
             ],
             "js": [
+                "js/dom.js",
+                "js/storage.js",
                 "js/contentScript.js"
             ],
             "run_at": "document_end"

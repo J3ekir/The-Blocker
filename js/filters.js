@@ -1,8 +1,4 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
-import dom from "./dom.js";
-import i18n from "./i18n.js";
-import storage from "./storage.js";
-
 var codeMirrorOptions = {
     autofocus: true,
     foldGutter: true,

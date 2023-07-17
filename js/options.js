@@ -1,8 +1,4 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
-import dom from "./dom.js";
-import i18n from "./i18n.js";
-import storage from "./storage.js";
-
 var iframe = dom.qs("#iframe");
 var paneToLoad = "";
 
@@ -24,7 +20,7 @@ window.addEventListener("message", function (event) {
             document.title = event.data["title"];
             break;
         case "language":
-            i18n.render();
+            i18n.setData();
             break;
         default:
             break;

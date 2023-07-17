@@ -1,6 +1,3 @@
-import dom from "./dom.js";
-import storage from "./storage.js";
-
 const i18n = {}
 
 i18n.settings = {};
@@ -10,8 +7,12 @@ i18n.get = function (key) {
 }
 
 i18n.render = async function () {
-    this.settings = await storage.get(null);
+    await this.init();
     this.setData();
+}
+
+i18n.init = async function () {
+    this.settings = await storage.get(null);
 }
 
 i18n.setData = function () {
@@ -19,5 +20,3 @@ i18n.setData = function () {
         elem.textContent = this.get(dom.attr(elem, "data-i18n"));
     });
 }
-
-export default i18n;

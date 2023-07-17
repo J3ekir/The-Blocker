@@ -123,5 +123,3 @@ storage.setCSS = async function () {
 
     return CSS;
 };
-
-export default storage;
