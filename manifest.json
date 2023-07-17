@@ -42,6 +42,7 @@
             "js": [
                 "js/dom.js",
                 "js/storage.js",
+                "js/i18n.js",
                 "js/contentScript.js"
             ],
             "run_at": "document_end"
