@@ -28,7 +28,7 @@ async function init() {
 async function languageChanged(event) {
     var selectedLanguage = language.value;
     await storage.set({"language": selectedLanguage});
-    i18n.setData();
+    i18n.render();
     parent.postMessage({
         type: "language",
         language: selectedLanguage,

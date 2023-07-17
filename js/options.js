@@ -20,7 +20,7 @@ window.addEventListener("message", function (event) {
             document.title = event.data["title"];
             break;
         case "language":
-            i18n.setData();
+            i18n.render();
             break;
         default:
             break;
