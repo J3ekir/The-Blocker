@@ -96,6 +96,9 @@
     "settingsNavigationBlogs": {
         "message": "Navigasyon blog"
     },
+    "settingsNavigationQuestions": {
+        "message": "Navigasyon sorular"
+    },
     "settingsNavigationVideos": {
         "message": "Navigasyon videolar"
     },

@@ -8,6 +8,7 @@ storage.miscKeys = {
     "settingsSidebarRandomBlogEntries": `div[data-widget-id="41"]`,
     "settingsSidebarLatestResources": `div[data-widget-id="11"]`,
     "settingsNavigationBlogs": `li:has(a[data-xf-key="5"])`,
+    "settingsNavigationQuestions": `li:has(a[data-xf-key="6"])`,
     "settingsNavigationVideos": `li:has(a[data-xf-key="7"])`,
     "settingsNavigationAdvices": `li:has(a[data-xf-key="8"])`,
     "settingsNavigationSponsor": `li:has(a[data-xf-key="9"])`,
