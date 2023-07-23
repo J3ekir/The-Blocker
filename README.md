@@ -70,6 +70,7 @@ Use [Github issues](https://github.com/J3ekir/The-Blocker/issues) for bug report
 - Sidebar random blog entries
 - Sidebar latest resources
 - Navigation blogs
+- Navigation questions
 - Navigation videos
 - Navigation advices
 - Navigation sponsor
@@ -130,6 +131,7 @@ Bug bildirimleri için [Github issues'ü](https://github.com/J3ekir/The-Blocker/
 - Kenar çubuğu rastgele blog girdileri
 - Kenar çubuğu yeni yazılımlar
 - Navigasyon blog
+- Navigasyon sorular
 - Navigasyon videolar
 - Navigasyon tavsiyeler
 - Navigasyon sponsor
