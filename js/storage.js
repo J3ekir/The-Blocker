@@ -104,7 +104,7 @@ storage.setCSS = async function () {
         }
 
         if (this.settings["settingsLatestOnCategoryNames"]) {
-            userCSSlatestOnCategoryNames = `.node-extra-user:has${userList}{display:none!important;}`;
+            userCSSlatestOnCategoryNames = `.node-extra-row:has${userList}{display:none!important;}`;
         }
 
         if (this.settings["settingsNewThreadsPostsHome"]) {
