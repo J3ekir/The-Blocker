@@ -81,8 +81,8 @@ Use [Github issues](https://github.com/J3ekir/The-Blocker/issues) for bug report
 - Add bottom widget
 
 ## Acknowledgements
-Thanks to Raymond Hill for the [uBlock Origin](https://github.com/gorhill/uBlock).  
-Thanks to Marijn Haverbeke for the [Codemirror](https://codemirror.net/5/index.html).
+Thanks to [Raymond Hill](https://github.com/gorhill) for the [uBlock Origin](https://github.com/gorhill/uBlock).  
+Thanks to [Marijn Haverbeke](https://github.com/marijnh) for the [Codemirror](https://codemirror.net/5/index.html).
 
 ***
 
@@ -142,5 +142,5 @@ Bug bildirimleri için [Github issues'ü](https://github.com/J3ekir/The-Blocker/
 - Alt widget ekle
 
 ## Teşekkürler
-Raymond Hill'e [uBlock Origin](https://github.com/gorhill/uBlock) için teşekkürler.  
-Marijn Haverbeke'[Codemirror](https://codemirror.net/5/index.html) için teşekkürler.
+[Raymond Hill'e](https://github.com/gorhill) [uBlock Origin](https://github.com/gorhill/uBlock) için teşekkürler.  
+[Marijn Haverbeke'e](https://github.com/marijnh) [Codemirror](https://codemirror.net/5/index.html) için teşekkürler.
