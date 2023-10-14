@@ -1,7 +1,7 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 var buttons = ["settingsButtonsUser", "settingsButtonsAvatar", "settingsButtonsSignature"];
-var inputs = dom.qsa("[data-setting-name]");
-var language = dom.qs("#language");
+var inputs = qsa("[data-setting-name]");
+var language = qs("#language");
 
 
 init();

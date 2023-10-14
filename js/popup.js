@@ -2,9 +2,9 @@ i18n.render();
 
 var result;
 var types = {
-    "userCount": dom.qs("#userValue"),
-    "avatarCount": dom.qs("#avatarValue"),
-    "signatureCount": dom.qs("#signatureValue")
+    "userCount": qs("#userValue"),
+    "avatarCount": qs("#avatarValue"),
+    "signatureCount": qs("#signatureValue")
 };
 
 setValues();

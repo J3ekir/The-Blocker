@@ -28,10 +28,10 @@ var cache = {
     signature: "",
 };
 
-self.userEditor = new CodeMirror(dom.getById("userEditor"), codeMirrorOptions);
-self.avatarEditor = new CodeMirror(dom.getById("avatarEditor"), codeMirrorOptions);
-self.signatureEditor = new CodeMirror(dom.getById("signatureEditor"), codeMirrorOptions);
-var saveButton = dom.qs("#applyButton");
+self.userEditor = new CodeMirror(dom.byId("userEditor"), codeMirrorOptions);
+self.avatarEditor = new CodeMirror(dom.byId("avatarEditor"), codeMirrorOptions);
+self.signatureEditor = new CodeMirror(dom.byId("signatureEditor"), codeMirrorOptions);
+var saveButton = qs("#applyButton");
 
 init();
 

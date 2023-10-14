@@ -17,8 +17,8 @@ dom.attr(cloneSvg, "viewBox", "0 0 512 512");
 cloneSvg.appendChild(dom.ceNS("http://www.w3.org/2000/svg", "path"));
 self.cloneUserButton.append(cloneSvg, dom.ce("span"));
 
-self.cloneAvatarButton = self.cloneUserButton.cloneNode(true);
-self.cloneSignatureButton = self.cloneUserButton.cloneNode(true);
+self.cloneAvatarButton = dom.clone(self.cloneUserButton);
+self.cloneSignatureButton = dom.clone(self.cloneUserButton);
 
 self.cloneUserButton.className = "actionBar-action actionBar-action--block userButton";
 self.cloneAvatarButton.className = "actionBar-action actionBar-action--block avatarButton";
@@ -36,25 +36,25 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
     observe();
     
     function initCloneButtons() {
-        cloneReportButton.textContent = i18n.get("contentScriptReportButtonText");
+        dom.text(cloneReportButton, i18n.get("contentScriptReportButtonText"));
 
         self.cloneUserButton.title = i18n.get("contentScriptUserButtonTitle");
         self.cloneAvatarButton.title = i18n.get("contentScriptAvatarButtonTitle");
         self.cloneSignatureButton.title = i18n.get("contentScriptSignatureButtonTitle");
         
-        self.cloneUserButton.lastElementChild.textContent = i18n.get("contentScriptUserButtonText");
-        self.cloneAvatarButton.lastElementChild.textContent = i18n.get("contentScriptAvatarButtonText");
-        self.cloneSignatureButton.lastElementChild.textContent = i18n.get("contentScriptSignatureButtonText");
+        dom.text(self.cloneUserButton.lastElementChild, i18n.get("contentScriptUserButtonText"));
+        dom.text(self.cloneAvatarButton.lastElementChild, i18n.get("contentScriptAvatarButtonText"));
+        dom.text(self.cloneSignatureButton.lastElementChild, i18n.get("contentScriptSignatureButtonText"));
     }
 
     function blockButtons() {
-        postIds = Array.prototype.map.call(dom.qsa(".message-userContent.lbContainer.js-lbContainer"), node => dom.attr(node, "data-lb-id").slice(5));
-        userIds = Array.prototype.map.call(dom.qsa(".message-name>:is(a, span)"), node => dom.attr(node, "data-user-id"));
-        messages = dom.qsa(".message-actionBar.actionBar");
+        postIds = Array.prototype.map.call(qsa(".message-userContent.lbContainer.js-lbContainer"), node => dom.attr(node, "data-lb-id").slice(5));
+        userIds = Array.prototype.map.call(qsa(".message-name>:is(a, span)"), node => dom.attr(node, "data-user-id"));
+        messages = qsa(".message-actionBar.actionBar");
 
         // if article
         if (userIds.length === postIds.length - 1) {
-            userIds.splice(0, 0, dom.attr(dom.qs(".message-articleUserName>a"), "data-user-id"));
+            userIds.splice(0, 0, dom.attr(".message-articleUserName>a", "data-user-id"));
         }
 
         // report ban and reaction ban
@@ -62,22 +62,22 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
             var cloneActionBar = dom.ce("div");
             cloneActionBar.className = "message-actionBar actionBar";
 
-            dom.qsa(".message-footer").forEach((elem) => {
-                elem.prepend(cloneActionBar.cloneNode(true));
+            qsa(".message-footer").forEach((elem) => {
+                elem.prepend(dom.clone(cloneActionBar));
             });
 
-            messages = dom.qsa(".message-actionBar.actionBar");
+            messages = qsa(".message-actionBar.actionBar");
         }
 
         messages.forEach((elem, i) => {
             // no report and no edit
             if (!elem.querySelector(".actionBar-set.actionBar-set--internal")) {
-                elem.append(cloneInternal.cloneNode(true));
+                elem.append(dom.clone(cloneInternal));
             }
 
             // no report
             if (!elem.querySelector(".actionBar-action.actionBar-action--report")) {
-                var reportButton = cloneReportButton.cloneNode(true);
+                var reportButton = dom.clone(cloneReportButton);
                 dom.attr(reportButton, "href", `/sosyal/mesaj/${postIds[i]}/report`);
                 elem.lastElementChild.prepend(reportButton);
             }
@@ -91,15 +91,15 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
     function makeBlockButtons(userId) {
         return buttonArray.map((elem) => {
             if (settings[`settingsButtons${elem}`]) {
-                var button = window[`clone${elem}Button`].cloneNode(true);
+                var button = dom.clone(window[`clone${elem}Button`]);
 
                 if (selfBlockCheck(userId)) {
-                    button.classList.add(CSS_HIDE);
+                    dom.cs.add(button, CSS_HIDE);
                 }
                 else {
                     if (settings[`${elem.toLowerCase()}Array`].includes(userId)) {
                         button.title = i18n.get(`contentScript${elem}ButtonUnblockTitle`);
-                        button.lastElementChild.textContent = i18n.get(`contentScript${elem}ButtonUnblockText`);
+                        dom.text(button.lastElementChild, i18n.get(`contentScript${elem}ButtonUnblockText`));
                     }
 
                     button.addEventListener("click", blockToggle);
@@ -115,20 +115,20 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
         var userId = dom.attr(event.currentTarget.closest("article").querySelector("a[data-user-id]"), "data-user-id");
         var type = event.currentTarget.classList.item(event.currentTarget.classList.length - 1).replace(/Button$/, "");
         var typeCapital = `${type[0].toUpperCase()}${type.slice(1)}`;
-        var buttons = dom.qsa(`.actionBar-action--block.${type}Button`);
+        var buttons = qsa(`.actionBar-action--block.${type}Button`);
         var query;
 
         settings = await storage.get(null);
 
         switch (type) {
             case "user":
-                query = dom.qsa(`:is(article:has(a[data-user-id="${userId}"]),blockquote[data-attributes="member: ${userId}"],.block-row:has(a[data-user-id="${userId}"]))`);
+                query = qsa(`:is(article:has(a[data-user-id="${userId}"]),blockquote[data-attributes="member: ${userId}"],.block-row:has(a[data-user-id="${userId}"]))`);
                 break;
             case "avatar":
-                query = dom.qsa(`a[data-user-id="${userId}"]>img`);
+                query = qsa(`a[data-user-id="${userId}"]>img`);
                 break;
             case "signature":
-                query = dom.qsa(`.message-signature:has(.js-userSignature-${userId})`);
+                query = qsa(`.message-signature:has(.js-userSignature-${userId})`);
                 break;
             default:
                 break;
@@ -146,14 +146,14 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
         blockFunction(type, userId);
 
         query.forEach((elem) => {
-            elem.classList.toggle(CSS_HIDE, !isBlocked);
-            elem.classList.toggle(CSS_SHOW, isBlocked);
+            dom.cl.toggle(elem, CSS_HIDE, !isBlocked);
+            dom.cl.toggle(elem, CSS_SHOW, isBlocked);
         });
 
         userIds.forEach((elem, i) => {
             if (elem === userId) {
                 buttons[i].title = title;
-                buttons[i].lastElementChild.textContent = textContent;
+                dom.text(buttons[i].lastElementChild, textContent);
             }
         });
     }
@@ -176,16 +176,16 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
 
     function selfBlockCheck(userId) {
         // if not member
-        if (!dom.qs(".p-navgroup--member")) {
+        if (!qs(".p-navgroup--member")) {
             return false;
         }
 
-        return userId === dom.attr(dom.qs(`a[href="/sosyal/hesap/"]>span`), "data-user-id");
+        return userId === dom.attr(`a[href="/sosyal/hesap/"]>span`, "data-user-id");
     }
 
     async function observe() {
-        // const targetNode = dom.qs(`.p-body-pageContent`);
-        const targetNode = dom.qs(`.block-body.js-replyNewMessageContainer`);
+        // const targetNode = qs(`.p-body-pageContent`);
+        const targetNode = qs(`.block-body.js-replyNewMessageContainer`);
         const config = { attributes: false, childList: true, subtree: true };
         const callback = async (mutationList, observer) => {
             for (const mutation of mutationList) {

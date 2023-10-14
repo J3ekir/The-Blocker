@@ -2,7 +2,7 @@ chrome.runtime.sendMessage({
     type: "tabHandlerCSS"
 });
 
-var tabWrapper = dom.qs(`.tab-wrapper.widget-group`);
+var tabWrapper = qs(`.tab-wrapper.widget-group`);
 var buttons = tabWrapper.firstElementChild.firstElementChild.firstElementChild.children;
 var cloneMenuHandler = tabWrapper.firstElementChild.cloneNode(true);
 var cloneButtons = cloneMenuHandler.firstElementChild.firstElementChild.children;

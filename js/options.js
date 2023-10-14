@@ -1,5 +1,5 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
-var iframe = dom.qs("#iframe");
+var iframe = qs("#iframe");
 var paneToLoad = "";
 
 
@@ -38,7 +38,7 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-dom.qsa(".tabButton").forEach((elem) => {
+qsa(".tabButton").forEach((elem) => {
     elem.addEventListener("click", tabCliked);
 });
 
@@ -49,7 +49,7 @@ function tabCliked(event) {
 async function loadLastPane() {
     var result = await storage.get("optionsLastPane");
     iframe.contentWindow.location.replace(result["optionsLastPane"]);
-    const tabButton = dom.qs(`[data-pane="${result["optionsLastPane"]}"]`);
+    const tabButton = qs(`[data-pane="${result["optionsLastPane"]}"]`);
     tabButton.classList.add("selected");
     tabButton.scrollIntoView();
 }
@@ -57,13 +57,13 @@ async function loadLastPane() {
 function loadPane(pane) {
     paneToLoad = pane;
     
-    if (dom.qs(`[data-pane="${paneToLoad}"]`).classList.contains("selected")) {
+    if (qs(`[data-pane="${paneToLoad}"]`).classList.contains("selected")) {
         return;
     }
 
     iframe.contentWindow.location.replace(paneToLoad);
 
-    if (dom.attr(dom.qs(".tabButton.selected"), "data-pane") === "filters.html") {
+    if (dom.attr(".tabButton.selected", "data-pane") === "filters.html") {
         return;
     }
 
@@ -71,9 +71,9 @@ function loadPane(pane) {
 }
 
 function setSelectedTab() {
-    const tabButton = dom.qs(`[data-pane="${paneToLoad}"]`);
+    const tabButton = qs(`[data-pane="${paneToLoad}"]`);
     window.location.replace(`#${paneToLoad}`);
-    dom.qsa(".tabButton.selected").forEach((elem) => {
+    qsa(".tabButton.selected").forEach((elem) => {
         elem.classList.remove("selected");
     });
     tabButton.classList.add("selected");
