@@ -63,6 +63,7 @@ storage.setCSS = async function () {
 
     var isAnyUserFiltersAreUsed = Object.keys(this.userKeys).some(key => this.settings[key]);
 
+    // https://github.com/J3ekir/The-Blocker/commit/03d6569c44318ee1445049faba4e268ade3b79aa
     if (this.settings["settingsAvatars"] && this.settings["avatarArray"].length) {
         avatarCSS = `:is(#theBlocker, a[data-user-id="${this.settings["avatarArray"].join(`"],a[data-user-id="`)}"])>img{display:none;}`;
     }
