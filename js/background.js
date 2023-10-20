@@ -132,7 +132,6 @@ async function createOffscreen(path = "offscreen.html") {
     if (creating) {
         await creating;
     }
-
     else {
         creating = chrome.offscreen.createDocument({
             url: path,
