@@ -11,21 +11,19 @@ const normalizeTarget = target => {
 };
 
 qs = function (a, b) {
-    if (typeof a === "string") {
-        return document.querySelector(a);
-    }
-    return a.querySelector(b);
+    return typeof a === "string"
+        ? document.querySelector(a)
+        : a.querySelector(b);
 };
 
 qsa = function (a, b) {
-    if (typeof a === "string") {
-        return document.querySelectorAll(a);
-    }
-    return a.querySelectorAll(b);
+    return typeof a === "string"
+        ? document.querySelectorAll(a)
+        : a.querySelectorAll(b);
 };
 
 
-dom.attr = function (target, attr, value = undefined) {
+dom.attr = function (target, attr, value) {
     for (const elem of normalizeTarget(target)) {
         if (value === undefined) {
             return elem.getAttribute(attr);
@@ -88,7 +86,7 @@ dom.cl.remove = function (target, ...name) {
     }
 };
 
-dom.cl.toggle = function (target, name, state = undefined) {
+dom.cl.toggle = function (target, name, state) {
     if (state === undefined) {
         for (const elem of normalizeTarget(target)) {
             elem.classList.toggle(name);
