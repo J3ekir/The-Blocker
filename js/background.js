@@ -52,7 +52,7 @@ chrome.runtime.onMessage.addListener(
                 break;
             case "block":
                 // is userId a number?
-                if (!request.userId || request.userId.test(/^[0-9]+$/) === null) {
+                if (!request.userId || !/^\d+$/.test(request.userId)) {
                     // i18n
                     console.log(`user ID is not a number: ${request.userId}`);
                     return;
@@ -84,7 +84,7 @@ chrome.runtime.onMessage.addListener(
                 break;
             case "unblock":
                 // is userId a number?
-                if (!request.userId || request.userId.test(/^[0-9]+$/) === null) {
+                if (!request.userId || !/^\d+$/.test(request.userId)) {
                     // i18n
                     console.log(`user ID is not a number: ${request.userId}`);
                     return;
