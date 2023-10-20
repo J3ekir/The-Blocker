@@ -48,8 +48,8 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
     }
 
     function blockButtons() {
-        postIds = Array.prototype.map.call(qsa(".message-userContent.lbContainer.js-lbContainer"), node => dom.attr(node, "data-lb-id").slice(5));
-        userIds = Array.prototype.map.call(qsa(".message-name>:is(a, span)"), node => dom.attr(node, "data-user-id"));
+        postIds = Array.from(qsa(".message-userContent.lbContainer.js-lbContainer"), node => dom.attr(node, "data-lb-id").slice(5));
+        userIds = Array.from(qsa(".message-name>:is(a, span)"), node => dom.attr(node, "data-user-id"));
         messages = qsa(".message-actionBar.actionBar");
 
         // if article
@@ -176,11 +176,7 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
 
     function selfBlockCheck(userId) {
         // if not member
-        if (!qs(".p-navgroup--member")) {
-            return false;
-        }
-
-        return userId === dom.attr(`a[href="/sosyal/hesap/"]>span`, "data-user-id");
+        return qs(".p-navgroup--member") && userId === dom.attr(`a[href="/sosyal/hesap/"]>span`, "data-user-id");
     }
 
     async function observe() {
