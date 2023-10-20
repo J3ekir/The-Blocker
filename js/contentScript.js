@@ -94,7 +94,7 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
                 var button = dom.clone(window[`clone${elem}Button`]);
 
                 if (selfBlockCheck(userId)) {
-                    dom.cs.add(button, CSS_HIDE);
+                    dom.cl.add(button, CSS_HIDE);
                 }
                 else {
                     if (settings[`${elem.toLowerCase()}Array`].includes(userId)) {
