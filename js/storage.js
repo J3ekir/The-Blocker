@@ -32,17 +32,15 @@ storage.userKeys = {
 };
 
 storage.get = async function (keys, callback = null) {
-    if (callback) {
-        return await chrome.storage.local.get(keys, callback);
-    }
-    return await chrome.storage.local.get(keys);
+    return callback
+        ? await chrome.storage.local.get(keys, callback)
+        : await chrome.storage.local.get(keys);
 };
 
 storage.set = async function (keys, callback = null) {
-    if (callback) {
-        return await chrome.storage.local.set(keys, callback);
-    }
-    return await chrome.storage.local.set(keys);
+    return callback
+        ? await chrome.storage.local.set(keys, callback)
+        : await chrome.storage.local.set(keys);
 };
 
 storage.setCSS = async function () {
@@ -86,22 +84,24 @@ storage.setCSS = async function () {
     }
 
     if (this.settings["userArray"].length &&
-        (isAnyUserFiltersAreUsed ||
-            this.settings["settingsLatestOnNewThreadsPosts"] ||
-            this.settings["settingsLatestOnCategoryNames"])
+        (isAnyUserFiltersAreUsed
+            || this.settings["settingsLatestOnNewThreadsPosts"]
+            || this.settings["settingsLatestOnCategoryNames"])
     ) {
         var userList = `(a[data-user-id="${this.settings["userArray"].join(`"],a[data-user-id="`)}"])`;
 
         if (isAnyUserFiltersAreUsed) {
-            userCSSgeneral = `:is(${Object.entries(this.userKeys)
-                    .filter(([key, value]) => this.settings[key])
-                    .map(([key, value]) => value)
-                    .join()
-                }):has${userList}{display:none!important;}`;
+            userCSSgeneral = `:is(${ Object.keys(this.userKeys)
+                .filter((key) => this.settings[key])
+                .map((key) => this.userKeys[key])
+                .join()
+                }):has${ userList }{display:none!important;}`;
         }
 
         if (this.settings["settingsLatestOnNewThreadsPosts"]) {
-            userCSSlatestOnNewThreadsPosts = `.structItem-cell.structItem-cell--latest:has${userList}>:is(a,div){display:none!important;}`;
+            // to hide latest too
+            // :has()>div -> :has()>:is(a,div) || :has()>*
+            userCSSlatestOnNewThreadsPosts = `.structItem-cell.structItem-cell--latest:has${userList}>div{display:none!important;}`;
         }
 
         if (this.settings["settingsLatestOnCategoryNames"]) {
