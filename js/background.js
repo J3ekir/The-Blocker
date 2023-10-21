@@ -54,7 +54,7 @@ chrome.runtime.onMessage.addListener(
                 // is userId a number?
                 if (!request.userId || !/^\d+$/.test(request.userId)) {
                     // i18n
-                    console.log(`user ID is not a number: ${request.userId}`);
+                    console.log(`user ID is not a number: ${ request.userId }`);
                     return;
                 }
 
@@ -64,7 +64,7 @@ chrome.runtime.onMessage.addListener(
 
                 if (settings[typeArray].includes(request.userId)) {
                     // i18n
-                    console.log(`user ID: ${request.userId}, ${request.buttonType} is already blocked`);
+                    console.log(`user ID: ${ request.userId }, ${ request.buttonType } is already blocked`);
                     return;
                 }
 
@@ -79,14 +79,14 @@ chrome.runtime.onMessage.addListener(
                 await storage.setCSS();
 
                 // i18n
-                console.log(`user ID: ${request.userId}, ${request.buttonType} blocked`);
+                console.log(`user ID: ${ request.userId }, ${ request.buttonType } blocked`);
 
                 break;
             case "unblock":
                 // is userId a number?
                 if (!request.userId || !/^\d+$/.test(request.userId)) {
                     // i18n
-                    console.log(`user ID is not a number: ${request.userId}`);
+                    console.log(`user ID is not a number: ${ request.userId }`);
                     return;
                 }
 
@@ -105,7 +105,7 @@ chrome.runtime.onMessage.addListener(
                 await storage.setCSS();
 
                 // i18n
-                console.log(`user ID: ${request.userId}, ${request.buttonType} unblocked`);
+                console.log(`user ID: ${ request.userId }, ${ request.buttonType } unblocked`);
 
                 break;
             default:
@@ -145,7 +145,7 @@ async function createOffscreen(path = "offscreen.html") {
 
 async function injectCSS(tabId) {
     var result = await storage.get("CSS");
-    
+
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
         origin: "AUTHOR",
@@ -162,11 +162,11 @@ async function injectCSS(tabId) {
 function setIcon(theme) {
     chrome.action.setIcon({
         path: {
-            "16": `../img/icon_${theme}_16.png`,
-            "32": `../img/icon_${theme}_32.png`,
-            "48": `../img/icon_${theme}_48.png`,
-            "64": `../img/icon_${theme}_64.png`,
-            "128": `../img/icon_${theme}_128.png`
+            "16": `../img/icon_${ theme }_16.png`,
+            "32": `../img/icon_${ theme }_32.png`,
+            "48": `../img/icon_${ theme }_48.png`,
+            "64": `../img/icon_${ theme }_64.png`,
+            "128": `../img/icon_${ theme }_128.png`
         }
     });
 }

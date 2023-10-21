@@ -49,15 +49,15 @@ function tabCliked(event) {
 async function loadLastPane() {
     var result = await storage.get("optionsLastPane");
     iframe.contentWindow.location.replace(result["optionsLastPane"]);
-    const tabButton = qs(`[data-pane="${result["optionsLastPane"]}"]`);
+    const tabButton = qs(`[data-pane="${ result["optionsLastPane"] }"]`);
     tabButton.classList.add("selected");
     tabButton.scrollIntoView();
 }
 
 function loadPane(pane) {
     paneToLoad = pane;
-    
-    if (qs(`[data-pane="${paneToLoad}"]`).classList.contains("selected")) {
+
+    if (qs(`[data-pane="${ paneToLoad }"]`).classList.contains("selected")) {
         return;
     }
 
@@ -71,8 +71,8 @@ function loadPane(pane) {
 }
 
 function setSelectedTab() {
-    const tabButton = qs(`[data-pane="${paneToLoad}"]`);
-    window.location.replace(`#${paneToLoad}`);
+    const tabButton = qs(`[data-pane="${ paneToLoad }"]`);
+    window.location.replace(`#${ paneToLoad }`);
     qsa(".tabButton.selected").forEach((elem) => {
         elem.classList.remove("selected");
     });

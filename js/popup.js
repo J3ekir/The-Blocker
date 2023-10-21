@@ -4,7 +4,7 @@ var result;
 var types = {
     "userCount": qs("#userValue"),
     "avatarCount": qs("#avatarValue"),
-    "signatureCount": qs("#signatureValue")
+    "signatureCount": qs("#signatureValue"),
 };
 
 setValues();

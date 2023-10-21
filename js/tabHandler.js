@@ -21,7 +21,7 @@ async function init() {
 
     for (let i = 0; i < cloneButtons.length; ++i) {
         cloneButtons[i].removeAttribute("href");
-    
+
         cloneButtons[i].addEventListener("click", (event) => {
             buttons[i].click();
             buttons[i].scrollIntoView();
@@ -29,7 +29,7 @@ async function init() {
             cloneButtons[i].classList.add("is-active");
         });
     }
-    
+
     tabWrapper.appendChild(cloneMenuHandler);
 
     observe();

@@ -27,7 +27,7 @@ async function init() {
 
 async function languageChanged(event) {
     var selectedLanguage = language.value;
-    await storage.set({"language": selectedLanguage});
+    await storage.set({ "language": selectedLanguage });
     i18n.render();
     parent.postMessage({
         type: "language",
@@ -47,5 +47,5 @@ async function settingChanged(event) {
     }
 
     var CSS = await storage.setCSS();
-    console.log(`CSS: ${CSS}`);
+    console.log(`CSS: ${ CSS }`);
 }

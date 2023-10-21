@@ -53,7 +53,7 @@ async function init() {
 
 async function setEditorText() {
     let result = await storage.get(Object.keys(types));
-    
+
     cache.user = result["userArray"].join("\n");
     cache.avatar = result["avatarArray"].join("\n");
     cache.signature = result["signatureArray"].join("\n");
@@ -138,7 +138,7 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
     Object.keys(changes).forEach((key) => {
         if (types.hasOwnProperty(key)) {
             const cacheKey = types[key];
-            storageChangeHandler(changes[key].newValue, window[`${cacheKey}Editor`], cacheKey);
+            storageChangeHandler(changes[key].newValue, window[`${ cacheKey }Editor`], cacheKey);
         }
     });
 });
@@ -209,7 +209,7 @@ async function saveEditorText() {
     });
 
     var CSS = await storage.setCSS();
-    console.log(`CSS: ${CSS}`);
+    console.log(`CSS: ${ CSS }`);
 }
 
 function getEditorText(editor) {

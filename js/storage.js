@@ -24,7 +24,7 @@ storage.userKeys = {
     "settingsNotifications": ".alert.js-alert",
     "settingsProfilePosts": ".message.message--simple",
     "settingsProfilePostComments": ".message-responseRow",
-    
+
     // "settingsNewThreadsPostsHome": ".structItem:has(.structItem-cell--main)",
     // "settingsLatestOnNewThreadsPosts": false,
     // "settingsLatestOnCategoryNames": false,
@@ -63,23 +63,23 @@ storage.setCSS = async function () {
 
     // https://github.com/J3ekir/The-Blocker/commit/03d6569c44318ee1445049faba4e268ade3b79aa
     if (this.settings["settingsAvatars"] && this.settings["avatarArray"].length) {
-        avatarCSS = `:is(#theBlocker, a[data-user-id="${this.settings["avatarArray"].join(`"],a[data-user-id="`)}"])>img{display:none;}`;
+        avatarCSS = `:is(#theBlocker, a[data-user-id="${ this.settings["avatarArray"].join(`"],a[data-user-id="`) }"])>img{display:none;}`;
     }
 
     if (this.settings["settingsSignatures"] && this.settings["signatureArray"].length) {
-        signatureCSS = `.message-signature:has(.js-userSignature-${this.settings["signatureArray"].join(`,.js-userSignature-`)}){display:none;}`;
+        signatureCSS = `.message-signature:has(.js-userSignature-${ this.settings["signatureArray"].join(`,.js-userSignature-`) }){display:none;}`;
     }
 
     if (this.settings["settingsQuotes"] && this.settings["userArray"].length) {
-        quoteCSS = `[data-attributes="member: ${this.settings["userArray"].join(`"],[data-attributes="member: `)}"]{display:none!important;}`;
+        quoteCSS = `[data-attributes="member: ${ this.settings["userArray"].join(`"],[data-attributes="member: `) }"]{display:none!important;}`;
     }
 
     // if any misc filters are used
     if (Object.keys(this.miscKeys).some(key => this.settings[key])) {
-        miscCSS = `:is(${Object.entries(this.miscKeys)
-                .filter(([key, value]) => this.settings[key])
-                .map(([key, value]) => value)
-                .join()
+        miscCSS = `:is(${ Object.keys(this.miscKeys)
+            .filter(key => this.settings[key])
+            .map(key => this.miscKeys[key])
+            .join()
             }){display:none!important;}`;
     }
 
@@ -88,12 +88,12 @@ storage.setCSS = async function () {
             || this.settings["settingsLatestOnNewThreadsPosts"]
             || this.settings["settingsLatestOnCategoryNames"])
     ) {
-        var userList = `(a[data-user-id="${this.settings["userArray"].join(`"],a[data-user-id="`)}"])`;
+        var userList = `(a[data-user-id="${ this.settings["userArray"].join(`"],a[data-user-id="`) }"])`;
 
         if (isAnyUserFiltersAreUsed) {
             userCSSgeneral = `:is(${ Object.keys(this.userKeys)
-                .filter((key) => this.settings[key])
-                .map((key) => this.userKeys[key])
+                .filter(key => this.settings[key])
+                .map(key => this.userKeys[key])
                 .join()
                 }):has${ userList }{display:none!important;}`;
         }
@@ -101,21 +101,21 @@ storage.setCSS = async function () {
         if (this.settings["settingsLatestOnNewThreadsPosts"]) {
             // to hide latest too
             // :has()>div -> :has()>:is(a,div) || :has()>*
-            userCSSlatestOnNewThreadsPosts = `.structItem-cell.structItem-cell--latest:has${userList}>div{display:none!important;}`;
+            userCSSlatestOnNewThreadsPosts = `.structItem-cell.structItem-cell--latest:has${ userList }>div{display:none!important;}`;
         }
 
         if (this.settings["settingsLatestOnCategoryNames"]) {
-            userCSSlatestOnCategoryNames = `.node-extra-row:has${userList}{display:none!important;}`;
+            userCSSlatestOnCategoryNames = `.node-extra-row:has${ userList }{display:none!important;}`;
         }
 
         if (this.settings["settingsNewThreadsPostsHome"]) {
-            userCSSnewThreadsPostsHome = `.structItem:has(.structItem-cell--main :is${userList}){display:none!important;}`;
+            userCSSnewThreadsPostsHome = `.structItem:has(.structItem-cell--main :is${ userList }){display:none!important;}`;
         }
 
-        userCSS = `${userCSSgeneral}${userCSSlatestOnNewThreadsPosts}${userCSSlatestOnCategoryNames}${userCSSnewThreadsPostsHome}`;
+        userCSS = `${ userCSSgeneral }${ userCSSlatestOnNewThreadsPosts }${ userCSSlatestOnCategoryNames }${ userCSSnewThreadsPostsHome }`;
     }
 
-    var CSS = `${miscCSS}${userCSS}${avatarCSS}${signatureCSS}${quoteCSS}`;
+    var CSS = `${ miscCSS }${ userCSS }${ avatarCSS }${ signatureCSS }${ quoteCSS }`;
 
     await this.set({
         CSS: CSS

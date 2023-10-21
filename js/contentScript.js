@@ -34,14 +34,14 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
     initCloneButtons();
     blockButtons();
     observe();
-    
+
     function initCloneButtons() {
         dom.text(cloneReportButton, i18n.get("contentScriptReportButtonText"));
 
         self.cloneUserButton.title = i18n.get("contentScriptUserButtonTitle");
         self.cloneAvatarButton.title = i18n.get("contentScriptAvatarButtonTitle");
         self.cloneSignatureButton.title = i18n.get("contentScriptSignatureButtonTitle");
-        
+
         dom.text(self.cloneUserButton.lastElementChild, i18n.get("contentScriptUserButtonText"));
         dom.text(self.cloneAvatarButton.lastElementChild, i18n.get("contentScriptAvatarButtonText"));
         dom.text(self.cloneSignatureButton.lastElementChild, i18n.get("contentScriptSignatureButtonText"));
@@ -78,7 +78,7 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
             // no report
             if (!elem.querySelector(".actionBar-action.actionBar-action--report")) {
                 var reportButton = dom.clone(cloneReportButton);
-                dom.attr(reportButton, "href", `/sosyal/mesaj/${postIds[i]}/report`);
+                dom.attr(reportButton, "href", `/sosyal/mesaj/${ postIds[i] }/report`);
                 elem.lastElementChild.prepend(reportButton);
             }
 
@@ -90,16 +90,16 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
 
     function makeBlockButtons(userId) {
         return buttonArray.map((elem) => {
-            if (settings[`settingsButtons${elem}`]) {
-                var button = dom.clone(window[`clone${elem}Button`]);
+            if (settings[`settingsButtons${ elem }`]) {
+                var button = dom.clone(window[`clone${ elem }Button`]);
 
                 if (selfBlockCheck(userId)) {
                     dom.cl.add(button, CSS_HIDE);
                 }
                 else {
-                    if (settings[`${elem.toLowerCase()}Array`].includes(userId)) {
-                        button.title = i18n.get(`contentScript${elem}ButtonUnblockTitle`);
-                        dom.text(button.lastElementChild, i18n.get(`contentScript${elem}ButtonUnblockText`));
+                    if (settings[`${ elem.toLowerCase() }Array`].includes(userId)) {
+                        button.title = i18n.get(`contentScript${ elem }ButtonUnblockTitle`);
+                        dom.text(button.lastElementChild, i18n.get(`contentScript${ elem }ButtonUnblockText`));
                     }
 
                     button.addEventListener("click", blockToggle);
@@ -114,34 +114,34 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
     async function blockToggle(event) {
         var userId = dom.attr(event.currentTarget.closest("article").querySelector("a[data-user-id]"), "data-user-id");
         var type = event.currentTarget.classList.item(event.currentTarget.classList.length - 1).replace(/Button$/, "");
-        var typeCapital = `${type[0].toUpperCase()}${type.slice(1)}`;
-        var buttons = qsa(`.actionBar-action--block.${type}Button`);
+        var typeCapital = `${ type[0].toUpperCase() }${ type.slice(1) }`;
+        var buttons = qsa(`.actionBar-action--block.${ type }Button`);
         var query;
 
         settings = await storage.get(null);
 
         switch (type) {
             case "user":
-                query = qsa(`:is(article:has(a[data-user-id="${userId}"]),blockquote[data-attributes="member: ${userId}"],.block-row:has(a[data-user-id="${userId}"]))`);
+                query = qsa(`:is(article:has(a[data-user-id="${ userId }"]),blockquote[data-attributes="member: ${ userId }"],.block-row:has(a[data-user-id="${ userId }"]))`);
                 break;
             case "avatar":
-                query = qsa(`a[data-user-id="${userId}"]>img`);
+                query = qsa(`a[data-user-id="${ userId }"]>img`);
                 break;
             case "signature":
-                query = qsa(`.message-signature:has(.js-userSignature-${userId})`);
+                query = qsa(`.message-signature:has(.js-userSignature-${ userId })`);
                 break;
             default:
                 break;
         }
 
-        var isBlocked = settings[`${type}Array`].includes(userId);
+        var isBlocked = settings[`${ type }Array`].includes(userId);
         var blockFunction = isBlocked ? unblock : block;
         var title = isBlocked
-            ? i18n.get(`contentScript${typeCapital}ButtonTitle`)
-            : i18n.get(`contentScript${typeCapital}ButtonUnblockTitle`);
+            ? i18n.get(`contentScript${ typeCapital }ButtonTitle`)
+            : i18n.get(`contentScript${ typeCapital }ButtonUnblockTitle`);
         var textContent = isBlocked
-            ? i18n.get(`contentScript${typeCapital}ButtonText`)
-            : i18n.get(`contentScript${typeCapital}ButtonUnblockText`);
+            ? i18n.get(`contentScript${ typeCapital }ButtonText`)
+            : i18n.get(`contentScript${ typeCapital }ButtonUnblockText`);
 
         blockFunction(type, userId);
 
@@ -181,7 +181,7 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
 
     async function observe() {
         // const targetNode = qs(`.p-body-pageContent`);
-        const targetNode = qs(`.block-body.js-replyNewMessageContainer`);
+        const targetNode = qs(".block-body.js-replyNewMessageContainer");
         const config = { attributes: false, childList: true, subtree: true };
         const callback = async (mutationList, observer) => {
             for (const mutation of mutationList) {
