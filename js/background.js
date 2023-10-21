@@ -51,8 +51,7 @@ chrome.runtime.onMessage.addListener(
                 setIcon(request.theme);
                 break;
             case "block":
-                // is userId a number?
-                if (!request.userId || !/^\d+$/.test(request.userId)) {
+                if (!isUserIdValid(request.userId)) {
                     // i18n
                     console.log(`user ID is not a number: ${ request.userId }`);
                     return;
@@ -83,8 +82,7 @@ chrome.runtime.onMessage.addListener(
 
                 break;
             case "unblock":
-                // is userId a number?
-                if (!request.userId || !/^\d+$/.test(request.userId)) {
+                if (!isUserIdValid(request.userId)) {
                     // i18n
                     console.log(`user ID is not a number: ${ request.userId }`);
                     return;
@@ -177,6 +175,10 @@ function tabHandlerCSS(tabId) {
         origin: "USER",
         css: "#cloneMenuHandler{margin-top:-12px!important;margin-bottom:20px!important;border-bottom:none!important;border-top:1px solid #414141!important;}#cloneMenuHandler .tabs-tab{border-bottom:none!important;border-top:3px solid transparent;padding:4px 15px 5px!important;}"
     });
+}
+
+function isUserIdValid(userId) {
+    return userId && /^\d+$/.test(userId);
 }
 
 /****************************************************************************************/
