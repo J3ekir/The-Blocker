@@ -180,9 +180,9 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
     }
 
     async function observe() {
-        // const targetNode = qs(`.p-body-pageContent`);
+        // const targetNode = qs(".p-body-pageContent");
         const targetNode = qs(".block-body.js-replyNewMessageContainer");
-        const config = { attributes: false, childList: true, subtree: true };
+        const config = { childList: true, subtree: true };
         const callback = async (mutationList, observer) => {
             for (const mutation of mutationList) {
                 if (mutation.type === "childList") {
