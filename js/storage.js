@@ -124,3 +124,7 @@ storage.setCSS = async function () {
 
     return CSS;
 };
+
+storage.get(null).then(data => {
+    storage.settings = data;
+});
