@@ -20,6 +20,9 @@
                 "https://www.technopat.net/sosyal/*"
             ],
             "js": [
+                "js/dom.js",
+                "js/storage.js",
+                "js/i18n.js",
                 "js/injectCSS.js"
             ],
             "run_at": "document_start"
@@ -29,8 +32,6 @@
                 "https://www.technopat.net/sosyal/"
             ],
             "js": [
-                "js/dom.js",
-                "js/storage.js",
                 "js/tabHandler.js"
             ],
             "run_at": "document_end"
@@ -40,9 +41,6 @@
                 "https://www.technopat.net/sosyal/konu/*"
             ],
             "js": [
-                "js/dom.js",
-                "js/storage.js",
-                "js/i18n.js",
                 "js/contentScript.js"
             ],
             "run_at": "document_end"
@@ -61,7 +59,7 @@
     },
     "manifest_version": 3,
     "name": "__MSG_extensionName__",
-    "options_ui" : {
+    "options_ui": {
         "open_in_tab": true,
         "page": "options.html"
     },
