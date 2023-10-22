@@ -1,5 +1,4 @@
 const storage = {};
-
 storage.settings = {};
 
 storage.miscKeys = {
