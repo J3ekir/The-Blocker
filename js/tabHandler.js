@@ -1,60 +1,76 @@
-chrome.runtime.sendMessage({
-    type: "tabHandlerCSS"
-});
-
-var tabWrapper = qs(".tab-wrapper.widget-group");
-var buttons = tabWrapper.firstElementChild.firstElementChild.firstElementChild.children;
-var cloneMenuHandler = tabWrapper.firstElementChild.cloneNode(true);
-var cloneButtons = cloneMenuHandler.firstElementChild.firstElementChild.children;
-cloneMenuHandler.id = "cloneMenuHandler";
+var buttons;
+var cloneButtons;
+var cloneMenuHandler;
+var result;
+var tabPanes;
+var tabWrapper;
 
 
 init();
 
 
 async function init() {
-    var result = await storage.get("settingsBottomWidget");
+    result = await storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]);
+    tabWrapper = qs(".tab-wrapper.widget-group");
 
-    if (!result["settingsBottomWidget"]) {
-        return;
+    if (result["settingsCombineWidgetTabs"]) {
+        tabPanes = qs("ul.tabPanes");
+        dom.cl.add(tabPanes.children[1], "is-active");
     }
 
-    for (let i = 0; i < cloneButtons.length; ++i) {
-        cloneButtons[i].removeAttribute("href");
+    if (result["settingsBottomWidget"]) {
+        buttons = tabWrapper.firstElementChild.firstElementChild.firstElementChild.children;
+        cloneMenuHandler = tabWrapper.firstElementChild.cloneNode(true);
+        cloneButtons = cloneMenuHandler.firstElementChild.firstElementChild.children;
+        cloneMenuHandler.id = "cloneMenuHandler";
 
-        cloneButtons[i].addEventListener("click", (event) => {
-            buttons[i].click();
-            buttons[i].scrollIntoView();
-            clearIsActive();
-            cloneButtons[i].classList.add("is-active");
-        });
+        for (let i = 0; i < cloneButtons.length; ++i) {
+            cloneButtons[i].removeAttribute("href");
+
+            cloneButtons[i].addEventListener("click", (event) => {
+                buttons[i].click();
+                buttons[i].scrollIntoView();
+                clearIsActive();
+                setIsActive();
+            });
+        }
+
+        tabWrapper.appendChild(cloneMenuHandler);
     }
 
-    tabWrapper.appendChild(cloneMenuHandler);
-
-    observe();
+    if (result["settingsCombineWidgetTabs"] || result["settingsBottomWidget"]) {
+        observe();
+    }
 }
 
 function clearIsActive() {
     for (const child of cloneButtons) {
-        child.classList.remove("is-active");
+        dom.cl.remove(child, "is-active");
     }
 }
 
 function setIsActive() {
     for (let i = 0; i < buttons.length; ++i) {
-        if (buttons[i].classList.contains("is-active")) {
-            cloneButtons[i].classList.add("is-active");
+        if (dom.cl.has(buttons[i], "is-active")) {
+            dom.cl.add(cloneButtons[i], "is-active");
         }
     }
 }
 
 function observe() {
     const targetNode = tabWrapper.firstElementChild.firstElementChild.firstElementChild;
-    const config = { attributes: true, childList: true, subtree: true };
+    const config = { attributes: true, subtree: true };
     const callback = async (mutationList, observer) => {
-        clearIsActive();
-        setIsActive();
+        if (result["settingsCombineWidgetTabs"]) {
+            if (dom.cl.has(tabWrapper.firstElementChild.firstElementChild.firstElementChild.firstElementChild, "is-active")) {
+                dom.cl.add(tabPanes.children[1], "is-active");
+            }
+        }
+
+        if (result["settingsBottomWidget"]) {
+            clearIsActive();
+            setIsActive();
+        }
     };
     const observer = new MutationObserver(callback);
     if (targetNode) {

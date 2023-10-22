@@ -36,6 +36,7 @@
         "settingsHideThisUsersSignature": true,
         "settingsXenforoFooter": true,
         "settingsBottomWidget": true,
+        "settingsCombineWidgetTabs": true,
         "CSS": ""
     },
 
@@ -86,6 +87,7 @@
         "settingsHideThisUsersSignature": "Hide this user's signature",
         "settingsXenforoFooter": "Xenforo footer",
         "settingsBottomWidget": "Add bottom widget",
+        "settingsCombineWidgetTabs": "Combine new threads and nwe messages tabs",
 
 
         "filtersTitle": "Filters - The Blocker",
@@ -163,6 +165,7 @@
         "settingsHideThisUsersSignature": "Kullanıcının imzasını gizle",
         "settingsXenforoFooter": "Xenforo alt bilgi",
         "settingsBottomWidget": "Alt widget ekle",
+        "settingsCombineWidgetTabs": "Yeni konular ve yeni mesajlar sekmelerini birleştir",
 
 
         "filtersTitle": "Filteler - The Blocker",

@@ -44,8 +44,11 @@ chrome.runtime.onMessage.addListener(
             case "injectCSS":
                 await injectCSS(sender.tab.id);
                 break;
-            case "tabHandlerCSS":
-                tabHandlerCSS(sender.tab.id);
+            case "bottomWidget":
+                bottomWidget(sender.tab.id);
+                break;
+            case "combineWidgetTabs":
+                combineWidgetTabs(sender.tab.id);
                 break;
             case "theme":
                 setIcon(request.theme);
@@ -169,11 +172,19 @@ function setIcon(theme) {
     });
 }
 
-function tabHandlerCSS(tabId) {
+function bottomWidget(tabId) {
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
         origin: "USER",
         css: "#cloneMenuHandler{margin-top:-12px!important;margin-bottom:20px!important;border-bottom:none!important;border-top:1px solid #414141!important;}#cloneMenuHandler .tabs-tab{border-bottom:none!important;border-top:3px solid transparent;padding:4px 15px 5px!important;}"
+    });
+}
+
+function combineWidgetTabs(tabId) {
+    chrome.scripting.insertCSS({
+        target: { tabId: tabId },
+        origin: "USER",
+        css: ".tab-wrapper.widget-group>:first-child .tabs-tab:nth-child(2){display:none!important;}#cloneMenuHandler .tabs-tab:nth-child(2){display:none!important;}"
     });
 }
 
