@@ -2,7 +2,6 @@ var buttons;
 var cloneButtons;
 var cloneMenuHandler;
 var result;
-var tabPanes;
 var tabWrapper;
 
 
@@ -12,20 +11,19 @@ init();
 async function init() {
     result = await storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]);
     tabWrapper = qs(".tab-wrapper.widget-group");
+    buttons = qs("ul.tabPanes").children;
 
     if (result["settingsCombineWidgetTabs"]) {
-        tabPanes = qs("ul.tabPanes");
-        dom.cl.add(tabPanes.children[1], "is-active");
+        dom.cl.add(buttons[1], "is-active");
     }
 
     if (result["settingsBottomWidget"]) {
-        buttons = tabWrapper.firstElementChild.firstElementChild.firstElementChild.children;
         cloneMenuHandler = tabWrapper.firstElementChild.cloneNode(true);
-        cloneButtons = cloneMenuHandler.firstElementChild.firstElementChild.children;
+        cloneButtons = qs(cloneMenuHandler, ".hScroller-scroll").children;
         cloneMenuHandler.id = "cloneMenuHandler";
 
         for (let i = 0; i < cloneButtons.length; ++i) {
-            cloneButtons[i].removeAttribute("href");
+            dom.attr(cloneButtons[i], "href", null);
 
             cloneButtons[i].addEventListener("click", (event) => {
                 buttons[i].click();
@@ -58,12 +56,12 @@ function setIsActive() {
 }
 
 function observe() {
-    const targetNode = tabWrapper.firstElementChild.firstElementChild.firstElementChild;
+    const targetNode = qs("span.hScroller-scroll");
     const config = { attributes: true, subtree: true };
     const callback = async (mutationList, observer) => {
         if (result["settingsCombineWidgetTabs"]) {
-            if (dom.cl.has(tabWrapper.firstElementChild.firstElementChild.firstElementChild.firstElementChild, "is-active")) {
-                dom.cl.add(tabPanes.children[1], "is-active");
+            if (dom.cl.has(buttons[0], "is-active")) {
+                dom.cl.add(buttons[1], "is-active");
             }
         }
 
