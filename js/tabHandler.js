@@ -2,25 +2,35 @@ var buttons;
 var cloneButtons;
 var cloneMenuHandler;
 var result;
+var tabPanes;
 var tabWrapper;
 
 
-init();
+storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]).then(data => {
+    result = data;
 
+    if (result["settingsCombineWidgetTabs"] || result["settingsBottomWidget"]) {
+        waitForElementToExist("ul.tabPanes>li:nth-child(6)").then((elem) => {
+            init();
+        });
+    }
+});
 
 async function init() {
-    result = await storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]);
     tabWrapper = qs(".tab-wrapper.widget-group");
-    buttons = qs("ul.tabPanes").children;
+    buttons = qs(".tab-wrapper.widget-group>:first-child>:first-child>:first-child").children;
+    tabPanes = qs(".tab-wrapper.widget-group>:last-child").children;
 
     if (result["settingsCombineWidgetTabs"]) {
-        dom.cl.add(buttons[1], "is-active");
+        dom.cl.add(tabPanes[1], "is-active");
     }
 
     if (result["settingsBottomWidget"]) {
-        cloneMenuHandler = tabWrapper.firstElementChild.cloneNode(true);
-        cloneButtons = qs(cloneMenuHandler, ".hScroller-scroll").children;
+        cloneMenuHandler = dom.clone(tabWrapper.firstElementChild);
+        cloneButtons = cloneMenuHandler.firstElementChild.firstElementChild.children;
         cloneMenuHandler.id = "cloneMenuHandler";
+
+        dom.attr([cloneMenuHandler, cloneMenuHandler.firstElementChild], "data-xf-init", null);
 
         for (let i = 0; i < cloneButtons.length; ++i) {
             dom.attr(cloneButtons[i], "href", null);
@@ -36,9 +46,7 @@ async function init() {
         tabWrapper.appendChild(cloneMenuHandler);
     }
 
-    if (result["settingsCombineWidgetTabs"] || result["settingsBottomWidget"]) {
-        observe();
-    }
+    observe();
 }
 
 function clearIsActive() {
@@ -60,8 +68,8 @@ function observe() {
     const config = { attributes: true, subtree: true };
     const callback = async (mutationList, observer) => {
         if (result["settingsCombineWidgetTabs"]) {
-            if (dom.cl.has(buttons[0], "is-active")) {
-                dom.cl.add(buttons[1], "is-active");
+            if (dom.cl.has(tabPanes[0], "is-active")) {
+                dom.cl.add(tabPanes[1], "is-active");
             }
         }
 
@@ -75,4 +83,21 @@ function observe() {
         observer.observe(targetNode, config);
     }
     //observer.disconnect();
+}
+
+function waitForElementToExist(selector) {
+    return new Promise((resolve) => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+        new MutationObserver((_, observer) => {
+            if (document.querySelector(selector)) {
+                observer.disconnect();
+                return resolve(document.querySelector(selector));
+            }
+        })
+            .observe(
+                document, { subtree: true, childList: true }
+            );
+    });
 }
