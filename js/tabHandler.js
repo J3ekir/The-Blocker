@@ -18,13 +18,13 @@ storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]).then(data => 
     if (result["settingsCombineWidgetTabs"] || result["settingsBottomWidget"]) {
         if (result["settingsCombineWidgetTabs"]) {
             chrome.runtime.sendMessage({
-                type: "combineWidgetTabs"
+                type: "combineWidgetTabs",
             });
         }
 
         if (result["settingsBottomWidget"]) {
             chrome.runtime.sendMessage({
-                type: "bottomWidget"
+                type: "bottomWidget",
             });
         }
 
@@ -32,7 +32,7 @@ storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]).then(data => 
             if (result["settingsBottomWidget"]) {
                 chrome.runtime.sendMessage({
                     type: "injectCSSString",
-                    CSS: `#cloneMenuHandler{border-top-color:${ borderColors[dom.attr(`[name="theme-color"]`, "content")] }!important;}`
+                    CSS: `#cloneMenuHandler{border-top-color:${ borderColors[dom.attr(`[name="theme-color"]`, "content")] }!important;}`,
                 });
             }
 

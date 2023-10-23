@@ -162,7 +162,7 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
         chrome.runtime.sendMessage({
             type: "block",
             buttonType: buttonType,
-            userId: userId
+            userId: userId,
         });
     }
 
@@ -170,7 +170,7 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
         chrome.runtime.sendMessage({
             type: "unblock",
             buttonType: buttonType,
-            userId: userId
+            userId: userId,
         });
     }
 

@@ -1,3 +1,3 @@
 chrome.runtime.sendMessage({
-    type: "injectCSS"
+    type: "injectCSS",
 });
