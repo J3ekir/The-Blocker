@@ -25,7 +25,7 @@ chrome.runtime.onInstalled.addListener(async () => {
     await storage.set(defaultValues);
     await storage.set({
         "en": json["en"],
-        "tr": json["tr"]
+        "tr": json["tr"],
     });
 
     await storage.setCSS();
@@ -43,6 +43,9 @@ chrome.runtime.onMessage.addListener(
         switch (request.type) {
             case "injectCSS":
                 await injectCSS(sender.tab.id);
+                break;
+            case "injectCSSString":
+                injectCSSString(sender.tab.id, request.CSS);
                 break;
             case "bottomWidget":
                 bottomWidget(sender.tab.id);
@@ -74,7 +77,7 @@ chrome.runtime.onMessage.addListener(
                 var newCount = settings[typeCount] + 1;
                 var newValues = {
                     [typeArray]: settings[typeArray],
-                    [typeCount]: newCount
+                    [typeCount]: newCount,
                 };
 
                 await storage.set(newValues);
@@ -99,7 +102,7 @@ chrome.runtime.onMessage.addListener(
                 var newCount = settings[typeCount] - 1;
                 var newValues = {
                     [typeArray]: settings[typeArray],
-                    [typeCount]: newCount
+                    [typeCount]: newCount,
                 };
 
                 await storage.set(newValues);
@@ -150,14 +153,42 @@ async function injectCSS(tabId) {
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
         origin: "AUTHOR",
-        css: result["CSS"]
+        css: result["CSS"],
     });
 
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
         origin: "AUTHOR",
-        files: ["css/buttons.css"]
+        files: ["css/buttons.css"],
     });
+}
+
+function injectCSSString(tabId, CSS) {
+    chrome.scripting.insertCSS({
+        target: { tabId: tabId },
+        origin: "USER",
+        css: CSS,
+    });
+}
+
+function bottomWidget(tabId) {
+    chrome.scripting.insertCSS({
+        target: { tabId: tabId },
+        origin: "USER",
+        css: "#cloneMenuHandler{margin-top:-12px!important;margin-bottom:20px!important;border-bottom:none!important;border-top-width:1px!important;border-top-style:solid!important;}#cloneMenuHandler .tabs-tab{border-bottom:none!important;border-top:3px solid transparent;padding:4px 15px 5px!important;}",
+    });
+}
+
+function combineWidgetTabs(tabId) {
+    chrome.scripting.insertCSS({
+        target: { tabId: tabId },
+        origin: "USER",
+        css: ".tab-wrapper.widget-group .tabs-tab:nth-child(2){display:none!important;}",
+    });
+}
+
+function isUserIdValid(userId) {
+    return userId && /^\d+$/.test(userId);
 }
 
 function setIcon(theme) {
@@ -167,29 +198,9 @@ function setIcon(theme) {
             "32": `../img/icon_${ theme }_32.png`,
             "48": `../img/icon_${ theme }_48.png`,
             "64": `../img/icon_${ theme }_64.png`,
-            "128": `../img/icon_${ theme }_128.png`
+            "128": `../img/icon_${ theme }_128.png`,
         }
     });
-}
-
-function bottomWidget(tabId) {
-    chrome.scripting.insertCSS({
-        target: { tabId: tabId },
-        origin: "USER",
-        css: "#cloneMenuHandler{margin-top:-12px!important;margin-bottom:20px!important;border-bottom:none!important;border-top:1px solid #414141!important;}#cloneMenuHandler .tabs-tab{border-bottom:none!important;border-top:3px solid transparent;padding:4px 15px 5px!important;}"
-    });
-}
-
-function combineWidgetTabs(tabId) {
-    chrome.scripting.insertCSS({
-        target: { tabId: tabId },
-        origin: "USER",
-        css: ".tab-wrapper.widget-group>:first-child .tabs-tab:nth-child(2){display:none!important;}#cloneMenuHandler .tabs-tab:nth-child(2){display:none!important;}"
-    });
-}
-
-function isUserIdValid(userId) {
-    return userId && /^\d+$/.test(userId);
 }
 
 /****************************************************************************************/

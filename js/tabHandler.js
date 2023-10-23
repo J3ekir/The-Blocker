@@ -4,13 +4,38 @@ var cloneMenuHandler;
 var result;
 var tabPanes;
 var tabWrapper;
+var borderColors = {
+    "#1e1e1e": "#414141",   // default dark
+    "#185886": "#e7e7e7",   // default light
+    "#e1e8f8": "#424650",   // dimension dark
+    "#323940": "#e8e8e8",   // dimension light
+};
 
 
 storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]).then(data => {
     result = data;
 
     if (result["settingsCombineWidgetTabs"] || result["settingsBottomWidget"]) {
+        if (result["settingsCombineWidgetTabs"]) {
+            chrome.runtime.sendMessage({
+                type: "combineWidgetTabs"
+            });
+        }
+
+        if (result["settingsBottomWidget"]) {
+            chrome.runtime.sendMessage({
+                type: "bottomWidget"
+            });
+        }
+
         waitForElementToExist("ul.tabPanes>li:nth-child(6)").then((elem) => {
+            if (result["settingsBottomWidget"]) {
+                chrome.runtime.sendMessage({
+                    type: "injectCSSString",
+                    CSS: `#cloneMenuHandler{border-top-color:${ borderColors[dom.attr(`[name="theme-color"]`, "content")] }!important;}`
+                });
+            }
+
             init();
         });
     }
