@@ -4,6 +4,8 @@ const buttonArray = ["User", "Avatar", "Signature"];
 const CSS_HIDE = "theBlocker-hide";
 const CSS_SHOW = "theBlocker-show";
 
+var settings;
+
 var cloneInternal = dom.ce("div");
 cloneInternal.className = "actionBar-set actionBar-set--internal";
 
@@ -24,9 +26,16 @@ self.cloneUserButton.className = "actionBar-action actionBar-action--block userB
 self.cloneAvatarButton.className = "actionBar-action actionBar-action--block avatarButton";
 self.cloneSignatureButton.className = "actionBar-action actionBar-action--block signatureButton";
 
-(async () => {
-    var settings = await storage.get(null);
 
+storage.get(null).then(response => {
+    settings = response;
+
+    waitForElementToExist(".message-actionBar.actionBar").then((elem) => {
+        init();
+    });
+});
+
+async function init() {
     var postIds;
     var userIds;
     var messages;
@@ -197,4 +206,21 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
         }
         //observer.disconnect();
     }
-})();
+}
+
+function waitForElementToExist(selector) {
+    return new Promise((resolve) => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+        new MutationObserver((_, observer) => {
+            if (document.querySelector(selector)) {
+                observer.disconnect();
+                return resolve(document.querySelector(selector));
+            }
+        })
+            .observe(
+                document, { subtree: true, childList: true }
+            );
+    });
+}
