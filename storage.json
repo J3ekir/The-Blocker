@@ -115,7 +115,10 @@
         "contentScriptUserButtonUnblockText": "-",
         "contentScriptAvatarButtonUnblockText": "Unblock avatar",
         "contentScriptSignatureButtonUnblockText": "Unblock signature",
-        "contentScriptReportButtonText": "Report"
+        "contentScriptReportButtonText": "Report",
+
+
+        "tabHandlerCombinedTabName": "New threads and messages"
     },
 
 
@@ -193,6 +196,9 @@
         "contentScriptUserButtonUnblockText": "-",
         "contentScriptAvatarButtonUnblockText": "Avatarı göster",
         "contentScriptSignatureButtonUnblockText": "İmzayı göster",
-        "contentScriptReportButtonText": "Rapor"
+        "contentScriptReportButtonText": "Rapor",
+
+
+        "tabHandlerCombinedTabName": "Yeni konular ve mesajlar"
     }
 }

@@ -12,6 +12,8 @@ var borderColors = {
 };
 
 
+i18n.init();
+
 storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]).then(data => {
     result = data;
 
@@ -19,6 +21,10 @@ storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]).then(data => 
         if (result["settingsCombineWidgetTabs"]) {
             chrome.runtime.sendMessage({
                 type: "combineWidgetTabs",
+            });
+
+            waitForElementToExist(".tab-wrapper.widget-group>:first-child>:first-child>:first-child>:first-child").then((elem) => {
+                dom.text(elem, i18n.get("tabHandlerCombinedTabName"));
             });
         }
 
