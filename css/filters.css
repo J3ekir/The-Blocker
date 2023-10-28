@@ -1,4 +1,50 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
+#buttonText {
+    position: relative;
+    top: -1px;
+}
+
+#editors {
+    align-items: stretch;
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    /* justify-content: space-evenly; */
+    width: 100%;
+}
+
+.CodeMirror,
+.codeMirrorContainer {
+    flex-grow: 1;
+    font-size: 16px;
+    height: calc(100vh - 110px);
+    word-wrap: normal;
+}
+
+.codeMirrorContainer.codeMirrorBreakAll .CodeMirror-wrap pre {
+    word-break: break-all;
+}
+
+.CodeMirror-lines {
+    padding-top: 0px;
+}
+
+.editorTitle {
+    font-family: "Segoe UI";
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+}
+
+.editorWrapper {
+    display: grid;
+    flex: 1;
+    height: 100%;
+    max-width: 30%;
+    min-width: 30%;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -31,99 +77,14 @@ svg {
     margin-right: 5px;
 }
 
-#buttonText {
-    position: relative;
-    top: -1px;
-}
-
-#editors {
-    align-items: stretch;
-    display: flex;
-    flex: 1;
-    justify-content: space-around;
-    /* justify-content: space-evenly; */
-    width: 100%;
-}
-
-.editorWrapper {
-    display: grid;
-    flex: 1;
-    height: 100%;
-    max-width: 30%;
-    min-width: 30%;
-}
-
-.editorTitle {
-    font-family: "Segoe UI";
-    font-size: 36px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    margin-bottom: 5px;
-}
-
-.CodeMirror,
-.codeMirrorContainer {
-    flex-grow: 1;
-    font-size: 16px;
-    height: calc(100vh - 110px);
-    word-wrap: normal;
-}
-
-.codeMirrorContainer.codeMirrorBreakAll .CodeMirror-wrap pre {
-    word-break: break-all;
-}
-
-.CodeMirror-lines {
-    padding-top: 0px;
-}
-
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: rgb(var(--gray-10));
-    }
-
-    button {
-        background-color: rgb(var(--blue-30));
-        color: rgb(var(--gray-5));
-    }
-
-    button[disabled] {
-        background-color: rgb(var(--gray-30));
-        color: rgb(var(--gray-95));
-    }
-
-    button:hover {
-        background-color: rgb(var(--blue-30), 0.8);
-    }
-
-    svg {
-        fill: rgb(var(--gray-5));
-    }
-
-    button[disabled]>svg {
-        fill: rgb(var(--gray-95));
-    }
-
-    .editorTitle {
-        color: rgb(var(--blue-30));
+    .cm-theme-override .cm-s-default .CodeMirror-line {
+        color: rgb(var(--gray-90));
     }
 
     .CodeMirror,
     .codeMirrorContainer {
         background-color: rgb(var(--gray-5));
-    }
-
-    .cm-theme-override .cm-s-default .CodeMirror-line {
-        color: rgb(var(--gray-90));
-    }
-
-    .CodeMirror-linenumber {
-        color: rgba(var(--gray-90), 0.6);
-    }
-
-    .CodeMirror-gutters {
-        background-color: rgb(var(--gray-20));
-        border-color: rgb(var(--gray-10));
     }
 
     .CodeMirror-activeline-background {
@@ -138,15 +99,70 @@ svg {
         background-color: var(--magic-blue);
     }
 
+    .CodeMirror-gutters {
+        background-color: rgb(var(--gray-20));
+        border-color: rgb(var(--gray-10));
+    }
+
+    .CodeMirror-linenumber {
+        color: rgba(var(--gray-90), 0.6);
+    }
+
     .CodeMirror-selected {
         background-color: var(--magic-gray);
+    }
+
+    .editorTitle {
+        color: rgb(var(--blue-30));
+    }
+
+    body {
+        background-color: rgb(var(--gray-10));
+    }
+
+    button {
+        background-color: rgb(var(--blue-30));
+        color: rgb(var(--gray-5));
+    }
+
+    button:hover {
+        background-color: rgb(var(--blue-30), 0.8);
+    }
+
+    button[disabled] {
+        background-color: rgb(var(--gray-30));
+        color: rgb(var(--gray-95));
+    }
+
+    button[disabled] > svg {
+        fill: rgb(var(--gray-95));
+    }
+
+    svg {
+        fill: rgb(var(--gray-5));
     }
 }
 
 @media (prefers-color-scheme: light) {
+    .CodeMirror-focused .CodeMirror-selected {
+        background-color: var(--magic-blue);
+    }
+
+    .CodeMirror-selected {
+        background-color: var(--magic-gray);
+    }
+
+    .editorWrapper > div {
+        border: 1px solid black;
+    }
+
     button {
         background-color: rgb(var(--blue-60));
         color: rgb(var(--gray-95));
+    }
+
+    button:hover {
+        background-color: rgb(var(--blue-50));
     }
 
     button[disabled] {
@@ -154,28 +170,11 @@ svg {
         color: rgb(var(--gray-5));
     }
 
-    button:hover {
-        background-color: rgb(var(--blue-50));
+    button[disabled] > svg {
+        fill: rgb(var(--gray-5));
     }
 
     svg {
         fill: rgb(var(--gray-95));
-    }
-
-    button[disabled]>svg {
-        fill: rgb(var(--gray-5));
-    }
-
-    .editorWrapper>div {
-        border: 1px solid black;
-    }
-
-    .CodeMirror-focused
-    .CodeMirror-selected {
-        background-color: var(--magic-blue);
-    }
-
-    .CodeMirror-selected {
-        background-color: var(--magic-gray);
     }
 }

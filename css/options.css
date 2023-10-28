@@ -1,15 +1,4 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
-body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: stretch;
-    margin: 0px;
-    overflow: hidden;
-    position: relative;
-    width: 100vw;
-}
-
 #nav {
     border: 0;
     border-bottom-width: 1px;
@@ -48,6 +37,17 @@ body {
     border-bottom-style: solid;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: stretch;
+    margin: 0px;
+    overflow: hidden;
+    position: relative;
+    width: 100vw;
+}
+
 iframe {
     background-color: transparent;
     border: 0;
@@ -58,12 +58,12 @@ iframe {
 }
 
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: rgb(var(--gray-10));
-    }
-
     #nav {
         border-bottom-color: rgb(var(--gray-40));
+    }
+
+    body {
+        background-color: rgb(var(--gray-10));
     }
 
     .tabButton {

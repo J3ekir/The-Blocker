@@ -8,11 +8,18 @@
     font-weight: 500;
 }
 
-select {
-    font-family: "Segoe UI";
-    margin-top: 8px;
-    padding: 2px;
-    width: fit-content;
+hr {
+    border: 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    margin: 1em 0;
+}
+
+input {
+    /* color-scheme: dark; */
+    height: 16px;
+    margin-right: 10px;
+    width: 16px;
 }
 
 label {
@@ -21,11 +28,11 @@ label {
     width: fit-content;
 }
 
-input {
-    /* color-scheme: dark; */
-    height: 16px;
-    margin-right: 10px;
-    width: 16px;
+select {
+    font-family: "Segoe UI";
+    margin-top: 8px;
+    padding: 2px;
+    width: fit-content;
 }
 
 span {
@@ -36,16 +43,13 @@ span {
     top: -1px;
 }
 
-hr {
-    border: 0;
-    border-top-width: 1px;
-    border-top-style: solid;
-    margin: 1em 0;
-}
-
 @media (prefers-color-scheme: dark) {
     body {
         background-color: rgb(var(--gray-10));
+    }
+
+    hr {
+        border-top-color: rgb(var(--gray-25));
     }
 
     select {
@@ -54,10 +58,6 @@ hr {
 
     span {
         color: rgb(var(--blue-30));
-    }
-
-    hr {
-        border-top-color: rgb(var(--gray-25));
     }
 }
 

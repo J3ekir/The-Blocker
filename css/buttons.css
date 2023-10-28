@@ -2,7 +2,7 @@
     cursor: pointer;
 }
 
-svg {
+.actionBar-action--block > svg {
     height: 13px;
     margin-bottom: -1px;
     margin-right: 5px;
@@ -21,7 +21,7 @@ svg {
 }
 
 .theBlocker-hide {
-    display: none!important;
+    display: none !important;
 }
 
 .theBlocker-show {
