@@ -1,5 +1,5 @@
 const storage = {};
-storage.settings = {};
+
 
 storage.miscKeys = {
     "settingsSidebarShareThisPage": `div[data-widget-id="8"]`,
@@ -124,7 +124,3 @@ storage.setCSS = async function () {
 
     return CSS;
 };
-
-storage.get(null).then(data => {
-    storage.settings = data;
-});
