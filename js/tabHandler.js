@@ -23,7 +23,7 @@ storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]).then(data => 
                 type: "combineWidgetTabs",
             });
 
-            waitForElementToExist(".tab-wrapper.widget-group>:first-child>:first-child>:first-child>:first-child").then((elem) => {
+            waitForElementToExist(".tab-wrapper.widget-group>:first-child>:first-child>:first-child>:first-child").then(elem => {
                 dom.text(elem, i18n.get("tabHandlerCombinedTabName"));
             });
         }
@@ -34,7 +34,7 @@ storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]).then(data => 
             });
         }
 
-        waitForElementToExist("ul.tabPanes>li:nth-child(6)").then((elem) => {
+        waitForElementToExist("ul.tabPanes>li:nth-child(6)").then(elem => {
             if (result["settingsBottomWidget"]) {
                 chrome.runtime.sendMessage({
                     type: "injectCSSString",

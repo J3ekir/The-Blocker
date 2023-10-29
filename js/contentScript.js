@@ -30,7 +30,7 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
 storage.get(null).then(response => {
     settings = response;
 
-    waitForElementToExist(".message-actionBar.actionBar").then((elem) => {
+    waitForElementToExist(".message-actionBar.actionBar").then(elem => {
         init();
     });
 });
