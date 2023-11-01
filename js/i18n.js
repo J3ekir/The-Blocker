@@ -16,7 +16,7 @@ i18n.init = async function () {
 };
 
 i18n.setData = function () {
-    qsa("[data-i18n]").forEach((elem) => {
+    qsa("[data-i18n]").forEach(elem => {
         elem.textContent = this.get(dom.attr(elem, "data-i18n"));
     });
 };

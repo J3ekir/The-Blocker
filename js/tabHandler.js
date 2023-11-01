@@ -66,7 +66,7 @@ async function init() {
         for (let i = 0; i < cloneButtons.length; ++i) {
             dom.attr(cloneButtons[i], "href", null);
 
-            cloneButtons[i].addEventListener("click", (event) => {
+            cloneButtons[i].addEventListener("click", event => {
                 buttons[i].click();
                 buttons[i].scrollIntoView();
                 clearIsActive();
@@ -78,6 +78,12 @@ async function init() {
     }
 
     observe();
+}
+
+function combineTabs() {
+    if (dom.cl.has(tabPanes[0], "is-active")) {
+        dom.cl.add(tabPanes[1], "is-active");
+    }
 }
 
 function clearIsActive() {
@@ -96,28 +102,21 @@ function setIsActive() {
 
 function observe() {
     const targetNode = qs("span.hScroller-scroll");
-    const config = { attributes: true, subtree: true };
-    const callback = async (mutationList, observer) => {
+    new MutationObserver(async (mutationList, observer) => {
         if (result["settingsCombineWidgetTabs"]) {
-            if (dom.cl.has(tabPanes[0], "is-active")) {
-                dom.cl.add(tabPanes[1], "is-active");
-            }
+            combineTabs();
         }
 
         if (result["settingsBottomWidget"]) {
             clearIsActive();
             setIsActive();
         }
-    };
-    const observer = new MutationObserver(callback);
-    if (targetNode) {
-        observer.observe(targetNode, config);
-    }
-    //observer.disconnect();
+    })
+        .observe(targetNode, { attributes: true, subtree: true });
 }
 
 function waitForElementToExist(selector) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         if (document.querySelector(selector)) {
             return resolve(document.querySelector(selector));
         }
@@ -127,8 +126,6 @@ function waitForElementToExist(selector) {
                 return resolve(document.querySelector(selector));
             }
         })
-            .observe(
-                document, { subtree: true, childList: true }
-            );
+            .observe(document, { childList: true, subtree: true });
     });
 }

@@ -135,7 +135,7 @@ function filtersChanged(changed) {
 }
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
-    Object.keys(changes).forEach((key) => {
+    Object.keys(changes).forEach(key => {
         if (types.hasOwnProperty(key)) {
             const cacheKey = types[key];
             storageChangeHandler(changes[key].newValue, window[`${ cacheKey }Editor`], cacheKey);
@@ -151,7 +151,7 @@ function storageChangeHandler(newValue, editor, cacheKey) {
     editor.focus();
 }
 
-window.addEventListener("beforeunload", (event) => {
+window.addEventListener("beforeunload", event => {
     if (saveButton.disabled) {
         return;
     }
@@ -160,13 +160,13 @@ window.addEventListener("beforeunload", (event) => {
     event.returnValue = "";
 });
 
-window.addEventListener("unload", (event) => {
+window.addEventListener("unload", event => {
     parent.postMessage({
         type: "tab",
     }, "*");
 });
 
-document.addEventListener("keydown", (event) => {
+document.addEventListener("keydown", event => {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
         event.preventDefault();
 
@@ -176,7 +176,7 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-saveButton.addEventListener("click", async (event) => {
+saveButton.addEventListener("click", async event => {
     await saveEditorText();
     editors(clearHistory);
     saveButton.disabled = true;

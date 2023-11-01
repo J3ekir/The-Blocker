@@ -10,7 +10,7 @@ var types = {
 setValues();
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
-    Object.keys(changes).forEach((key) => {
+    Object.keys(changes).forEach(key => {
         if (Object.keys(types).includes(key)) {
             types[key].textContent = changes[key].newValue;
         }
@@ -19,7 +19,7 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 
 async function setValues() {
     result = await storage.get(Object.keys(types));
-    Object.keys(types).forEach((key) => {
+    Object.keys(types).forEach(key => {
         types[key].textContent = result[key];
     });
 }

@@ -27,7 +27,7 @@ window.addEventListener("message", function (event) {
     }
 });
 
-document.addEventListener("keydown", (event) => {
+document.addEventListener("keydown", event => {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
         event.preventDefault();
 
@@ -38,7 +38,7 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-qsa(".tabButton").forEach((elem) => {
+qsa(".tabButton").forEach(elem => {
     elem.addEventListener("click", tabCliked);
 });
 
@@ -73,7 +73,7 @@ function loadPane(pane) {
 function setSelectedTab() {
     const tabButton = qs(`[data-pane="${ paneToLoad }"]`);
     window.location.replace(`#${ paneToLoad }`);
-    qsa(".tabButton.selected").forEach((elem) => {
+    qsa(".tabButton.selected").forEach(elem => {
         elem.classList.remove("selected");
     });
     tabButton.classList.add("selected");

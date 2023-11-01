@@ -71,7 +71,7 @@ async function init() {
             var cloneActionBar = dom.ce("div");
             cloneActionBar.className = "message-actionBar actionBar";
 
-            qsa(".message-footer").forEach((elem) => {
+            qsa(".message-footer").forEach(elem => {
                 elem.prepend(dom.clone(cloneActionBar));
             });
 
@@ -98,7 +98,7 @@ async function init() {
     }
 
     function makeBlockButtons(userId) {
-        return buttonArray.map((elem) => {
+        return buttonArray.map(elem => {
             if (settings[`settingsButtons${ elem }`]) {
                 var button = dom.clone(window[`clone${ elem }Button`]);
 
@@ -117,7 +117,7 @@ async function init() {
                 return button;
             }
         })
-        .filter(Boolean);
+            .filter(Boolean);
     }
 
     async function blockToggle(event) {
@@ -154,7 +154,7 @@ async function init() {
 
         blockFunction(type, userId);
 
-        query.forEach((elem) => {
+        query.forEach(elem => {
             dom.cl.toggle(elem, CSS_HIDE, !isBlocked);
             dom.cl.toggle(elem, CSS_SHOW, isBlocked);
         });
@@ -191,25 +191,20 @@ async function init() {
     async function observe() {
         // const targetNode = qs(".p-body-pageContent");
         const targetNode = qs(".block-body.js-replyNewMessageContainer");
-        const config = { childList: true, subtree: true };
-        const callback = async (mutationList, observer) => {
+        new MutationObserver(async (mutationList, observer) => {
             for (const mutation of mutationList) {
                 if (mutation.type === "childList") {
                     blockButtons();
                     break;
                 }
             }
-        };
-        const observer = new MutationObserver(callback);
-        if (targetNode) {
-            observer.observe(targetNode, config);
-        }
-        //observer.disconnect();
+        })
+            .observe(targetNode, { childList: true, subtree: true });
     }
 }
 
 function waitForElementToExist(selector) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         if (document.querySelector(selector)) {
             return resolve(document.querySelector(selector));
         }
@@ -219,8 +214,6 @@ function waitForElementToExist(selector) {
                 return resolve(document.querySelector(selector));
             }
         })
-            .observe(
-                document, { subtree: true, childList: true }
-            );
+            .observe(document, { childList: true, subtree: true });
     });
 }
