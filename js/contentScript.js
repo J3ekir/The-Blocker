@@ -16,7 +16,7 @@ dom.attr(cloneReportButton, "data-xf-click", "overlay");
 self.cloneUserButton = dom.ce("a");
 var cloneSvg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
 dom.attr(cloneSvg, "viewBox", "0 0 512 512");
-cloneSvg.appendChild(dom.ceNS("http://www.w3.org/2000/svg", "path"));
+cloneSvg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
 self.cloneUserButton.append(cloneSvg, dom.ce("span"));
 
 self.cloneAvatarButton = dom.clone(self.cloneUserButton);
