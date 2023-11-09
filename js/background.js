@@ -1,7 +1,6 @@
 importScripts("storage.js");
 
 let creating;
-var settings;
 var types = {
     "user": ["userArray", "userCount"],
     "avatar": ["avatarArray", "avatarCount"],
@@ -9,15 +8,16 @@ var types = {
 };
 
 chrome.runtime.onInstalled.addListener(async () => {
+    await init();
+
     const jsonURL = await chrome.runtime.getURL("storage.json");
     const response = await fetch(jsonURL);
     const json = await response.json();
     const defaultSettings = json["defaultSettings"];
     var defaultValues = {};
-    settings = await storage.get(null);
 
     for (const key in defaultSettings) {
-        if (settings[key] === undefined) {
+        if (storage.settings[key] === undefined) {
             defaultValues[key] = defaultSettings[key];
         }
     }
@@ -53,64 +53,14 @@ chrome.runtime.onMessage.addListener(
             case "combineWidgetTabs":
                 combineWidgetTabs(sender.tab.id);
                 break;
-            case "theme":
-                setIcon(request.theme);
-                break;
             case "block":
-                if (!isUserIdValid(request.userId)) {
-                    // i18n
-                    console.log(`user ID is not a number: ${ request.userId }`);
-                    return;
-                }
-
-                settings = await storage.get(null);
-
-                var [typeArray, typeCount] = types[request.buttonType];
-
-                if (settings[typeArray].includes(request.userId)) {
-                    // i18n
-                    console.log(`user ID: ${ request.userId }, ${ request.buttonType } is already blocked`);
-                    return;
-                }
-
-                settings[typeArray].push(request.userId);
-                var newCount = settings[typeCount] + 1;
-                var newValues = {
-                    [typeArray]: settings[typeArray],
-                    [typeCount]: newCount,
-                };
-
-                await storage.set(newValues);
-                await storage.setCSS();
-
-                // i18n
-                console.log(`user ID: ${ request.userId }, ${ request.buttonType } blocked`);
-
+                block(request.userId, request.buttonType);
                 break;
             case "unblock":
-                if (!isUserIdValid(request.userId)) {
-                    // i18n
-                    console.log(`user ID is not a number: ${ request.userId }`);
-                    return;
-                }
-
-                settings = await storage.get(null);
-
-                var [typeArray, typeCount] = types[request.buttonType];
-
-                settings[typeArray].splice(settings[typeArray].indexOf(request.userId), 1);
-                var newCount = settings[typeCount] - 1;
-                var newValues = {
-                    [typeArray]: settings[typeArray],
-                    [typeCount]: newCount,
-                };
-
-                await storage.set(newValues);
-                await storage.setCSS();
-
-                // i18n
-                console.log(`user ID: ${ request.userId }, ${ request.buttonType } unblocked`);
-
+                unblock(request.userId, request.buttonType);
+                break;
+            case "theme":
+                setIcon(request.theme);
                 break;
             default:
                 break;
@@ -119,7 +69,7 @@ chrome.runtime.onMessage.addListener(
 );
 
 async function init() {
-    settings = await storage.get(null);
+    await storage.init();
     createOffscreen();
 }
 
@@ -179,6 +129,57 @@ function combineWidgetTabs(tabId) {
         origin: "USER",
         css: ".tab-wrapper.widget-group .tabs-tab:nth-child(2){display:none!important;}",
     });
+}
+
+async function block(userId, buttonType) {
+    if (!isUserIdValid(userId)) {
+        console.log(`user ID is not a number: ${ userId }`);
+        return;
+    }
+
+    await storage.refresh();
+
+    var [typeArray, typeCount] = types[buttonType];
+
+    if (storage.settings[typeArray].includes(userId)) {
+        console.log(`user ID: ${ userId }, ${ buttonType } is already blocked`);
+        return;
+    }
+
+    storage.settings[typeArray].push(userId);
+    var newCount = storage.settings[typeCount] + 1;
+    var newValues = {
+        [typeArray]: storage.settings[typeArray],
+        [typeCount]: newCount,
+    };
+
+    await storage.set(newValues);
+    await storage.setCSS();
+
+    console.log(`user ID: ${ userId }, ${ buttonType } blocked`);
+}
+
+async function unblock(userId, buttonType) {
+    if (!isUserIdValid(userId)) {
+        console.log(`user ID is not a number: ${ userId }`);
+        return;
+    }
+
+    await storage.refresh();
+
+    var [typeArray, typeCount] = types[buttonType];
+
+    storage.settings[typeArray].splice(storage.settings[typeArray].indexOf(userId), 1);
+    var newCount = storage.settings[typeCount] - 1;
+    var newValues = {
+        [typeArray]: storage.settings[typeArray],
+        [typeCount]: newCount,
+    };
+
+    await storage.set(newValues);
+    await storage.setCSS();
+
+    console.log(`user ID: ${ userId }, ${ buttonType } unblocked`);
 }
 
 function isUserIdValid(userId) {
