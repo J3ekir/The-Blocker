@@ -37,14 +37,6 @@ dom.attr = function (target, attr, value) {
     }
 };
 
-dom.byId = function (id) {
-    return document.getElementById(id);
-};
-
-dom.byName = function (name) {
-    return document.getElementsByName(name);
-};
-
 dom.ce = function (tag) {
     return document.createElement(tag);
 };
