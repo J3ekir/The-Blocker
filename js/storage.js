@@ -1,5 +1,17 @@
-const storage = {};
+storage = {};
 
+storage.isInited = false;
+
+storage.init = async function() {
+    if (!storage.isInited) {
+        storage.settings = await chrome.storage.local.get(null);
+        storage.isInited = true;
+    }
+}
+
+storage.refresh = async function() {
+    storage.settings = await chrome.storage.local.get(null);
+}
 
 storage.miscKeys = {
     "settingsSidebarShareThisPage": `div[data-widget-id="8"]`,
@@ -45,7 +57,7 @@ storage.set = async function (keys, callback = null) {
 storage.setCSS = async function () {
     console.time("setCSS");
 
-    this.settings = await this.get(null);
+    await storage.refresh();
 
     var miscCSS = "";
     var userCSS = "";
@@ -58,56 +70,56 @@ storage.setCSS = async function () {
     var userCSSlatestOnCategoryNames = "";
     var userCSSnewThreadsPostsHome = "";
 
-    var isAnyUserFiltersAreUsed = Object.keys(this.userKeys).some(key => this.settings[key]);
+    var isAnyUserFiltersAreUsed = Object.keys(this.userKeys).some(key => storage.settings[key]);
 
     // https://github.com/J3ekir/The-Blocker/commit/03d6569c44318ee1445049faba4e268ade3b79aa
-    if (this.settings["settingsAvatars"] && this.settings["avatarArray"].length) {
-        avatarCSS = `:is(#theBlocker, a[data-user-id="${ this.settings["avatarArray"].join(`"],a[data-user-id="`) }"])>img{display:none;}`;
+    if (storage.settings["settingsAvatars"] && storage.settings["avatarArray"].length) {
+        avatarCSS = `:is(#theBlocker, a[data-user-id="${ storage.settings["avatarArray"].join(`"],a[data-user-id="`) }"])>img{display:none;}`;
     }
 
-    if (this.settings["settingsSignatures"] && this.settings["signatureArray"].length) {
-        signatureCSS = `.message-signature:has(.js-userSignature-${ this.settings["signatureArray"].join(`,.js-userSignature-`) }){display:none;}`;
+    if (storage.settings["settingsSignatures"] && storage.settings["signatureArray"].length) {
+        signatureCSS = `.message-signature:has(.js-userSignature-${ storage.settings["signatureArray"].join(`,.js-userSignature-`) }){display:none;}`;
     }
 
-    if (this.settings["settingsQuotes"] && this.settings["userArray"].length) {
-        quoteCSS = `[data-attributes="member: ${ this.settings["userArray"].join(`"],[data-attributes="member: `) }"]{display:none!important;}`;
+    if (storage.settings["settingsQuotes"] && storage.settings["userArray"].length) {
+        quoteCSS = `[data-attributes="member: ${ storage.settings["userArray"].join(`"],[data-attributes="member: `) }"]{display:none!important;}`;
     }
 
     // if any misc filters are used
-    if (Object.keys(this.miscKeys).some(key => this.settings[key])) {
+    if (Object.keys(this.miscKeys).some(key => storage.settings[key])) {
         miscCSS = `:is(${ Object.keys(this.miscKeys)
-            .filter(key => this.settings[key])
+            .filter(key => storage.settings[key])
             .map(key => this.miscKeys[key])
             .join()
             }){display:none!important;}`;
     }
 
-    if (this.settings["userArray"].length &&
+    if (storage.settings["userArray"].length &&
         (isAnyUserFiltersAreUsed
-            || this.settings["settingsLatestOnNewThreadsPosts"]
-            || this.settings["settingsLatestOnCategoryNames"])
+            || storage.settings["settingsLatestOnNewThreadsPosts"]
+            || storage.settings["settingsLatestOnCategoryNames"])
     ) {
-        var userList = `(a[data-user-id="${ this.settings["userArray"].join(`"],a[data-user-id="`) }"])`;
+        var userList = `(a[data-user-id="${ storage.settings["userArray"].join(`"],a[data-user-id="`) }"])`;
 
         if (isAnyUserFiltersAreUsed) {
             userCSSgeneral = `:is(${ Object.keys(this.userKeys)
-                .filter(key => this.settings[key])
+                .filter(key => storage.settings[key])
                 .map(key => this.userKeys[key])
                 .join()
                 }):has${ userList }{display:none!important;}`;
         }
 
-        if (this.settings["settingsLatestOnNewThreadsPosts"]) {
+        if (storage.settings["settingsLatestOnNewThreadsPosts"]) {
             // to hide latest too
             // :has()>div -> :has()>:is(a,div) || :has()>*
             userCSSlatestOnNewThreadsPosts = `.structItem-cell.structItem-cell--latest:has${ userList }>div{display:none!important;}`;
         }
 
-        if (this.settings["settingsLatestOnCategoryNames"]) {
+        if (storage.settings["settingsLatestOnCategoryNames"]) {
             userCSSlatestOnCategoryNames = `.node-extra-row:has${ userList }{display:none!important;}`;
         }
 
-        if (this.settings["settingsNewThreadsPostsHome"]) {
+        if (storage.settings["settingsNewThreadsPostsHome"]) {
             userCSSnewThreadsPostsHome = `.structItem:has(.structItem-cell--main :is${ userList }){display:none!important;}`;
         }
 

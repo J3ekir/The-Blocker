@@ -37,7 +37,8 @@ init();
 
 
 async function init() {
-    await i18n.render();
+    storage = window.parent.storage;
+    i18n.setData();
     parent.postMessage({
         type: "title",
         title: document.title,

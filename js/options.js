@@ -7,8 +7,9 @@ init();
 
 
 async function init() {
-    await i18n.render();
-    await loadLastPane();
+    await storage.init();
+    i18n.setData();
+    loadLastPane();
 }
 
 window.addEventListener("message", function (event) {
@@ -20,7 +21,7 @@ window.addEventListener("message", function (event) {
             document.title = event.data["title"];
             break;
         case "language":
-            i18n.render();
+            i18n.setData();
             break;
         default:
             break;
@@ -47,9 +48,8 @@ function tabCliked(event) {
 }
 
 async function loadLastPane() {
-    var result = await storage.get("optionsLastPane");
-    iframe.contentWindow.location.replace(result["optionsLastPane"]);
-    const tabButton = qs(`[data-pane="${ result["optionsLastPane"] }"]`);
+    iframe.contentWindow.location.replace(storage.settings["optionsLastPane"]);
+    const tabButton = qs(`[data-pane="${ storage.settings["optionsLastPane"] }"]`);
     tabButton.classList.add("selected");
     tabButton.scrollIntoView();
 }
@@ -57,7 +57,7 @@ async function loadLastPane() {
 function loadPane(pane) {
     paneToLoad = pane;
 
-    if (qs(`[data-pane="${ paneToLoad }"]`).classList.contains("selected")) {
+    if (dom.cl.has(`[data-pane="${ paneToLoad }"]`, "selected")) {
         return;
     }
 
@@ -74,9 +74,10 @@ function setSelectedTab() {
     const tabButton = qs(`[data-pane="${ paneToLoad }"]`);
     window.location.replace(`#${ paneToLoad }`);
     qsa(".tabButton.selected").forEach(elem => {
-        elem.classList.remove("selected");
+        dom.cl.remove(elem, "selected");
     });
-    tabButton.classList.add("selected");
+    dom.cl.add(tabButton, "selected");
     tabButton.scrollIntoView();
     storage.set({ "optionsLastPane": paneToLoad });
+    storage.settings["optionsLastPane"] = paneToLoad;
 }

@@ -1,13 +1,19 @@
-i18n.render();
+var types;
 
-var result;
-var types = {
-    "userCount": qs("#userValue"),
-    "avatarCount": qs("#avatarValue"),
-    "signatureCount": qs("#signatureValue"),
-};
+init();
 
-setValues();
+async function init() {
+    await storage.init();
+    i18n.setData();
+    
+    types = {
+        "userCount": qs("#userValue"),
+        "avatarCount": qs("#avatarValue"),
+        "signatureCount": qs("#signatureValue"),
+    };
+
+    setValues();
+}
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
     Object.keys(changes).forEach(key => {
@@ -17,9 +23,8 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
     });
 });
 
-async function setValues() {
-    result = await storage.get(Object.keys(types));
+function setValues() {
     Object.keys(types).forEach(key => {
-        types[key].textContent = result[key];
+        types[key].textContent = storage.settings[key];
     });
 }
