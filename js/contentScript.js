@@ -1,10 +1,6 @@
-i18n.init();
-
 const buttonArray = ["User", "Avatar", "Signature"];
 const CSS_HIDE = "theBlocker-hide";
 const CSS_SHOW = "theBlocker-show";
-
-var settings;
 
 var cloneInternal = dom.ce("div");
 cloneInternal.className = "actionBar-set actionBar-set--internal";
@@ -15,27 +11,32 @@ dom.attr(cloneReportButton, "data-xf-click", "overlay");
 
 self.cloneUserButton = dom.ce("a");
 var cloneSvg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
-dom.attr(cloneSvg, "viewBox", "0 0 512 512");
+dom.attr(cloneSvg, "viewBox", "0 0 448 512");
 cloneSvg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
 self.cloneUserButton.append(cloneSvg, dom.ce("span"));
 
 self.cloneAvatarButton = dom.clone(self.cloneUserButton);
 self.cloneSignatureButton = dom.clone(self.cloneUserButton);
+dom.attr(self.cloneSignatureButton.firstElementChild, "viewBox", "0 0 512 512");
 
 self.cloneUserButton.className = "actionBar-action actionBar-action--block userButton";
 self.cloneAvatarButton.className = "actionBar-action actionBar-action--block avatarButton";
 self.cloneSignatureButton.className = "actionBar-action actionBar-action--block signatureButton";
 
 
-storage.get(null).then(response => {
-    settings = response;
+init();
 
-    waitForElementToExist(".message-actionBar.actionBar").then(elem => {
-        init();
-    });
-});
 
 async function init() {
+    await storage.init();
+
+    // ".block-body.js-replyNewMessageContainer"
+    waitForElementToExist(".message-content").then(elem => {
+        main();
+    });
+}
+
+async function main() {
     var postIds;
     var userIds;
     var messages;
@@ -99,14 +100,14 @@ async function init() {
 
     function makeBlockButtons(userId) {
         return buttonArray.map(elem => {
-            if (settings[`settingsButtons${ elem }`]) {
+            if (storage.settings[`settingsButtons${ elem }`]) {
                 var button = dom.clone(window[`clone${ elem }Button`]);
 
                 if (selfBlockCheck(userId)) {
                     dom.cl.add(button, CSS_HIDE);
                 }
                 else {
-                    if (settings[`${ elem.toLowerCase() }Array`].includes(userId)) {
+                    if (storage.settings[`${ elem.toLowerCase() }Array`].includes(userId)) {
                         button.title = i18n.get(`contentScript${ elem }ButtonUnblockTitle`);
                         dom.text(button.lastElementChild, i18n.get(`contentScript${ elem }ButtonUnblockText`));
                     }
@@ -127,7 +128,7 @@ async function init() {
         var buttons = qsa(`.actionBar-action--block.${ type }Button`);
         var query;
 
-        settings = await storage.get(null);
+        await storage.refresh();
 
         switch (type) {
             case "user":
@@ -143,7 +144,7 @@ async function init() {
                 break;
         }
 
-        var isBlocked = settings[`${ type }Array`].includes(userId);
+        var isBlocked = storage.settings[`${ type }Array`].includes(userId);
         var blockFunction = isBlocked ? unblock : block;
         var title = isBlocked
             ? i18n.get(`contentScript${ typeCapital }ButtonTitle`)
@@ -190,7 +191,8 @@ async function init() {
 
     async function observe() {
         // const targetNode = qs(".p-body-pageContent");
-        const targetNode = qs(".block-body.js-replyNewMessageContainer");
+        // ".block-body.js-replyNewMessageContainer"
+        const targetNode = qs(".block.block--messages");
         new MutationObserver(async (mutationList, observer) => {
             for (const mutation of mutationList) {
                 if (mutation.type === "childList") {

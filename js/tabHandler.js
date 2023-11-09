@@ -1,7 +1,6 @@
 var buttons;
 var cloneButtons;
 var cloneMenuHandler;
-var result;
 var tabPanes;
 var tabWrapper;
 var borderColors = {
@@ -12,13 +11,14 @@ var borderColors = {
 };
 
 
-i18n.init();
+init();
 
-storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]).then(data => {
-    result = data;
 
-    if (result["settingsCombineWidgetTabs"] || result["settingsBottomWidget"]) {
-        if (result["settingsCombineWidgetTabs"]) {
+async function init() {
+    await storage.init();
+
+    if (storage.settings["settingsCombineWidgetTabs"] || storage.settings["settingsBottomWidget"]) {
+        if (storage.settings["settingsCombineWidgetTabs"]) {
             chrome.runtime.sendMessage({
                 type: "combineWidgetTabs",
             });
@@ -28,56 +28,52 @@ storage.get(["settingsCombineWidgetTabs", "settingsBottomWidget"]).then(data => 
             });
         }
 
-        if (result["settingsBottomWidget"]) {
+        if (storage.settings["settingsBottomWidget"]) {
             chrome.runtime.sendMessage({
                 type: "bottomWidget",
             });
         }
 
         waitForElementToExist("ul.tabPanes>li:nth-child(6)").then(elem => {
-            if (result["settingsBottomWidget"]) {
+            if (storage.settings["settingsBottomWidget"]) {
                 chrome.runtime.sendMessage({
                     type: "injectCSSString",
                     CSS: `#cloneMenuHandler{border-top-color:${ borderColors[dom.attr(`[name="theme-color"]`, "content")] }!important;}`,
                 });
             }
 
-            init();
+            tabWrapper = qs(".tab-wrapper.widget-group");
+            buttons = qs(".tab-wrapper.widget-group>:first-child>:first-child>:first-child").children;
+            tabPanes = qs(".tab-wrapper.widget-group>:last-child").children;
+
+            if (storage.settings["settingsCombineWidgetTabs"]) {
+                dom.cl.add(tabPanes[1], "is-active");
+            }
+
+            if (storage.settings["settingsBottomWidget"]) {
+                cloneMenuHandler = dom.clone(tabWrapper.firstElementChild);
+                cloneButtons = cloneMenuHandler.firstElementChild.firstElementChild.children;
+                cloneMenuHandler.id = "cloneMenuHandler";
+
+                dom.attr([cloneMenuHandler, cloneMenuHandler.firstElementChild], "data-xf-init", null);
+
+                for (let i = 0; i < cloneButtons.length; ++i) {
+                    dom.attr(cloneButtons[i], "href", null);
+
+                    cloneButtons[i].addEventListener("click", event => {
+                        buttons[i].click();
+                        buttons[i].scrollIntoView();
+                        clearIsActive();
+                        setIsActive();
+                    });
+                }
+
+                tabWrapper.appendChild(cloneMenuHandler);
+            }
+
+            observe();
         });
     }
-});
-
-async function init() {
-    tabWrapper = qs(".tab-wrapper.widget-group");
-    buttons = qs(".tab-wrapper.widget-group>:first-child>:first-child>:first-child").children;
-    tabPanes = qs(".tab-wrapper.widget-group>:last-child").children;
-
-    if (result["settingsCombineWidgetTabs"]) {
-        dom.cl.add(tabPanes[1], "is-active");
-    }
-
-    if (result["settingsBottomWidget"]) {
-        cloneMenuHandler = dom.clone(tabWrapper.firstElementChild);
-        cloneButtons = cloneMenuHandler.firstElementChild.firstElementChild.children;
-        cloneMenuHandler.id = "cloneMenuHandler";
-
-        dom.attr([cloneMenuHandler, cloneMenuHandler.firstElementChild], "data-xf-init", null);
-
-        for (let i = 0; i < cloneButtons.length; ++i) {
-            dom.attr(cloneButtons[i], "href", null);
-
-            cloneButtons[i].addEventListener("click", event => {
-                buttons[i].click();
-                buttons[i].scrollIntoView();
-                clearIsActive();
-                setIsActive();
-            });
-        }
-
-        tabWrapper.appendChild(cloneMenuHandler);
-    }
-
-    observe();
 }
 
 function combineTabs() {
@@ -103,11 +99,11 @@ function setIsActive() {
 function observe() {
     const targetNode = qs("span.hScroller-scroll");
     new MutationObserver(async (mutationList, observer) => {
-        if (result["settingsCombineWidgetTabs"]) {
+        if (storage.settings["settingsCombineWidgetTabs"]) {
             combineTabs();
         }
 
-        if (result["settingsBottomWidget"]) {
+        if (storage.settings["settingsBottomWidget"]) {
             clearIsActive();
             setIsActive();
         }
