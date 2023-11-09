@@ -42,7 +42,7 @@ chrome.runtime.onMessage.addListener(
     async function (request, sender, sendResponse) {
         switch (request.type) {
             case "injectCSS":
-                await injectCSS(sender.tab.id);
+                injectCSS(sender.tab.id);
                 break;
             case "injectCSSString":
                 injectCSSString(sender.tab.id, request.CSS);
@@ -104,6 +104,12 @@ async function injectCSS(tabId) {
         target: { tabId: tabId },
         origin: "AUTHOR",
         css: result["CSS"],
+    });
+
+    chrome.scripting.insertCSS({
+        target: { tabId: tabId },
+        origin: "AUTHOR",
+        files: ["css/buttons.css"],
     });
 }
 
