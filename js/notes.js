@@ -13,8 +13,13 @@ async function init() {
 
     if (storage.settings["settingsNotes"]) {
         initBaseButtons();
-        baseInputNote.placeholder = i18n.get("settingsNotesPlaceholder");
-        baseButtonNote.lastElementChild.textContent = i18n.get("settingsNotesSave");
+        baseInputNote.placeholder = i18n.get("contentScriptNotesPlaceholder");
+        baseButtonNote.lastElementChild.textContent = i18n.get("contentScriptNotesSave");
+
+        var meta = dom.ce("meta");
+        dom.attr(meta, "name", "noteSaveMessage");
+        dom.attr(meta, "content", i18n.get("contentScriptNotesSavedMessage"));
+        document.head.append(meta);
 
         waitForElementToExist("body").then(elem => {
             observe();
@@ -70,6 +75,10 @@ function addNote(elem) {
 
         qsa(`.memberTooltip-note[data-user-id="${ userId }"]>.input`).forEach(elem => {
             elem.value = note;
+        });
+
+        chrome.runtime.sendMessage({
+            type: "noteSavedMessage",
         });
     });
 

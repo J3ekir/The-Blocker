@@ -62,6 +62,9 @@ chrome.runtime.onMessage.addListener(
             case "theme":
                 setIcon(request.theme);
                 break;
+            case "noteSavedMessage":
+                noteSavedMessage(sender.tab.id);
+                break;
             default:
                 break;
         }
@@ -200,6 +203,17 @@ function setIcon(theme) {
             "48": `../img/icon_${ theme }_48.png`,
             "64": `../img/icon_${ theme }_64.png`,
             "128": `../img/icon_${ theme }_128.png`,
+        }
+    });
+}
+
+async function noteSavedMessage(tabId) {
+    chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        injectImmediately: true,
+        world: "MAIN",
+        func: () => {
+            XF.flashMessage(`${ document.querySelector(`meta[name="noteSaveMessage"]`).getAttribute("content") }`, 1000);
         }
     });
 }

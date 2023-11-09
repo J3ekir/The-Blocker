@@ -91,8 +91,6 @@
         "settingsBottomWidget": "Add bottom widget",
         "settingsCombineWidgetTabs": "Combine new threads and nwe messages tabs",
         "settingsNotes": "Notes",
-        "settingsNotesSave": "Save",
-        "settingsNotesPlaceholder": "Add note",
 
 
         "filtersTitle": "Filters - The Blocker",
@@ -121,6 +119,9 @@
         "contentScriptAvatarButtonUnblockText": "Unblock avatar",
         "contentScriptSignatureButtonUnblockText": "Unblock signature",
         "contentScriptReportButtonText": "Report",
+        "contentScriptNotesSave": "Save",
+        "contentScriptNotesPlaceholder": "Add note",
+        "contentScriptNotesSavedMessage": "Note saved",
 
 
         "tabHandlerCombinedTabName": "New threads and messages"
@@ -175,8 +176,6 @@
         "settingsBottomWidget": "Alt widget ekle",
         "settingsCombineWidgetTabs": "Yeni konular ve yeni mesajlar sekmelerini birleştir",
         "settingsNotes": "Notlar",
-        "settingsNotesSave": "Kaydet",
-        "settingsNotesPlaceholder": "Not ekle",
 
 
         "filtersTitle": "Filteler - The Blocker",
@@ -205,6 +204,9 @@
         "contentScriptAvatarButtonUnblockText": "Avatarı göster",
         "contentScriptSignatureButtonUnblockText": "İmzayı göster",
         "contentScriptReportButtonText": "Rapor",
+        "contentScriptNotesSave": "Kaydet",
+        "contentScriptNotesPlaceholder": "Not ekle",
+        "contentScriptNotesSavedMessage": "Not kaydedildi",
 
 
         "tabHandlerCombinedTabName": "Yeni konular ve mesajlar"
