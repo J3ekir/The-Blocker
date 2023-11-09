@@ -20,9 +20,6 @@
                 "https://www.technopat.net/sosyal/*"
             ],
             "js": [
-                "js/dom.js",
-                "js/storage.js",
-                "js/i18n.js",
                 "js/injectCSS.js"
             ],
             "run_at": "document_start"
@@ -32,6 +29,9 @@
                 "https://www.technopat.net/sosyal/"
             ],
             "js": [
+                "js/dom.js",
+                "js/storage.js",
+                "js/i18n.js",
                 "js/tabHandler.js"
             ],
             "run_at": "document_start"
@@ -41,15 +41,55 @@
                 "https://www.technopat.net/sosyal/konu/*"
             ],
             "js": [
+                "js/dom.js",
+                "js/storage.js",
+                "js/i18n.js",
                 "js/contentScript.js"
             ],
             "run_at": "document_start"
+        },
+        {
+            "matches": [
+                "https://www.technopat.net/sosyal/uye/*"
+            ],
+            "js": [
+                "js/dom.js",
+                "js/storage.js",
+                "js/i18n.js",
+                "js/notesProfile.js"
+            ],
+            "run_at": "document_start"
+        },
+        {
+            "matches": [
+                "https://www.technopat.net/sosyal/*"
+            ],
+            "exclude_matches": [
+                "https://www.technopat.net/sosyal/",
+                "https://www.technopat.net/sosyal/konu/*",
+                "https://www.technopat.net/sosyal/uye/*"
+            ],
+            "js": [
+                "js/dom.js",
+                "js/storage.js",
+                "js/i18n.js"
+            ],
+            "run_at": "document_start"
+        },
+        {
+            "matches": [
+                "https://www.technopat.net/sosyal/*"
+            ],
+            "js": [
+                "js/notes.js"
+            ],
+            "run_at": "document_end"
         }
     ],
     "default_locale": "tr",
     "description": "__MSG_extensionDescription__",
     "homepage_url": "https://github.com/J3ekir/The-Blocker",
-    "host_permissions": ["https://www.technopat.net/sosyal/*"],
+    "host_permissions": [ "https://www.technopat.net/sosyal/*" ],
     "icons": {
         "16": "img/icon_dark_16.png",
         "32": "img/icon_dark_32.png",
@@ -72,8 +112,8 @@
     "version": "0.0.6",
     "web_accessible_resources": [
         {
-            "matches": [],
-            "resources": ["storage.json"]
+            "matches": [ ],
+            "resources": [ "storage.json" ]
         }
     ]
 }
