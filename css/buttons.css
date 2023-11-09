@@ -1,3 +1,8 @@
+/**************************************** BUTTONS *****************************************/
+.actionBar-action {
+    font-size: 13px !important;
+}
+
 .actionBar-action--block {
     cursor: pointer;
 }
@@ -8,16 +13,20 @@
     margin-right: 5px;
 }
 
-.actionBar-action--block.userButton path {
-    d: path("M160 128a128 128 0 01256 0 128 128 0 01-256 0zM199 128a89 89 0 00178 0 89 89 0 00-178 0zM240 304q-175 0-176 176 0 32 32 32h384q32 0 32-32 0-176-176-176zM104 473q0-130 136-130h96q136 0 136 130z");
+.userButton path {
+    d: path("M96 128a128 128 0 01256 0 128 128 0 01-256 0zM135 128a89 89 0 00178 0 89 89 0 00-178 0zM176 304q-175 0-176 176 0 32 32 32h384q32 0 32-32 0-176-176-176zM40 473q0-130 136-130h96q136 0 136 130z");
 }
 
-.actionBar-action--block.avatarButton path {
-    d: path("M223 200a65 65 0 01130 0 65 65 0 01-130 0zM184 200a104 104 0 00208 0 104 104 0 00-208 0zM116 0q-52 0-52 52v408q0 52 52 52h344q52 0 52-52v-408q0-52-52-52zM146 473q0-91 103-91h78q104 0 104 91zM473 460q0 5-4 9 0-126-142-126h-78q-142 0-142 126-4-4-4-9v-408q0-13 13-13h344q13 0 13 13z");
+.avatarButton path {
+    d: path("M159 200a65 65 0 01130 0 65 65 0 01-130 0zM120 200a104 104 0 00208 0 104 104 0 00-208 0zM52 0q-52 0-52 52v408q0 52 52 52h344q52 0 52-52v-408q0-52-52-52zM82 473q0-91 103-91h78q104 0 104 91zM409 460q0 5-4 9 0-126-142-126h-78q-142 0-142 126-4-4-4-9v-408q0-13 13-13h344q13 0 13 13z");
 }
 
-.actionBar-action--block.signatureButton path {
+.signatureButton path {
     d: path("M454 14c-18-18-48-18-67 0l-78 78-14-14c-18-18-48-18-67 0l-89 89c-6 6-6 16 0 22 6 6 16 6 22 0l89-89c6-6 16-6 22 0l14 14-191 191c-43 43-77 103-95 167-3 11 0 23 8 31 8 8 20 11 31 8 60-17 127-55 167-95l291-291c19-18 19-48 0-67zM309 136l67 67-191 191c-35 35-98 72-154 87 15-55 45-111 87-154z");
+}
+
+.message-actionBar .actionBar-set {
+    font-size: 0 !important;
 }
 
 .theBlocker-hide {
@@ -26,4 +35,59 @@
 
 .theBlocker-show {
     display: block !important;
+}
+
+/****************************************** NOTE ******************************************/
+
+.memberHeader-buttons:has(.memberTooltip-note) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.memberHeader-buttons:has(.memberTooltip-note) .button {
+    border: none !important;
+    height: 100%;
+}
+
+.memberHeader-buttons:has(.memberTooltip-note) > * {
+    display: inline-flex;
+}
+
+.memberHeader-buttons:has(.memberTooltip-note) input {
+    min-width: 100px;
+}
+
+.memberHeader-buttons > .memberTooltip-note {
+    flex: 1;
+    padding: 0;
+}
+
+.memberTooltip-note {
+    display: flex;
+    padding: 6px;
+    gap: 10px;
+}
+
+.memberTooltip-note > a {
+    border: none !important;
+}
+
+.memberTooltip-note > input {
+    border: none !important;
+    font-size: 13px !important;
+    padding: 0 6px !important;
+}
+
+.memberTooltip-note path {
+    d: path("M64 32c-35 0-64 29-64 64v320c0 35 29 64 64 64h320c35 0 64-29 64-64v-246c0-17-7-33-19-45l-74-74c-12-12-28-19-45-19zM80 80v104c0 13 11 24 24 24h192c13 0 24-11 24-24v-100l75 75c3 3 5 7 5 11v246c0 9-7 16-16 16h-320c-9 0-16-7-16-16v-320c0-9 7-16 16-16zM128 80h144v80h-144zM160 320a64 64 0 00128 0 64 64 0 00-128 0z");
+}
+
+.memberTooltip-note svg {
+    height: 13px;
+    margin-right: 5px;
+}
+
+.memberTooltip-separator {
+    margin: 0 6px !important;
 }
