@@ -6,6 +6,7 @@
         "userCount": 0,
         "avatarCount": 0,
         "signatureCount": 0,
+        "notes": { "-1": "" },
         "language": "tr",
         "optionsLastPane": "settings.html",
         "settingsButtonsUser": true,
@@ -37,6 +38,7 @@
         "settingsXenforoFooter": true,
         "settingsBottomWidget": true,
         "settingsCombineWidgetTabs": true,
+        "settingsNotes": true,
         "CSS": ""
     },
 
@@ -88,6 +90,9 @@
         "settingsXenforoFooter": "Xenforo footer",
         "settingsBottomWidget": "Add bottom widget",
         "settingsCombineWidgetTabs": "Combine new threads and nwe messages tabs",
+        "settingsNotes": "Notes",
+        "settingsNotesSave": "Save",
+        "settingsNotesPlaceholder": "Add note",
 
 
         "filtersTitle": "Filters - The Blocker",
@@ -169,6 +174,9 @@
         "settingsXenforoFooter": "Xenforo alt bilgi",
         "settingsBottomWidget": "Alt widget ekle",
         "settingsCombineWidgetTabs": "Yeni konular ve yeni mesajlar sekmelerini birleştir",
+        "settingsNotes": "Notlar",
+        "settingsNotesSave": "Kaydet",
+        "settingsNotesPlaceholder": "Not ekle",
 
 
         "filtersTitle": "Filteler - The Blocker",
