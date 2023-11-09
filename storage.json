@@ -1,8 +1,8 @@
 {
     "defaultSettings": {
-        "userArray": [],
-        "avatarArray": [],
-        "signatureArray": [],
+        "userArray": [ ],
+        "avatarArray": [ ],
+        "signatureArray": [ ],
         "userCount": 0,
         "avatarCount": 0,
         "signatureCount": 0,
