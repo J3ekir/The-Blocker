@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://chrome.google.com/webstore/detail/the-blocker/nmamfbkbakeogpleihmmgbglafohpdif">
-<img src="https://user-images.githubusercontent.com/53034558/254320037-35e496f8-51da-4aa6-a191-b42c662c9b64.svg" width="400">
+<img src="https://user-images.githubusercontent.com/53034558/254320037-35e496f8-51da-4aa6-a191-b42c662c9b64.svg" width="300">
 </a>
 </p>
 
