@@ -31,7 +31,8 @@ async function init() {
     await storage.init();
 
     // ".block-body.js-replyNewMessageContainer"
-    waitForElementToExist(".message-content").then(elem => {
+    // ".message-content"
+    waitForElementToExist(".block-outer--after").then(elem => {
         main();
     });
 }
