@@ -28,9 +28,9 @@ var cache = {
     signature: "",
 };
 
-self.userEditor = new CodeMirror(dom.byId("userEditor"), codeMirrorOptions);
-self.avatarEditor = new CodeMirror(dom.byId("avatarEditor"), codeMirrorOptions);
-self.signatureEditor = new CodeMirror(dom.byId("signatureEditor"), codeMirrorOptions);
+self.userEditor = new CodeMirror(qs("#userEditor"), codeMirrorOptions);
+self.avatarEditor = new CodeMirror(qs("#avatarEditor"), codeMirrorOptions);
+self.signatureEditor = new CodeMirror(qs("#signatureEditor"), codeMirrorOptions);
 var saveButton = qs("#applyButton");
 
 init();
