@@ -1,0 +1,10 @@
+*.html
+*.css
+*.js
+*.json
+
+*.md
+
+*.png       binary
+*.ai        binary
+*.svg       binary
