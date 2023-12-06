@@ -8,3 +8,5 @@
 *.png       binary
 *.ai        binary
 *.svg       binary
+
+codemirror/** linguist-vendored
