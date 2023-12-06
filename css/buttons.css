@@ -1,4 +1,13 @@
+.theBlocker-hide {
+    display: none !important;
+}
+
+.theBlocker-show {
+    display: block !important;
+}
+
 /**************************************** BUTTONS *****************************************/
+
 .actionBar-action {
     font-size: 13px !important;
 }
@@ -10,39 +19,46 @@
 .actionBar-action--block > svg {
     height: 13px;
     margin-bottom: -1px;
-    margin-right: 5px;
+    margin-right: 4px;
 }
 
-.userButton path {
+.actionBar-action--block[blocktype="user"] path {
     d: path("M96 128a128 128 0 01256 0 128 128 0 01-256 0zM135 128a89 89 0 00178 0 89 89 0 00-178 0zM176 304q-175 0-176 176 0 32 32 32h384q32 0 32-32 0-176-176-176zM40 473q0-130 136-130h96q136 0 136 130z");
 }
 
-.avatarButton path {
+.actionBar-action--block[blocktype="avatar"] path {
     d: path("M159 200a65 65 0 01130 0 65 65 0 01-130 0zM120 200a104 104 0 00208 0 104 104 0 00-208 0zM52 0q-52 0-52 52v408q0 52 52 52h344q52 0 52-52v-408q0-52-52-52zM82 473q0-91 103-91h78q104 0 104 91zM409 460q0 5-4 9 0-126-142-126h-78q-142 0-142 126-4-4-4-9v-408q0-13 13-13h344q13 0 13 13z");
 }
 
-.signatureButton path {
-    d: path("M454 14c-18-18-48-18-67 0l-78 78-14-14c-18-18-48-18-67 0l-89 89c-6 6-6 16 0 22 6 6 16 6 22 0l89-89c6-6 16-6 22 0l14 14-191 191c-43 43-77 103-95 167-3 11 0 23 8 31 8 8 20 11 31 8 60-17 127-55 167-95l291-291c19-18 19-48 0-67zM309 136l67 67-191 191c-35 35-98 72-154 87 15-55 45-111 87-154z");
+.actionBar-action--block[blocktype="signature"] path {
+    d: path("M387 10c-19-16-47-13-63 6l-67 79-14-12c-19-16-47-13-62 6l-76 91c-5 6-4 15 2 21 6 5 16 4 21-2l76-91c5-6 15-7 21-2l14 12-163 195c-37 44-64 103-75 165-2 10 2 21 10 28 8 7 19 9 29 5 55-21 115-62 149-103l249-297c16-19 13-47-5-62zM262 137l68 57-163 195c-30 36-86 75-137 94 10-53 33-108 69-151l163-195z");
 }
 
 .message-actionBar .actionBar-set {
     font-size: 0 !important;
 }
 
-.theBlocker-hide {
-    display: none !important;
+/*************************************** WIDGET_TABS **************************************/
+
+.tabs.widget-group-tabs:last-child {
+    border-bottom: none !important;
+    border-top: 1px solid var(--input-border-light) !important;
+    margin-top: -12px !important;
+    margin-bottom: 20px !important;
 }
 
-.theBlocker-show {
-    display: block !important;
+.tabs.widget-group-tabs:last-child .tabs-tab {
+    border-bottom: none !important;
+    border-top: 3px solid transparent;
+    padding: 4px 15px 5px !important;
 }
 
 /****************************************** NOTE ******************************************/
 
 .memberHeader-buttons:has(.memberTooltip-note) {
     display: flex;
-    flex-wrap: wrap;
     gap: 5px;
+    flex-wrap: wrap;
 }
 
 .memberHeader-buttons:has(.memberTooltip-note) .button {
@@ -65,8 +81,8 @@
 
 .memberTooltip-note {
     display: flex;
-    padding: 6px;
     gap: 10px;
+    padding: 6px;
 }
 
 .memberTooltip-note > a {
@@ -88,6 +104,15 @@
     margin-right: 5px;
 }
 
+.memberTooltip-report {
+    float: right;
+    margin-left: 6px;
+}
+
 .memberTooltip-separator {
     margin: 0 6px !important;
+}
+
+.memberTooltip--withBanner .memberTooltip-blurbContainer {
+    margin-top: 12px !important;
 }

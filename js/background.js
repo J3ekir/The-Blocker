@@ -1,41 +1,96 @@
-importScripts("storage.js");
+const KEYS = {
+    misc: {
+        "settingSidebarShareThisPage": "div[data-widget-id='8']",
+        "settingSidebarMembersOnline": "div[data-widget-id='6']",
+        "settingSidebarRandomBlogEntries": "div[data-widget-id='41']",
+        "settingSidebarLatestResources": "div[data-widget-id='11']",
+        "settingNavigationBlogs": "li:has(a[data-xf-key='5'])",
+        "settingNavigationQuestions": "li:has(a[data-xf-key='6'])",
+        "settingNavigationVideos": "li:has(a[data-xf-key='7'])",
+        "settingNavigationAdvices": "li:has(a[data-xf-key='8'])",
+        "settingNavigationMedia": "li:has(a[data-xf-key='12'])",
+        "settingShowIgnoredContent": ".showIgnoredLink.js-showIgnored",
+        "settingHideThisUsersSignature": "[data-xf-click='signature-ignore']",
+        "settingXenforoFooter": ".p-footer-copyright",
+    },
+    user: {
+        "settingNotifications": ".alert.js-alert",
+        "settingProfilePosts": ".message.message--simple",
+        "settingProfilePostComments": ".message-responseRow",
+    },
+    get setCSS() {
+        if (!this.setCSSKeys) {
+            this.setCSSKeys = [
+                "user",
+                "avatar",
+                "signature",
+                "settingQuotes",
+                ...Object.keys(this.user),
+                ...Object.keys(this.misc),
+            ];
+        }
 
-let creating;
-var types = {
-    "user": ["userArray", "userCount"],
-    "avatar": ["avatarArray", "avatarCount"],
-    "signature": ["signatureArray", "signatureCount"],
+        return this.setCSSKeys;
+    },
 };
 
+
 chrome.runtime.onInstalled.addListener(async () => {
-    await init();
+    var settings = await chrome.storage.local.get();
 
-    const jsonURL = await chrome.runtime.getURL("storage.json");
-    const response = await fetch(jsonURL);
-    const json = await response.json();
-    const defaultSettings = json["defaultSettings"];
-    var defaultValues = {};
+    // old default settings
+    if (settings["userArray"]) {
+        var user = settings["userArray"];
+        var avatar = settings["avatarArray"];
+        var signature = settings["signatureArray"];
+        var notes = settings["notes"];
 
-    for (const key in defaultSettings) {
-        if (storage.settings[key] === undefined) {
-            defaultValues[key] = defaultSettings[key];
+        const jsonURL = await chrome.runtime.getURL("storage.json");
+        const response = await fetch(jsonURL);
+        const json = await response.json();
+        const defaultSettings = json["defaultSettings"];
+        var defaultValues = {};
+
+        for (const key in defaultSettings) {
+            if (settings[key] === undefined) {
+                defaultValues[key] = defaultSettings[key];
+            }
         }
+
+        await chrome.storage.local.clear();
+
+        await chrome.storage.local.set(defaultValues);
+
+        await chrome.storage.local.set({
+            user: user,
+            avatar: avatar,
+            signature: signature,
+            userCount: user?.length || 0,
+            avatarCount: avatar?.length || 0,
+            signatureCount: signature?.length || 0,
+            notes: notes,
+        });
+    }
+    else {
+        const jsonURL = await chrome.runtime.getURL("storage.json");
+        const response = await fetch(jsonURL);
+        const json = await response.json();
+        const defaultSettings = json["defaultSettings"];
+        var defaultValues = {};
+
+        for (const key in defaultSettings) {
+            if (settings[key] === undefined) {
+                defaultValues[key] = defaultSettings[key];
+            }
+        }
+
+        await chrome.storage.local.set(defaultValues);
     }
 
-    await storage.set(defaultValues);
-    await storage.set({
-        "en": json["en"],
-        "tr": json["tr"],
-    });
-
-    await storage.setCSS();
+    await setCSS();
 
     // await chrome.storage.local.clear();
     // await chrome.storage.sync.clear();
-});
-
-chrome.runtime.onStartup.addListener(async () => {
-    await init();
 });
 
 chrome.runtime.onMessage.addListener(
@@ -44,64 +99,24 @@ chrome.runtime.onMessage.addListener(
             case "injectCSS":
                 injectCSS(sender.tab.id);
                 break;
-            case "injectCSSString":
-                injectCSSString(sender.tab.id, request.CSS);
+            case "insertCSSString":
+                insertCSSString(sender.tab.id, request.CSS);
                 break;
-            case "bottomWidget":
-                bottomWidget(sender.tab.id);
+            case "removeCSSString":
+                removeCSSString(sender.tab.id, request.CSS);
                 break;
-            case "combineWidgetTabs":
-                combineWidgetTabs(sender.tab.id);
-                break;
-            case "block":
-                block(request.userId, request.buttonType);
-                break;
-            case "unblock":
-                unblock(request.userId, request.buttonType);
-                break;
-            case "theme":
-                setIcon(request.theme);
+            case "combineTabPanes":
+                combineTabPanes(sender.tab.id);
                 break;
             case "noteSavedMessage":
                 noteSavedMessage(sender.tab.id);
-                break;
-            default:
                 break;
         }
     }
 );
 
-async function init() {
-    await storage.init();
-    createOffscreen();
-}
-
-async function createOffscreen(path = "offscreen.html") {
-    const offscreenUrl = chrome.runtime.getURL(path);
-    const matchedClients = await clients.matchAll();
-
-    for (const client of matchedClients) {
-        if (client.url === offscreenUrl) {
-            return;
-        }
-    }
-
-    if (creating) {
-        await creating;
-    }
-    else {
-        creating = chrome.offscreen.createDocument({
-            url: path,
-            reasons: ["DOM_SCRAPING"],
-            justification: "set icon theme",
-        });
-        await creating;
-        creating = null;
-    }
-}
-
 async function injectCSS(tabId) {
-    var result = await storage.get("CSS");
+    var result = await chrome.storage.local.get("CSS");
 
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
@@ -111,12 +126,12 @@ async function injectCSS(tabId) {
 
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
-        origin: "AUTHOR",
+        origin: "USER",
         files: ["css/buttons.css"],
     });
 }
 
-function injectCSSString(tabId, CSS) {
+function insertCSSString(tabId, CSS) {
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
         origin: "USER",
@@ -124,86 +139,19 @@ function injectCSSString(tabId, CSS) {
     });
 }
 
-function bottomWidget(tabId) {
-    chrome.scripting.insertCSS({
+function removeCSSString(tabId, CSS) {
+    chrome.scripting.removeCSS({
         target: { tabId: tabId },
         origin: "USER",
-        css: "#cloneMenuHandler{margin-top:-12px!important;margin-bottom:20px!important;border-bottom:none!important;border-top-width:1px!important;border-top-style:solid!important;}#cloneMenuHandler .tabs-tab{border-bottom:none!important;border-top:3px solid transparent;padding:4px 15px 5px!important;}",
+        css: CSS,
     });
 }
 
-function combineWidgetTabs(tabId) {
+function combineTabPanes(tabId) {
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
         origin: "USER",
         css: ".tab-wrapper.widget-group .tabs-tab:nth-child(2){display:none!important;}",
-    });
-}
-
-async function block(userId, buttonType) {
-    if (!isUserIdValid(userId)) {
-        console.log(`user ID is not a number: ${ userId }`);
-        return;
-    }
-
-    await storage.refresh();
-
-    var [typeArray, typeCount] = types[buttonType];
-
-    if (storage.settings[typeArray].includes(userId)) {
-        console.log(`user ID: ${ userId }, ${ buttonType } is already blocked`);
-        return;
-    }
-
-    storage.settings[typeArray].push(userId);
-    var newCount = storage.settings[typeCount] + 1;
-    var newValues = {
-        [typeArray]: storage.settings[typeArray],
-        [typeCount]: newCount,
-    };
-
-    await storage.set(newValues);
-    await storage.setCSS();
-
-    console.log(`user ID: ${ userId }, ${ buttonType } blocked`);
-}
-
-async function unblock(userId, buttonType) {
-    if (!isUserIdValid(userId)) {
-        console.log(`user ID is not a number: ${ userId }`);
-        return;
-    }
-
-    await storage.refresh();
-
-    var [typeArray, typeCount] = types[buttonType];
-
-    storage.settings[typeArray].splice(storage.settings[typeArray].indexOf(userId), 1);
-    var newCount = storage.settings[typeCount] - 1;
-    var newValues = {
-        [typeArray]: storage.settings[typeArray],
-        [typeCount]: newCount,
-    };
-
-    await storage.set(newValues);
-    await storage.setCSS();
-
-    console.log(`user ID: ${ userId }, ${ buttonType } unblocked`);
-}
-
-function isUserIdValid(userId) {
-    return userId && /^\d+$/.test(userId);
-}
-
-function setIcon(theme) {
-    chrome.action.setIcon({
-        path: {
-            "16": `../img/icon_${ theme }_16.png`,
-            "32": `../img/icon_${ theme }_32.png`,
-            "48": `../img/icon_${ theme }_48.png`,
-            "64": `../img/icon_${ theme }_64.png`,
-            "128": `../img/icon_${ theme }_128.png`,
-        }
     });
 }
 
@@ -213,9 +161,61 @@ async function noteSavedMessage(tabId) {
         injectImmediately: true,
         world: "MAIN",
         func: () => {
-            XF.flashMessage(`${ document.querySelector(`meta[name="noteSaveMessage"]`).getAttribute("content") }`, 1000);
+            switch ($("html").attr("lang")) {
+                case "en-US":
+                    XF.flashMessage("Note has been saved.", 1500);
+                    break;
+                case "tr-TR":
+                    XF.flashMessage("Not kaydedildi.", 1500);
+                    break;
+            }
         }
     });
+}
+
+chrome.storage.onChanged.addListener(async changes => {
+    Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+        if (KEYS.setCSS.includes(key)) {
+            setCSS();
+        }
+    });
+});
+
+async function setCSS() {
+    console.time("setCSS");
+
+    var settings = await chrome.storage.local.get();
+
+    var quoteCSS = "";
+    if (settings["settingQuotes"]) {
+        quoteCSS = `[data-attributes="member: ${ settings["user"].join(`"],[data-attributes="member: `) }"]{display:none!important;}`;
+    }
+
+    var userList = `(a[data-user-id="${ settings["user"].join(`"],a[data-user-id="`) }"])`;
+
+    var userCSS = `:is(${ Object.keys(KEYS.user)
+        .filter(key => settings[key])
+        .map(key => KEYS.user[key])
+        .join()
+        }):has${ userList }{display:none!important;}:is(.block-row,.node-extra-row .node-extra-user):has${ userList },.structItem-cell.structItem-cell--latest:has${ userList }>div,:is(.message.message--post, .message.message--article, .structItem):has(:is(.message-cell--user, .message-articleUserInfo, .structItem-cell--main) :is${ userList }){display:none!important;}`;
+
+    // https://github.com/J3ekir/The-Blocker/commit/03d6569c44318ee1445049faba4e268ade3b79aa
+    var avatarCSS = `:is(#theBlocker, a[data-user-id="${ settings["avatar"].join(`"],a[data-user-id="`) }"])>img{display:none;}`;
+    var signatureCSS = `.message-signature:has(.js-userSignature-${ settings["signature"].join(`,.js-userSignature-`) }){display:none;}`;
+
+    var miscCSS = `:is(${ Object.keys(KEYS.misc)
+        .filter(key => settings[key])
+        .map(key => KEYS.misc[key])
+        .join()
+        }){display:none!important;}`;
+
+    var CSS = `${ quoteCSS }${ userCSS }${ avatarCSS }${ signatureCSS }${ miscCSS }`;
+
+    await chrome.storage.local.set({
+        CSS: CSS,
+    });
+
+    console.timeEnd("setCSS");
 }
 
 /****************************************************************************************/

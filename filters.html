@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <title data-i18n="filtersTitle"></title>
+    <title>Filteler - The Blocker</title>
 
     <link rel="stylesheet" type="text/css" href="codemirror/lib/codemirror.css">
     <link rel="stylesheet" type="text/css" href="codemirror/addon/fold/foldgutter.css">
@@ -15,30 +15,42 @@
 </head>
 
 <body>
-    <p>
+    <p id="buttons">
         <button id="applyButton" disabled>
-            <svg id="buttonIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path d="M181 413c-8.2 0-16.4-3.1-22.6-9.4l-100-100c-12.5-12.5-12.5-32.8 0-45.3 12.5-12.5 32.8-12.5 45.3 0l77.4 77.4 227.4-227.4c12.5-12.5 32.8-12.5 45.3 0 12.5 12.5 12.5 32.8 0 45.3l-250 250c-6.4 6.3-14.6 9.4-22.8 9.4z" />
-
-                <!-- <polygon points="181,426.3 58.4,303.6 103.6,258.4 181,335.7 408.4,108.4 453.6,153.6" /> -->
-
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path></path>
             </svg>
-            <span id="buttonText" data-i18n="filtersApplyButton"></span>
+            <span>Değişiklikleri uygula</span>
         </button>
+        <!-- <button id="importButton">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path></path>
+            </svg>
+            <span>İçe aktar</span>
+        </button>
+        <button id="exportButton">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path></path>
+            </svg>
+            <span>Dışa aktar</span>
+        </button> -->
     </p>
 
     <div id="editors">
         <div class="editorWrapper">
-            <span class="editorTitle" data-i18n="filtersTitleUser"></span>
-            <div id="userEditor" class="codeMirrorContainer codeMirrorBreakAll cm-theme-override" spellcheck="false"></div>
+            <span class="editorTitle">Kullanıcı</span>
+            <div id="userEditor" class="codeMirrorContainer codeMirrorBreakAll cm-theme-override" spellcheck="false">
+            </div>
         </div>
         <div class="editorWrapper">
-            <span class="editorTitle" data-i18n="filtersTitleAvatar"></span>
-            <div id="avatarEditor" class="codeMirrorContainer codeMirrorBreakAll cm-theme-override" spellcheck="false"></div>
+            <span class="editorTitle">Avatar</span>
+            <div id="avatarEditor" class="codeMirrorContainer codeMirrorBreakAll cm-theme-override" spellcheck="false">
+            </div>
         </div>
         <div class="editorWrapper">
-            <span class="editorTitle" data-i18n="filtersTitleSignature"></span>
-            <div id="signatureEditor" class="codeMirrorContainer codeMirrorBreakAll cm-theme-override" spellcheck="false"></div>
+            <span class="editorTitle">İmza</span>
+            <div id="signatureEditor" class="codeMirrorContainer codeMirrorBreakAll cm-theme-override"
+                spellcheck="false"></div>
         </div>
     </div>
 
@@ -48,8 +60,6 @@
     <script src="codemirror/addon/fold/foldgutter.js"></script>
 
     <script src="js/dom.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/i18n.js"></script>
     <script src="js/filters.js" type="module"></script>
 </body>
 

@@ -1,30 +1,16 @@
-var types;
+chrome.storage.local.get().then(settings => {
+    dom.text("#userCount", settings["userCount"]);
+    dom.text("#avatarCount", settings["avatarCount"]);
+    dom.text("#signatureCount", settings["signatureCount"]);
+});
 
-init();
-
-async function init() {
-    await storage.init();
-    i18n.setData();
-    
-    types = {
-        "userCount": qs("#userValue"),
-        "avatarCount": qs("#avatarValue"),
-        "signatureCount": qs("#signatureValue"),
-    };
-
-    setValues();
-}
-
-chrome.storage.onChanged.addListener((changes, areaName) => {
+chrome.storage.onChanged.addListener(changes => {
     Object.keys(changes).forEach(key => {
-        if (Object.keys(types).includes(key)) {
-            types[key].textContent = changes[key].newValue;
+        switch (key) {
+            case "userCount":
+            case "avatarCount":
+            case "signatureCount":
+                dom.text(`#${ key }`, changes[key].newValue);
         }
     });
 });
-
-function setValues() {
-    Object.keys(types).forEach(key => {
-        types[key].textContent = storage.settings[key];
-    });
-}

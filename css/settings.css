@@ -16,7 +16,6 @@ hr {
 }
 
 input {
-    /* color-scheme: dark; */
     height: 16px;
     margin-right: 10px;
     width: 16px;
@@ -28,15 +27,8 @@ label {
     width: fit-content;
 }
 
-select {
-    font-family: "Segoe UI";
-    margin-top: 8px;
-    padding: 2px;
-    width: fit-content;
-}
-
 span {
-    font-family: "Segoe UI";
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 24px;
     font-weight: 300;
     position: relative;
@@ -45,24 +37,20 @@ span {
 
 @media (prefers-color-scheme: dark) {
     body {
-        background-color: rgb(var(--gray-10));
+        background-color: var(--gray-10);
     }
 
     hr {
-        border-top-color: rgb(var(--gray-25));
-    }
-
-    select {
-        color-scheme: dark;
+        border-top-color: var(--gray-25);
     }
 
     span {
-        color: rgb(var(--blue-30));
+        color: var(--blue-30);
     }
 }
 
 @media (prefers-color-scheme: light) {
     hr {
-        border-top-color: rgb(var(--gray-50));
+        border-top-color: var(--gray-50);
     }
 }

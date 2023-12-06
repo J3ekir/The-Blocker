@@ -1,222 +1,330 @@
-const buttonArray = ["User", "Avatar", "Signature"];
-const CSS_HIDE = "theBlocker-hide";
-const CSS_SHOW = "theBlocker-show";
-
-var cloneInternal = dom.ce("div");
-cloneInternal.className = "actionBar-set actionBar-set--internal";
-
-var cloneReportButton = dom.ce("a");
-cloneReportButton.className = "actionBar-action actionBar-action--report";
-dom.attr(cloneReportButton, "data-xf-click", "overlay");
-
-self.cloneUserButton = dom.ce("a");
-var cloneSvg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
-dom.attr(cloneSvg, "viewBox", "0 0 448 512");
-cloneSvg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
-self.cloneUserButton.append(cloneSvg, dom.ce("span"));
-
-self.cloneAvatarButton = dom.clone(self.cloneUserButton);
-self.cloneSignatureButton = dom.clone(self.cloneUserButton);
-dom.attr(self.cloneSignatureButton.firstElementChild, "viewBox", "0 0 512 512");
-
-self.cloneUserButton.className = "actionBar-action actionBar-action--block userButton";
-self.cloneAvatarButton.className = "actionBar-action actionBar-action--block avatarButton";
-self.cloneSignatureButton.className = "actionBar-action actionBar-action--block signatureButton";
-
-
-init();
-
-
-async function init() {
-    await storage.init();
-
-    // ".block-body.js-replyNewMessageContainer"
-    // ".message-content"
-    waitForElementToExist(".block-outer--after").then(elem => {
-        main();
+(async () => {
+    const STR = new Proxy({
+        LANG: dom.attr("html", "lang"),
+        "en-US": {
+            userBlock: "Block",
+            avatarBlock: "Block avatar",
+            signatureBlock: "Block signature",
+            userUnblock: "-",
+            avatarUnblock: "Unblock avatar",
+            signatureUnblock: "Unblock signature",
+            report: "Report",
+        },
+        "tr-TR": {
+            userBlock: "Engelle",
+            avatarBlock: "Avatar engelle",
+            signatureBlock: "İmza engelle",
+            userUnblock: "-",
+            avatarUnblock: "Avatarı göster",
+            signatureUnblock: "İmzayı göster",
+            report: "Rapor",
+        },
+    }, {
+        get(target, prop) {
+            return typeof target[target.LANG][prop] === "string"
+                ? target[target.LANG][prop]
+                : target[target.LANG][prop].bind(target);
+        },
     });
-}
 
-async function main() {
+    const BASE = {
+        actionBar: (() => {
+            var element = dom.ce("div");
+            dom.cl.add(element, "message-actionBar actionBar");
+
+            return element;
+        })(),
+
+        internalActionBar: (() => {
+            var element = dom.ce("div");
+            dom.cl.add(element, "actionBar-set actionBar-set--internal");
+
+            return element;
+        })(),
+
+        reportButton: (() => {
+            var element = dom.ce("a");
+            dom.cl.add(element, "actionBar-action actionBar-action--report");
+            dom.text(element, STR.report);
+            dom.attr(element, "data-xf-click", "overlay");
+
+            return element;
+        })(),
+
+        userButton: (() => {
+            var svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
+            dom.attr(svg, "viewBox", "0 0 448 512");
+            svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
+
+            var text = dom.ce("span");
+            dom.text(text, STR.userBlock);
+
+            var element = dom.ce("a");
+            dom.cl.add(element, "actionBar-action actionBar-action--block");
+            dom.attr(element, "blocktype", "user");
+            element.title = STR.userBlock;
+            element.append(svg, text);
+
+            return element;
+        })(),
+
+        avatarButton: (() => {
+            var svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
+            dom.attr(svg, "viewBox", "0 0 448 512");
+            svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
+
+            var text = dom.ce("span");
+            dom.text(text, STR.avatarBlock);
+
+            var element = dom.ce("a");
+            dom.cl.add(element, "actionBar-action actionBar-action--block");
+            dom.attr(element, "blocktype", "avatar");
+            element.title = STR.avatarBlock;
+            element.append(svg, text);
+
+            return element;
+        })(),
+
+        signatureButton: (() => {
+            var svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
+            dom.attr(svg, "viewBox", "0 0 448 512");
+            svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
+
+            var text = dom.ce("span");
+            dom.text(text, STR.signatureBlock);
+
+            var element = dom.ce("a");
+            dom.cl.add(element, "actionBar-action actionBar-action--block");
+            dom.attr(element, "blocktype", "signature");
+            element.title = STR.signatureBlock;
+            element.append(svg, text);
+
+            return element;
+        })(),
+    };
+
     var postIds;
     var userIds;
     var messages;
 
-    initCloneButtons();
-    blockButtons();
-    observe();
 
-    function initCloneButtons() {
-        dom.text(cloneReportButton, i18n.get("contentScriptReportButtonText"));
+    waitForElementToExist(".block-outer--after").then(elem => {
+        main();
+    });
 
-        self.cloneUserButton.title = i18n.get("contentScriptUserButtonTitle");
-        self.cloneAvatarButton.title = i18n.get("contentScriptAvatarButtonTitle");
-        self.cloneSignatureButton.title = i18n.get("contentScriptSignatureButtonTitle");
+    async function main() {
+        var settings;
 
-        dom.text(self.cloneUserButton.lastElementChild, i18n.get("contentScriptUserButtonText"));
-        dom.text(self.cloneAvatarButton.lastElementChild, i18n.get("contentScriptAvatarButtonText"));
-        dom.text(self.cloneSignatureButton.lastElementChild, i18n.get("contentScriptSignatureButtonText"));
-    }
+        blockButtons();
+        observe();
 
-    function blockButtons() {
-        postIds = Array.from(qsa(".message-userContent.lbContainer.js-lbContainer"), node => dom.attr(node, "data-lb-id").slice(5));
-        userIds = Array.from(qsa(".message-name>:is(a, span)"), node => dom.attr(node, "data-user-id"));
-        messages = qsa(".message-actionBar.actionBar");
+        async function blockButtons() {
+            postIds = Array.from(qsa(".message-userContent.lbContainer.js-lbContainer"), node => dom.attr(node, "data-lb-id").slice(5));
+            userIds = Array.from(qsa(".message-name>:is(a, span)"), node => dom.attr(node, "data-user-id"));
+            messages = qsa(".message-actionBar.actionBar");
 
-        // if article
-        if (userIds.length === postIds.length - 1) {
-            userIds.splice(0, 0, dom.attr(".message-articleUserName>a", "data-user-id"));
+            // if article
+            if (userIds.length === postIds.length - 1) {
+                userIds.splice(0, 0, dom.attr(".message-articleUserName>a", "data-user-id"));
+            }
+
+            // report ban and reaction ban
+            if (messages.length === 0) {
+                qsa(".message-footer").forEach(elem => {
+                    elem.prepend(dom.clone(BASE.actionBar));
+                });
+
+                messages = qsa(".message-actionBar.actionBar");
+            }
+
+            settings = await chrome.storage.local.get([
+                "user",
+                "avatar",
+                "signature",
+                "userCount",
+                "avatarCount",
+                "signatureCount",
+                "settingUserButton",
+                "settingAvatarButton",
+                "settingSignatureButton",
+            ]);
+
+            messages.forEach((elem, i) => {
+                // no report and no edit
+                if (!elem.querySelector(".actionBar-set.actionBar-set--internal")) {
+                    elem.append(dom.clone(BASE.internalActionBar));
+                }
+
+                // no report
+                if (!elem.querySelector(".actionBar-action.actionBar-action--report")) {
+                    var reportButton = dom.clone(BASE.reportButton);
+                    dom.attr(reportButton, "href", `/sosyal/mesaj/${ postIds[i] }/report`);
+                    elem.lastElementChild.prepend(reportButton);
+                }
+
+                if (!elem.querySelector(".actionBar-action--block")) {
+                    elem.lastElementChild.append(...makeBlockButtons(userIds[i]));
+                }
+            });
         }
 
-        // report ban and reaction ban
-        if (messages.length === 0) {
-            var cloneActionBar = dom.ce("div");
-            cloneActionBar.className = "message-actionBar actionBar";
+        function makeBlockButtons(userId) {
+            var buttonArray = [];
 
-            qsa(".message-footer").forEach(elem => {
-                elem.prepend(dom.clone(cloneActionBar));
+            if (!userId || isSelfBlock(userId)) {
+                buttonArray.push(
+                    dom.clone(BASE.userButton),
+                    dom.clone(BASE.avatarButton),
+                    dom.clone(BASE.signatureButton),
+                );
+
+                buttonArray.forEach(elem => {
+                    dom.cl.add(elem, "theBlocker-hide");
+                });
+
+                return buttonArray;
+            }
+
+            if (settings["settingUserButton"]) {
+                var button = dom.clone(BASE.userButton);
+
+                // if userId is blocked, the user can't see the buttons
+                // if (settings["user"].includes(userId)) {
+                //     button.title = STR.userUnblock;
+                //     dom.text(button.lastElementChild, STR.userUnblock);
+                // }
+
+                dom.attr(button, "data-user-id", userId);
+                button.addEventListener("click", blockHandler);
+
+                buttonArray.push(button);
+            }
+
+            if (settings["settingAvatarButton"]) {
+                var button = dom.clone(BASE.avatarButton);
+
+                if (settings["avatar"].includes(userId)) {
+                    button.title = STR.avatarUnblock;
+                    dom.text(button.lastElementChild, STR.avatarUnblock);
+                }
+
+                dom.attr(button, "data-user-id", userId);
+                button.addEventListener("click", blockHandler);
+
+                buttonArray.push(button);
+            }
+
+            if (settings["settingSignatureButton"]) {
+                var button = dom.clone(BASE.signatureButton);
+
+                if (settings["signature"].includes(userId)) {
+                    button.title = STR.signatureUnblock;
+                    dom.text(button.lastElementChild, STR.signatureUnblock);
+                }
+
+                dom.attr(button, "data-user-id", userId);
+                button.addEventListener("click", blockHandler);
+
+                buttonArray.push(button);
+            }
+
+            return buttonArray;
+        }
+
+        async function blockHandler(event) {
+            var userId = dom.attr(event.currentTarget, "data-user-id");
+            var type = dom.attr(event.currentTarget, "blocktype");
+            var isBlocked = settings[type].includes(userId);
+
+            if (!isUserIdValid(userId)) {
+                console.log(`user ID is not a number: ${ userId }`);
+                return;
+            }
+
+            var typeCount = `${ type }Count`;
+
+            if (!isBlocked) {
+                settings[type].push(userId);
+                settings[typeCount] += 1;
+            }
+            else {
+                settings[type].splice(settings[type].indexOf(userId), 1);
+                settings[typeCount] -= 1;
+            }
+
+            chrome.storage.local.set({
+                [type]: settings[type],
+                [typeCount]: settings[typeCount],
             });
 
-            messages = qsa(".message-actionBar.actionBar");
+            console.log(`user ID: ${ userId }, ${ type } ${ isBlocked ? "unblocked" : "blocked" }`);
         }
 
-        messages.forEach((elem, i) => {
-            // no report and no edit
-            if (!elem.querySelector(".actionBar-set.actionBar-set--internal")) {
-                elem.append(dom.clone(cloneInternal));
-            }
-
-            // no report
-            if (!elem.querySelector(".actionBar-action.actionBar-action--report")) {
-                var reportButton = dom.clone(cloneReportButton);
-                dom.attr(reportButton, "href", `/sosyal/mesaj/${ postIds[i] }/report`);
-                elem.lastElementChild.prepend(reportButton);
-            }
-
-            if (!elem.querySelector(".actionBar-action--block")) {
-                elem.lastElementChild.append(...makeBlockButtons(userIds[i]));
-            }
-        });
-    }
-
-    function makeBlockButtons(userId) {
-        return buttonArray.map(elem => {
-            if (storage.settings[`settingsButtons${ elem }`]) {
-                var button = dom.clone(window[`clone${ elem }Button`]);
-
-                if (selfBlockCheck(userId)) {
-                    dom.cl.add(button, CSS_HIDE);
-                }
-                else {
-                    if (storage.settings[`${ elem.toLowerCase() }Array`].includes(userId)) {
-                        button.title = i18n.get(`contentScript${ elem }ButtonUnblockTitle`);
-                        dom.text(button.lastElementChild, i18n.get(`contentScript${ elem }ButtonUnblockText`));
-                    }
-
-                    button.addEventListener("click", blockToggle);
-                }
-
-                return button;
-            }
-        })
-            .filter(Boolean);
-    }
-
-    async function blockToggle(event) {
-        var userId = dom.attr(event.currentTarget.closest("article").querySelector("a[data-user-id]"), "data-user-id");
-        var type = event.currentTarget.classList.item(event.currentTarget.classList.length - 1).replace(/Button$/, "");
-        var typeCapital = `${ type[0].toUpperCase() }${ type.slice(1) }`;
-        var buttons = qsa(`.actionBar-action--block.${ type }Button`);
-        var query;
-
-        await storage.refresh();
-
-        switch (type) {
-            case "user":
-                query = qsa(`:is(article:has(a[data-user-id="${ userId }"]),blockquote[data-attributes="member: ${ userId }"],.block-row:has(a[data-user-id="${ userId }"]))`);
-                break;
-            case "avatar":
-                query = qsa(`a[data-user-id="${ userId }"]>img`);
-                break;
-            case "signature":
-                query = qsa(`.message-signature:has(.js-userSignature-${ userId })`);
-                break;
-            default:
-                break;
+        function isSelfBlock(userId) {
+            // if not member
+            return qs(".p-navgroup--member") && userId === dom.attr("a[href='/sosyal/hesap/']>span", "data-user-id");
         }
 
-        var isBlocked = storage.settings[`${ type }Array`].includes(userId);
-        var blockFunction = isBlocked ? unblock : block;
-        var title = isBlocked
-            ? i18n.get(`contentScript${ typeCapital }ButtonTitle`)
-            : i18n.get(`contentScript${ typeCapital }ButtonUnblockTitle`);
-        var textContent = isBlocked
-            ? i18n.get(`contentScript${ typeCapital }ButtonText`)
-            : i18n.get(`contentScript${ typeCapital }ButtonUnblockText`);
+        function isUserIdValid(userId) {
+            return userId && /^\d+$/.test(userId);
+        }
 
-        blockFunction(type, userId);
+        chrome.storage.onChanged.addListener(async changes => {
+            Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+                switch (key) {
+                    case "user":
+                    case "avatar":
+                    case "signature":
+                        settings[key] = newValue;
+                        settings[`${ key }Count`] = newValue.length;
 
-        query.forEach(elem => {
-            dom.cl.toggle(elem, CSS_HIDE, !isBlocked);
-            dom.cl.toggle(elem, CSS_SHOW, isBlocked);
+                        var isBlock = newValue.length > oldValue.length;
+                        var userId = isBlock ? newValue.at(-1) : oldValue.at(-1);
+                        toggleButtonTexts(isBlock, userId, key);
+                }
+            });
         });
 
-        userIds.forEach((elem, i) => {
-            if (elem === userId) {
-                buttons[i].title = title;
-                dom.text(buttons[i].lastElementChild, textContent);
+        function toggleButtonTexts(isBlock, userId, key) {
+            var newText;
+
+            switch (key.length << isBlock) {
+                case 4 << 0: newText = STR.userBlock; break;
+                case 6 << 0: newText = STR.avatarBlock; break;
+                case 9 << 0: newText = STR.signatureBlock; break;
+                case 4 << 1: newText = STR.userUnblock; break;
+                case 6 << 1: newText = STR.avatarUnblock; break;
+                case 9 << 1: newText = STR.signatureUnblock; break;
             }
-        });
-    }
 
-    function block(buttonType, userId) {
-        chrome.runtime.sendMessage({
-            type: "block",
-            buttonType: buttonType,
-            userId: userId,
-        });
-    }
+            qsa(`[data-user-id="${ userId }"][blocktype="${ key }"]`).forEach(elem => {
+                dom.text(elem.lastElementChild, newText);
+                elem.title = newText;
+            });
+        }
 
-    function unblock(buttonType, userId) {
-        chrome.runtime.sendMessage({
-            type: "unblock",
-            buttonType: buttonType,
-            userId: userId,
-        });
-    }
-
-    function selfBlockCheck(userId) {
-        // if not member
-        return qs(".p-navgroup--member") && userId === dom.attr(`a[href="/sosyal/hesap/"]>span`, "data-user-id");
-    }
-
-    async function observe() {
-        // const targetNode = qs(".p-body-pageContent");
-        // ".block-body.js-replyNewMessageContainer"
-        const targetNode = qs(".block.block--messages");
-        new MutationObserver(async (mutationList, observer) => {
-            for (const mutation of mutationList) {
-                if (mutation.type === "childList") {
+        async function observe() {
+            waitForElementToExist(".block.block--messages[data-href]").then(elem => {
+                new MutationObserver(async _ => {
                     blockButtons();
-                    break;
-                }
-            }
-        })
-            .observe(targetNode, { childList: true, subtree: true });
-    }
-}
-
-function waitForElementToExist(selector) {
-    return new Promise(resolve => {
-        if (document.querySelector(selector)) {
-            return resolve(document.querySelector(selector));
+                })
+                    .observe(elem, { childList: true, subtree: true });
+            });
         }
-        new MutationObserver((_, observer) => {
+    }
+
+    function waitForElementToExist(selector) {
+        return new Promise(resolve => {
             if (document.querySelector(selector)) {
-                observer.disconnect();
                 return resolve(document.querySelector(selector));
             }
-        })
-            .observe(document, { childList: true, subtree: true });
-    });
-}
+            new MutationObserver((_, observer) => {
+                if (document.querySelector(selector)) {
+                    observer.disconnect();
+                    return resolve(document.querySelector(selector));
+                }
+            })
+                .observe(document, { childList: true, subtree: true });
+        });
+    }
+})();

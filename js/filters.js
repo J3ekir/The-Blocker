@@ -1,119 +1,126 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
-var codeMirrorOptions = {
+const codeMirrorOptions = {
     autofocus: true,
     foldGutter: true,
-    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+    gutters: ["CodeMirror-foldgutter", "CodeMirror-linenumbers"],
     lineNumbers: true,
     lineWiseCopyCut: true,
     lineWrapping: true,
     mode: "text/plain",
-    styleActiveLine: {
-        nonEmpty: true,
-    },
+    styleActiveLine: { nonEmpty: true },
 };
 
-var types = {
-    "userArray": "user",
-    "avatarArray": "avatar",
-    "signatureArray": "signature",
+const editors = {
+    user: new CodeMirror(qs("#userEditor"), codeMirrorOptions),
+    avatar: new CodeMirror(qs("#avatarEditor"), codeMirrorOptions),
+    signature: new CodeMirror(qs("#signatureEditor"), codeMirrorOptions),
 };
 
-
-
-// var types = ["userArray", "avatarArray", "signatureArray"];
-
-var cache = {
+const cache = {
     user: "",
     avatar: "",
     signature: "",
 };
 
-self.userEditor = new CodeMirror(qs("#userEditor"), codeMirrorOptions);
-self.avatarEditor = new CodeMirror(qs("#avatarEditor"), codeMirrorOptions);
-self.signatureEditor = new CodeMirror(qs("#signatureEditor"), codeMirrorOptions);
-var saveButton = qs("#applyButton");
+const buttons = {
+    save: qs("#applyButton"),
+    import: qs("#importButton"),
+    export: qs("#exportButton"),
+};
+
 
 init();
 
 
 async function init() {
-    storage = window.parent.storage;
-    i18n.setData();
     parent.postMessage({
         type: "title",
         title: document.title,
     }, "*");
 
-
     await setEditorText();
     setEditorFocuses();
-    functions([setEditorEmptyLines, setEditorCursors, setEditorChanges]);
-    self.userEditor.focus();
-    editors(clearHistory);
+    setEditorEmptyLines();
+    setEditorCursors();
+    setEditorChanges();
+    editors.user.focus();
+    clearHistory();
 }
 
 async function setEditorText() {
-    let result = await storage.get(Object.keys(types));
+    var settings = await chrome.storage.local.get([
+        "user",
+        "avatar",
+        "signature",
+    ]);
 
-    cache.user = result["userArray"].join("\n");
-    cache.avatar = result["avatarArray"].join("\n");
-    cache.signature = result["signatureArray"].join("\n");
+    cache.user = settings["user"].join("\n");
+    cache.avatar = settings["avatar"].join("\n");
+    cache.signature = settings["signature"].join("\n");
 
-    self.userEditor.setValue(cache.user);
-    self.avatarEditor.setValue(cache.avatar);
-    self.signatureEditor.setValue(cache.signature);
+    editors.user.setValue(cache.user);
+    editors.avatar.setValue(cache.avatar);
+    editors.signature.setValue(cache.signature);
 }
 
 function setEditorFocuses() {
-    self.userEditor.setOption("extraKeys", {
+    editors.user.setOption("extraKeys", {
         Tab: function (cm) {
-            self.avatarEditor.focus();
+            editors.avatar.focus();
         }
     });
-    self.avatarEditor.setOption("extraKeys", {
+
+    editors.avatar.setOption("extraKeys", {
         Tab: function (cm) {
-            self.signatureEditor.focus();
+            editors.signature.focus();
         }
     });
-    self.signatureEditor.setOption("extraKeys", {
+
+    editors.signature.setOption("extraKeys", {
         Tab: function (cm) {
-            if (saveButton.disabled) {
-                self.userEditor.focus();
+            if (buttons.save.disabled) {
+                editor.user.focus();
             }
             else {
-                saveButton.focus();
+                buttons.save.focus();
             }
         }
     });
 }
 
-function functions(array) {
-    array.forEach(editors);
-}
-
-function editors(func) {
-    func(self.userEditor);
-    func(self.avatarEditor);
-    func(self.signatureEditor);
-}
-
-function setEditorEmptyLines(editor) {
-    if (editor.getLine(editor.lastLine()).length !== 0) {
-        editor.replaceRange("\n", CodeMirror.Pos(editor.lastLine()));
+function setEditorEmptyLines() {
+    if (editors.user.getLine(editors.user.lastLine()).length !== 0) {
+        editors.user.replaceRange("\n", CodeMirror.Pos(editors.user.lastLine()));
+    }
+    if (editors.avatar.getLine(editors.avatar.lastLine()).length !== 0) {
+        editors.avatar.replaceRange("\n", CodeMirror.Pos(editors.avatar.lastLine()));
+    }
+    if (editors.signature.getLine(editors.signature.lastLine()).length !== 0) {
+        editors.signature.replaceRange("\n", CodeMirror.Pos(editors.signature.lastLine()));
     }
 }
 
-function setEditorCursors(editor) {
-    editor.setCursor(editor.lineCount(), 0);
+function setEditorCursors() {
+    editors.user.setCursor(editors.user.lineCount(), 0);
+    editors.avatar.setCursor(editors.avatar.lineCount(), 0);
+    editors.signature.setCursor(editors.signature.lineCount(), 0);
 }
 
-function setEditorChanges(editor) {
-    editor.on("beforeChange", beforeFiltersChanged);
-    editor.on("changes", filtersChanged);
+function setEditorChanges() {
+    editors.user.on("beforeChange", beforeFiltersChanged);
+    editors.user.on("changes", filtersChanged);
+
+    editors.avatar.on("beforeChange", beforeFiltersChanged);
+    editors.avatar.on("changes", filtersChanged);
+
+    editors.signature.on("beforeChange", beforeFiltersChanged);
+    editors.signature.on("changes", filtersChanged);
 }
 
-function clearHistory(editor) {
-    editor.clearHistory();
+function clearHistory() {
+    editors.user.clearHistory();
+    editors.avatar.clearHistory();
+    editors.signature.clearHistory();
 }
 
 function beforeFiltersChanged(instance, changeObj) {
@@ -124,36 +131,42 @@ function beforeFiltersChanged(instance, changeObj) {
 
 function filtersChanged(changed) {
     if (
-        cache.user === getEditorText(self.userEditor) &&
-        cache.avatar === getEditorText(self.avatarEditor) &&
-        cache.signature === getEditorText(self.signatureEditor)
+        cache.user === getEditorText(editors.user) &&
+        cache.avatar === getEditorText(editors.avatar) &&
+        cache.signature === getEditorText(editors.signature)
     ) {
-        saveButton.disabled = true;
+        buttons.save.disabled = true;
         return;
     }
 
-    saveButton.disabled = !changed;
+    buttons.save.disabled = !changed;
 }
 
-chrome.storage.onChanged.addListener((changes, areaName) => {
-    Object.keys(changes).forEach(key => {
-        if (types.hasOwnProperty(key)) {
-            const cacheKey = types[key];
-            storageChangeHandler(changes[key].newValue, window[`${ cacheKey }Editor`], cacheKey);
+chrome.storage.onChanged.addListener(changes => {
+    Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+        switch (key) {
+            case "user":
+            case "avatar":
+            case "signature":
+                storageChangeHandler(key, newValue);
         }
     });
 });
 
-function storageChangeHandler(newValue, editor, cacheKey) {
-    cache[cacheKey] = newValue.join("\n");
-    editor.setValue(cache[cacheKey]);
-    setEditorEmptyLines(editor);
-    setEditorCursors(editor);
-    editor.focus();
+function storageChangeHandler(key, newValue) {
+    cache[key] = newValue.join("\n");
+    editors[key].setValue(cache[key]);
+
+    if (editors[key].getLine(editors[key].lastLine()).length !== 0) {
+        editors[key].replaceRange("\n", CodeMirror.Pos(editors[key].lastLine()));
+    }
+
+    editors[key].setCursor(editors[key].lineCount(), 0);
+    editors[key].focus();
 }
 
 window.addEventListener("beforeunload", event => {
-    if (saveButton.disabled) {
+    if (buttons.save.disabled) {
         return;
     }
 
@@ -171,46 +184,39 @@ document.addEventListener("keydown", event => {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
         event.preventDefault();
 
-        if (!saveButton.disabled) {
-            saveButton.click();
+        if (!buttons.save.disabled) {
+            buttons.save.click();
         }
     }
 });
 
-saveButton.addEventListener("click", async event => {
+buttons.save.addEventListener("click", async event => {
     await saveEditorText();
-    editors(clearHistory);
-    saveButton.disabled = true;
+    clearHistory();
+    buttons.save.disabled = true;
 });
 
 async function saveEditorText() {
-    var userText = getEditorText(self.userEditor);
-    var avatarText = getEditorText(self.avatarEditor);
-    var signatureText = getEditorText(self.signatureEditor);
+    var userText = getEditorText(editors.user);
+    var avatarText = getEditorText(editors.avatar);
+    var signatureText = getEditorText(editors.signature);
 
     cache.user = userText;
     cache.avatar = avatarText;
     cache.signature = signatureText;
 
-    var userArray = userText.length === 0 ? [] : userText.split("\n");
-    var avatarArray = avatarText.length === 0 ? [] : avatarText.split("\n");
-    var signatureArray = signatureText.length === 0 ? [] : signatureText.split("\n");
+    var user = userText === "" ? [] : userText.split("\n");
+    var avatar = avatarText === "" ? [] : avatarText.split("\n");
+    var signature = signatureText === "" ? [] : signatureText.split("\n");
 
-    var userCount = userArray.length;
-    var avatarCount = avatarArray.length;
-    var signatureCount = signatureArray.length;
-
-    await storage.set({
-        userArray: userArray,
-        avatarArray: avatarArray,
-        signatureArray: signatureArray,
-        userCount: userCount,
-        avatarCount: avatarCount,
-        signatureCount: signatureCount,
+    chrome.storage.local.set({
+        user: user,
+        avatar: avatar,
+        signature: signature,
+        userCount: user.length,
+        avatarCount: avatar.length,
+        signatureCount: signature.length,
     });
-
-    var CSS = await storage.setCSS();
-    console.log(`CSS: ${ CSS }`);
 }
 
 function getEditorText(editor) {

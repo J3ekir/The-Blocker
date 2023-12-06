@@ -13,7 +13,7 @@ body {
 
 span {
     display: block;
-    font-family: "Segoe UI";
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
     text-align: center;
     white-space: nowrap;
@@ -21,11 +21,11 @@ span {
 
 @media (prefers-color-scheme: dark) {
     body {
-        background-color: rgb(var(--gray-10));
+        background-color: var(--gray-10);
     }
-    
+
     span {
-        color: rgb(var(--blue-30));
+        color: var(--blue-30);
     }
 }
 

@@ -1,7 +1,12 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
-#buttonText {
-    position: relative;
-    top: -1px;
+#applyButton path {
+    d: path("M173.7 417.1c-6.1 0-12.3-2.3-17-7l-109.7-109.7c-9.4-9.4-9.4-24.6 0-33.9 9.4-9.4 24.6-9.4 33.9 0l92.7 92.7 257.4-257.3c9.4-9.4 24.6-9.4 33.9 0 9.4 9.4 9.4 24.6 0 33.9l-274.2 274.3c-4.7 4.7-10.8 7-17 7z");
+}
+
+#buttons {
+    display: flex;
+    gap: 10px;
+    margin: 8px;
 }
 
 #editors {
@@ -9,8 +14,15 @@
     display: flex;
     flex: 1;
     justify-content: space-around;
-    /* justify-content: space-evenly; */
     width: 100%;
+}
+
+#exportButton path {
+    d: path("M448 472h-384c-13.3 0-24-10.7-24-24v-128c0-13.3 10.7-24 24-24s24 10.7 24 24v104h336v-104c0-13.3 10.7-24 24-24s24 10.7 24 24v128c0 13.3-10.7 24-24 24zM386.1 160.2l-113.1-113.2 0 0c-4.3-4.3-10.3-7-17-7s-12.6 2.7-17 7l0 0-113.1 113.2c-9.4 9.4-9.4 24.6 0 33.9 4.7 4.7 10.8 7 17 7s12.3-2.3 17-7l72.2-72.2v198.1c0 13.3 10.7 24 24 24s24-10.7 24-24v-198.1l72.2 72.2c4.7 4.7 10.8 7 17 7 6.1 0 12.3-2.3 17-7 9.2-9.4 9.2-24.6-.2-33.9z");
+}
+
+#importButton path {
+    d: path("M448 472h-384c-13.3 0-24-10.7-24-24v-128c0-13.3 10.7-24 24-24s24 10.7 24 24v104h336v-104c0-13.3 10.7-24 24-24s24 10.7 24 24v128c0 13.3-10.7 24-24 24zM386.1 189.9c-9.4-9.4-24.6-9.4-33.9 0l-72.2 72.2v-198.1c0-13.3-10.7-24-24-24s-24 10.7-24 24v198.1l-72.2-72.2c-9.4-9.4-24.6-9.4-33.9 0-9.4 9.4-9.4 24.6 0 33.9l113.1 113.2 0 0c4.3 4.3 10.3 7 17 7s12.6-2.7 17-7l0 0 113.1-113.1c9.4-9.4 9.4-24.6 0-34z");
 }
 
 .CodeMirror,
@@ -30,11 +42,11 @@
 }
 
 .editorTitle {
-    font-family: "Segoe UI";
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 36px;
     font-weight: 500;
     letter-spacing: 0.5px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 .editorWrapper {
@@ -60,10 +72,10 @@ button {
     border: none;
     border-radius: 5px;
     display: inline-flex;
-    font-family: "Segoe UI";
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
     font-weight: 500;
-    margin: 0px 8px;
+    gap: 5px;
     padding: 8px 16px;
 }
 
@@ -74,25 +86,24 @@ button[disabled] {
 
 svg {
     height: 20px;
-    margin-right: 5px;
 }
 
 @media (prefers-color-scheme: dark) {
     .cm-theme-override .cm-s-default .CodeMirror-line {
-        color: rgb(var(--gray-90));
+        color: var(--gray-90);
     }
 
     .CodeMirror,
     .codeMirrorContainer {
-        background-color: rgb(var(--gray-5));
+        background-color: var(--gray-5);
     }
 
     .CodeMirror-activeline-background {
-        background-color: rgb(var(--gray-20));
+        background-color: var(--gray-20);
     }
 
     .CodeMirror-cursor {
-        border-left-color: rgb(var(--gray-95));
+        border-left-color: var(--gray-95);
     }
 
     .CodeMirror-focused .CodeMirror-selected {
@@ -100,12 +111,12 @@ svg {
     }
 
     .CodeMirror-gutters {
-        background-color: rgb(var(--gray-20));
-        border-color: rgb(var(--gray-10));
+        background-color: var(--gray-20);
+        border-color: var(--gray-10);
     }
 
     .CodeMirror-linenumber {
-        color: rgba(var(--gray-90), 0.6);
+        color: var(--gray-90-06);
     }
 
     .CodeMirror-selected {
@@ -113,33 +124,33 @@ svg {
     }
 
     .editorTitle {
-        color: rgb(var(--blue-30));
+        color: var(--blue-30);
     }
 
     body {
-        background-color: rgb(var(--gray-10));
+        background-color: var(--gray-10);
     }
 
     button {
-        background-color: rgb(var(--blue-30));
-        color: rgb(var(--gray-5));
+        background-color: var(--blue-30);
+        color: var(--gray-5);
     }
 
     button:hover {
-        background-color: rgb(var(--blue-30), 0.8);
+        background-color: var(--blue-30-08);
     }
 
     button[disabled] {
-        background-color: rgb(var(--gray-30));
-        color: rgb(var(--gray-95));
+        background-color: var(--gray-30);
+        color: var(--gray-95);
     }
 
     button[disabled] > svg {
-        fill: rgb(var(--gray-95));
+        fill: currentColor;
     }
 
     svg {
-        fill: rgb(var(--gray-5));
+        fill: currentColor;
     }
 }
 
@@ -157,24 +168,24 @@ svg {
     }
 
     button {
-        background-color: rgb(var(--blue-60));
-        color: rgb(var(--gray-95));
+        background-color: var(--blue-60);
+        color: var(--gray-95);
     }
 
     button:hover {
-        background-color: rgb(var(--blue-50));
+        background-color: var(--blue-50);
     }
 
     button[disabled] {
-        background-color: rgb(var(--gray-80));
-        color: rgb(var(--gray-5));
+        background-color: var(--gray-80);
+        color: var(--gray-5);
     }
 
     button[disabled] > svg {
-        fill: rgb(var(--gray-5));
+        fill: currentColor;
     }
 
     svg {
-        fill: rgb(var(--gray-95));
+        fill: currentColor;
     }
 }

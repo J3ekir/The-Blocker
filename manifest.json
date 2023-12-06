@@ -1,14 +1,14 @@
 {
     "action": {
         "default_icon": {
-            "16": "img/icon_dark_16.png",
-            "32": "img/icon_dark_32.png",
-            "48": "img/icon_dark_48.png",
-            "64": "img/icon_dark_64.png",
-            "128": "img/icon_dark_128.png"
+            "16": "img/icon_16.png",
+            "32": "img/icon_32.png",
+            "48": "img/icon_48.png",
+            "64": "img/icon_64.png",
+            "128": "img/icon_128.png"
         },
         "default_popup": "popup.html",
-        "default_title": "__MSG_extensionName__"
+        "default_title": "The Blocker"
     },
     "author": "Vavien.",
     "background": {
@@ -20,7 +20,9 @@
                 "https://www.technopat.net/sosyal/*"
             ],
             "js": [
-                "js/injectCSS.js"
+                "js/injectCSS.js",
+                "js/dom.js",
+                "js/tooltip.js"
             ],
             "run_at": "document_start"
         },
@@ -30,9 +32,7 @@
             ],
             "js": [
                 "js/dom.js",
-                "js/storage.js",
-                "js/i18n.js",
-                "js/tabHandler.js"
+                "js/widgetTabs.js"
             ],
             "run_at": "document_start"
         },
@@ -42,74 +42,33 @@
             ],
             "js": [
                 "js/dom.js",
-                "js/storage.js",
-                "js/i18n.js",
                 "js/contentScript.js"
             ],
             "run_at": "document_start"
-        },
-        {
-            "matches": [
-                "https://www.technopat.net/sosyal/uye/*"
-            ],
-            "js": [
-                "js/dom.js",
-                "js/storage.js",
-                "js/i18n.js",
-                "js/notesProfile.js"
-            ],
-            "run_at": "document_start"
-        },
-        {
-            "matches": [
-                "https://www.technopat.net/sosyal/*"
-            ],
-            "exclude_matches": [
-                "https://www.technopat.net/sosyal/",
-                "https://www.technopat.net/sosyal/konu/*",
-                "https://www.technopat.net/sosyal/uye/*"
-            ],
-            "js": [
-                "js/dom.js",
-                "js/storage.js",
-                "js/i18n.js"
-            ],
-            "run_at": "document_start"
-        },
-        {
-            "matches": [
-                "https://www.technopat.net/sosyal/*"
-            ],
-            "js": [
-                "js/notes.js"
-            ],
-            "run_at": "document_end"
         }
     ],
-    "default_locale": "tr",
-    "description": "__MSG_extensionDescription__",
+    "description": "technopat.net/sosyal için RESMİ OLMAYAN kullanıcı, avatar ve imza \"engelleyici\"",
     "homepage_url": "https://github.com/J3ekir/The-Blocker",
     "host_permissions": [ "https://www.technopat.net/sosyal/*" ],
     "icons": {
-        "16": "img/icon_dark_16.png",
-        "32": "img/icon_dark_32.png",
-        "48": "img/icon_dark_48.png",
-        "64": "img/icon_dark_64.png",
-        "128": "img/icon_dark_128.png"
+        "16": "img/icon_16.png",
+        "32": "img/icon_32.png",
+        "48": "img/icon_48.png",
+        "64": "img/icon_64.png",
+        "128": "img/icon_128.png"
     },
     "manifest_version": 3,
-    "name": "__MSG_extensionName__",
+    "name": "The Blocker",
     "options_ui": {
         "open_in_tab": true,
         "page": "options.html"
     },
     "permissions": [
-        "offscreen",
         "scripting",
         "storage",
         "unlimitedStorage"
     ],
-    "version": "0.0.7",
+    "version": "0.0.8",
     "web_accessible_resources": [
         {
             "matches": [ ],

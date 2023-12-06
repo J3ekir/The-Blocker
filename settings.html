@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <title data-i18n="settingsTitle"></title>
+    <title>Ayarlar - The Blocker</title>
 
     <link rel="stylesheet" type="text/css" href="css/colors.css">
     <link rel="stylesheet" type="text/css" href="css/settings.css">
@@ -13,148 +13,110 @@
 
 <body>
     <div class="fieldset">
-        <span class="fieldset-header" data-i18n="settingsLanguage"></span>
-        <select id="language">
-            <option value="en" data-i18n="settingsLanguageEnglish"></option>
-            <option value="tr" data-i18n="settingsLanguageTurkish"></option>
-        </select>
-    </div>
-    <hr>
-    <div class="fieldset">
-        <span class="fieldset-header" data-i18n="settingsButtons"></span>
+        <span class="fieldset-header">Ek özellikler</span>
         <label>
-            <input type="checkbox" data-setting-name="settingsButtonsUser">
-            <span data-i18n="settingsButtonsUser"></span>
+            <input type="checkbox" data-setting-name="settingNotes">
+            <span>Notlar</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsButtonsAvatar">
-            <span data-i18n="settingsButtonsAvatar"></span>
+            <input type="checkbox" data-setting-name="settingAddBottomTabButtons">
+            <span>Ana sayfa widget sekmelerine alt butonları ekle</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsButtonsSignature">
-            <span data-i18n="settingsButtonsSignature"></span>
+            <input type="checkbox" data-setting-name="settingCombineTabPanes">
+            <span>Ana sayfa yeni konular ve yeni mesajlar sekmelerini birleştir</span>
         </label>
     </div>
     <hr>
     <div class="fieldset">
-        <span class="fieldset-header" data-i18n="settingsUsers"></span>
+        <span class="fieldset-header">Butonlar</span>
         <label>
-            <input type="checkbox" data-setting-name="settingsPostsOnThreads">
-            <span data-i18n="settingsPostsOnThreads"></span>
+            <input type="checkbox" data-setting-name="settingUserButton">
+            <span>Kullanıcı</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsNewThreadsPostsHome">
-            <span data-i18n="settingsNewThreadsPostsHome"></span>
+            <input type="checkbox" data-setting-name="settingAvatarButton">
+            <span>Avatar</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsNewThreadsPostsSidebar">
-            <span data-i18n="settingsNewThreadsPostsSidebar"></span>
-        </label>
-        <label>
-            <input type="checkbox" data-setting-name="settingsNotifications">
-            <span data-i18n="settingsNotifications"></span>
-        </label>
-        <label>
-            <input type="checkbox" data-setting-name="settingsProfilePosts">
-            <span data-i18n="settingsProfilePosts"></span>
-        </label>
-        <label>
-            <input type="checkbox" data-setting-name="settingsProfilePostComments">
-            <span data-i18n="settingsProfilePostComments"></span>
-        </label>
-        <label>
-            <input type="checkbox" data-setting-name="settingsLatestOnNewThreadsPosts">
-            <span data-i18n="settingsLatestOnNewThreadsPosts"></span>
-        </label>
-        <label>
-            <input type="checkbox" data-setting-name="settingsLatestOnCategoryNames">
-            <span data-i18n="settingsLatestOnCategoryNames"></span>
-        </label>
-        <label>
-            <input type="checkbox" data-setting-name="settingsQuotes">
-            <span data-i18n="settingsQuotes"></span>
-        </label>
-        <label>
-            <input type="checkbox" data-setting-name="settingsAvatars">
-            <span data-i18n="settingsAvatars"></span>
-        </label>
-        <label>
-            <input type="checkbox" data-setting-name="settingsSignatures">
-            <span data-i18n="settingsSignatures"></span>
+            <input type="checkbox" data-setting-name="settingSignatureButton">
+            <span>İmza</span>
         </label>
     </div>
     <hr>
     <div class="fieldset">
-        <span class="fieldset-header" data-i18n="settingsMiscellaneous"></span>
+        <span class="fieldset-header">Kullanıcılar</span>
         <label>
-            <input type="checkbox" data-setting-name="settingsSidebarShareThisPage">
-            <span data-i18n="settingsSidebarShareThisPage"></span>
+            <input type="checkbox" data-setting-name="settingNotifications">
+            <span>Bildirimler</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsSidebarMembersOnline">
-            <span data-i18n="settingsSidebarMembersOnline"></span>
+            <input type="checkbox" data-setting-name="settingProfilePosts">
+            <span>Profil mesajları</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsSidebarRandomBlogEntries">
-            <span data-i18n="settingsSidebarRandomBlogEntries"></span>
+            <input type="checkbox" data-setting-name="settingProfilePostComments">
+            <span>Profil mesajı yorumları</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsSidebarLatestResources">
-            <span data-i18n="settingsSidebarLatestResources"></span>
+            <input type="checkbox" data-setting-name="settingQuotes">
+            <span>Alıntılar</span>
+        </label>
+    </div>
+    <hr>
+    <div class="fieldset">
+        <span class="fieldset-header">Çeşitli</span>
+        <label>
+            <input type="checkbox" data-setting-name="settingSidebarShareThisPage">
+            <span>Kenar çubuğu bu sayfayı paylaş</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsNavigationBlogs">
-            <span data-i18n="settingsNavigationBlogs"></span>
+            <input type="checkbox" data-setting-name="settingSidebarMembersOnline">
+            <span>Kenar çubuğu çevrim içi üyeler</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsNavigationQuestions">
-            <span data-i18n="settingsNavigationQuestions"></span>
+            <input type="checkbox" data-setting-name="settingSidebarRandomBlogEntries">
+            <span>Kenar çubuğu rastgele blog girdileri</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsNavigationVideos">
-            <span data-i18n="settingsNavigationVideos"></span>
+            <input type="checkbox" data-setting-name="settingSidebarLatestResources">
+            <span>Kenar çubuğu yeni yazılımlar</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsNavigationAdvices">
-            <span data-i18n="settingsNavigationAdvices"></span>
+            <input type="checkbox" data-setting-name="settingNavigationBlogs">
+            <span>Navigasyon blog</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsNavigationSponsor">
-            <span data-i18n="settingsNavigationSponsor"></span>
+            <input type="checkbox" data-setting-name="settingNavigationQuestions">
+            <span>Navigasyon sorular</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsNavigationMedia">
-            <span data-i18n="settingsNavigationMedia"></span>
+            <input type="checkbox" data-setting-name="settingNavigationVideos">
+            <span>Navigasyon videolar</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsShowIgnoredContent">
-            <span data-i18n="settingsShowIgnoredContent"></span>
+            <input type="checkbox" data-setting-name="settingNavigationAdvices">
+            <span>Navigasyon tavsiyeler</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsHideThisUsersSignature">
-            <span data-i18n="settingsHideThisUsersSignature"></span>
+            <input type="checkbox" data-setting-name="settingNavigationMedia">
+            <span>Navigasyon medya</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsXenforoFooter">
-            <span data-i18n="settingsXenforoFooter"></span>
+            <input type="checkbox" data-setting-name="settingShowIgnoredContent">
+            <span>Göz ardı edilen içeriği göster</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsBottomWidget">
-            <span data-i18n="settingsBottomWidget"></span>
+            <input type="checkbox" data-setting-name="settingHideThisUsersSignature">
+            <span>Kullanıcının imzasını gizle</span>
         </label>
         <label>
-            <input type="checkbox" data-setting-name="settingsCombineWidgetTabs">
-            <span data-i18n="settingsCombineWidgetTabs"></span>
-        </label>
-        <label>
-            <input type="checkbox" data-setting-name="settingsNotes">
-            <span data-i18n="settingsNotes"></span>
+            <input type="checkbox" data-setting-name="settingXenforoFooter">
+            <span>Xenforo alt bilgi</span>
         </label>
     </div>
 
     <script src="js/dom.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/i18n.js"></script>
     <script src="js/settings.js" type="module"></script>
 </body>
 

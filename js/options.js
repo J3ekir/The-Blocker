@@ -1,16 +1,11 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
-var iframe = qs("#iframe");
-var paneToLoad = "";
+chrome.storage.local.get("lastPane").then(settings => {
+    loadPane(settings["lastPane"]);
+});
 
-
-init();
-
-
-async function init() {
-    await storage.init();
-    i18n.setData();
-    loadLastPane();
-}
+qsa(".tabButton").forEach(elem => {
+    elem.addEventListener("click", event => loadPane(dom.attr(event.target, "data-pane")));
+});
 
 window.addEventListener("message", function (event) {
     switch (event.data["type"]) {
@@ -20,11 +15,6 @@ window.addEventListener("message", function (event) {
         case "title":
             document.title = event.data["title"];
             break;
-        case "language":
-            i18n.setData();
-            break;
-        default:
-            break;
     }
 });
 
@@ -32,52 +22,34 @@ document.addEventListener("keydown", event => {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
         event.preventDefault();
 
-        var saveButton = iframe.contentWindow.document.querySelector("#applyButton");
-        if (saveButton && !saveButton.disabled) {
-            saveButton.click();
+        var applyButton = qs("#iframe").contentWindow.document.querySelector("#applyButton");
+        if (applyButton && !applyButton.disabled) {
+            applyButton.click();
         }
     }
 });
 
-qsa(".tabButton").forEach(elem => {
-    elem.addEventListener("click", tabCliked);
-});
-
-function tabCliked(event) {
-    loadPane(dom.attr(event.target, "data-pane"));
-}
-
-async function loadLastPane() {
-    iframe.contentWindow.location.replace(storage.settings["optionsLastPane"]);
-    const tabButton = qs(`[data-pane="${ storage.settings["optionsLastPane"] }"]`);
-    tabButton.classList.add("selected");
-    tabButton.scrollIntoView();
-}
-
 function loadPane(pane) {
-    paneToLoad = pane;
+    window.paneToLoad = pane;
 
-    if (dom.cl.has(`[data-pane="${ paneToLoad }"]`, "selected")) {
+    if (dom.attr(".tabButton.selected", "data-pane") === pane) {
         return;
     }
 
-    iframe.contentWindow.location.replace(paneToLoad);
+    qs("#iframe").contentWindow.location.replace(pane);
 
-    if (dom.attr(".tabButton.selected", "data-pane") === "filters.html") {
-        return;
+    if (dom.attr(".tabButton.selected", "data-pane") !== "filters.html") {
+        setSelectedTab();
     }
-
-    setSelectedTab();
 }
 
 function setSelectedTab() {
-    const tabButton = qs(`[data-pane="${ paneToLoad }"]`);
-    window.location.replace(`#${ paneToLoad }`);
-    qsa(".tabButton.selected").forEach(elem => {
-        dom.cl.remove(elem, "selected");
-    });
+    const tabButton = qs(`[data-pane="${ window.paneToLoad }"]`);
+    window.location.replace(`#${ window.paneToLoad }`);
+    dom.cl.remove(".tabButton.selected", "selected");
     dom.cl.add(tabButton, "selected");
     tabButton.scrollIntoView();
-    storage.set({ "optionsLastPane": paneToLoad });
-    storage.settings["optionsLastPane"] = paneToLoad;
+    chrome.storage.local.set({
+        lastPane: window.paneToLoad,
+    });
 }

@@ -1,8 +1,8 @@
-const dom = {};
-dom.cl = {};
+var dom = window.dom || {};
+dom.cl = window.dom.cl || {};
 
 
-const normalizeTarget = target => {
+normalizeTarget = target => {
     if (typeof target === "string") { return Array.from(qsa(target)); }
     if (target instanceof Element) { return [target]; }
     if (target === null) { return []; }
@@ -25,15 +25,9 @@ qsa = function (a, b) {
 
 dom.attr = function (target, attr, value) {
     for (const elem of normalizeTarget(target)) {
-        if (value === undefined) {
-            return elem.getAttribute(attr);
-        }
-        if (value === null) {
-            elem.removeAttribute(attr);
-        }
-        else {
-            elem.setAttribute(attr, value);
-        }
+        if (value === undefined) { return elem.getAttribute(attr); }
+        if (value === null) { elem.removeAttribute(attr); }
+        else { elem.setAttribute(attr, value); }
     }
 };
 
@@ -66,15 +60,15 @@ dom.text = function (target, text) {
 };
 
 
-dom.cl.add = function (target, ...name) {
+dom.cl.add = function (target, name) {
     for (const elem of normalizeTarget(target)) {
-        elem.classList.add(...name);
+        elem.classList.add(...name.split(" "));
     }
 };
 
-dom.cl.remove = function (target, ...name) {
+dom.cl.remove = function (target, name) {
     for (const elem of normalizeTarget(target)) {
-        elem.classList.remove(...name);
+        elem.classList.remove(...name.split(" "));
     }
 };
 
