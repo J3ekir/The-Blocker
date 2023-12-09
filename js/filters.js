@@ -195,7 +195,6 @@ async function saveEditorText() {
 
 function getEditorText(editor) {
     return editor.getValue()
-        .replace(/[ ]/g, "\n")
         .replace(/[^\n\d]/g, "")
         .replace(/\n{2,}/g, "\n")
         .trim();
