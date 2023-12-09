@@ -39,7 +39,6 @@ async function init() {
     }, "*");
 
     await setEditorText();
-    setEditorFocuses();
     setEditorEmptyLines();
     setEditorCursors();
     setEditorChanges();
@@ -61,31 +60,6 @@ async function setEditorText() {
     editors.user.setValue(cache.user);
     editors.avatar.setValue(cache.avatar);
     editors.signature.setValue(cache.signature);
-}
-
-function setEditorFocuses() {
-    editors.user.setOption("extraKeys", {
-        Tab: function (cm) {
-            editors.avatar.focus();
-        }
-    });
-
-    editors.avatar.setOption("extraKeys", {
-        Tab: function (cm) {
-            editors.signature.focus();
-        }
-    });
-
-    editors.signature.setOption("extraKeys", {
-        Tab: function (cm) {
-            if (buttons.save.disabled) {
-                editor.user.focus();
-            }
-            else {
-                buttons.save.focus();
-            }
-        }
-    });
 }
 
 function setEditorEmptyLines() {
