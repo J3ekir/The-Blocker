@@ -21,6 +21,10 @@
         },
     }, {
         get(target, prop) {
+            if (!target.LANG) {
+                return null;
+            }
+
             return typeof target[target.LANG][prop] === "string"
                 ? target[target.LANG][prop]
                 : target[target.LANG][prop].bind(target);
