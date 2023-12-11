@@ -111,6 +111,9 @@ chrome.runtime.onMessage.addListener(
             case "noteSavedMessage":
                 noteSavedMessage(sender.tab.id);
                 break;
+            case "noteSavedMessageChrome":
+                noteSavedMessageChrome(sender.tab.id);
+                break;
         }
     }
 );
@@ -156,6 +159,32 @@ function combineTabPanes(tabId) {
 }
 
 async function noteSavedMessage(tabId) {
+    chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        injectImmediately: true,
+        func: () => {
+            // if chrome
+            if (window?.wrappedJSObject?.XF?.browser?.browser !== "mozilla") {
+                chrome.runtime.sendMessage({
+                    type: "noteSavedMessageChrome",
+                });
+
+                return;
+            }
+
+            switch (window.wrappedJSObject.$("html").attr("lang")) {
+                case "en-US":
+                    window.wrappedJSObject.XF.flashMessage("Note has been saved.", 1500);
+                    break;
+                case "tr-TR":
+                    window.wrappedJSObject.XF.flashMessage("Not kaydedildi.", 1500);
+                    break;
+            }
+        }
+    });
+}
+
+async function noteSavedMessageChrome(tabId) {
     chrome.scripting.executeScript({
         target: { tabId: tabId },
         injectImmediately: true,
