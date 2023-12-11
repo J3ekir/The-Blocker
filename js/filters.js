@@ -110,10 +110,10 @@ function filtersChanged(changed) {
         cache.signature === getEditorText(editors.signature)
     ) {
         buttons.save.disabled = true;
-        return;
     }
-
-    buttons.save.disabled = !changed;
+    else {
+        buttons.save.disabled = !changed;
+    }
 }
 
 chrome.storage.onChanged.addListener(changes => {
