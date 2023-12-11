@@ -1,4 +1,4 @@
-var dom = window.dom || {};
+window.dom = window.dom || {};
 dom.cl = window.dom.cl || {};
 
 
