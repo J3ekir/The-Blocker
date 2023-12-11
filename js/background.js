@@ -218,7 +218,7 @@ async function setCSS() {
     console.timeEnd("setCSS");
 }
 
-/****************************************************************************************/
+/**********************************************************************************************/
 // keepAlive
 // https://stackoverflow.com/a/66618269/13630257
 // "Persistent" service worker while a connectable tab is present
@@ -246,4 +246,4 @@ async function setCSS() {
 //     chrome.runtime.connect({ name: "keepAlive" })
 //         .onDisconnect.addListener(connect);
 // }
-/****************************************************************************************/
+/**********************************************************************************************/
