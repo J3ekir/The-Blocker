@@ -1,5 +1,5 @@
-window.dom = window.dom || {};
-dom.cl = window.dom.cl || {};
+self.dom = self.dom || {};
+self.dom.cl = self.dom.cl || {};
 
 
 normalizeTarget = target => {
