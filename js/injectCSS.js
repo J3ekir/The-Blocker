@@ -9,7 +9,7 @@ chrome.storage.onChanged.addListener(async changes => {
             case "avatar":
             case "signature":
                 var isBlock = newValue.length > oldValue.length;
-                var userId = isBlock ? newValue.at(-1) : oldValue.at(-1);
+                var userId = isBlock ? newValue.at(-1) : oldValue.find((elem, i) => elem !== newValue[i]);
                 toggleCSS(isBlock, userId, key);
         }
     });

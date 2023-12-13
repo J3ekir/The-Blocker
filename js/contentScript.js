@@ -283,7 +283,7 @@
                         settings[`${ key }Count`] = newValue.length;
 
                         var isBlock = newValue.length > oldValue.length;
-                        var userId = isBlock ? newValue.at(-1) : oldValue.at(-1);
+                        var userId = isBlock ? newValue.at(-1) : oldValue.find((elem, i) => elem !== newValue[i]);
                         toggleButtonTexts(isBlock, userId, key);
                 }
             });
