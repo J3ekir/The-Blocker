@@ -245,23 +245,16 @@
                 return;
             }
 
-            var typeCount = `${ type }Count`;
-
-            if (!isBlocked) {
-                settings[type].push(userId);
-                settings[typeCount] += 1;
-            }
-            else {
-                settings[type].splice(settings[type].indexOf(userId), 1);
-                settings[typeCount] -= 1;
-            }
+            !isBlocked
+                ? settings[type].push(userId)
+                : settings[type].splice(settings[type].indexOf(userId), 1);
 
             chrome.storage.local.set({
                 [type]: settings[type],
-                [typeCount]: settings[typeCount],
+                [`${ type }Count`]: settings[type].length,
             });
 
-            console.log(`user ID: ${ userId }, ${ type } ${ isBlocked ? "unblocked" : "blocked" }`);
+            console.log(`user ID: ${ userId }, ${ type } ${ !isBlocked ? "blocked" : "unblocked" }`);
         }
 
         function isSelfBlock(userId) {
