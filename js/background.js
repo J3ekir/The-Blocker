@@ -38,59 +38,19 @@ const KEYS = {
 chrome.runtime.onInstalled.addListener(async () => {
     var settings = await chrome.storage.local.get();
 
-    // old default settings
-    if (settings["userArray"]) {
-        var user = settings["userArray"];
-        var avatar = settings["avatarArray"];
-        var signature = settings["signatureArray"];
-        var notes = settings["notes"];
+    const jsonURL = await chrome.runtime.getURL("storage.json");
+    const response = await fetch(jsonURL);
+    const json = await response.json();
+    const defaultSettings = json["defaultSettings"];
+    var defaultValues = {};
 
-        const jsonURL = await chrome.runtime.getURL("storage.json");
-        const response = await fetch(jsonURL);
-        const json = await response.json();
-        const defaultSettings = json["defaultSettings"];
-        var defaultValues = {};
-
-        for (const key in defaultSettings) {
-            if (settings[key] === undefined) {
-                defaultValues[key] = defaultSettings[key];
-            }
+    for (const key in defaultSettings) {
+        if (settings[key] === undefined) {
+            defaultValues[key] = defaultSettings[key];
         }
-
-        await chrome.storage.local.clear();
-
-        await chrome.storage.local.set(defaultValues);
-
-        await chrome.storage.local.set({
-            user: user,
-            avatar: avatar,
-            signature: signature,
-            userCount: user?.length || 0,
-            avatarCount: avatar?.length || 0,
-            signatureCount: signature?.length || 0,
-            notes: notes,
-        });
-    }
-    else {
-        const jsonURL = await chrome.runtime.getURL("storage.json");
-        const response = await fetch(jsonURL);
-        const json = await response.json();
-        const defaultSettings = json["defaultSettings"];
-        var defaultValues = {};
-
-        for (const key in defaultSettings) {
-            if (settings[key] === undefined) {
-                defaultValues[key] = defaultSettings[key];
-            }
-        }
-
-        await chrome.storage.local.set(defaultValues);
     }
 
-    await setCSS();
-
-    // await chrome.storage.local.clear();
-    // await chrome.storage.sync.clear();
+    await chrome.storage.local.set(defaultValues);
 });
 
 chrome.runtime.onMessage.addListener(
