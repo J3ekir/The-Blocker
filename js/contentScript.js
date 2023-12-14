@@ -1,35 +1,38 @@
 (async () => {
-    const STR = new Proxy({
-        LANG: dom.attr("html", "lang"),
-        "en-US": {
-            userBlock: "Block",
-            avatarBlock: "Block avatar",
-            signatureBlock: "Block signature",
-            userUnblock: "-",
-            avatarUnblock: "Unblock avatar",
-            signatureUnblock: "Unblock signature",
-            report: "Report",
+    const STR = new Proxy(
+        {
+            LANG: dom.attr("html", "lang"),
+            "en-US": {
+                userBlock: "Block",
+                avatarBlock: "Block avatar",
+                signatureBlock: "Block signature",
+                userUnblock: "-",
+                avatarUnblock: "Unblock avatar",
+                signatureUnblock: "Unblock signature",
+                report: "Report",
+            },
+            "tr-TR": {
+                userBlock: "Engelle",
+                avatarBlock: "Avatar engelle",
+                signatureBlock: "İmza engelle",
+                userUnblock: "-",
+                avatarUnblock: "Avatarı göster",
+                signatureUnblock: "İmzayı göster",
+                report: "Rapor",
+            },
         },
-        "tr-TR": {
-            userBlock: "Engelle",
-            avatarBlock: "Avatar engelle",
-            signatureBlock: "İmza engelle",
-            userUnblock: "-",
-            avatarUnblock: "Avatarı göster",
-            signatureUnblock: "İmzayı göster",
-            report: "Rapor",
-        },
-    }, {
-        get(target, prop) {
-            if (!target.LANG) {
-                return null;
-            }
+        {
+            get(target, prop) {
+                if (!target.LANG) {
+                    return null;
+                }
 
-            return typeof target[target.LANG][prop] === "string"
-                ? target[target.LANG][prop]
-                : target[target.LANG][prop].bind(target);
+                return typeof target[target.LANG][prop] === "string"
+                    ? target[target.LANG][prop]
+                    : target[target.LANG][prop].bind(target);
+            },
         },
-    });
+    );
 
     const BASE = {
         actionBar: (() => {

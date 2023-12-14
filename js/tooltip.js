@@ -1,43 +1,46 @@
 (async () => {
-    const STR = new Proxy({
-        LANG: dom.attr("html", "lang"),
-        "en-US": {
-            save: "Save",
-            placeholder: "Add note",
-            report: "Report",
-            find: "Find",
-            findContent: "Find content",
-            findAllContentBy(arg) {
-                return `Find all content by ${ arg }`;
+    const STR = new Proxy(
+        {
+            LANG: dom.attr("html", "lang"),
+            "en-US": {
+                save: "Save",
+                placeholder: "Add note",
+                report: "Report",
+                find: "Find",
+                findContent: "Find content",
+                findAllContentBy(arg) {
+                    return `Find all content by ${ arg }`;
+                },
+                findAllThreadsBy(arg) {
+                    return `Find all threads by ${ arg }`;
+                },
             },
-            findAllThreadsBy(arg) {
-                return `Find all threads by ${ arg }`;
+            "tr-TR": {
+                save: "Kaydet",
+                placeholder: "Not ekle",
+                report: "Rapor",
+                find: "Bul",
+                findContent: "İçerik bul",
+                findAllContentBy(arg) {
+                    return `${ arg } tarafından gönderilen tüm içeriği arattır`;
+                },
+                findAllThreadsBy(arg) {
+                    return `${ arg } tarafından açılan tüm konuları arattır`;
+                },
             },
         },
-        "tr-TR": {
-            save: "Kaydet",
-            placeholder: "Not ekle",
-            report: "Rapor",
-            find: "Bul",
-            findContent: "İçerik bul",
-            findAllContentBy(arg) {
-                return `${ arg } tarafından gönderilen tüm içeriği arattır`;
-            },
-            findAllThreadsBy(arg) {
-                return `${ arg } tarafından açılan tüm konuları arattır`;
-            },
-        },
-    }, {
-        get(target, prop) {
-            if (!target.LANG) {
-                return null;
-            }
+        {
+            get(target, prop) {
+                if (!target.LANG) {
+                    return null;
+                }
 
-            return typeof target[target.LANG][prop] === "string"
-                ? target[target.LANG][prop]
-                : target[target.LANG][prop].bind(target);
+                return typeof target[target.LANG][prop] === "string"
+                    ? target[target.LANG][prop]
+                    : target[target.LANG][prop].bind(target);
+            },
         },
-    });
+    );
 
     const BASE = {
         tooltipReport: (() => {

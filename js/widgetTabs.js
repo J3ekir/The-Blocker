@@ -1,23 +1,26 @@
 (async () => {
-    const STR = new Proxy({
-        LANG: dom.attr("html", "lang"),
-        "en-US": {
-            combinedTabName: "New threads and messages",
+    const STR = new Proxy(
+        {
+            LANG: dom.attr("html", "lang"),
+            "en-US": {
+                combinedTabName: "New threads and messages",
+            },
+            "tr-TR": {
+                combinedTabName: "Yeni konular ve mesajlar",
+            },
         },
-        "tr-TR": {
-            combinedTabName: "Yeni konular ve mesajlar",
-        },
-    }, {
-        get(target, prop) {
-            if (!target.LANG) {
-                return null;
-            }
+        {
+            get(target, prop) {
+                if (!target.LANG) {
+                    return null;
+                }
 
-            return typeof target[target.LANG][prop] === "string"
-                ? target[target.LANG][prop]
-                : target[target.LANG][prop].bind(target);
+                return typeof target[target.LANG][prop] === "string"
+                    ? target[target.LANG][prop]
+                    : target[target.LANG][prop].bind(target);
+            },
         },
-    });
+    );
 
 
     var settings = await chrome.storage.local.get([
