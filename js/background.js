@@ -180,7 +180,7 @@ async function setCSS() {
         quoteCSS = `[data-attributes="member: ${ settings["user"].join(`"],[data-attributes="member: `) }"]{display:none!important;}`;
     }
 
-    var userList = `(a[data-user-id="${ settings["user"].join(`"],a[data-user-id="`) }"])`;
+    var userList = `(a:is([data-user-id="${ settings["user"].join(`"],[data-user-id="`) }"]))`;
 
     var userCSS = `:is(${ Object.keys(KEYS.user)
         .filter(key => settings[key])
@@ -189,8 +189,8 @@ async function setCSS() {
         }):has${ userList }{display:none!important;}:is(.block-row,.node-extra-row .node-extra-user):has${ userList },.structItem-cell.structItem-cell--latest:has${ userList }>div,:is(.message.message--post, .message.message--article, .structItem):has(:is(.message-cell--user, .message-articleUserInfo, .structItem-cell--main) :is${ userList }){display:none!important;}`;
 
     // https://github.com/J3ekir/The-Blocker/commit/03d6569c44318ee1445049faba4e268ade3b79aa
-    var avatarCSS = `:is(#theBlocker, a[data-user-id="${ settings["avatar"].join(`"],a[data-user-id="`) }"])>img{display:none;}`;
-    var signatureCSS = `.message-signature:has(.js-userSignature-${ settings["signature"].join(`,.js-userSignature-`) }){display:none;}`;
+    var avatarCSS = `:is(#theBlocker,a:is([data-user-id="${ settings["avatar"].join(`"],[data-user-id="`) }"]))>img{display:none;}`;
+    var signatureCSS = `.message-inner:has(a:is([data-user-id="${ settings["signature"].join(`"],[data-user-id="`) }"])) .message-signature{display:none;}`;
 
     var miscCSS = `:is(${ Object.keys(KEYS.misc)
         .filter(key => settings[key])
