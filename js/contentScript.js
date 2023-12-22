@@ -127,12 +127,12 @@
 
         async function blockButtons() {
             postIds = Array.from(qsa(".message-userContent.lbContainer.js-lbContainer"), node => dom.attr(node, "data-lb-id").slice(5));
-            userIds = Array.from(qsa(".message-name>:is(a, span)"), node => dom.attr(node, "data-user-id"));
+            userIds = Array.from(qsa(".message-name>:is(a, span)"), node => parseInt(dom.attr(node, "data-user-id"), 10));
             messages = qsa(".message-actionBar.actionBar");
 
             // if article
             if (userIds.length === postIds.length - 1) {
-                userIds.splice(0, 0, dom.attr(".message-articleUserName>a", "data-user-id"));
+                userIds.splice(0, 0, parseInt(dom.attr(".message-articleUserName>a", "data-user-id"), 10));
             }
 
             // report ban and reaction ban
@@ -239,7 +239,7 @@
         }
 
         async function blockHandler(event) {
-            var userId = dom.attr(event.currentTarget, "data-user-id");
+            var userId = parseInt(dom.attr(event.currentTarget, "data-user-id"), 10);
             var type = dom.attr(event.currentTarget, "blocktype");
             var isBlocked = settings[type].includes(userId);
 
@@ -253,7 +253,7 @@
                 : settings[type].splice(settings[type].indexOf(userId), 1);
 
             chrome.storage.local.set({
-                [type]: settings[type],
+                [type]: settings[type].map(id => parseInt(id, 10)),
                 [`${ type }Count`]: settings[type].length,
             });
 
@@ -262,7 +262,7 @@
 
         function isSelfBlock(userId) {
             // if not member
-            return qs(".p-navgroup--member") && userId === dom.attr("a[href='/sosyal/hesap/']>span", "data-user-id");
+            return qs(".p-navgroup--member") && userId === parseInt(dom.attr("a[href='/sosyal/hesap/']>span", "data-user-id"), 10);
         }
 
         function isUserIdValid(userId) {
