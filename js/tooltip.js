@@ -138,7 +138,7 @@
     });
 
     function addTooltipItems(elem) {
-        if (!dom.cl.has(elem, "tooltip-content-inner")) {
+        if (!qs(elem, ".tooltip-content-inner .memberTooltip")) {
             return;
         }
 
