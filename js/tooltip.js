@@ -138,7 +138,9 @@
     });
 
     function addTooltipItems(elem) {
-        // elem === ".tooltip-content-inner"
+        if (!dom.cl.has(elem, "tooltip-content-inner")) {
+            return;
+        }
 
         var userId = dom.attr(qs(elem, ".memberTooltip-avatar>a"), "data-user-id");
 
@@ -151,6 +153,10 @@
     }
 
     function addReportButton(elem, userId) {
+        if (hasReportButton(elem)) {
+            return;
+        }
+
         var tooltipReport = dom.clone(BASE.tooltipReport);
         tooltipReport.firstElementChild.href = `/sosyal/uye/${ userId }/report`;
 
@@ -160,7 +166,7 @@
     }
 
     function addSearchButton(elem, userId) {
-        if (isHiddenProfile()) {
+        if (hasFindButton(elem)) {
             return;
         }
 
@@ -230,8 +236,12 @@
         return tooltipNote;
     }
 
-    function isHiddenProfile() {
-        return qs(".tooltip-content .memberTooltip-actions>.menu");
+    function hasReportButton(elem) {
+        return qs(elem, ".button--link[href$='report']");
+    }
+
+    function hasFindButton(elem) {
+        return qs(elem, ".memberTooltip .memberTooltip-actions>.menu");
     }
 
     function isSelfNote(userId) {
@@ -269,10 +279,7 @@
         new MutationObserver(async (mutationList, observer) => {
             mutationList.forEach(mutation => {
                 mutation.addedNodes.forEach(elem => {
-                    if (
-                        elem.nodeType === Node.ELEMENT_NODE
-                        && qs(elem, ".memberTooltip:not(:has(.memberTooltip-report))")
-                    ) {
+                    if (elem.nodeType === Node.ELEMENT_NODE) {
                         addTooltipItems(elem);
                     }
                 });
