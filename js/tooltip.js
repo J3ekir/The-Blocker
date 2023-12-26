@@ -196,7 +196,7 @@
     }
 
     async function addProfileNote() {
-        var userId = dom.attr(".memberHeader-avatar>.avatarWrapper>a", "data-user-id");
+        var userId = dom.attr(".memberHeader-avatar>.avatarWrapper>:is(a,span)", "data-user-id");
 
         if (isSelfNote(userId)) {
             return;
