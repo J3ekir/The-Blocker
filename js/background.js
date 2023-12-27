@@ -132,7 +132,7 @@ async function noteSavedMessage(tabId) {
                 return;
             }
 
-            switch (document.querySelector("html").getAttribute("lang")) {
+            switch (window.wrappedJSObject.XF.getLocale()) {
                 case "en-US":
                     window.wrappedJSObject.XF.flashMessage("Note has been saved.", 1500);
                     break;
@@ -150,7 +150,7 @@ async function noteSavedMessageChrome(tabId) {
         injectImmediately: true,
         world: "MAIN",
         func: () => {
-            switch (document.querySelector("html").getAttribute("lang")) {
+            switch (XF.getLocale()) {
                 case "en-US":
                     XF.flashMessage("Note has been saved.", 1500);
                     break;
