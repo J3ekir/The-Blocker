@@ -8,18 +8,15 @@
 
 /****************************************** BUTTONS *******************************************/
 
-.actionBar-action {
-    font-size: 13px !important;
-}
-
 .actionBar-action--block {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 5px;
     cursor: pointer;
 }
 
 .actionBar-action--block > svg {
     height: 13px;
-    margin-bottom: -1px;
-    margin-right: 4px;
 }
 
 .actionBar-action--block[blocktype="user"] path {
