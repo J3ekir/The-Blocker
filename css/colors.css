@@ -5,7 +5,7 @@
     --blue-50: #0060dfff;
     --blue-60: #0250bbff;
 
-    --gray-5: #101016ff;
+    --gray-05: #101016ff;
     --gray-10: #1b1b23ff;
     --gray-20: #2f2f3bff;
     --gray-25: #3a3a48ff;
@@ -16,7 +16,4 @@
     --gray-90: #e2e2e5ff;
     --gray-90-06: #e2e2e599;
     --gray-95: #f0f0f2ff;
-
-    --magic-blue: #0074ffcc;
-    --magic-gray: #a3a3a399;
 }
