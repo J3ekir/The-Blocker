@@ -72,18 +72,18 @@ iframe {
 
     .tabButton.selected {
         color: var(--blue-30);
-        border-bottom-color: currentColor;
+        border-color: currentColor;
     }
 
     .tabButton:not(.selected):hover {
         background-color: var(--gray-20);
-        border-bottom-color: var(--gray-30);
+        border-color: var(--gray-30);
     }
 }
 
 @media (prefers-color-scheme: light) {
     .tabButton.selected {
         color: var(--blue-60);
-        border-bottom-color: currentColor;
+        border-color: currentColor;
     }
 }
