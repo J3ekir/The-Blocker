@@ -1,5 +1,9 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     flex-direction: column;

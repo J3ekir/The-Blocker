@@ -1,4 +1,9 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
+
+* {
+    box-sizing: border-box;
+}
+
 .fieldset {
     display: inline-grid;
 }
