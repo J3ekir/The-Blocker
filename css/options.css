@@ -1,17 +1,12 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 nav {
-    border: 0;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
     display: flex;
     flex-shrink: 0;
-    flex-wrap: wrap;
-    overflow-x: hidden;
-    padding: 0;
+    border: 0;
+    border-bottom: 1px solid;
+    overflow-x: auto;
     position: sticky;
-    top: 0;
-    width: 100%;
-    z-index: 10;
+    outline: none;
 }
 
 .tabButton {
