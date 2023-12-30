@@ -11,9 +11,9 @@ const codeMirrorOptions = {
 };
 
 const editors = {
-    user: new CodeMirror(qs("#userEditor"), codeMirrorOptions),
-    avatar: new CodeMirror(qs("#avatarEditor"), codeMirrorOptions),
-    signature: new CodeMirror(qs("#signatureEditor"), codeMirrorOptions),
+    user: new CodeMirror(qs("#user"), codeMirrorOptions),
+    avatar: new CodeMirror(qs("#avatar"), codeMirrorOptions),
+    signature: new CodeMirror(qs("#signature"), codeMirrorOptions),
 };
 
 const cache = {
