@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <p id="buttons">
+    <section id="buttons">
         <button id="applyButton" disabled>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path></path>
@@ -34,25 +34,25 @@
             </svg>
             <span>Dışa aktar</span>
         </button> -->
-    </p>
+    </section>
 
-    <div id="editors">
-        <div class="editorWrapper">
+    <main>
+        <article class="editorWrapper">
             <span class="editorTitle">Kullanıcı</span>
             <div id="userEditor" class="codeMirrorContainer codeMirrorBreakAll cm-theme-override" spellcheck="false">
             </div>
-        </div>
-        <div class="editorWrapper">
+        </article>
+        <article class="editorWrapper">
             <span class="editorTitle">Avatar</span>
             <div id="avatarEditor" class="codeMirrorContainer codeMirrorBreakAll cm-theme-override" spellcheck="false">
             </div>
-        </div>
-        <div class="editorWrapper">
+        </article>
+        <article class="editorWrapper">
             <span class="editorTitle">İmza</span>
             <div id="signatureEditor" class="codeMirrorContainer codeMirrorBreakAll cm-theme-override"
                 spellcheck="false"></div>
-        </div>
-    </div>
+        </article>
+    </main>
 
     <script src="codemirror/lib/codemirror.js"></script>
     <script src="codemirror/addon/selection/active-line.js"></script>
