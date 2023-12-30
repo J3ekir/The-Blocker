@@ -30,23 +30,21 @@
         export: qs("#exportButton"),
     };
 
+    /***************************************** MAIN START *****************************************/
 
-    init();
+    parent.postMessage({
+        type: "title",
+        title: document.title,
+    }, "*");
 
+    await setEditorText();
+    setEditorEmptyLines();
+    setEditorCursors();
+    setEditorChanges();
+    editors.user.focus();
+    clearHistory();
 
-    async function init() {
-        parent.postMessage({
-            type: "title",
-            title: document.title,
-        }, "*");
-
-        await setEditorText();
-        setEditorEmptyLines();
-        setEditorCursors();
-        setEditorChanges();
-        editors.user.focus();
-        clearHistory();
-    }
+    /****************************************** MAIN END ******************************************/
 
     async function setEditorText() {
         var settings = await chrome.storage.local.get([
