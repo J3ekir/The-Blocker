@@ -58,7 +58,7 @@
     margin-bottom: 8px;
 }
 
-.editorWrapper {
+.editorContainer {
     display: grid;
     flex: 1;
     height: 100%;
@@ -172,7 +172,7 @@ svg {
         background-color: var(--magic-gray);
     }
 
-    .editorWrapper > div {
+    .editorContainer > div {
         border: 1px solid black;
     }
 
