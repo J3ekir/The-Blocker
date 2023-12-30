@@ -22,7 +22,7 @@ nav {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 24px;
     letter-spacing: 0.5px;
-    padding: 0.7em 1.4em calc(0.7em - 3px);
+    padding: 0.75em 1.5em calc(0.75em - 3px);
     text-decoration: none;
     white-space: nowrap;
 }
