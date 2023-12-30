@@ -1,5 +1,9 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
+:root {
+    --std-gap: 12px;
+}
+
 * {
     box-sizing: border-box;
 }

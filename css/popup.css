@@ -1,3 +1,7 @@
+:root {
+    --std-gap: 12px;
+}
+
 * {
     box-sizing: border-box;
 }
