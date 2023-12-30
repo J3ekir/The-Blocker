@@ -1,5 +1,5 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
-#nav {
+nav {
     border: 0;
     border-bottom-width: 1px;
     border-bottom-style: solid;
@@ -58,12 +58,12 @@ iframe {
 }
 
 @media (prefers-color-scheme: dark) {
-    #nav {
-        border-bottom-color: var(--gray-40);
-    }
-
     body {
         background-color: var(--gray-10);
+    }
+
+    nav {
+        border-bottom-color: var(--gray-40);
     }
 
     .tabButton {
