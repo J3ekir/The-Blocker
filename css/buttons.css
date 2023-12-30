@@ -1,8 +1,8 @@
-.theBlocker-hide {
+:is(#theBlocker, .theBlocker-hide) {
     display: none !important;
 }
 
-.theBlocker-show {
+:is(#theBlocker, .theBlocker-show) {
     display: block !important;
 }
 
