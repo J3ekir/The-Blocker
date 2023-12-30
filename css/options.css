@@ -1,4 +1,14 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    height: 100svh;
+    margin: 0;
+    overflow: hidden;
+}
+
 nav {
     display: flex;
     flex-shrink: 0;
@@ -24,17 +34,6 @@ nav {
 
 .tabButton:focus {
     outline: 0;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: stretch;
-    margin: 0px;
-    overflow: hidden;
-    position: relative;
-    width: 100vw;
 }
 
 #iframe {
