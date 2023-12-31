@@ -7,6 +7,18 @@
         "signature",
     ]);
 
+    const cache = {
+        user: "",
+        avatar: "",
+        signature: "",
+    };
+
+    const buttons = {
+        save: qs("#applyButton"),
+        import: qs("#importButton"),
+        export: qs("#exportButton"),
+    };
+
     const codeMirrorOptions = {
         autofocus: true,
         foldGutter: true,
@@ -32,18 +44,6 @@
         user: new CodeMirror(qs("#user"), codeMirrorOptions),
         avatar: new CodeMirror(qs("#avatar"), codeMirrorOptions),
         signature: new CodeMirror(qs("#signature"), codeMirrorOptions),
-    };
-
-    const cache = {
-        user: "",
-        avatar: "",
-        signature: "",
-    };
-
-    const buttons = {
-        save: qs("#applyButton"),
-        import: qs("#importButton"),
-        export: qs("#exportButton"),
     };
 
     /***************************************** MAIN START *****************************************/
