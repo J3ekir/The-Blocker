@@ -18,15 +18,17 @@
 }
 
 label {
-    align-items: center;
     display: flex;
+    gap: calc(var(--std-gap) * 2 / 3);
+    align-items: center;
     width: fit-content;
 }
 
 input {
-    height: 16px;
-    margin-right: 10px;
+    flex: none;
     width: 16px;
+    height: 16px;
+    margin: 0;
 }
 
 span {
