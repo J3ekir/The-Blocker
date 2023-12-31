@@ -55,7 +55,13 @@
 
     renderEditors();
 
-    setEditorChanges();
+    editors.user.on("beforeChange", beforeFiltersChanged);
+    editors.avatar.on("beforeChange", beforeFiltersChanged);
+    editors.signature.on("beforeChange", beforeFiltersChanged);
+    editors.user.on("changes", filtersChanged);
+    editors.avatar.on("changes", filtersChanged);
+    editors.signature.on("changes", filtersChanged);
+
     editors.user.focus();
 
     chrome.storage.onChanged.addListener(changes => {
@@ -158,17 +164,6 @@
         editors[editor].setValue(cache[editor].length === 0 ? cache[editor] : `${ cache[editor] }\n`);
         editors[editor].clearHistory();
         editors[editor].setCursor(editors[editor].lineCount(), 0);
-    }
-
-    function setEditorChanges() {
-        editors.user.on("beforeChange", beforeFiltersChanged);
-        editors.user.on("changes", filtersChanged);
-
-        editors.avatar.on("beforeChange", beforeFiltersChanged);
-        editors.avatar.on("changes", filtersChanged);
-
-        editors.signature.on("beforeChange", beforeFiltersChanged);
-        editors.signature.on("changes", filtersChanged);
     }
 
     function beforeFiltersChanged(instance, changeObj) {
