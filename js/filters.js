@@ -53,7 +53,8 @@
         title: document.title,
     }, "*");
 
-    setEditorText();
+    renderEditors();
+
     setEditorEmptyLines();
     setEditorCursors();
     setEditorChanges();
@@ -147,14 +148,15 @@
 
     /****************************************** MAIN END ******************************************/
 
-    function setEditorText() {
-        cache.user = settings["user"].join("\n");
-        cache.avatar = settings["avatar"].join("\n");
-        cache.signature = settings["signature"].join("\n");
+    function renderEditors() {
+        renderEditor("user");
+        renderEditor("avatar");
+        renderEditor("signature");
+    }
 
-        editors.user.setValue(cache.user);
-        editors.avatar.setValue(cache.avatar);
-        editors.signature.setValue(cache.signature);
+    function renderEditor(editor) {
+        cache[editor] = settings[editor].join("\n");
+        editors[editor].setValue(cache[editor].length === 0 ? cache[editor] : `${ cache[editor] }\n`);
     }
 
     function setEditorEmptyLines() {
