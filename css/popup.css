@@ -6,17 +6,17 @@
     box-sizing: border-box;
 }
 
-.value {
-    font-size: 20px;
-    margin-bottom: 3px;
+body {
+    padding: 0 12px;
 }
 
 .valueName {
     font-size: 18px;
 }
 
-body {
-    padding: 0 12px;
+.value {
+    font-size: 20px;
+    margin-bottom: 3px;
 }
 
 span {
