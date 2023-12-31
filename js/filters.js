@@ -58,9 +58,9 @@
     editors.user.on("beforeChange", beforeEditorChanged);
     editors.avatar.on("beforeChange", beforeEditorChanged);
     editors.signature.on("beforeChange", beforeEditorChanged);
-    editors.user.on("changes", filtersChanged);
-    editors.avatar.on("changes", filtersChanged);
-    editors.signature.on("changes", filtersChanged);
+    editors.user.on("changes", editorChanged);
+    editors.avatar.on("changes", editorChanged);
+    editors.signature.on("changes", editorChanged);
 
     editors.user.focus();
 
@@ -172,7 +172,7 @@
         }
     }
 
-    function filtersChanged(changed) {
+    function editorChanged(changed) {
         if (
             cache.user === getEditorText(editors.user) &&
             cache.avatar === getEditorText(editors.avatar) &&
