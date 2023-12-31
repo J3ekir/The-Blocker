@@ -7,11 +7,20 @@
         gutters: ["CodeMirror-foldgutter", "CodeMirror-linenumbers"],
         lineNumbers: true,
         lineWiseCopyCut: true,
-        mode: "text/plain",
         scrollbarStyle: "overlay",
         styleActiveLine: { nonEmpty: true },
         configureMouse: _ => { return { addNew: false }; },
     };
+
+    CodeMirror.defineMode("theBlocker-filters", function (config, parserConfig) {
+        return {
+            token: function (stream) {
+                return stream.match(/\d+/) === null
+                    ? "line-cm-error"
+                    : "filter-keyword";
+            }
+        };
+    });
 
     const editors = {
         user: new CodeMirror(qs("#user"), codeMirrorOptions),
@@ -162,6 +171,12 @@
             if (!buttons.save.disabled) {
                 buttons.save.click();
             }
+        }
+    });
+
+    document.addEventListener("mousedown", event => {
+        if (dom.cl.has(event.target, "cm-filter-keyword") && (event.ctrlKey || event.metaKey)) {
+            chrome.tabs.create({ url: `https://technopat.net/sosyal/uye/${ dom.text(event.target) }` });
         }
     });
 
