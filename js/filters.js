@@ -174,6 +174,22 @@
         }
     });
 
+    var tapped = null;
+    document.addEventListener("touchstart", event => {
+        if (dom.cl.has(event.target, "cm-filter-keyword")) {
+            if (!tapped) {
+                tapped = setTimeout(_ => tapped = null, 300);
+            }
+            else {
+                clearTimeout(tapped);
+                tapped = null;
+                chrome.tabs.create({ url: `https://technopat.net/sosyal/uye/${ dom.text(event.target) }` });
+            }
+
+            event.preventDefault();
+        }
+    });
+
     document.addEventListener("mousedown", event => {
         if (dom.cl.has(event.target, "cm-filter-keyword") && (event.ctrlKey || event.metaKey)) {
             chrome.tabs.create({ url: `https://technopat.net/sosyal/uye/${ dom.text(event.target) }` });
