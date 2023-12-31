@@ -8,6 +8,16 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--std-gap);
+    height: 100svh;
+    margin: 0;
+    padding: var(--std-gap);
+    line-height: 1.2;
+}
+
 #buttons {
     display: flex;
     flex-shrink: 0;
@@ -63,6 +73,10 @@ svg {
 }
 
 @media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--gray-10);
+    }
+
     button {
         color: var(--gray-05);
         background-color: var(--blue-30);
