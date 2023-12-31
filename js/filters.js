@@ -123,8 +123,8 @@
         }
     });
 
-    buttons.save.addEventListener("click", async event => {
-        await saveEditorText();
+    buttons.save.addEventListener("click", event => {
+        saveEditorText();
         editors.user.clearHistory();
         editors.avatar.clearHistory();
         editors.signature.clearHistory();
