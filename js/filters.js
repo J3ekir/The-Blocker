@@ -55,7 +55,6 @@
 
     renderEditors();
 
-    setEditorCursors();
     setEditorChanges();
     editors.user.focus();
 
@@ -158,12 +157,7 @@
         cache[editor] = settings[editor].join("\n");
         editors[editor].setValue(cache[editor].length === 0 ? cache[editor] : `${ cache[editor] }\n`);
         editors[editor].clearHistory();
-    }
-
-    function setEditorCursors() {
-        editors.user.setCursor(editors.user.lineCount(), 0);
-        editors.avatar.setCursor(editors.avatar.lineCount(), 0);
-        editors.signature.setCursor(editors.signature.lineCount(), 0);
+        editors[editor].setCursor(editors[editor].lineCount(), 0);
     }
 
     function setEditorChanges() {
