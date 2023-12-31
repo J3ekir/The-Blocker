@@ -9,7 +9,9 @@
 }
 
 .fieldset {
-    display: inline-grid;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--std-gap) * 2 / 3);
 }
 
 .fieldset-header {
