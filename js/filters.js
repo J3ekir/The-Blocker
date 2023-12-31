@@ -172,17 +172,8 @@
         }
     }
 
-    function editorChanged(changed) {
-        if (
-            cache.user === getEditorText(editors.user) &&
-            cache.avatar === getEditorText(editors.avatar) &&
-            cache.signature === getEditorText(editors.signature)
-        ) {
-            buttons.save.disabled = true;
-        }
-        else {
-            buttons.save.disabled = !changed;
-        }
+    function editorChanged(editor, changes) {
+        buttons.save.disabled = cache[editor.getWrapperElement().parentElement.id] === getEditorText(editor);
     }
 
     function storageChangeHandler(key, newValue) {
