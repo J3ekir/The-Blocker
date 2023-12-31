@@ -8,6 +8,15 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--std-gap);
+    margin: 0;
+    padding: var(--std-gap);
+    line-height: 1.2;
+}
+
 .fieldset {
     display: flex;
     flex-direction: column;
