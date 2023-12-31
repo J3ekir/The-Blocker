@@ -10,6 +10,7 @@
         mode: "text/plain",
         scrollbarStyle: "overlay",
         styleActiveLine: { nonEmpty: true },
+        configureMouse: _ => { return { addNew: false }; },
     };
 
     const editors = {
