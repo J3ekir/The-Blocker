@@ -7,7 +7,6 @@
         gutters: ["CodeMirror-foldgutter", "CodeMirror-linenumbers"],
         lineNumbers: true,
         lineWiseCopyCut: true,
-        lineWrapping: true,
         mode: "text/plain",
         scrollbarStyle: "overlay",
         styleActiveLine: { nonEmpty: true },
