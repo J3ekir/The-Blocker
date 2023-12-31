@@ -88,6 +88,10 @@ main {
     overflow: hidden;
 }
 
+#filePicker {
+    display: none;
+}
+
 @media (max-width: 750px) {
     main {
         flex-direction: column;
