@@ -38,10 +38,8 @@ span {
 }
 
 hr {
-    border: 0;
-    border-top-width: 1px;
-    border-top-style: solid;
-    margin: 1em 0;
+    margin: 0;
+    border-style: solid;
 }
 
 @media (prefers-color-scheme: dark) {
