@@ -55,7 +55,6 @@
 
     renderEditors();
 
-    setEditorEmptyLines();
     setEditorCursors();
     setEditorChanges();
     editors.user.focus();
@@ -159,18 +158,6 @@
         cache[editor] = settings[editor].join("\n");
         editors[editor].setValue(cache[editor].length === 0 ? cache[editor] : `${ cache[editor] }\n`);
         editors[editor].clearHistory();
-    }
-
-    function setEditorEmptyLines() {
-        if (editors.user.getLine(editors.user.lastLine()).length !== 0) {
-            editors.user.replaceRange("\n", CodeMirror.Pos(editors.user.lastLine()));
-        }
-        if (editors.avatar.getLine(editors.avatar.lastLine()).length !== 0) {
-            editors.avatar.replaceRange("\n", CodeMirror.Pos(editors.avatar.lastLine()));
-        }
-        if (editors.signature.getLine(editors.signature.lastLine()).length !== 0) {
-            editors.signature.replaceRange("\n", CodeMirror.Pos(editors.signature.lastLine()));
-        }
     }
 
     function setEditorCursors() {
