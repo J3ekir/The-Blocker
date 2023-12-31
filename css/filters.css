@@ -118,7 +118,7 @@ main {
     }
 
     .CodeMirror-focused .CodeMirror-selected {
-        background-color: var(--magic-blue);
+        background-color: var(--cm-selected-focused);
     }
 
     .CodeMirror-gutters {
@@ -131,7 +131,7 @@ main {
     }
 
     .CodeMirror-selected {
-        background-color: var(--magic-gray);
+        background-color: var(--cm-selected);
     }
 
     body {
@@ -159,11 +159,11 @@ main {
 
 @media (prefers-color-scheme: light) {
     .CodeMirror-focused .CodeMirror-selected {
-        background-color: var(--magic-blue);
+        background-color: var(--cm-selected-focused);
     }
 
     .CodeMirror-selected {
-        background-color: var(--magic-gray);
+        background-color: var(--cm-selected);
     }
 
     .editorContainer > div {
