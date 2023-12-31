@@ -1,4 +1,5 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
+
 chrome.storage.local.get("lastPane").then(settings => {
     loadPane(settings["lastPane"]);
 });
