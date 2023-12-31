@@ -237,9 +237,9 @@
         var signature = signatureText === "" ? [] : signatureText.split("\n");
 
         chrome.storage.local.set({
-            user: user,
-            avatar: avatar,
-            signature: signature,
+            user: user.map(id => parseInt(id, 10)),
+            avatar: avatar.map(id => parseInt(id, 10)),
+            signature: signature.map(id => parseInt(id, 10)),
             userCount: user.length,
             avatarCount: avatar.length,
             signatureCount: signature.length,
