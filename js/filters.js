@@ -70,7 +70,8 @@
                 case "user":
                 case "avatar":
                 case "signature":
-                    storageChangeHandler(key, newValue);
+                    settings[key] = newValue;
+                    renderEditor(key);
             }
         });
     });
@@ -174,18 +175,6 @@
 
     function editorChanged(editor, changes) {
         buttons.save.disabled = cache[editor.getWrapperElement().parentElement.id] === getEditorText(editor);
-    }
-
-    function storageChangeHandler(key, newValue) {
-        cache[key] = newValue.join("\n");
-        editors[key].setValue(cache[key]);
-
-        if (editors[key].getLine(editors[key].lastLine()).length !== 0) {
-            editors[key].replaceRange("\n", CodeMirror.Pos(editors[key].lastLine()));
-        }
-
-        editors[key].setCursor(editors[key].lineCount(), 0);
-        editors[key].focus();
     }
 
     async function saveEditorText() {
