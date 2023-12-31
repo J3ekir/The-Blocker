@@ -167,7 +167,7 @@
         editors[editor].setCursor(editors[editor].lineCount(), 0);
     }
 
-    function beforeEditorChanged(instance, changeObj) {
+    function beforeEditorChanged(editor, changeObj) {
         if (/[^\d]/g.test(changeObj.text.join(""))) {
             changeObj.cancel();
         }
