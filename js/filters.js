@@ -59,7 +59,6 @@
     setEditorCursors();
     setEditorChanges();
     editors.user.focus();
-    clearHistory();
 
     chrome.storage.onChanged.addListener(changes => {
         Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
@@ -121,7 +120,9 @@
 
     buttons.save.addEventListener("click", async event => {
         await saveEditorText();
-        clearHistory();
+        editors.user.clearHistory();
+        editors.avatar.clearHistory();
+        editors.signature.clearHistory();
         buttons.save.disabled = true;
     });
 
@@ -157,6 +158,7 @@
     function renderEditor(editor) {
         cache[editor] = settings[editor].join("\n");
         editors[editor].setValue(cache[editor].length === 0 ? cache[editor] : `${ cache[editor] }\n`);
+        editors[editor].clearHistory();
     }
 
     function setEditorEmptyLines() {
@@ -186,12 +188,6 @@
 
         editors.signature.on("beforeChange", beforeFiltersChanged);
         editors.signature.on("changes", filtersChanged);
-    }
-
-    function clearHistory() {
-        editors.user.clearHistory();
-        editors.avatar.clearHistory();
-        editors.signature.clearHistory();
     }
 
     function beforeFiltersChanged(instance, changeObj) {
