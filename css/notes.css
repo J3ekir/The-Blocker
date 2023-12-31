@@ -4,6 +4,10 @@
     --std-gap: 12px;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 #buttons {
     display: flex;
     flex-shrink: 0;
