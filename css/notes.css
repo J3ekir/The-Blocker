@@ -1,3 +1,9 @@
+/* Heavily inspired by Raymond Hill's uBlock Origin */
+
+:root {
+    --std-gap: 12px;
+}
+
 #buttons {
     display: flex;
     flex-shrink: 0;
