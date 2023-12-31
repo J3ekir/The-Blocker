@@ -40,10 +40,30 @@
     .CodeMirror-linenumber {
         color: var(--gray-90-06);
     }
+
+    .CodeMirror-overlayscroll-horizontal div,
+    .CodeMirror-overlayscroll-vertical div {
+        background: var(--gray-50);
+    }
+
+    .CodeMirror-overlayscroll-horizontal div:hover,
+    .CodeMirror-overlayscroll-vertical div:hover {
+        background: var(--gray-80);
+    }
 }
 
 @media (prefers-color-scheme: light) {
     .codeMirrorContainer {
         border: 1px solid black;
+    }
+
+    .CodeMirror-overlayscroll-horizontal div,
+    .CodeMirror-overlayscroll-vertical div {
+        background: var(--gray-50);
+    }
+
+    .CodeMirror-overlayscroll-horizontal div:hover,
+    .CodeMirror-overlayscroll-vertical div:hover {
+        background: var(--gray-30);
     }
 }
