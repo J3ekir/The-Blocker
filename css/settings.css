@@ -53,12 +53,16 @@ hr {
         background-color: var(--gray-10);
     }
 
-    hr {
-        border-color: var(--gray-25);
+    .fieldset-header {
+        color: var(--blue-30);
     }
 
-    span {
-        color: var(--blue-30);
+    label span {
+        color: var(--gray-95);
+    }
+
+    hr {
+        border-color: var(--gray-25);
     }
 }
 
