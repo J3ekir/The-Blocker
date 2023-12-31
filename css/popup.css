@@ -7,7 +7,7 @@
 }
 
 body {
-    padding: 0 12px;
+    padding: calc(var(--std-gap) / 2) var(--std-gap);
 }
 
 .valueName {
