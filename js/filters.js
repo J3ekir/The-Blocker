@@ -54,6 +54,70 @@
     editors.user.focus();
     clearHistory();
 
+    chrome.storage.onChanged.addListener(changes => {
+        Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+            switch (key) {
+                case "user":
+                case "avatar":
+                case "signature":
+                    storageChangeHandler(key, newValue);
+            }
+        });
+    });
+
+    window.addEventListener("beforeunload", event => {
+        if (buttons.save.disabled) {
+            return;
+        }
+
+        event.preventDefault();
+        event.returnValue = "";
+    });
+
+    window.addEventListener("unload", event => {
+        parent.postMessage({
+            type: "tab",
+        }, "*");
+    });
+
+    document.addEventListener("keydown", event => {
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+            event.preventDefault();
+
+            if (!buttons.save.disabled) {
+                buttons.save.click();
+            }
+        }
+    });
+
+    document.addEventListener("mousedown", event => {
+        if (dom.cl.has(event.target, "cm-filter-keyword") && (event.ctrlKey || event.metaKey)) {
+            chrome.tabs.create({ url: `https://technopat.net/sosyal/uye/${ dom.text(event.target) }` });
+        }
+    });
+
+    var tapped = null;
+    document.addEventListener("touchstart", event => {
+        if (dom.cl.has(event.target, "cm-filter-keyword")) {
+            if (!tapped) {
+                tapped = setTimeout(_ => tapped = null, 300);
+            }
+            else {
+                clearTimeout(tapped);
+                tapped = null;
+                chrome.tabs.create({ url: `https://technopat.net/sosyal/uye/${ dom.text(event.target) }` });
+            }
+
+            event.preventDefault();
+        }
+    });
+
+    buttons.save.addEventListener("click", async event => {
+        await saveEditorText();
+        clearHistory();
+        buttons.save.disabled = true;
+    });
+
     /****************************************** MAIN END ******************************************/
 
     async function setEditorText() {
@@ -126,17 +190,6 @@
         }
     }
 
-    chrome.storage.onChanged.addListener(changes => {
-        Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-            switch (key) {
-                case "user":
-                case "avatar":
-                case "signature":
-                    storageChangeHandler(key, newValue);
-            }
-        });
-    });
-
     function storageChangeHandler(key, newValue) {
         cache[key] = newValue.join("\n");
         editors[key].setValue(cache[key]);
@@ -148,59 +201,6 @@
         editors[key].setCursor(editors[key].lineCount(), 0);
         editors[key].focus();
     }
-
-    window.addEventListener("beforeunload", event => {
-        if (buttons.save.disabled) {
-            return;
-        }
-
-        event.preventDefault();
-        event.returnValue = "";
-    });
-
-    window.addEventListener("unload", event => {
-        parent.postMessage({
-            type: "tab",
-        }, "*");
-    });
-
-    document.addEventListener("keydown", event => {
-        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
-            event.preventDefault();
-
-            if (!buttons.save.disabled) {
-                buttons.save.click();
-            }
-        }
-    });
-
-    var tapped = null;
-    document.addEventListener("touchstart", event => {
-        if (dom.cl.has(event.target, "cm-filter-keyword")) {
-            if (!tapped) {
-                tapped = setTimeout(_ => tapped = null, 300);
-            }
-            else {
-                clearTimeout(tapped);
-                tapped = null;
-                chrome.tabs.create({ url: `https://technopat.net/sosyal/uye/${ dom.text(event.target) }` });
-            }
-
-            event.preventDefault();
-        }
-    });
-
-    document.addEventListener("mousedown", event => {
-        if (dom.cl.has(event.target, "cm-filter-keyword") && (event.ctrlKey || event.metaKey)) {
-            chrome.tabs.create({ url: `https://technopat.net/sosyal/uye/${ dom.text(event.target) }` });
-        }
-    });
-
-    buttons.save.addEventListener("click", async event => {
-        await saveEditorText();
-        clearHistory();
-        buttons.save.disabled = true;
-    });
 
     async function saveEditorText() {
         var userText = getEditorText(editors.user);
