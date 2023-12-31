@@ -39,9 +39,13 @@ function loadPane(pane) {
 
     qs("#iframe").contentWindow.location.replace(pane);
 
-    if (dom.attr(".tabButton.selected", "data-pane") !== "filters.html") {
-        setSelectedTab();
+    switch (dom.attr(".tabButton.selected", "data-pane")) {
+        case "filters.html":
+        case "notes.html":
+            return;
     }
+
+    setSelectedTab();
 }
 
 function setSelectedTab() {
