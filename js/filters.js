@@ -1,6 +1,12 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
 (async () => {
+    var settings = await chrome.storage.local.get([
+        "user",
+        "avatar",
+        "signature",
+    ]);
+
     const codeMirrorOptions = {
         autofocus: true,
         foldGutter: true,
@@ -47,7 +53,7 @@
         title: document.title,
     }, "*");
 
-    await setEditorText();
+    setEditorText();
     setEditorEmptyLines();
     setEditorCursors();
     setEditorChanges();
@@ -141,13 +147,7 @@
 
     /****************************************** MAIN END ******************************************/
 
-    async function setEditorText() {
-        var settings = await chrome.storage.local.get([
-            "user",
-            "avatar",
-            "signature",
-        ]);
-
+    function setEditorText() {
         cache.user = settings["user"].join("\n");
         cache.avatar = settings["avatar"].join("\n");
         cache.signature = settings["signature"].join("\n");
