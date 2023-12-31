@@ -83,7 +83,6 @@ main {
     margin-bottom: 8px;
 }
 
-.CodeMirror,
 .codeMirrorContainer {
     flex-grow: 1;
     font-size: 16px;
@@ -100,40 +99,6 @@ main {
 }
 
 @media (prefers-color-scheme: dark) {
-    .cm-theme-override .cm-s-default .CodeMirror-line {
-        color: var(--gray-90);
-    }
-
-    .CodeMirror,
-    .codeMirrorContainer {
-        background-color: var(--gray-5);
-    }
-
-    .CodeMirror-activeline-background {
-        background-color: var(--gray-20);
-    }
-
-    .CodeMirror-cursor {
-        border-left-color: var(--gray-95);
-    }
-
-    .CodeMirror-focused .CodeMirror-selected {
-        background-color: var(--cm-selected-focused);
-    }
-
-    .CodeMirror-gutters {
-        background-color: var(--gray-20);
-        border-color: var(--gray-10);
-    }
-
-    .CodeMirror-linenumber {
-        color: var(--gray-90-06);
-    }
-
-    .CodeMirror-selected {
-        background-color: var(--cm-selected);
-    }
-
     body {
         background-color: var(--gray-10);
     }
@@ -158,18 +123,6 @@ main {
 }
 
 @media (prefers-color-scheme: light) {
-    .CodeMirror-focused .CodeMirror-selected {
-        background-color: var(--cm-selected-focused);
-    }
-
-    .CodeMirror-selected {
-        background-color: var(--cm-selected);
-    }
-
-    .editorContainer > div {
-        border: 1px solid black;
-    }
-
     button {
         color: var(--gray-95);
         background-color: var(--blue-60);

@@ -1,0 +1,49 @@
+.CodeMirror {
+    height: 100%;
+}
+
+.CodeMirror-lines {
+    padding: 0;
+}
+
+.CodeMirror-focused .CodeMirror-selected {
+    background-color: var(--cm-selected-focused);
+}
+
+.CodeMirror-selected {
+    background-color: var(--cm-selected);
+}
+
+@media (prefers-color-scheme: dark) {
+    .CodeMirror,
+    .codeMirrorContainer {
+        background-color: var(--gray-05);
+    }
+
+    .CodeMirror-cursor {
+        border-left-color: var(--gray-95);
+    }
+
+    .CodeMirror-gutters {
+        background-color: var(--gray-20);
+        border-color: var(--gray-10);
+    }
+
+    .cm-theme-override .cm-s-default .CodeMirror-line {
+        color: var(--gray-90);
+    }
+
+    .CodeMirror-activeline-background {
+        background-color: var(--gray-20);
+    }
+
+    .CodeMirror-linenumber {
+        color: var(--gray-90-06);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .codeMirrorContainer {
+        border: 1px solid black;
+    }
+}
