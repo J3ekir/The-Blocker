@@ -54,7 +54,7 @@ hr {
     }
 
     hr {
-        border-top-color: var(--gray-25);
+        border-color: var(--gray-25);
     }
 
     span {
@@ -64,6 +64,6 @@ hr {
 
 @media (prefers-color-scheme: light) {
     hr {
-        border-top-color: var(--gray-50);
+        border-color: var(--gray-50);
     }
 }
