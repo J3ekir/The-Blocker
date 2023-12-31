@@ -88,6 +88,24 @@ main {
     overflow: hidden;
 }
 
+@media (max-width: 750px) {
+    main {
+        flex-direction: column;
+        overflow: scroll;
+    }
+
+    .codeMirrorContainer {
+        min-height: 3lh;
+        max-height: 40svh;
+    }
+}
+
+@media (max-width: 550px) {
+    button > span {
+        display: none;
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     body {
         background-color: var(--gray-10);
