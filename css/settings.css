@@ -17,11 +17,10 @@
     font-weight: 500;
 }
 
-hr {
-    border: 0;
-    border-top-width: 1px;
-    border-top-style: solid;
-    margin: 1em 0;
+label {
+    align-items: center;
+    display: flex;
+    width: fit-content;
 }
 
 input {
@@ -30,18 +29,19 @@ input {
     width: 16px;
 }
 
-label {
-    align-items: center;
-    display: flex;
-    width: fit-content;
-}
-
 span {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
     font-weight: 400;
     position: relative;
     top: -1px;
+}
+
+hr {
+    border: 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    margin: 1em 0;
 }
 
 @media (prefers-color-scheme: dark) {
