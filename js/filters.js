@@ -55,9 +55,9 @@
 
     renderEditors();
 
-    editors.user.on("beforeChange", beforeFiltersChanged);
-    editors.avatar.on("beforeChange", beforeFiltersChanged);
-    editors.signature.on("beforeChange", beforeFiltersChanged);
+    editors.user.on("beforeChange", beforeEditorChanged);
+    editors.avatar.on("beforeChange", beforeEditorChanged);
+    editors.signature.on("beforeChange", beforeEditorChanged);
     editors.user.on("changes", filtersChanged);
     editors.avatar.on("changes", filtersChanged);
     editors.signature.on("changes", filtersChanged);
@@ -166,7 +166,7 @@
         editors[editor].setCursor(editors[editor].lineCount(), 0);
     }
 
-    function beforeFiltersChanged(instance, changeObj) {
+    function beforeEditorChanged(instance, changeObj) {
         if (/[^\d]/g.test(changeObj.text.join(""))) {
             changeObj.cancel();
         }
