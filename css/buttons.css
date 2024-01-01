@@ -1,7 +1,9 @@
+/* https://github.com/J3ekir/The-Blocker/commit/03d6569c44318ee1445049faba4e268ade3b79aa */
 :is(#theBlocker, .theBlocker-hide) {
     display: none !important;
 }
 
+/* https://github.com/J3ekir/The-Blocker/commit/03d6569c44318ee1445049faba4e268ade3b79aa */
 :is(#theBlocker, .theBlocker-show) {
     display: block !important;
 }
