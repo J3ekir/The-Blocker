@@ -137,6 +137,25 @@
         buttons.save.disabled = true;
     });
 
+    buttons.export.addEventListener("click", event => {
+        const object = {};
+        object["notlar"] = settings["notes"];
+        const text = JSON.stringify(object, null, 4);
+
+        const now = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
+        const time = now.toISOString()
+            .replace(/\.\d+Z$/, "")
+            .replace(/:/g, ".")
+            .replace("T", "_");
+        const fileName = `the-blocker-notlar_${ time }.txt`;
+
+        const a = dom.ce("a");
+        dom.attr(a, "href", `data:text/plain;charset=utf-8,${ encodeURIComponent(`${ text }\n`) }`);
+        dom.attr(a, "download", fileName);
+        dom.attr(a, "type", "text/plain");
+        a.click();
+    });
+
     /****************************************** MAIN END ******************************************/
 
     function renderNotes() {
