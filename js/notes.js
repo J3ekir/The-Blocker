@@ -109,6 +109,12 @@
         }
     });
 
+    document.addEventListener("mousedown", event => {
+        if (dom.cl.has(event.target, "cm-keyword") && (event.ctrlKey || event.metaKey)) {
+            chrome.tabs.create({ url: `https://technopat.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
+        }
+    });
+
     buttons.save.addEventListener("click", event => {
         saveEditorText();
         noteEditor.clearHistory();
