@@ -137,6 +137,12 @@
         buttons.save.disabled = true;
     });
 
+    buttons.import.addEventListener("click", event => {
+        const filePicker = qs("#filePicker");
+        filePicker.value = "";
+        filePicker.click();
+    });
+
     buttons.export.addEventListener("click", event => {
         const object = {};
         object["notlar"] = settings["notes"];
@@ -154,6 +160,35 @@
         dom.attr(a, "download", fileName);
         dom.attr(a, "type", "text/plain");
         a.click();
+    });
+
+    buttons.filePicker.addEventListener("change", event => {
+        const fileInput = event.target;
+
+        if (fileInput.files.length === 0) {
+            console.log('No file selected');
+            return;
+        }
+
+        const selectedFile = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = event => {
+            const fileContent = event.target.result;
+
+            try {
+                const filters = JSON.parse(fileContent);
+
+                chrome.storage.local.set({
+                    notes: { ...settings["notes"], ...filters["notlar"] },
+                });
+            }
+            catch (error) {
+                console.error("JSON error: ", error);
+            }
+        };
+
+        reader.readAsText(selectedFile);
     });
 
     /****************************************** MAIN END ******************************************/
