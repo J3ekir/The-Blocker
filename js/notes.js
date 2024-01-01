@@ -223,7 +223,7 @@
             const match = /^(\d+) (.+)$/gm.exec(elem);
 
             if (match !== null) {
-                notes[match[1]] = match[2];
+                notes[parseInt(match[1], 10)] = match[2];
             }
         });
 

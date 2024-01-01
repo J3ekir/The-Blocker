@@ -212,10 +212,10 @@
         var userId = dom.attr(event.currentTarget.parentElement, "data-user-id");
 
         if (note.length) {
-            settings["notes"][userId] = note;
+            settings["notes"][parseInt(userId, 10)] = note;
         }
         else {
-            delete settings["notes"][userId];
+            delete settings["notes"][parseInt(userId, 10)];
         }
 
         chrome.storage.local.set({
