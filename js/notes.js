@@ -90,6 +90,16 @@
         }, "*");
     });
 
+    document.addEventListener("keydown", event => {
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+            event.preventDefault();
+
+            if (!buttons.save.disabled) {
+                buttons.save.click();
+            }
+        }
+    });
+
     buttons.save.addEventListener("click", event => {
         saveEditorText();
         noteEditor.clearHistory();
