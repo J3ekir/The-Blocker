@@ -25,7 +25,7 @@
         configureMouse: _ => { return { addNew: false }; },
     };
 
-    const noteEditor = new CodeMirror(qs("#noteEditor"), codeMirrorOptions);
+    const noteEditor = new CodeMirror(qs("#note"), codeMirrorOptions);
 
     /***************************************** MAIN START *****************************************/
 
