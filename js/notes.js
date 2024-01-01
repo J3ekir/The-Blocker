@@ -72,6 +72,9 @@
 
     renderNotes();
 
+
+    noteEditor.on("changes", editorChanged);
+
     window.addEventListener("beforeunload", event => {
         if (buttons.save.disabled) {
             return;
@@ -105,5 +108,9 @@
         cache = cacheLines.join("\n");
         noteEditor.setValue(lines.join("\n"));
         noteEditor.clearHistory();
+    }
+    
+    function editorChanged(editor, changes) {
+        buttons.save.disabled = cache === getEditorText();
     }
 })();
