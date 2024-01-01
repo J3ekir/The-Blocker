@@ -129,4 +129,22 @@
     function editorChanged(editor, changes) {
         buttons.save.disabled = cache === getEditorText();
     }
+
+    function saveEditorText() {
+        const text = getEditorText();
+        const lines = text.split("\n");
+        const notes = {};
+
+        lines.forEach(elem => {
+            const match = /^(\d+) (.+)$/gm.exec(elem);
+
+            if (match !== null) {
+                notes[match[1]] = match[2];
+            }
+        });
+
+        chrome.storage.local.set({
+            notes: notes,
+        });
+    }
 })();
