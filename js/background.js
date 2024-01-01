@@ -133,10 +133,10 @@ async function noteSavedMessage(tabId) {
             }
 
             switch (window.wrappedJSObject.XF.getLocale()) {
-                case "en-US":
+                case "en_US":
                     window.wrappedJSObject.XF.flashMessage("Note has been saved.", 1500);
                     break;
-                case "tr-TR":
+                case "tr_TR":
                     window.wrappedJSObject.XF.flashMessage("Not kaydedildi.", 1500);
                     break;
             }
@@ -151,10 +151,10 @@ async function noteSavedMessageChrome(tabId) {
         world: "MAIN",
         func: () => {
             switch (XF.getLocale()) {
-                case "en-US":
+                case "en_US":
                     XF.flashMessage("Note has been saved.", 1500);
                     break;
-                case "tr-TR":
+                case "tr_TR":
                     XF.flashMessage("Not kaydedildi.", 1500);
                     break;
             }
