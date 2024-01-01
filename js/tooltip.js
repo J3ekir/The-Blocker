@@ -185,6 +185,10 @@
     }
 
     async function addNote(elem, userId) {
+        if (hasNote(elem)) {
+            return;
+        }
+        
         if (isSelfNote(userId)) {
             return;
         }
@@ -242,6 +246,10 @@
 
     function hasFindButton(elem) {
         return qs(elem, ".memberTooltip .memberTooltip-actions>.menu");
+    }
+
+    function hasNote(elem) {
+        return qs(elem, ".memberTooltip .memberTooltip-note");
     }
 
     function isSelfNote(userId) {
