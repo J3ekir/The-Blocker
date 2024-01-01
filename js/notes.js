@@ -115,6 +115,22 @@
         }
     });
 
+    var tapped = null;
+    document.addEventListener("touchstart", event => {
+        if (dom.cl.has(event.target, "cm-keyword")) {
+            if (!tapped) {
+                tapped = setTimeout(_ => tapped = null, 300);
+            }
+            else {
+                clearTimeout(tapped);
+                tapped = null;
+                chrome.tabs.create({ url: `https://technopat.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
+            }
+
+            event.preventDefault();
+        }
+    });
+
     buttons.save.addEventListener("click", event => {
         saveEditorText();
         noteEditor.clearHistory();
