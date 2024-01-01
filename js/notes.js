@@ -147,4 +147,11 @@
             notes: notes,
         });
     }
+
+    function getEditorText() {
+        return noteEditor.getValue()
+            .replace(/\s*\n\s*/g, "\n")
+            .replace(/(\n\d+)\s+/g, "$1 ")
+            .trim();
+    }
 })();
