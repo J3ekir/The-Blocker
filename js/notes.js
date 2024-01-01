@@ -144,8 +144,7 @@
     });
 
     buttons.export.addEventListener("click", event => {
-        const object = {};
-        object["notlar"] = settings["notes"];
+        const object = { notlar: settings["notes"] };
         const text = JSON.stringify(object, null, 4);
 
         const now = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
