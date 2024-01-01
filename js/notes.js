@@ -90,6 +90,12 @@
         }, "*");
     });
 
+    buttons.save.addEventListener("click", event => {
+        saveEditorText();
+        noteEditor.clearHistory();
+        buttons.save.disabled = true;
+    });
+
     /****************************************** MAIN END ******************************************/
 
     function renderNotes() {
@@ -109,7 +115,7 @@
         noteEditor.setValue(lines.join("\n"));
         noteEditor.clearHistory();
     }
-    
+
     function editorChanged(editor, changes) {
         buttons.save.disabled = cache === getEditorText();
     }
