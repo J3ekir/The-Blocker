@@ -74,6 +74,16 @@
 
     noteEditor.on("changes", editorChanged);
 
+    chrome.storage.onChanged.addListener(changes => {
+        Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+            switch (key) {
+                case "notes":
+                    settings[key] = newValue;
+                    renderNotes();
+            }
+        });
+    });
+
     window.addEventListener("beforeunload", event => {
         if (buttons.save.disabled) {
             return;
