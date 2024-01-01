@@ -66,6 +66,10 @@ svg {
     overflow: hidden;
 }
 
+#filePicker {
+    display: none;
+}
+
 @media (max-width: 550px) {
     button > span {
         display: none;
