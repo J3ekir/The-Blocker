@@ -72,7 +72,6 @@
 
     renderNotes();
 
-
     noteEditor.on("changes", editorChanged);
 
     window.addEventListener("beforeunload", event => {
