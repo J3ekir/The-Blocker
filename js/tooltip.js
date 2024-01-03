@@ -90,7 +90,7 @@
             return element;
         })(),
 
-        tooltipSearch: (() => {
+        tooltipFind: (() => {
             var text = dom.ce("span");
             dom.text(text, STR.find);
 
@@ -103,7 +103,7 @@
             return element;
         })(),
 
-        tooltipSearchMenu: (() => {
+        tooltipFindMenu: (() => {
             var menuHeader = dom.ce("h4");
             dom.cl.add(menuHeader, "menu-header");
             dom.text(menuHeader, STR.findContent);
@@ -145,7 +145,7 @@
         var userId = dom.attr(qs(elem, ".memberTooltip-avatar>a"), "data-user-id");
 
         addReportButton(elem, userId);
-        addSearchButton(elem, userId);
+        addFindButton(elem, userId);
 
         if (NOTES) {
             addNote(elem, userId);
@@ -165,22 +165,22 @@
         );
     }
 
-    function addSearchButton(elem, userId) {
+    function addFindButton(elem, userId) {
         if (hasFindButton(elem)) {
             return;
         }
 
         var userName = dom.text(qs(elem, ".memberTooltip-nameWrapper>a"));
 
-        var tooltipSearchMenu = dom.clone(BASE.tooltipSearchMenu);
-        tooltipSearchMenu.firstElementChild.insertAdjacentHTML("beforeend", `
+        var tooltipFindMenu = dom.clone(BASE.tooltipFindMenu);
+        tooltipFindMenu.firstElementChild.insertAdjacentHTML("beforeend", `
             <a href="/sosyal/ara/member?user_id=${ userId }" rel="nofollow" class="menu-linkRow" data-xf-click="overlay">${ STR.findAllContentBy(userName) }</a>
             <a href="/sosyal/ara/member?user_id=${ userId }&amp;content=thread" rel="nofollow" class="menu-linkRow" data-xf-click="overlay">${ STR.findAllThreadsBy(userName) }</a>
         `);
 
         qs(elem, ".memberTooltip-actions").append(
-            dom.clone(BASE.tooltipSearch),
-            tooltipSearchMenu,
+            dom.clone(BASE.tooltipFind),
+            tooltipFindMenu,
         );
     }
 
