@@ -4,7 +4,7 @@
             LANG: dom.attr("html", "lang"),
             "en-US": {
                 save: "Save",
-                placeholder: "Add note",
+                addNote: "Add note",
                 report: "Report",
                 find: "Find",
                 findContent: "Find content",
@@ -17,7 +17,7 @@
             },
             "tr-TR": {
                 save: "Kaydet",
-                placeholder: "Not ekle",
+                addNote: "Not ekle",
                 report: "Rapor",
                 find: "Bul",
                 findContent: "İçerik bul",
@@ -63,7 +63,7 @@
             baseTooltipNote: (() => {
                 var input = dom.ce("input");
                 dom.cl.add(input, "input");
-                input.placeholder = STR.placeholder;
+                input.placeholder = STR.addNote;
                 input.type = "text";
 
                 var svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
