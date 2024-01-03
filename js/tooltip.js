@@ -119,6 +119,24 @@
 
             return element;
         })(),
+
+        tooltipFindMenuAllContentBy: (() => {
+            const element = dom.ce("a");
+            dom.cl.add(element, "menu-linkRow");
+            dom.attr(element, "rel", "nofollow");
+            dom.attr(element, "data-xf-click", "overlay");
+
+            return element;
+        })(),
+
+        tooltipFindMenuAllThreadsBy: (() => {
+            const element = dom.ce("a");
+            dom.cl.add(element, "menu-linkRow");
+            dom.attr(element, "rel", "nofollow");
+            dom.attr(element, "data-xf-click", "overlay");
+
+            return element;
+        })(),
     };
 
     var settings = await chrome.storage.local.get([
@@ -173,10 +191,19 @@
         var userName = dom.text(qs(elem, ".memberTooltip-nameWrapper>a"));
 
         var tooltipFindMenu = dom.clone(BASE.tooltipFindMenu);
-        tooltipFindMenu.firstElementChild.insertAdjacentHTML("beforeend", `
-            <a href="/sosyal/ara/member?user_id=${ userId }" rel="nofollow" class="menu-linkRow" data-xf-click="overlay">${ STR.findAllContentBy(userName) }</a>
-            <a href="/sosyal/ara/member?user_id=${ userId }&amp;content=thread" rel="nofollow" class="menu-linkRow" data-xf-click="overlay">${ STR.findAllThreadsBy(userName) }</a>
-        `);
+
+        const allContentBy = dom.clone(BASE.tooltipFindMenuAllContentBy);
+        dom.attr(allContentBy, "href", `/sosyal/ara/member?user_id=${ userId }`);
+        dom.text(allContentBy, STR.findAllContentBy(userName));
+
+        const allThreadsBy = dom.clone(BASE.tooltipFindMenuAllThreadsBy);
+        dom.attr(allThreadsBy, "href", `/sosyal/ara/member?user_id=${ userId }&content=thread`);
+        dom.text(allThreadsBy, STR.findAllThreadsBy(userName));
+
+        tooltipFindMenu.firstElementChild.append(
+            allContentBy,
+            allThreadsBy,
+        );
 
         qs(elem, ".memberTooltip-actions").append(
             dom.clone(BASE.tooltipFind),
