@@ -215,7 +215,7 @@
         if (hasNote(elem)) {
             return;
         }
-        
+
         if (isSelfNote(userId)) {
             return;
         }
