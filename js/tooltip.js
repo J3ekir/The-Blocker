@@ -245,7 +245,7 @@
         );
     }
 
-    async function addNote(elem, userId) {
+    function addNote(elem, userId) {
         if (hasNote(elem)) {
             return;
         }
@@ -260,7 +260,7 @@
         );
     }
 
-    async function addProfileNote() {
+    function addProfileNote() {
         const userId = dom.attr(".memberHeader-avatar>.avatarWrapper>:is(a,span)", "data-user-id");
 
         if (isSelfNote(userId)) {
@@ -272,7 +272,7 @@
         );
     }
 
-    async function noteSaveHandler(event) {
+    function noteSaveHandler(event) {
         const note = event.currentTarget.previousElementSibling.value;
         const userId = dom.attr(event.currentTarget.parentElement, "data-user-id");
 
@@ -309,7 +309,7 @@
         return qs(".p-navgroup--member") && userId === dom.attr("a[href='/sosyal/hesap/']>span", "data-user-id");
     }
 
-    chrome.storage.onChanged.addListener(async changes => {
+    chrome.storage.onChanged.addListener(changes => {
         Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
             if (key === "notes") {
                 // it might be one of three things

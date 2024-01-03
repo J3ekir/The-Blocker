@@ -2,7 +2,7 @@ chrome.runtime.sendMessage({
     type: "injectCSS",
 });
 
-chrome.storage.onChanged.addListener(async changes => {
+chrome.storage.onChanged.addListener(changes => {
     Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
         switch (key) {
             case "user":

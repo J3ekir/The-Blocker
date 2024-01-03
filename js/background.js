@@ -118,7 +118,7 @@ function combineTabPanes(tabId) {
     });
 }
 
-async function noteSavedMessage(tabId) {
+function noteSavedMessage(tabId) {
     chrome.scripting.executeScript({
         target: { tabId: tabId },
         injectImmediately: true,
@@ -144,7 +144,7 @@ async function noteSavedMessage(tabId) {
     });
 }
 
-async function noteSavedMessageChrome(tabId) {
+function noteSavedMessageChrome(tabId) {
     chrome.scripting.executeScript({
         target: { tabId: tabId },
         injectImmediately: true,
@@ -162,7 +162,7 @@ async function noteSavedMessageChrome(tabId) {
     });
 }
 
-chrome.storage.onChanged.addListener(async changes => {
+chrome.storage.onChanged.addListener(changes => {
     Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
         if (KEYS.setCSS.includes(key)) {
             setCSS();

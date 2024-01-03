@@ -215,7 +215,7 @@
         buttons.save.disabled = cache[editor.getWrapperElement().parentElement.id] === getEditorText(editor);
     }
 
-    async function saveEditorText() {
+    function saveEditorText() {
         const userText = getEditorText(editors.user);
         const avatarText = getEditorText(editors.avatar);
         const signatureText = getEditorText(editors.signature);

@@ -12,7 +12,7 @@ chrome.storage.local.get().then(settings => {
     });
 });
 
-async function settingChanged(event) {
+function settingChanged(event) {
     const settingName = dom.attr(event.target, "data-setting-name");
     chrome.storage.local.set({
         [settingName]: event.target.checked,
