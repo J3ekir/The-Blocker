@@ -102,37 +102,37 @@
             })(),
 
             baseFindAllContentsBy: (() => {
-                var findAllContentsBy = dom.ce("a");
-                dom.cl.add(findAllContentsBy, "menu-linkRow");
-                dom.attr(findAllContentsBy, "rel", "nofollow");
-                dom.attr(findAllContentsBy, "data-xf-click", "overlay");
+                var element = dom.ce("a");
+                dom.cl.add(element, "menu-linkRow");
+                dom.attr(element, "rel", "nofollow");
+                dom.attr(element, "data-xf-click", "overlay");
 
-                return findAllContentsBy;
+                return element;
             })(),
 
             baseFindAllThreadsBy: (() => {
-                var findAllThreadsBy = dom.ce("a");
-                dom.cl.add(findAllThreadsBy, "menu-linkRow");
-                dom.attr(findAllThreadsBy, "rel", "nofollow");
-                dom.attr(findAllThreadsBy, "data-xf-click", "overlay");
+                var element = dom.ce("a");
+                dom.cl.add(element, "menu-linkRow");
+                dom.attr(element, "rel", "nofollow");
+                dom.attr(element, "data-xf-click", "overlay");
 
-                return findAllThreadsBy;
+                return element;
             })(),
 
             tooltipReport(userId) {
-                var tooltipReport = dom.clone(BASE.baseTooltipReport);
-                tooltipReport.firstElementChild.href = `/sosyal/uye/${ userId }/report`;
+                var element = dom.clone(BASE.baseTooltipReport);
+                element.firstElementChild.href = `/sosyal/uye/${ userId }/report`;
 
-                return tooltipReport;
+                return element;
             },
 
             tooltipNote(userId) {
-                var tooltipNote = dom.clone(BASE.baseTooltipNote);
-                dom.attr(tooltipNote, "data-user-id", userId);
-                tooltipNote.firstElementChild.value = settings["notes"][userId] || "";
-                tooltipNote.lastElementChild.addEventListener("click", noteSaveHandler);
+                var element = dom.clone(BASE.baseTooltipNote);
+                dom.attr(element, "data-user-id", userId);
+                element.firstElementChild.value = settings["notes"][userId] || "";
+                element.lastElementChild.addEventListener("click", noteSaveHandler);
 
-                return tooltipNote;
+                return element;
             },
 
             tooltipSeperator: (() => {
@@ -156,29 +156,29 @@
             })(),
 
             tooltipFindMenu(userId, userName) {
-                var tooltipFindMenu = dom.clone(BASE.baseTooltipFindMenu);
-                tooltipFindMenu.firstElementChild.append(
+                var element = dom.clone(BASE.baseTooltipFindMenu);
+                element.firstElementChild.append(
                     BASE.findAllContentBy(userId, userName),
                     BASE.findAllThreadsBy(userId, userName),
                 );
 
-                return tooltipFindMenu;
+                return element;
             },
 
             findAllContentBy(userId, userName) {
-                var findAllContentBy = dom.clone(BASE.baseFindAllContentsBy);
-                dom.attr(findAllContentBy, "href", `/sosyal/ara/member?user_id=${ userId }`);
-                dom.text(findAllContentBy, STR.findAllContentBy(userName));
+                var element = dom.clone(BASE.baseFindAllContentsBy);
+                dom.attr(element, "href", `/sosyal/ara/member?user_id=${ userId }`);
+                dom.text(element, STR.findAllContentBy(userName));
 
-                return findAllContentBy;
+                return element;
             },
 
             findAllThreadsBy(userId, userName) {
-                var findAllThreadsBy = dom.clone(BASE.baseFindAllThreadsBy);
-                dom.attr(findAllThreadsBy, "href", `/sosyal/ara/member?user_id=${ userId }&content=thread`);
-                dom.text(findAllThreadsBy, STR.findAllThreadsBy(userName));
+                var element = dom.clone(BASE.baseFindAllThreadsBy);
+                dom.attr(element, "href", `/sosyal/ara/member?user_id=${ userId }&content=thread`);
+                dom.text(element, STR.findAllThreadsBy(userName));
 
-                return findAllThreadsBy;
+                return element;
             },
         },
         {
