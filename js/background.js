@@ -78,13 +78,13 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-async function injectCSS(tabId) {
-    const result = await chrome.storage.local.get("CSS");
-
-    chrome.scripting.insertCSS({
-        target: { tabId: tabId },
-        origin: "AUTHOR",
-        css: result["CSS"],
+function injectCSS(tabId) {
+    chrome.storage.local.get("CSS").then(settings => {
+        chrome.scripting.insertCSS({
+            target: { tabId: tabId },
+            origin: "AUTHOR",
+            css: settings["CSS"],
+        });
     });
 
     chrome.scripting.insertCSS({
