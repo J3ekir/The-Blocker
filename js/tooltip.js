@@ -8,11 +8,11 @@
                 report: "Report",
                 find: "Find",
                 findContent: "Find content",
-                findAllContentBy(arg) {
-                    return `Find all content by ${ arg }`;
+                findAllContentBy(userName) {
+                    return `Find all content by ${ userName }`;
                 },
-                findAllThreadsBy(arg) {
-                    return `Find all threads by ${ arg }`;
+                findAllThreadsBy(userName) {
+                    return `Find all threads by ${ userName }`;
                 },
             },
             "tr-TR": {
@@ -21,11 +21,11 @@
                 report: "Rapor",
                 find: "Bul",
                 findContent: "İçerik bul",
-                findAllContentBy(arg) {
-                    return `${ arg } tarafından gönderilen tüm içeriği arattır`;
+                findAllContentBy(userName) {
+                    return `${ userName } tarafından gönderilen tüm içeriği arattır`;
                 },
-                findAllThreadsBy(arg) {
-                    return `${ arg } tarafından açılan tüm konuları arattır`;
+                findAllThreadsBy(userName) {
+                    return `${ userName } tarafından açılan tüm konuları arattır`;
                 },
             },
         },
