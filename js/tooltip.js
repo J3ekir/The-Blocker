@@ -121,7 +121,7 @@
 
             tooltipReport(userId) {
                 var element = dom.clone(BASE.baseTooltipReport);
-                element.firstElementChild.href = `/sosyal/uye/${ userId }/report`;
+                dom.attr(element.firstElementChild, "href", `/sosyal/uye/${ userId }/report`);
 
                 return element;
             },
