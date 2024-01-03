@@ -1,7 +1,7 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
 (async () => {
-    var settings = await chrome.storage.local.get([
+    const settings = await chrome.storage.local.get([
         "notes",
     ]);
 

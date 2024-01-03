@@ -36,21 +36,21 @@
 
     const BASE = {
         actionBar: (() => {
-            var element = dom.ce("div");
+            const element = dom.ce("div");
             dom.cl.add(element, "message-actionBar actionBar");
 
             return element;
         })(),
 
         internalActionBar: (() => {
-            var element = dom.ce("div");
+            const element = dom.ce("div");
             dom.cl.add(element, "actionBar-set actionBar-set--internal");
 
             return element;
         })(),
 
         reportButton: (() => {
-            var element = dom.ce("a");
+            const element = dom.ce("a");
             dom.cl.add(element, "actionBar-action actionBar-action--report");
             dom.text(element, STR.report);
             dom.attr(element, "data-xf-click", "overlay");
@@ -59,14 +59,14 @@
         })(),
 
         userButton: (() => {
-            var svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
+            const svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
             dom.attr(svg, "viewBox", "0 0 448 512");
             svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
 
-            var text = dom.ce("span");
+            const text = dom.ce("span");
             dom.text(text, STR.userBlock);
 
-            var element = dom.ce("a");
+            const element = dom.ce("a");
             dom.cl.add(element, "actionBar-action actionBar-action--block");
             dom.attr(element, "blocktype", "user");
             element.title = STR.userBlock;
@@ -76,14 +76,14 @@
         })(),
 
         avatarButton: (() => {
-            var svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
+            const svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
             dom.attr(svg, "viewBox", "0 0 448 512");
             svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
 
-            var text = dom.ce("span");
+            const text = dom.ce("span");
             dom.text(text, STR.avatarBlock);
 
-            var element = dom.ce("a");
+            const element = dom.ce("a");
             dom.cl.add(element, "actionBar-action actionBar-action--block");
             dom.attr(element, "blocktype", "avatar");
             element.title = STR.avatarBlock;
@@ -93,14 +93,14 @@
         })(),
 
         signatureButton: (() => {
-            var svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
+            const svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
             dom.attr(svg, "viewBox", "0 0 448 512");
             svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
 
-            var text = dom.ce("span");
+            const text = dom.ce("span");
             dom.text(text, STR.signatureBlock);
 
-            var element = dom.ce("a");
+            const element = dom.ce("a");
             dom.cl.add(element, "actionBar-action actionBar-action--block");
             dom.attr(element, "blocktype", "signature");
             element.title = STR.signatureBlock;
@@ -164,7 +164,7 @@
 
                 // no report
                 if (!elem.querySelector(".actionBar-action.actionBar-action--report")) {
-                    var reportButton = dom.clone(BASE.reportButton);
+                    const reportButton = dom.clone(BASE.reportButton);
                     dom.attr(reportButton, "href", `/sosyal/mesaj/${ postIds[i] }/report`);
                     elem.lastElementChild.prepend(reportButton);
                 }
@@ -176,7 +176,7 @@
         }
 
         function makeBlockButtons(userId) {
-            var buttonArray = [];
+            const buttonArray = [];
 
             if (!userId || isSelfBlock(userId)) {
                 buttonArray.push(
@@ -193,7 +193,7 @@
             }
 
             if (settings["settingUserButton"]) {
-                var button = dom.clone(BASE.userButton);
+                const button = dom.clone(BASE.userButton);
 
                 // if userId is blocked, the user can't see the buttons
                 // if (settings["user"].includes(userId)) {
@@ -208,7 +208,7 @@
             }
 
             if (settings["settingAvatarButton"]) {
-                var button = dom.clone(BASE.avatarButton);
+                const button = dom.clone(BASE.avatarButton);
 
                 if (settings["avatar"].includes(userId)) {
                     button.title = STR.avatarUnblock;
@@ -222,7 +222,7 @@
             }
 
             if (settings["settingSignatureButton"]) {
-                var button = dom.clone(BASE.signatureButton);
+                const button = dom.clone(BASE.signatureButton);
 
                 if (settings["signature"].includes(userId)) {
                     button.title = STR.signatureUnblock;
@@ -239,9 +239,9 @@
         }
 
         async function blockHandler(event) {
-            var userId = parseInt(dom.attr(event.currentTarget, "data-user-id"), 10);
-            var type = dom.attr(event.currentTarget, "blocktype");
-            var isBlocked = settings[type].includes(userId);
+            const userId = parseInt(dom.attr(event.currentTarget, "data-user-id"), 10);
+            const type = dom.attr(event.currentTarget, "blocktype");
+            const isBlocked = settings[type].includes(userId);
 
             if (!isUserIdValid(userId)) {
                 console.log(`user ID is not a number: ${ userId }`);
@@ -278,8 +278,8 @@
                         settings[key] = newValue;
                         settings[`${ key }Count`] = newValue.length;
 
-                        var isBlock = newValue.length > oldValue.length;
-                        var userId = isBlock ? newValue.at(-1) : oldValue.find((elem, i) => elem !== newValue[i]);
+                        const isBlock = newValue.length > oldValue.length;
+                        const userId = isBlock ? newValue.at(-1) : oldValue.find((elem, i) => elem !== newValue[i]);
                         toggleButtonTexts(isBlock, userId, key);
                 }
             });

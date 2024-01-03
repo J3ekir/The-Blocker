@@ -1,7 +1,7 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
 (async () => {
-    var settings = await chrome.storage.local.get([
+    const settings = await chrome.storage.local.get([
         "user",
         "avatar",
         "signature",
@@ -216,17 +216,17 @@
     }
 
     async function saveEditorText() {
-        var userText = getEditorText(editors.user);
-        var avatarText = getEditorText(editors.avatar);
-        var signatureText = getEditorText(editors.signature);
+        const userText = getEditorText(editors.user);
+        const avatarText = getEditorText(editors.avatar);
+        const signatureText = getEditorText(editors.signature);
 
         cache.user = userText;
         cache.avatar = avatarText;
         cache.signature = signatureText;
 
-        var user = userText === "" ? [] : userText.split("\n");
-        var avatar = avatarText === "" ? [] : avatarText.split("\n");
-        var signature = signatureText === "" ? [] : signatureText.split("\n");
+        const user = userText === "" ? [] : userText.split("\n");
+        const avatar = avatarText === "" ? [] : avatarText.split("\n");
+        const signature = signatureText === "" ? [] : signatureText.split("\n");
 
         chrome.storage.local.set({
             user: user.map(id => parseInt(id, 10)),

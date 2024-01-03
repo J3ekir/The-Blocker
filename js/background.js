@@ -36,13 +36,13 @@ const KEYS = {
 
 
 chrome.runtime.onInstalled.addListener(async () => {
-    var settings = await chrome.storage.local.get();
+    const settings = await chrome.storage.local.get();
 
     const jsonURL = await chrome.runtime.getURL("storage.json");
     const response = await fetch(jsonURL);
     const json = await response.json();
     const defaultSettings = json["defaultSettings"];
-    var defaultValues = {};
+    const defaultValues = {};
 
     for (const key in defaultSettings) {
         if (settings[key] === undefined) {
@@ -79,7 +79,7 @@ chrome.runtime.onMessage.addListener(
 );
 
 async function injectCSS(tabId) {
-    var result = await chrome.storage.local.get("CSS");
+    const result = await chrome.storage.local.get("CSS");
 
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
@@ -173,32 +173,31 @@ chrome.storage.onChanged.addListener(async changes => {
 async function setCSS() {
     console.time("setCSS");
 
-    var settings = await chrome.storage.local.get();
+    const settings = await chrome.storage.local.get();
 
-    var quoteCSS = "";
-    if (settings["settingQuotes"]) {
-        quoteCSS = `[data-attributes="member: ${ settings["user"].join(`"],[data-attributes="member: `) }"]{display:none!important;}`;
-    }
+    const quoteCSS = settings["settingQuotes"]
+        ? `[data-attributes="member: ${ settings["user"].join(`"],[data-attributes="member: `) }"]{display:none!important;}`
+        : "";
 
-    var userList = `(a:is([data-user-id="${ settings["user"].join(`"],[data-user-id="`) }"]))`;
+    const userList = `(a:is([data-user-id="${ settings["user"].join(`"],[data-user-id="`) }"]))`;
 
-    var userCSS = `:is(${ Object.keys(KEYS.user)
+    const userCSS = `:is(${ Object.keys(KEYS.user)
         .filter(key => settings[key])
         .map(key => KEYS.user[key])
         .join()
         }):has${ userList }{display:none!important;}:is(.block-row,.node-extra-row .node-extra-user):has${ userList },.structItem-cell.structItem-cell--latest:has${ userList }>div,:is(.message.message--post, .message.message--article, .structItem):has(:is(.message-cell--user, .message-articleUserInfo, .structItem-cell--main) :is${ userList }){display:none!important;}`;
 
     // https://github.com/J3ekir/The-Blocker/commit/03d6569c44318ee1445049faba4e268ade3b79aa
-    var avatarCSS = `:is(#theBlocker,a:is([data-user-id="${ settings["avatar"].join(`"],[data-user-id="`) }"]))>img{display:none;}`;
-    var signatureCSS = `.message-inner:has(a:is([data-user-id="${ settings["signature"].join(`"],[data-user-id="`) }"])) .message-signature{display:none;}`;
+    const avatarCSS = `:is(#theBlocker,a:is([data-user-id="${ settings["avatar"].join(`"],[data-user-id="`) }"]))>img{display:none;}`;
+    const signatureCSS = `.message-inner:has(a:is([data-user-id="${ settings["signature"].join(`"],[data-user-id="`) }"])) .message-signature{display:none;}`;
 
-    var miscCSS = `:is(${ Object.keys(KEYS.misc)
+    const miscCSS = `:is(${ Object.keys(KEYS.misc)
         .filter(key => settings[key])
         .map(key => KEYS.misc[key])
         .join()
         }){display:none!important;}`;
 
-    var CSS = `${ quoteCSS }${ userCSS }${ avatarCSS }${ signatureCSS }${ miscCSS }`;
+    const CSS = `${ quoteCSS }${ userCSS }${ avatarCSS }${ signatureCSS }${ miscCSS }`;
 
     await chrome.storage.local.set({
         CSS: CSS,

@@ -23,7 +23,7 @@ document.addEventListener("keydown", event => {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
         event.preventDefault();
 
-        var applyButton = qs("#iframe").contentWindow.document.querySelector("#applyButton");
+        const applyButton = qs("#iframe").contentWindow.document.querySelector("#applyButton");
         if (applyButton && !applyButton.disabled) {
             applyButton.click();
         }

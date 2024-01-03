@@ -23,7 +23,7 @@
     );
 
 
-    var settings = await chrome.storage.local.get([
+    const settings = await chrome.storage.local.get([
         "settingCombineTabPanes",
         "settingAddBottomTabButtons",
     ]);
@@ -49,11 +49,11 @@
         dom.attr(".tabs", "data-xf-init", null);
         dom.attr("[role='tab']", "href", null);
 
-        var tabs = qs(".tabs");
+        const tabs = qs(".tabs");
 
         qsa(tabs, "[role='tab']").forEach(elem => {
             elem.addEventListener("click", event => {
-                var index = Array.from(event.currentTarget.parentElement.children).indexOf(event.currentTarget);
+                const index = Array.from(event.currentTarget.parentElement.children).indexOf(event.currentTarget);
                 dom.cl.remove(":is([role='tab'],[role='tabpanel']).is-active", "is-active");
                 dom.cl.add(`:is([role='tab'],[role='tabpanel']):nth-child(${ index + 1 })`, "is-active");
             });
@@ -68,12 +68,12 @@
         }
 
         if (ADD_BOTTOM_TAB_BUTTONS) {
-            var bottomTabs = dom.clone(tabs);
-            var bottomButtons = bottomTabs.firstElementChild.firstElementChild.children;
+            const bottomTabs = dom.clone(tabs);
+            const bottomButtons = bottomTabs.firstElementChild.firstElementChild.children;
 
             Array.from(bottomButtons).forEach(elem => {
                 elem.addEventListener("click", event => {
-                    var index = Array.from(event.currentTarget.parentElement.children).indexOf(event.currentTarget);
+                    const index = Array.from(event.currentTarget.parentElement.children).indexOf(event.currentTarget);
                     dom.cl.remove(":is([role='tab'],[role='tabpanel']).is-active", "is-active");
                     dom.cl.add(`:is([role='tab'],[role='tabpanel']):nth-child(${ index + 1 })`, "is-active");
 

@@ -45,15 +45,15 @@
     const BASE = new Proxy(
         {
             baseTooltipReport: (() => {
-                var text = dom.ce("span");
+                const text = dom.ce("span");
                 dom.text(text, STR.report);
 
-                var button = dom.ce("a");
+                const button = dom.ce("a");
                 dom.cl.add(button, "button button--link");
                 dom.attr(button, "data-xf-click", "overlay");
                 button.append(text);
 
-                var element = dom.ce("div");
+                const element = dom.ce("div");
                 dom.cl.add(element, "memberTooltip-report");
                 element.append(button);
 
@@ -61,23 +61,23 @@
             })(),
 
             baseTooltipNote: (() => {
-                var input = dom.ce("input");
+                const input = dom.ce("input");
                 dom.cl.add(input, "input");
                 input.placeholder = STR.addNote;
                 input.type = "text";
 
-                var svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
+                const svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
                 dom.attr(svg, "viewBox", "0 0 448 512");
                 svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
 
-                var text = dom.ce("span");
+                const text = dom.ce("span");
                 dom.text(text, STR.save);
 
-                var button = dom.ce("a");
+                const button = dom.ce("a");
                 dom.cl.add(button, "button button--link");
                 button.append(svg, text);
 
-                var element = dom.ce("div");
+                const element = dom.ce("div");
                 dom.cl.add(element, "memberTooltip-note");
                 element.append(input, button);
 
@@ -85,15 +85,15 @@
             })(),
 
             baseTooltipFindMenu: (() => {
-                var menuHeader = dom.ce("h4");
+                const menuHeader = dom.ce("h4");
                 dom.cl.add(menuHeader, "menu-header");
                 dom.text(menuHeader, STR.findContent);
 
-                var menuContent = dom.ce("div");
+                const menuContent = dom.ce("div");
                 dom.cl.add(menuContent, "menu-content");
                 menuContent.append(menuHeader);
 
-                var element = dom.ce("div");
+                const element = dom.ce("div");
                 dom.cl.add(element, "menu");
                 dom.attr(element, "data-menu", "menu");
                 element.append(menuContent);
@@ -102,7 +102,7 @@
             })(),
 
             baseFindAllContentsBy: (() => {
-                var element = dom.ce("a");
+                const element = dom.ce("a");
                 dom.cl.add(element, "menu-linkRow");
                 dom.attr(element, "rel", "nofollow");
                 dom.attr(element, "data-xf-click", "overlay");
@@ -111,7 +111,7 @@
             })(),
 
             baseFindAllThreadsBy: (() => {
-                var element = dom.ce("a");
+                const element = dom.ce("a");
                 dom.cl.add(element, "menu-linkRow");
                 dom.attr(element, "rel", "nofollow");
                 dom.attr(element, "data-xf-click", "overlay");
@@ -120,14 +120,14 @@
             })(),
 
             tooltipReport(userId) {
-                var element = dom.clone(BASE.baseTooltipReport);
+                const element = dom.clone(BASE.baseTooltipReport);
                 dom.attr(element.firstElementChild, "href", `/sosyal/uye/${ userId }/report`);
 
                 return element;
             },
 
             tooltipNote(userId) {
-                var element = dom.clone(BASE.baseTooltipNote);
+                const element = dom.clone(BASE.baseTooltipNote);
                 dom.attr(element, "data-user-id", userId);
                 element.firstElementChild.value = settings["notes"][userId] || "";
                 element.lastElementChild.addEventListener("click", noteSaveHandler);
@@ -136,17 +136,17 @@
             },
 
             tooltipSeperator: (() => {
-                var element = dom.ce("hr");
+                const element = dom.ce("hr");
                 dom.cl.add(element, "memberTooltip-separator");
 
                 return element;
             })(),
 
             tooltipFind: (() => {
-                var text = dom.ce("span");
+                const text = dom.ce("span");
                 dom.text(text, STR.find);
 
-                var element = dom.ce("button");
+                const element = dom.ce("button");
                 dom.cl.add(element, "button--link menuTrigger button");
                 dom.attr(element, "data-xf-click", "menu");
                 element.type = "button";
@@ -156,7 +156,7 @@
             })(),
 
             tooltipFindMenu(userId, userName) {
-                var element = dom.clone(BASE.baseTooltipFindMenu);
+                const element = dom.clone(BASE.baseTooltipFindMenu);
                 element.firstElementChild.append(
                     BASE.findAllContentBy(userId, userName),
                     BASE.findAllThreadsBy(userId, userName),
@@ -166,7 +166,7 @@
             },
 
             findAllContentBy(userId, userName) {
-                var element = dom.clone(BASE.baseFindAllContentsBy);
+                const element = dom.clone(BASE.baseFindAllContentsBy);
                 dom.attr(element, "href", `/sosyal/ara/member?user_id=${ userId }`);
                 dom.text(element, STR.findAllContentBy(userName));
 
@@ -174,7 +174,7 @@
             },
 
             findAllThreadsBy(userId, userName) {
-                var element = dom.clone(BASE.baseFindAllThreadsBy);
+                const element = dom.clone(BASE.baseFindAllThreadsBy);
                 dom.attr(element, "href", `/sosyal/ara/member?user_id=${ userId }&content=thread`);
                 dom.text(element, STR.findAllThreadsBy(userName));
 
@@ -190,7 +190,8 @@
         },
     );
 
-    var settings = await chrome.storage.local.get([
+
+    const settings = await chrome.storage.local.get([
         "notes",
         "settingNotes",
     ]);
@@ -211,7 +212,7 @@
             return;
         }
 
-        var userId = dom.attr(qs(elem, ".memberTooltip-avatar>a"), "data-user-id");
+        const userId = dom.attr(qs(elem, ".memberTooltip-avatar>a"), "data-user-id");
 
         addReportButton(elem, userId);
         addFindButton(elem, userId);
@@ -236,7 +237,7 @@
             return;
         }
 
-        var userName = dom.text(qs(elem, ".memberTooltip-nameWrapper>a"));
+        const userName = dom.text(qs(elem, ".memberTooltip-nameWrapper>a"));
 
         qs(elem, ".memberTooltip-actions").append(
             BASE.tooltipFind,
@@ -260,7 +261,7 @@
     }
 
     async function addProfileNote() {
-        var userId = dom.attr(".memberHeader-avatar>.avatarWrapper>:is(a,span)", "data-user-id");
+        const userId = dom.attr(".memberHeader-avatar>.avatarWrapper>:is(a,span)", "data-user-id");
 
         if (isSelfNote(userId)) {
             return;
@@ -272,8 +273,8 @@
     }
 
     async function noteSaveHandler(event) {
-        var note = event.currentTarget.previousElementSibling.value;
-        var userId = dom.attr(event.currentTarget.parentElement, "data-user-id");
+        const note = event.currentTarget.previousElementSibling.value;
+        const userId = dom.attr(event.currentTarget.parentElement, "data-user-id");
 
         if (note.length) {
             settings["notes"][parseInt(userId, 10)] = note;
@@ -318,10 +319,10 @@
 
                 settings["notes"] = newValue;
 
-                var oldKeys = Object.keys(oldValue);
-                var newKeys = Object.keys(newValue);
-                var keys = oldKeys.length < newKeys.length ? newKeys : oldKeys;
-                var userId = keys.find(key => newValue[key] !== oldValue[key]);
+                const oldKeys = Object.keys(oldValue);
+                const newKeys = Object.keys(newValue);
+                const keys = oldKeys.length < newKeys.length ? newKeys : oldKeys;
+                const userId = keys.find(key => newValue[key] !== oldValue[key]);
                 setNewNoteValue(newValue, userId);
             }
         });
