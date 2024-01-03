@@ -42,102 +42,153 @@
         },
     );
 
-    const BASE = {
-        tooltipReport: (() => {
-            var text = dom.ce("span");
-            dom.text(text, STR.report);
+    const BASE = new Proxy(
+        {
+            baseTooltipReport: (() => {
+                var text = dom.ce("span");
+                dom.text(text, STR.report);
 
-            var button = dom.ce("a");
-            dom.cl.add(button, "button button--link");
-            dom.attr(button, "data-xf-click", "overlay");
-            button.append(text);
+                var button = dom.ce("a");
+                dom.cl.add(button, "button button--link");
+                dom.attr(button, "data-xf-click", "overlay");
+                button.append(text);
 
-            var element = dom.ce("div");
-            dom.cl.add(element, "memberTooltip-report");
-            element.append(button);
+                var element = dom.ce("div");
+                dom.cl.add(element, "memberTooltip-report");
+                element.append(button);
 
-            return element;
-        })(),
+                return element;
+            })(),
 
-        tooltipNote: (() => {
-            var input = dom.ce("input");
-            dom.cl.add(input, "input");
-            input.placeholder = STR.placeholder;
-            input.type = "text";
+            baseTooltipNote: (() => {
+                var input = dom.ce("input");
+                dom.cl.add(input, "input");
+                input.placeholder = STR.placeholder;
+                input.type = "text";
 
-            var svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
-            dom.attr(svg, "viewBox", "0 0 448 512");
-            svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
+                var svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
+                dom.attr(svg, "viewBox", "0 0 448 512");
+                svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
 
-            var text = dom.ce("span");
-            dom.text(text, STR.save);
+                var text = dom.ce("span");
+                dom.text(text, STR.save);
 
-            var button = dom.ce("a");
-            dom.cl.add(button, "button button--link");
-            button.append(svg, text);
+                var button = dom.ce("a");
+                dom.cl.add(button, "button button--link");
+                button.append(svg, text);
 
-            var element = dom.ce("div");
-            dom.cl.add(element, "memberTooltip-note");
-            element.append(input, button);
+                var element = dom.ce("div");
+                dom.cl.add(element, "memberTooltip-note");
+                element.append(input, button);
 
-            return element;
-        })(),
+                return element;
+            })(),
 
-        tooltipSeperator: (() => {
-            var element = dom.ce("hr");
-            dom.cl.add(element, "memberTooltip-separator");
+            baseTooltipFindMenu: (() => {
+                var menuHeader = dom.ce("h4");
+                dom.cl.add(menuHeader, "menu-header");
+                dom.text(menuHeader, STR.findContent);
 
-            return element;
-        })(),
+                var menuContent = dom.ce("div");
+                dom.cl.add(menuContent, "menu-content");
+                menuContent.append(menuHeader);
 
-        tooltipFind: (() => {
-            var text = dom.ce("span");
-            dom.text(text, STR.find);
+                var element = dom.ce("div");
+                dom.cl.add(element, "menu");
+                dom.attr(element, "data-menu", "menu");
+                element.append(menuContent);
 
-            var element = dom.ce("button");
-            dom.cl.add(element, "button--link menuTrigger button");
-            dom.attr(element, "data-xf-click", "menu");
-            element.type = "button";
-            element.append(text);
+                return element;
+            })(),
 
-            return element;
-        })(),
+            baseFindAllContentsBy: (() => {
+                var findAllContentsBy = dom.ce("a");
+                dom.cl.add(findAllContentsBy, "menu-linkRow");
+                dom.attr(findAllContentsBy, "rel", "nofollow");
+                dom.attr(findAllContentsBy, "data-xf-click", "overlay");
 
-        tooltipFindMenu: (() => {
-            var menuHeader = dom.ce("h4");
-            dom.cl.add(menuHeader, "menu-header");
-            dom.text(menuHeader, STR.findContent);
+                return findAllContentsBy;
+            })(),
 
-            var menuContent = dom.ce("div");
-            dom.cl.add(menuContent, "menu-content");
-            menuContent.append(menuHeader);
+            baseFindAllThreadsBy: (() => {
+                var findAllThreadsBy = dom.ce("a");
+                dom.cl.add(findAllThreadsBy, "menu-linkRow");
+                dom.attr(findAllThreadsBy, "rel", "nofollow");
+                dom.attr(findAllThreadsBy, "data-xf-click", "overlay");
 
-            var element = dom.ce("div");
-            dom.cl.add(element, "menu");
-            dom.attr(element, "data-menu", "menu");
-            element.append(menuContent);
+                return findAllThreadsBy;
+            })(),
 
-            return element;
-        })(),
+            tooltipReport(userId) {
+                var tooltipReport = dom.clone(BASE.baseTooltipReport);
+                tooltipReport.firstElementChild.href = `/sosyal/uye/${ userId }/report`;
 
-        tooltipFindMenuAllContentBy: (() => {
-            const element = dom.ce("a");
-            dom.cl.add(element, "menu-linkRow");
-            dom.attr(element, "rel", "nofollow");
-            dom.attr(element, "data-xf-click", "overlay");
+                return tooltipReport;
+            },
 
-            return element;
-        })(),
+            tooltipNote(userId) {
+                var tooltipNote = dom.clone(BASE.baseTooltipNote);
+                dom.attr(tooltipNote, "data-user-id", userId);
+                tooltipNote.firstElementChild.value = settings["notes"][userId] || "";
+                tooltipNote.lastElementChild.addEventListener("click", noteSaveHandler);
 
-        tooltipFindMenuAllThreadsBy: (() => {
-            const element = dom.ce("a");
-            dom.cl.add(element, "menu-linkRow");
-            dom.attr(element, "rel", "nofollow");
-            dom.attr(element, "data-xf-click", "overlay");
+                return tooltipNote;
+            },
 
-            return element;
-        })(),
-    };
+            tooltipSeperator: (() => {
+                var element = dom.ce("hr");
+                dom.cl.add(element, "memberTooltip-separator");
+
+                return element;
+            })(),
+
+            tooltipFind: (() => {
+                var text = dom.ce("span");
+                dom.text(text, STR.find);
+
+                var element = dom.ce("button");
+                dom.cl.add(element, "button--link menuTrigger button");
+                dom.attr(element, "data-xf-click", "menu");
+                element.type = "button";
+                element.append(text);
+
+                return element;
+            })(),
+
+            tooltipFindMenu(userId, userName) {
+                var tooltipFindMenu = dom.clone(BASE.baseTooltipFindMenu);
+                tooltipFindMenu.firstElementChild.append(
+                    BASE.findAllContentBy(userId, userName),
+                    BASE.findAllThreadsBy(userId, userName),
+                );
+
+                return tooltipFindMenu;
+            },
+
+            findAllContentBy(userId, userName) {
+                var findAllContentBy = dom.clone(BASE.baseFindAllContentsBy);
+                dom.attr(findAllContentBy, "href", `/sosyal/ara/member?user_id=${ userId }`);
+                dom.text(findAllContentBy, STR.findAllContentBy(userName));
+
+                return findAllContentBy;
+            },
+
+            findAllThreadsBy(userId, userName) {
+                var findAllThreadsBy = dom.clone(BASE.baseFindAllThreadsBy);
+                dom.attr(findAllThreadsBy, "href", `/sosyal/ara/member?user_id=${ userId }&content=thread`);
+                dom.text(findAllThreadsBy, STR.findAllThreadsBy(userName));
+
+                return findAllThreadsBy;
+            },
+        },
+        {
+            get(target, prop) {
+                return target[prop] instanceof Element
+                    ? dom.clone(target[prop])
+                    : target[prop].bind(target);
+            },
+        },
+    );
 
     var settings = await chrome.storage.local.get([
         "notes",
@@ -175,11 +226,8 @@
             return;
         }
 
-        var tooltipReport = dom.clone(BASE.tooltipReport);
-        tooltipReport.firstElementChild.href = `/sosyal/uye/${ userId }/report`;
-
         qs(elem, ".memberTooltip-headerInfo").prepend(
-            tooltipReport,
+            BASE.tooltipReport(userId),
         );
     }
 
@@ -190,24 +238,9 @@
 
         var userName = dom.text(qs(elem, ".memberTooltip-nameWrapper>a"));
 
-        var tooltipFindMenu = dom.clone(BASE.tooltipFindMenu);
-
-        const allContentBy = dom.clone(BASE.tooltipFindMenuAllContentBy);
-        dom.attr(allContentBy, "href", `/sosyal/ara/member?user_id=${ userId }`);
-        dom.text(allContentBy, STR.findAllContentBy(userName));
-
-        const allThreadsBy = dom.clone(BASE.tooltipFindMenuAllThreadsBy);
-        dom.attr(allThreadsBy, "href", `/sosyal/ara/member?user_id=${ userId }&content=thread`);
-        dom.text(allThreadsBy, STR.findAllThreadsBy(userName));
-
-        tooltipFindMenu.firstElementChild.append(
-            allContentBy,
-            allThreadsBy,
-        );
-
         qs(elem, ".memberTooltip-actions").append(
-            dom.clone(BASE.tooltipFind),
-            tooltipFindMenu,
+            BASE.tooltipFind,
+            BASE.tooltipFindMenu(userId, userName),
         );
     }
 
@@ -221,8 +254,8 @@
         }
 
         qs(elem, ".memberTooltip-info").before(
-            createNewTooltipNote(userId),
-            dom.clone(BASE.tooltipSeperator)
+            BASE.tooltipNote(userId),
+            BASE.tooltipSeperator
         );
     }
 
@@ -234,7 +267,7 @@
         }
 
         qs(".memberHeader-buttons").append(
-            createNewTooltipNote(userId),
+            BASE.tooltipNote(userId),
         );
     }
 
@@ -256,15 +289,6 @@
         chrome.runtime.sendMessage({
             type: "noteSavedMessage",
         });
-    }
-
-    function createNewTooltipNote(userId) {
-        var tooltipNote = dom.clone(BASE.tooltipNote);
-        dom.attr(tooltipNote, "data-user-id", userId);
-        tooltipNote.firstElementChild.value = settings["notes"][userId] || "";
-        tooltipNote.lastElementChild.addEventListener("click", noteSaveHandler);
-
-        return tooltipNote;
     }
 
     function hasReportButton(elem) {
