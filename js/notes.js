@@ -144,6 +144,10 @@
     });
 
     buttons.export.addEventListener("click", event => {
+        if (Object.keys(settings["notes"]).length === 0) {
+            return;
+        }
+
         const object = { notlar: settings["notes"] };
         const text = JSON.stringify(object, null, 4);
 
