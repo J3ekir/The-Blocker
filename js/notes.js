@@ -196,7 +196,7 @@
         const lines = [];
         const cacheLines = [];
         const notes = Object.entries(settings["notes"]);
-        const maxUserIdLength = notes.reduce((prev, curr) => (prev && prev[0].length > curr[0].length ? prev : curr))[0].length;
+        const maxUserIdLength = notes.length && notes.reduce((prev, curr) => (prev && prev[0].length > curr[0].length ? prev : curr))[0].length;
 
         for (let i = 0; i < notes.length; ++i) {
             const [userId, note] = notes[i];
