@@ -139,6 +139,14 @@
     });
 
     buttons.export.addEventListener("click", event => {
+        if (
+            settings["user"].length === 0 &&
+            settings["avatar"].length === 0 &&
+            settings["signature"].length === 0
+        ) {
+            return;
+        }
+
         const object = {};
         object["kullanıcı"] = settings["user"];
         object["avatar"] = settings["avatar"];
