@@ -12,7 +12,7 @@
     },
     "author": "Vavien.",
     "background": {
-        "service_worker": "js/background.js"
+        "scripts": [ "js/background.js" ]
     },
     "content_scripts": [
         {
@@ -74,5 +74,14 @@
             "matches": [ ],
             "resources": [ "storage.json" ]
         }
-    ]
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "the_blocker@addons.mozilla.org",
+            "strict_min_version": "121.0"
+        },
+        "gecko_android": {
+            "strict_min_version": "121.0"
+        }
+    }
 }
