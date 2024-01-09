@@ -1,4 +1,4 @@
-const KEYS = {
+const SELECTORS = {
     misc: {
         "settingSidebarShareThisPage": "div[data-widget-id='8']",
         "settingSidebarMembersOnline": "div[data-widget-id='6']",
@@ -18,21 +18,16 @@ const KEYS = {
         "settingProfilePosts": ".message.message--simple",
         "settingProfilePostComments": ".message-responseRow",
     },
-    get setCSS() {
-        if (!this.setCSSKeys) {
-            this.setCSSKeys = [
-                "user",
-                "avatar",
-                "signature",
-                "settingQuotes",
-                ...Object.keys(this.user),
-                ...Object.keys(this.misc),
-            ];
-        }
-
-        return this.setCSSKeys;
-    },
 };
+
+const SET_CSS_KEYS = [
+    "user",
+    "avatar",
+    "signature",
+    "settingQuotes",
+    ...Object.keys(SELECTORS.user),
+    ...Object.keys(SELECTORS.misc),
+];
 
 
 chrome.runtime.onInstalled.addListener(async () => {
@@ -170,7 +165,7 @@ function noteSavedMessageChrome(tabId) {
 
 chrome.storage.onChanged.addListener(changes => {
     Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-        if (KEYS.setCSS.includes(key)) {
+        if (SET_CSS_KEYS.includes(key)) {
             setCSS();
         }
     });
@@ -187,9 +182,9 @@ async function setCSS() {
 
     const userList = `(a:is([data-user-id="${ settings["user"].join(`"],[data-user-id="`) }"]))`;
 
-    const userCSS = `:is(${ Object.keys(KEYS.user)
+    const userCSS = `:is(${ Object.keys(SELECTORS.user)
         .filter(key => settings[key])
-        .map(key => KEYS.user[key])
+        .map(key => SELECTORS.user[key])
         .join()
         }):has${ userList }{display:none!important;}:is(.block-row,.node-extra-row .node-extra-user):has${ userList },.structItem-cell.structItem-cell--latest:has${ userList }>div,:is(.message.message--post, .message.message--article, .structItem):has(:is(.message-cell--user, .message-articleUserInfo, .structItem-cell--main) :is${ userList }){display:none!important;}`;
 
@@ -197,9 +192,9 @@ async function setCSS() {
     const avatarCSS = `:is(#theBlocker,a:is([data-user-id="${ settings["avatar"].join(`"],[data-user-id="`) }"]))>img{display:none;}`;
     const signatureCSS = `.message-inner:has(a:is([data-user-id="${ settings["signature"].join(`"],[data-user-id="`) }"])) .message-signature{display:none;}`;
 
-    const miscCSS = `:is(${ Object.keys(KEYS.misc)
+    const miscCSS = `:is(${ Object.keys(SELECTORS.misc)
         .filter(key => settings[key])
-        .map(key => KEYS.misc[key])
+        .map(key => SELECTORS.misc[key])
         .join()
         }){display:none!important;}`;
 
