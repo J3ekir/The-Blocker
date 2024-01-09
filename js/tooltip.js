@@ -1,7 +1,7 @@
 (async () => {
     const STR = new Proxy(
         {
-            LANG: dom.attr("html", "lang"),
+            "LANGUAGE": dom.attr("html", "lang"),
             "en-US": {
                 save: "Save",
                 addNote: "Add note",
@@ -31,13 +31,13 @@
         },
         {
             get(target, prop) {
-                if (!target.LANG) {
+                if (!target.LANGUAGE) {
                     return null;
                 }
 
-                return typeof target[target.LANG][prop] === "string"
-                    ? target[target.LANG][prop]
-                    : target[target.LANG][prop].bind(target);
+                return typeof target[target.LANGUAGE][prop] === "string"
+                    ? target[target.LANGUAGE][prop]
+                    : target[target.LANGUAGE][prop].bind(target);
             },
         },
     );
