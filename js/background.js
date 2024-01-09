@@ -36,21 +36,7 @@ const KEYS = {
 
 
 chrome.runtime.onInstalled.addListener(async () => {
-    const settings = await chrome.storage.local.get();
-
-    const jsonURL = await chrome.runtime.getURL("storage.json");
-    const response = await fetch(jsonURL);
-    const json = await response.json();
-    const defaultSettings = json["defaultSettings"];
-    const defaultValues = {};
-
-    for (const key in defaultSettings) {
-        if (settings[key] === undefined) {
-            defaultValues[key] = defaultSettings[key];
-        }
-    }
-
-    chrome.storage.local.set(defaultValues);
+    await setDefaultSettings();
 });
 
 chrome.runtime.onMessage.addListener(
@@ -77,6 +63,24 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+
+async function setDefaultSettings() {
+    const settings = await chrome.storage.local.get();
+    
+    const jsonURL = await chrome.runtime.getURL("storage.json");
+    const response = await fetch(jsonURL);
+    const json = await response.json();
+    const defaultSettings = json["defaultSettings"];
+    const defaultValues = {};
+
+    for (const key in defaultSettings) {
+        if (settings[key] === undefined) {
+            defaultValues[key] = defaultSettings[key];
+        }
+    }
+
+    chrome.storage.local.set(defaultValues);
+}
 
 function injectCSS(tabId) {
     chrome.storage.local.get("CSS").then(settings => {
