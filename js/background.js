@@ -66,18 +66,20 @@ chrome.runtime.onMessage.addListener(
 
 async function setDefaultSettings() {
     const settings = await chrome.storage.local.get();
-    
-    const jsonURL = await chrome.runtime.getURL("storage.json");
-    const response = await fetch(jsonURL);
-    const json = await response.json();
-    const defaultSettings = json["defaultSettings"];
+
+    const storage = await (async () => {
+        const storageURL = await chrome.runtime.getURL("storage.json");
+        const response = await fetch(storageURL);
+        return response.json();
+    })();
+
     const defaultValues = {};
 
-    for (const key in defaultSettings) {
+    Object.keys(storage["defaultSettings"]).forEach(key => {
         if (settings[key] === undefined) {
-            defaultValues[key] = defaultSettings[key];
+            defaultValues[key] = storage["defaultSettings"][key];
         }
-    }
+    });
 
     chrome.storage.local.set(defaultValues);
 }
