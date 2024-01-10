@@ -31,10 +31,10 @@ button {
     gap: calc(var(--std-gap) / 2);
     padding: 0.5em 1em;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 16px;
+    font-size: calc(var(--std-gap) * 4 / 3);
     font-weight: 500;
     border: none;
-    border-radius: calc(var(--std-gap) / 2);
+    border-radius: 0.375em;
 }
 
 button[disabled] {
