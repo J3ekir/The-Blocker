@@ -20,10 +20,11 @@ The Blocker technopat.net/sosyal forumu için RESMİ OLMAYAN HTML element "engel
 
 Engelleme kelimesini kullanmak çok daha rahat geldi. Herhangi bir şey engellediği yok. Sadece gizliyor. İlham kaynağı Xenforo'nun hard-coded olan 1000 göz ardı limiti ve benim çeşitli avatarları görmek istememem.
 
-Ayarlar sayfasında kişileri engellemek için çeşitli seçenekler arasında seçim yapabilirsiniz.
-Filtreler sayfasında engellenen kişilerin listesi (ID olarak) görüntülebilir ve düzenlenebilir.
+Ayarlar sayfasında kişileri engellemek için çeşitli seçenekler arasında seçim yapılabilir.  
+Filtreler sayfasında engellenen kişilerin listesi (ID olarak) görüntülenebilir ve düzenlenebilir.  
+Notlar sayfasında üyelere eklenen notlar görüntülenebilir ve düzenlenebilir.
 
-Güncel Chrome sürümü kullanılması tavsiye edilir. Eski sürümlerde beklendiği gibi çalışmayabilir.
+Güncel Chromium ve Firefox sürümü kullanılması tavsiye edilir. Eski sürümlerde beklendiği gibi çalışmayabilir.
 
 Bug bildirimleri için [Github issues'ü](https://github.com/J3ekir/The-Blocker/issues) kullanabilirsiniz.
 
