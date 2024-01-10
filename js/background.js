@@ -30,8 +30,12 @@ const SET_CSS_KEYS = [
 ];
 
 
-chrome.runtime.onInstalled.addListener(async () => {
+chrome.runtime.onInstalled.addListener(async ({ reason, temporary }) => {
     await setDefaultSettings();
+
+    if (reason === "install") {
+        checkPermissions();
+    }
 });
 
 chrome.runtime.onMessage.addListener(
@@ -77,6 +81,16 @@ async function setDefaultSettings() {
     });
 
     chrome.storage.local.set(defaultValues);
+}
+
+function checkPermissions() {
+    chrome.permissions.contains({
+        origins: ["https://www.technopat.net/sosyal/*"]
+    }).then(granted => {
+        if (!granted) {
+            chrome.tabs.create({ url: chrome.runtime.getURL("options.html") });
+        }
+    });
 }
 
 function injectCSS(tabId) {
