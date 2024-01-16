@@ -13,6 +13,7 @@
 .actionBar-action--block {
     display: inline-flex !important;
     align-items: center;
+    vertical-align: bottom;
     gap: 5px;
     cursor: pointer;
 }
