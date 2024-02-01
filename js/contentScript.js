@@ -190,7 +190,7 @@
 
             // if article
             if (userIds.length === postIds.length - 1) {
-                userIds.splice(0, 0, parseInt(dom.attr(".message-articleUserName>a", "data-user-id"), 10));
+                userIds.unshift(parseInt(dom.attr(".message-articleUserName>a", "data-user-id"), 10));
             }
 
             // report ban and reaction ban
