@@ -111,7 +111,7 @@
 
     document.addEventListener("mousedown", event => {
         if (dom.cl.has(event.target, "cm-keyword") && (event.ctrlKey || event.metaKey)) {
-            chrome.tabs.create({ url: `https://technopat.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
+            chrome.tabs.create({ url: `https://www.technopat.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
         }
     });
 
@@ -124,7 +124,7 @@
             else {
                 clearTimeout(tapped);
                 tapped = null;
-                chrome.tabs.create({ url: `https://technopat.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
+                chrome.tabs.create({ url: `https://www.technopat.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
             }
 
             event.preventDefault();
