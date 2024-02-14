@@ -117,14 +117,14 @@
 
 /***************************************** WIDGET_TABS ****************************************/
 
-.tabs.widget-group-tabs:last-child {
+.tabs.widget-group-tabs:nth-child(3) {
     border-bottom: none !important;
     border-top: 1px solid var(--input-border-light) !important;
     margin-top: -12px !important;
     margin-bottom: 20px !important;
 }
 
-.tabs.widget-group-tabs:last-child .tabs-tab {
+.tabs.widget-group-tabs:nth-child(3) .tabs-tab {
     border-bottom: none !important;
     border-top: 3px solid transparent;
     padding: 4px 15px 5px !important;
