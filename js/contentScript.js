@@ -112,7 +112,7 @@
 
             reportButton(postId) {
                 const element = dom.clone(BASE.baseReportButton);
-                dom.attr(reportButton, "href", `/sosyal/mesaj/${ postId }/report`);
+                dom.attr(element, "href", `/sosyal/mesaj/${ postId }/report`);
 
                 return element;
             },
