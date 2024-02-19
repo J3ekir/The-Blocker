@@ -29,33 +29,29 @@
         let lastUserId = "";
 
         return {
-            token: function (stream) {
+            token(stream) {
                 if (stream.sol()) {
-                    stream.eatSpace();
-                    const match = stream.match(/\S+/);
-
-                    if (
-                        match !== null &&
-                        stream.match(/\s+.*/, false) !== null &&
-                        /^\d+$/.test(match[0])
-                    ) {
-                        lastUserId = match[0];
-                        return "keyword";
-                    }
-                    else {
+                    if (!stream.match(/^[ ]*\d+[ ].+$/, false)) {
                         stream.skipToEnd();
                         return "line-cm-error";
                     }
+
+                    if (stream.match(/[ ]+/, false)) {
+                        stream.eatSpace();
+                        return null;
+                    }
                 }
 
-                stream.eatSpace();
-                const match = stream.match(/.*$/);
+                if (stream.match(/\d+/, false)) {
+                    lastUserId = stream.match(/\d+/)[0];
+                    return "keyword";
+                }
 
-                if (match !== null && match[0].trim() !== settings["notes"][lastUserId]) {
+                const note = stream.match(/[ ].+/)[0];
+                if (note.trim() !== settings["notes"][lastUserId]) {
                     return "line-cm-strong";
                 }
 
-                stream.skipToEnd();
                 return null;
             }
         };
