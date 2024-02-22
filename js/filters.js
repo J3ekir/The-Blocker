@@ -28,7 +28,7 @@
         lineWiseCopyCut: true,
         scrollbarStyle: "overlay",
         styleActiveLine: { nonEmpty: true },
-        configureMouse: _ => { return { addNew: false }; },
+        configureMouse: _ => ({ addNew: false }),
     };
 
     CodeMirror.defineMode("theBlocker-filters", function (config, parserConfig) {
