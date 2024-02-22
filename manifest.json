@@ -17,22 +17,22 @@
     "content_scripts": [
         {
             "matches": [
+                "https://www.technopat.net/sosyal/"
+            ],
+            "js": [
+                "js/dom.js",
+                "js/widgetTabs.js"
+            ],
+            "run_at": "document_start"
+        },
+        {
+            "matches": [
                 "https://www.technopat.net/sosyal/*"
             ],
             "js": [
                 "js/injectCSS.js",
                 "js/dom.js",
                 "js/tooltip.js"
-            ],
-            "run_at": "document_start"
-        },
-        {
-            "matches": [
-                "https://www.technopat.net/sosyal/"
-            ],
-            "js": [
-                "js/dom.js",
-                "js/widgetTabs.js"
             ],
             "run_at": "document_start"
         },
