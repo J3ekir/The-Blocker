@@ -4,6 +4,12 @@ chrome.storage.local.get("lastPane").then(settings => {
     loadPane(settings["lastPane"]);
 });
 
+chrome.storage.local.get("lastPane").then(settings => {
+    window.location.hash === ""
+        ? loadPane(settings["lastPane"])
+        : loadPane(window.location.hash.substring(1));
+});
+
 qsa(".tabButton").forEach(elem => {
     elem.addEventListener("click", event => loadPane(dom.attr(event.target, "data-pane")));
 });

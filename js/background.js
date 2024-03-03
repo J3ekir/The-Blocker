@@ -88,7 +88,7 @@ function checkPermissions() {
         origins: ["https://www.technopat.net/sosyal/*"]
     }).then(granted => {
         if (!granted) {
-            chrome.tabs.create({ url: chrome.runtime.getURL("options.html") });
+            chrome.tabs.create({ url: `${ chrome.runtime.getURL("options.html") }#settings.html` });
         }
     });
 }
