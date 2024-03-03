@@ -61,11 +61,6 @@
 
     /***************************************** MAIN START *****************************************/
 
-    parent.postMessage({
-        type: "title",
-        title: document.title,
-    }, "*");
-
     renderNotes();
 
     noteEditor.on("changes", editorChanged);

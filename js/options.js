@@ -12,10 +12,6 @@ window.addEventListener("message", function (event) {
     switch (event.data["type"]) {
         case "tab":
             setSelectedTab();
-            break;
-        case "title":
-            document.title = event.data["title"];
-            break;
     }
 });
 
@@ -57,4 +53,6 @@ function setSelectedTab() {
     chrome.storage.local.set({
         lastPane: window.paneToLoad,
     });
+
+    document.title = dom.text(tabButton);
 }
