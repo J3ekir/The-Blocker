@@ -1,6 +1,7 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
 :root {
+    color-scheme: light dark;
     --std-gap: 12px;
 }
 
@@ -78,10 +79,6 @@ hr {
 }
 
 @media (prefers-color-scheme: dark) {
-    html {
-        color-scheme: dark;
-    }
-
     body {
         background-color: var(--gray-10);
     }
