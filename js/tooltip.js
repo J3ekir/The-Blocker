@@ -212,7 +212,7 @@
             return;
         }
 
-        const userId = dom.attr(qs(elem, ".memberTooltip-avatar>a"), "data-user-id");
+        const userId = qs(elem, ".memberTooltip-avatar>a").dataset.userId;
 
         addReportButton(elem, userId);
         addFindButton(elem, userId);
@@ -261,7 +261,7 @@
     }
 
     function addProfileNote() {
-        const userId = dom.attr(".memberHeader-avatar>.avatarWrapper>:is(a,span)", "data-user-id");
+        const userId = qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId;
 
         if (isSelfNote(userId)) {
             return;
@@ -274,7 +274,7 @@
 
     function noteSaveHandler(event) {
         const note = event.currentTarget.previousElementSibling.value;
-        const userId = dom.attr(event.currentTarget.parentElement, "data-user-id");
+        const userId = event.currentTarget.parentElement.dataset.userId;
 
         if (note.length) {
             settings["notes"][parseInt(userId, 10)] = note;
@@ -306,7 +306,7 @@
 
     function isSelfNote(userId) {
         // if not member
-        return qs(".p-navgroup--member") && userId === dom.attr("a[href='/sosyal/hesap/']>span", "data-user-id");
+        return qs(".p-navgroup--member") && userId === qs("a[href='/sosyal/hesap/']>span").dataset.userId;
     }
 
     chrome.storage.onChanged.addListener(changes => {
