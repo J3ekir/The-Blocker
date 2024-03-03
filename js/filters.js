@@ -49,11 +49,6 @@
 
     /***************************************** MAIN START *****************************************/
 
-    parent.postMessage({
-        type: "title",
-        title: document.title,
-    }, "*");
-
     renderEditors();
 
     editors.user.on("beforeChange", beforeEditorChanged);

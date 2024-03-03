@@ -1,10 +1,5 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
-parent.postMessage({
-    type: "title",
-    title: document.title,
-}, "*");
-
 chrome.permissions.contains({
     origins: ["https://www.technopat.net/sosyal/*"],
 }).then(granted => {
