@@ -45,6 +45,10 @@ nav {
     outline: 0;
 }
 
+.tabButton:not(.active) {
+    cursor: pointer;
+}
+
 #iframe {
     flex-grow: 1;
     width: 100%;
