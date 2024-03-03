@@ -22,21 +22,21 @@
     height: 13px;
 }
 
-.actionBar-action--block[blocktype="user"] path {
+.actionBar-action--block[blocktype$="user" i] path {
     d: path("M96 128a128 128 0 01256 0 128 128 0 01-256 0zM135 128a89 89 0 00178 0 89 89 0 00-178 0zM176 304q-175 0-176 176 0 32 32 32h384q32 0 32-32 0-176-176-176zM40 473q0-130 136-130h96q136 0 136 130z");
 }
 
-.actionBar-action--block[blocktype="avatar"] path {
+.actionBar-action--block[blocktype$="avatar" i] path {
     d: path("M159 200a65 65 0 01130 0 65 65 0 01-130 0zM120 200a104 104 0 00208 0 104 104 0 00-208 0zM52 0q-52 0-52 52v408q0 52 52 52h344q52 0 52-52v-408q0-52-52-52zM82 473q0-91 103-91h78q104 0 104 91zM409 460q0 5-4 9 0-126-142-126h-78q-142 0-142 126-4-4-4-9v-408q0-13 13-13h344q13 0 13 13z");
 }
 
-.actionBar-action--block[blocktype="signature"] path {
+.actionBar-action--block[blocktype$="signature" i] path {
     d: path("M387 10c-19-16-47-13-63 6l-67 79-14-12c-19-16-47-13-62 6l-76 91c-5 6-4 15 2 21 6 5 16 4 21-2l76-91c5-6 15-7 21-2l14 12-163 195c-37 44-64 103-75 165-2 10 2 21 10 28 8 7 19 9 29 5 55-21 115-62 149-103l249-297c16-19 13-47-5-62zM262 137l68 57-163 195c-30 36-86 75-137 94 10-53 33-108 69-151l163-195z");
 }
 
 /* signature */
 @media (max-width: 480px) {
-    .actionBar-action--block[blocktype=signature] {
+    .actionBar-action--block[blocktype$="signature" i] {
         display: none !important;
     }
 }

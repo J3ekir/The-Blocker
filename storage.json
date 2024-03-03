@@ -1,14 +1,17 @@
 {
+    "defaultForumSettings": {
+        "User": [ ],
+        "Avatar": [ ],
+        "Signature": [ ],
+        "UserCount": 0,
+        "AvatarCount": 0,
+        "SignatureCount": 0,
+        "Notes": { },
+        "CSS": ""
+    },
     "defaultSettings": {
-        "user": [ ],
-        "avatar": [ ],
-        "signature": [ ],
-        "userCount": 0,
-        "avatarCount": 0,
-        "signatureCount": 0,
-        "notes": { },
-        "CSS": "",
         "lastPane": "settings.html",
+        "lastForum": "techolay",
         "settingNotes": true,
         "settingAddBottomTabButtons": true,
         "settingCombineTabPanes": true,

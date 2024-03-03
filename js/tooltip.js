@@ -1,4 +1,5 @@
 (async () => {
+    const forum = window.location.host.replace(/(?:www.)?(.*).net/, "$1");
     const STR = new Proxy(
         {
             "LANGUAGE": dom.attr("html", "lang"),
@@ -129,7 +130,7 @@
             tooltipNote(userId) {
                 const element = dom.clone(BASE.baseTooltipNote);
                 dom.attr(element, "data-user-id", userId);
-                element.firstElementChild.value = settings["notes"][userId] || "";
+                element.firstElementChild.value = settings[`${ forum }Notes`][userId] || "";
                 element.lastElementChild.addEventListener("click", noteSaveHandler);
 
                 return element;
@@ -192,7 +193,7 @@
 
 
     const settings = await chrome.storage.local.get([
-        "notes",
+        `${ forum }Notes`,
         "settingNotes",
     ]);
     const NOTES = settings["settingNotes"];
@@ -276,15 +277,14 @@
         const note = event.currentTarget.previousElementSibling.value;
         const userId = event.currentTarget.parentElement.dataset.userId;
 
-        if (note.length) {
-            settings["notes"][parseInt(userId, 10)] = note;
-        }
-        else {
-            delete settings["notes"][parseInt(userId, 10)];
+        settings[`${ forum }Notes`][parseInt(userId, 10)] = note;
+
+        if (!note.length) {
+            delete settings[`${ forum }Notes`][parseInt(userId, 10)];
         }
 
         chrome.storage.local.set({
-            notes: settings["notes"],
+            [`${ forum }Notes`]: settings[`${ forum }Notes`],
         });
 
         chrome.runtime.sendMessage({
@@ -311,13 +311,13 @@
 
     chrome.storage.onChanged.addListener(changes => {
         Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-            if (key === "notes") {
+            if (key === `${ forum }Notes`) {
                 // it might be one of three things
                 // 1) a new key and value added => new keys are more
                 // 2) an existing key and value deleted => new keys are less
                 // 3) an existing key's value changed => new keys are the same
 
-                settings["notes"] = newValue;
+                settings[`${ forum }Notes`] = newValue;
 
                 const oldKeys = Object.keys(oldValue);
                 const newKeys = Object.keys(newValue);

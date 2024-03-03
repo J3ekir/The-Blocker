@@ -39,9 +39,9 @@ function loadPane(pane) {
         return;
     }
 
-    qs("#iframe").contentWindow.location.replace(pane);
+    qs("#iframe").contentWindow.location.replace(pane.replace(/([^-]*)-?.*(.html)/, "$1$2"));
 
-    switch (dom.attr(".tabButton.active", "data-pane")) {
+    switch (dom.attr(".tabButton.active", "data-pane")?.replace(/([^-]*)-?.*(.html)/, "$1$2")) {
         case "filters.html":
         case "notes.html":
             return;
@@ -61,4 +61,5 @@ function setSelectedTab() {
     });
 
     document.title = dom.text(tabButton);
+    document.documentElement.dataset.forum = tabButton.dataset.pane.replace(/[^-]*-?(.*?)\.html/, "$1");
 }

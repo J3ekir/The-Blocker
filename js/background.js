@@ -1,4 +1,13 @@
+const FORUMS = [
+    "techolay",
+    "technopat",
+];
 const SELECTORS = {
+    filters: [
+        "User",
+        "Avatar",
+        "Signature",
+    ],
     misc: {
         "settingSidebarShareThisPage": "div[data-widget-definition='share_page']",
         "settingSidebarMembersOnline": "div[data-widget-section='onlineNow']",
@@ -21,10 +30,8 @@ const SELECTORS = {
 };
 
 const SET_CSS_KEYS = [
-    "user",
-    "avatar",
-    "signature",
     "settingQuotes",
+    ...FORUMS.flatMap(forum => SELECTORS.filters.map(filter => `${ forum }${ filter }`)),
     ...Object.keys(SELECTORS.user),
     ...Object.keys(SELECTORS.misc),
 ];
@@ -42,7 +49,7 @@ chrome.runtime.onMessage.addListener(
     async function (request, sender, sendResponse) {
         switch (request.type) {
             case "injectCSS":
-                injectCSS(sender.tab.id);
+                injectCSS(sender.tab.id, request.forum);
                 break;
             case "insertCSSString":
                 insertCSSString(sender.tab.id, request.CSS);
@@ -72,6 +79,8 @@ async function setDefaultSettings() {
         return response.json();
     })();
 
+    storage["defaultSettings"] = Object.assign(storage["defaultSettings"], ...FORUMS.map(forum => Object.assign(...Object.entries(storage["defaultForumSettings"]).map(([key, value]) => ({ [`${ forum }${ key }`]: value })))));
+
     const defaultValues = {};
 
     Object.keys(storage["defaultSettings"]).forEach(key => {
@@ -80,12 +89,70 @@ async function setDefaultSettings() {
         }
     });
 
+    // TODO: remove after 1.0.0
+    if (settings[`${ FORUMS[0] }User`] === undefined) {
+        defaultValues["lastPane"] = "settings.html";
+
+        const forumSettings = [
+            "user",
+            "avatar",
+            "signature",
+            "userCount",
+            "avatarCount",
+            "signatureCount",
+            "notes",
+            "CSS",
+        ];
+
+        forumSettings.forEach(key => {
+            if (settings[key] !== undefined) {
+                defaultValues[`technopat${ key.charAt(0).toUpperCase() }${ key.slice(1) }`] = settings[key];
+            }
+        });
+
+        const oldSettings = [
+            "settingNotes",
+            "settingAddBottomTabButtons",
+            "settingCombineTabPanes",
+            "settingUserButton",
+            "settingAvatarButton",
+            "settingSignatureButton",
+            "settingNotifications",
+            "settingProfilePosts",
+            "settingProfilePostComments",
+            "settingQuotes",
+            "settingSidebarShareThisPage",
+            "settingSidebarMembersOnline",
+            "settingSidebarRandomBlogEntries",
+            "settingSidebarLatestResources",
+            "settingNavigationBlogs",
+            "settingNavigationQuestions",
+            "settingNavigationVideos",
+            "settingNavigationAdvices",
+            "settingNavigationMedia",
+            "settingShowIgnoredContent",
+            "settingHideThisUsersSignature",
+            "settingXenforoFooter",
+        ];
+
+        oldSettings.forEach(key => {
+            if (settings[key] !== undefined) {
+                defaultValues[key] = settings[key];
+            }
+        });
+
+        await chrome.storage.local.clear();
+    }
+
     chrome.storage.local.set(defaultValues);
 }
 
 function checkPermissions() {
     chrome.permissions.contains({
-        origins: ["https://www.technopat.net/sosyal/*"]
+        origins: [
+            "https://techolay.net/sosyal/*",
+            "https://www.technopat.net/sosyal/*",
+        ]
     }).then(granted => {
         if (!granted) {
             chrome.tabs.create({ url: `${ chrome.runtime.getURL("options.html") }#settings.html` });
@@ -93,12 +160,12 @@ function checkPermissions() {
     });
 }
 
-function injectCSS(tabId) {
-    chrome.storage.local.get("CSS").then(settings => {
+function injectCSS(tabId, forum) {
+    chrome.storage.local.get(`${ forum }CSS`).then(settings => {
         chrome.scripting.insertCSS({
             target: { tabId: tabId },
             origin: "AUTHOR",
-            css: settings["CSS"],
+            css: settings[`${ forum }CSS`],
         });
     });
 
@@ -174,21 +241,27 @@ function noteSavedMessageChrome(tabId) {
 chrome.storage.onChanged.addListener(changes => {
     Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
         if (SET_CSS_KEYS.includes(key)) {
-            setCSS();
+            setCSS(FORUMS.find(forum => key.startsWith(forum)));
         }
     });
 });
 
-async function setCSS() {
-    console.time("setCSS");
+async function setCSS(forum) {
+    if (forum === undefined) {
+        FORUMS.forEach(forum => setCSS(forum));
+
+        return;
+    }
+
+    console.time(`setCSS: ${ forum }`);
 
     const settings = await chrome.storage.local.get();
 
     const quoteCSS = settings["settingQuotes"]
-        ? `[data-attributes="member: ${ settings["user"].join(`"],[data-attributes="member: `) }"]{display:none!important;}`
+        ? `[data-attributes="member: ${ settings[`${ forum }User`].join(`"],[data-attributes="member: `) }"]{display:none!important;}`
         : "";
 
-    const userList = `(a:is([data-user-id="${ settings["user"].join(`"],[data-user-id="`) }"]))`;
+    const userList = `(a:is([data-user-id="${ settings[`${ forum }User`].join(`"],[data-user-id="`) }"]))`;
 
     const userCSS = `:is(${ Object.keys(SELECTORS.user)
         .filter(key => settings[key])
@@ -197,8 +270,8 @@ async function setCSS() {
         }):has${ userList }{display:none!important;}:is(.block-row,.node-extra-row .node-extra-user):has${ userList },.structItem-cell.structItem-cell--latest:has${ userList }>div,:is(.message.message--post, .message.message--article, .structItem):has(:is(.message-cell--user, .message-articleUserInfo, .structItem-cell--main) :is${ userList }){display:none!important;}`;
 
     // https://github.com/J3ekir/The-Blocker/commit/03d6569c44318ee1445049faba4e268ade3b79aa
-    const avatarCSS = `:is(#theBlocker,a:is([data-user-id="${ settings["avatar"].join(`"],[data-user-id="`) }"]))>img{display:none;}`;
-    const signatureCSS = `.message-inner:has(a:is([data-user-id="${ settings["signature"].join(`"],[data-user-id="`) }"])) .message-signature{display:none;}`;
+    const avatarCSS = `:is(#theBlocker,a:is([data-user-id="${ settings[`${ forum }Avatar`].join(`"],[data-user-id="`) }"]))>img{display:none;}`;
+    const signatureCSS = `.message-inner:has(a:is([data-user-id="${ settings[`${ forum }Signature`].join(`"],[data-user-id="`) }"])) .message-signature{display:none;}`;
 
     const miscCSS = `:is(${ Object.keys(SELECTORS.misc)
         .filter(key => settings[key])
@@ -209,10 +282,10 @@ async function setCSS() {
     const CSS = `${ quoteCSS }${ userCSS }${ avatarCSS }${ signatureCSS }${ miscCSS }`;
 
     await chrome.storage.local.set({
-        CSS: CSS,
+        [`${ forum }CSS`]: CSS,
     });
 
-    console.timeEnd("setCSS");
+    console.timeEnd(`setCSS: ${ forum }`);
 }
 
 /**********************************************************************************************/

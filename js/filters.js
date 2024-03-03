@@ -1,17 +1,15 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
 (async () => {
-    const settings = await chrome.storage.local.get([
-        "user",
-        "avatar",
-        "signature",
-    ]);
+    const forum = parent.document.documentElement.dataset.forum;
+    const FILTERS = [
+        "User",
+        "Avatar",
+        "Signature",
+    ];
 
-    const cache = {
-        user: "",
-        avatar: "",
-        signature: "",
-    };
+    const settings = await chrome.storage.local.get(FILTERS.map(value => `${ forum }${ value }`));
+    const cache = Object.assign(...FILTERS.map(value => ({ [`${ forum }${ value }`]: "" })));
 
     const buttons = {
         save: qs("#applyButton"),
@@ -41,33 +39,22 @@
         };
     });
 
-    const editors = {
-        user: new CodeMirror(qs("#user"), codeMirrorOptions),
-        avatar: new CodeMirror(qs("#avatar"), codeMirrorOptions),
-        signature: new CodeMirror(qs("#signature"), codeMirrorOptions),
-    };
+    const editors = Object.assign(...FILTERS.map(value => ({ [`${ forum }${ value }`]: new CodeMirror(qs(`#${ value }`), codeMirrorOptions) })));
 
     /***************************************** MAIN START *****************************************/
 
     renderEditors();
 
-    editors.user.on("beforeChange", beforeEditorChanged);
-    editors.avatar.on("beforeChange", beforeEditorChanged);
-    editors.signature.on("beforeChange", beforeEditorChanged);
-    editors.user.on("changes", editorChanged);
-    editors.avatar.on("changes", editorChanged);
-    editors.signature.on("changes", editorChanged);
+    FILTERS.forEach(value => editors[`${ forum }${ value }`].on("beforeChange", beforeEditorChanged));
+    FILTERS.forEach(value => editors[`${ forum }${ value }`].on("changes", editorChanged));
 
-    editors.user.focus();
+    editors[`${ forum }User`].focus();
 
     chrome.storage.onChanged.addListener(changes => {
         Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-            switch (key) {
-                case "user":
-                case "avatar":
-                case "signature":
-                    settings[key] = newValue;
-                    renderEditor(key);
+            if (FILTERS.map(value => `${ forum }${ value }`).includes(key)) {
+                settings[key] = newValue;
+                renderEditor(key);
             }
         });
     });
@@ -99,7 +86,7 @@
 
     document.addEventListener("mousedown", event => {
         if (dom.cl.has(event.target, "cm-filter-keyword") && (event.ctrlKey || event.metaKey)) {
-            chrome.tabs.create({ url: `https://www.technopat.net/sosyal/uye/${ dom.text(event.target) }` });
+            chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ dom.text(event.target) }` });
         }
     });
 
@@ -112,7 +99,7 @@
             else {
                 clearTimeout(tapped);
                 tapped = null;
-                chrome.tabs.create({ url: `https://www.technopat.net/sosyal/uye/${ dom.text(event.target) }` });
+                chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ dom.text(event.target) }` });
             }
 
             event.preventDefault();
@@ -121,9 +108,7 @@
 
     buttons.save.addEventListener("click", event => {
         saveEditorText();
-        editors.user.clearHistory();
-        editors.avatar.clearHistory();
-        editors.signature.clearHistory();
+        FILTERS.forEach(value => editors[`${ forum }${ value }`].clearHistory());
         buttons.save.disabled = true;
     });
 
@@ -134,18 +119,14 @@
     });
 
     buttons.export.addEventListener("click", event => {
-        if (
-            settings["user"].length === 0 &&
-            settings["avatar"].length === 0 &&
-            settings["signature"].length === 0
-        ) {
+        if (FILTERS.every(value => settings[`${ forum }${ value }`].length === 0)) {
             return;
         }
 
         const object = {};
-        object["kullanıcı"] = settings["user"];
-        object["avatar"] = settings["avatar"];
-        object["imza"] = settings["signature"];
+        object["kullanıcı"] = settings[`${ forum }User`];
+        object["avatar"] = settings[`${ forum }Avatar`];
+        object["imza"] = settings[`${ forum }Signature`];
         const text = JSON.stringify(object, null, 4);
 
         const now = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
@@ -153,7 +134,7 @@
             .replace(/\.\d+Z$/, "")
             .replace(/:/g, ".")
             .replace("T", "_");
-        const fileName = `the-blocker-filtreler_${ time }.txt`;
+        const fileName = `the-blocker-filtreler-${ forum }_${ time }.txt`;
 
         const downloadLink = dom.ce("a");
         dom.attr(downloadLink, "href", `data:text/plain;charset=utf-8,${ encodeURIComponent(`${ text }\n`) }`);
@@ -180,9 +161,9 @@
                 const filters = JSON.parse(fileContent);
 
                 chrome.storage.local.set({
-                    user: [...new Set([...settings["user"], ...filters["kullanıcı"]])],
-                    avatar: [...new Set([...settings["avatar"], ...filters["avatar"]])],
-                    signature: [...new Set([...settings["signature"], ...filters["imza"]])],
+                    [`${ forum }User`]: [...new Set([...settings[`${ forum }User`], ...filters["kullanıcı"]])],
+                    [`${ forum }Avatar`]: [...new Set([...settings[`${ forum }Avatar`], ...filters["avatar"]])],
+                    [`${ forum }Signature`]: [...new Set([...settings[`${ forum }Signature`], ...filters["imza"]])],
                 });
             }
             catch (error) {
@@ -196,9 +177,7 @@
     /****************************************** MAIN END ******************************************/
 
     function renderEditors() {
-        renderEditor("user");
-        renderEditor("avatar");
-        renderEditor("signature");
+        FILTERS.forEach(value => renderEditor(`${ forum }${ value }`));
     }
 
     function renderEditor(editor) {
@@ -215,30 +194,12 @@
     }
 
     function editorChanged(editor, changes) {
-        buttons.save.disabled = cache[editor.getWrapperElement().parentElement.id] === getEditorText(editor);
+        buttons.save.disabled = cache[`${ forum }${ editor.getWrapperElement().parentElement.id }`] === getEditorText(editor);
     }
 
     function saveEditorText() {
-        const userText = getEditorText(editors.user);
-        const avatarText = getEditorText(editors.avatar);
-        const signatureText = getEditorText(editors.signature);
-
-        cache.user = userText;
-        cache.avatar = avatarText;
-        cache.signature = signatureText;
-
-        const user = userText === "" ? [] : userText.split("\n");
-        const avatar = avatarText === "" ? [] : avatarText.split("\n");
-        const signature = signatureText === "" ? [] : signatureText.split("\n");
-
-        chrome.storage.local.set({
-            user: user.map(id => parseInt(id, 10)),
-            avatar: avatar.map(id => parseInt(id, 10)),
-            signature: signature.map(id => parseInt(id, 10)),
-            userCount: user.length,
-            avatarCount: avatar.length,
-            signatureCount: signature.length,
-        });
+        FILTERS.forEach(value => cache[`${ forum }${ value }`] = getEditorText(editors[`${ forum }${ value }`]));
+        chrome.storage.local.set(Object.assign(...FILTERS.map(value => ({ [`${ forum }${ value }`]: cache[`${ forum }${ value }`] === "" ? [] : cache[`${ forum }${ value }`].split("\n").map(id => parseInt(id, 10)), [`${ forum }${ value }Count`]: cache[`${ forum }${ value }`] === "" ? 0 : cache[`${ forum }${ value }`].split("\n").length }))));
     }
 
     function getEditorText(editor) {

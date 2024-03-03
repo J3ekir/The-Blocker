@@ -11,12 +11,29 @@
 </head>
 
 <body>
-    <span class="valueName">Mesajı engellenen</span>
-    <span class="value" id="userCount"></span>
-    <span class="valueName">Avatarı engellenen</span>
-    <span class="value" id="avatarCount"></span>
-    <span class="valueName">İmzası Engellenen</span>
-    <span class="value" id="signatureCount"></span>
+    <nav>
+        <button class="tabButton" data-forum="techolay">Techolay</button>
+        <button class="tabButton" data-forum="technopat">Technopat</button>
+    </nav>
+
+    <main>
+        <article data-forum="techolay">
+            <span class="valueName">Mesajı engellenen</span>
+            <span class="value" id="techolayUserCount"></span>
+            <span class="valueName">Avatarı engellenen</span>
+            <span class="value" id="techolayAvatarCount"></span>
+            <span class="valueName">İmzası Engellenen</span>
+            <span class="value" id="techolaySignatureCount"></span>
+        </article>
+        <article data-forum="technopat">
+            <span class="valueName">Mesajı engellenen</span>
+            <span class="value" id="technopatUserCount"></span>
+            <span class="valueName">Avatarı engellenen</span>
+            <span class="value" id="technopatAvatarCount"></span>
+            <span class="valueName">İmzası Engellenen</span>
+            <span class="value" id="technopatSignatureCount"></span>
+        </article>
+    </main>
 
     <script src="js/dom.js"></script>
     <script src="js/popup.js" type="module"></script>
