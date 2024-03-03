@@ -155,11 +155,11 @@
             .replace("T", "_");
         const fileName = `the-blocker-filtreler_${ time }.txt`;
 
-        const a = dom.ce("a");
-        dom.attr(a, "href", `data:text/plain;charset=utf-8,${ encodeURIComponent(`${ text }\n`) }`);
-        dom.attr(a, "download", fileName);
-        dom.attr(a, "type", "text/plain");
-        a.click();
+        const downloadLink = dom.ce("a");
+        dom.attr(downloadLink, "href", `data:text/plain;charset=utf-8,${ encodeURIComponent(`${ text }\n`) }`);
+        dom.attr(downloadLink, "download", fileName);
+        dom.attr(downloadLink, "type", "text/plain");
+        downloadLink.click();
     });
 
     buttons.filePicker.addEventListener("change", event => {
