@@ -33,13 +33,13 @@ document.addEventListener("keydown", event => {
 function loadPane(pane) {
     window.paneToLoad = pane;
 
-    if (dom.attr(".tabButton.selected", "data-pane") === pane) {
+    if (dom.attr(".tabButton.active", "data-pane") === pane) {
         return;
     }
 
     qs("#iframe").contentWindow.location.replace(pane);
 
-    switch (dom.attr(".tabButton.selected", "data-pane")) {
+    switch (dom.attr(".tabButton.active", "data-pane")) {
         case "filters.html":
         case "notes.html":
             return;
@@ -51,8 +51,8 @@ function loadPane(pane) {
 function setSelectedTab() {
     const tabButton = qs(`[data-pane="${ window.paneToLoad }"]`);
     window.location.replace(`#${ window.paneToLoad }`);
-    dom.cl.remove(".tabButton.selected", "selected");
-    dom.cl.add(tabButton, "selected");
+    dom.cl.remove(".tabButton.active", "active");
+    dom.cl.add(tabButton, "active");
     tabButton.scrollIntoView();
     chrome.storage.local.set({
         lastPane: window.paneToLoad,
