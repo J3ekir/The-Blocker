@@ -1,4 +1,5 @@
 (async () => {
+    const forum = window.location.host.replace(/(?:www.)?(.*).net/, "$1");
     const STR = new Proxy(
         {
             "LANGUAGE": dom.attr("html", "lang"),
@@ -55,7 +56,7 @@
 
                 const element = dom.ce("a");
                 dom.cl.add(element, "actionBar-action actionBar-action--block");
-                dom.attr(element, "blocktype", "user");
+                dom.attr(element, "blocktype", `${ forum }User`);
                 element.title = STR.userBlock;
                 element.append(svg, text);
 
@@ -72,7 +73,7 @@
 
                 const element = dom.ce("a");
                 dom.cl.add(element, "actionBar-action actionBar-action--block");
-                dom.attr(element, "blocktype", "avatar");
+                dom.attr(element, "blocktype", `${ forum }Avatar`);
                 element.title = STR.avatarBlock;
                 element.append(svg, text);
 
@@ -89,7 +90,7 @@
 
                 const element = dom.ce("a");
                 dom.cl.add(element, "actionBar-action actionBar-action--block");
-                dom.attr(element, "blocktype", "signature");
+                dom.attr(element, "blocktype", `${ forum }Signature`);
                 element.title = STR.signatureBlock;
                 element.append(svg, text);
 
@@ -120,7 +121,7 @@
             userButton(userId) {
                 const element = dom.clone(BASE.baseUserButton);
 
-                if (settings["user"].includes(userId)) {
+                if (settings[`${ forum }User`].includes(userId)) {
                     element.title = STR.userUnblock;
                     dom.text(element.lastElementChild, STR.userUnblock);
                 }
@@ -134,7 +135,7 @@
             avatarButton(userId) {
                 const element = dom.clone(BASE.baseAvatarButton);
 
-                if (settings["avatar"].includes(userId)) {
+                if (settings[`${ forum }Avatar`].includes(userId)) {
                     element.title = STR.avatarUnblock;
                     dom.text(element.lastElementChild, STR.avatarUnblock);
                 }
@@ -148,7 +149,7 @@
             signatureButton(userId) {
                 const element = dom.clone(BASE.baseSignatureButton);
 
-                if (settings["signature"].includes(userId)) {
+                if (settings[`${ forum }Signature`].includes(userId)) {
                     element.title = STR.signatureUnblock;
                     dom.text(element.lastElementChild, STR.signatureUnblock);
                 }
@@ -202,12 +203,12 @@
             }
 
             settings = await chrome.storage.local.get([
-                "user",
-                "avatar",
-                "signature",
-                "userCount",
-                "avatarCount",
-                "signatureCount",
+                `${ forum }User`,
+                `${ forum }Avatar`,
+                `${ forum }Signature`,
+                `${ forum }UserCount`,
+                `${ forum }AvatarCount`,
+                `${ forum }SignatureCount`,
                 "settingUserButton",
                 "settingAvatarButton",
                 "settingSignatureButton",
@@ -265,9 +266,9 @@
         chrome.storage.onChanged.addListener(changes => {
             Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
                 switch (key) {
-                    case "user":
-                    case "avatar":
-                    case "signature":
+                    case `${ forum }User`:
+                    case `${ forum }Avatar`:
+                    case `${ forum }Signature`:
                         settings[key] = newValue;
                         settings[`${ key }Count`] = newValue.length;
 
@@ -279,15 +280,16 @@
         });
 
         function toggleButtonTexts(isBlock, userId, key) {
+            const forumLength = forum.length;
             var newText;
 
             switch (key.length << isBlock) {
-                case 4 << 0: newText = STR.userBlock; break;
-                case 6 << 0: newText = STR.avatarBlock; break;
-                case 9 << 0: newText = STR.signatureBlock; break;
-                case 4 << 1: newText = STR.userUnblock; break;
-                case 6 << 1: newText = STR.avatarUnblock; break;
-                case 9 << 1: newText = STR.signatureUnblock; break;
+                case forumLength + 4 << 0: newText = STR.userBlock; break;
+                case forumLength + 6 << 0: newText = STR.avatarBlock; break;
+                case forumLength + 9 << 0: newText = STR.signatureBlock; break;
+                case forumLength + 4 << 1: newText = STR.userUnblock; break;
+                case forumLength + 6 << 1: newText = STR.avatarUnblock; break;
+                case forumLength + 9 << 1: newText = STR.signatureUnblock; break;
             }
 
             qsa(`[data-user-id="${ userId }"][blocktype="${ key }"]`).forEach(elem => {

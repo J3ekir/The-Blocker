@@ -1,13 +1,16 @@
+const forum = window.location.host.replace(/(?:www.)?(.*).net/, "$1");
+
 chrome.runtime.sendMessage({
     type: "injectCSS",
+    forum: forum,
 });
 
 chrome.storage.onChanged.addListener(changes => {
     Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
         switch (key) {
-            case "user":
-            case "avatar":
-            case "signature":
+            case `${ forum }User`:
+            case `${ forum }Avatar`:
+            case `${ forum }Signature`:
                 const isBlock = newValue.length > oldValue.length;
                 const userId = isBlock ? newValue.at(-1) : oldValue.find((elem, i) => elem !== newValue[i]);
                 toggleCSS(isBlock, userId, key);
@@ -26,7 +29,7 @@ async function toggleCSS(isBlock, userId, key) {
     var CSS;
 
     switch (key) {
-        case "user":
+        case `${ forum }User`:
             const quoteCSS = settings["settingQuotes"]
                 ? `[data-attributes="member: ${ userId }"],`
                 : "";
@@ -46,10 +49,10 @@ async function toggleCSS(isBlock, userId, key) {
             CSS = `${ quoteCSS }${ notificationsCSS }${ profilePostsCSS }${ ProfilePostCommentsCSS }:is(.block-row,.node-extra-row .node-extra-user):has(a[data-user-id="${ userId }"]),.structItem-cell.structItem-cell--latest:has(a[data-user-id="${ userId }"])>div,:is(.message.message--post, .message.message--article, .structItem):has(:is(.message-cell--user, .message-articleUserInfo, .structItem-cell--main) a[data-user-id="${ userId }"])`;
 
             break;
-        case "avatar":
+        case `${ forum }Avatar`:
             CSS = `a[data-user-id="${ userId }"]>img`;
             break;
-        case "signature":
+        case `${ forum }Signature`:
             CSS = `.message-signature:has(.js-userSignature-${ userId })`;
             break;
     }

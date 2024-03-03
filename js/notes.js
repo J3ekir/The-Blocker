@@ -1,8 +1,9 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
 (async () => {
+    const forum = parent.document.documentElement.dataset.forum;
     const settings = await chrome.storage.local.get(
-        "notes",
+        `${ forum }Notes`,
     );
 
     var cache = "";
@@ -48,7 +49,7 @@
                 }
 
                 const note = stream.match(/[ ].+/)[0];
-                if (note.trim() !== settings["notes"][lastUserId]) {
+                if (note.trim() !== settings[`${ forum }Notes`][lastUserId]) {
                     return "line-cm-strong";
                 }
 
@@ -68,7 +69,7 @@
     chrome.storage.onChanged.addListener(changes => {
         Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
             switch (key) {
-                case "notes":
+                case `${ forum }Notes`:
                     settings[key] = newValue;
                     renderNotes();
             }
@@ -102,7 +103,7 @@
 
     document.addEventListener("mousedown", event => {
         if (dom.cl.has(event.target, "cm-keyword") && (event.ctrlKey || event.metaKey)) {
-            chrome.tabs.create({ url: `https://www.technopat.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
+            chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
         }
     });
 
@@ -115,7 +116,7 @@
             else {
                 clearTimeout(tapped);
                 tapped = null;
-                chrome.tabs.create({ url: `https://www.technopat.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
+                chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
             }
 
             event.preventDefault();
@@ -135,11 +136,11 @@
     });
 
     buttons.export.addEventListener("click", event => {
-        if (Object.keys(settings["notes"]).length === 0) {
+        if (Object.keys(settings[`${ forum }Notes`]).length === 0) {
             return;
         }
 
-        const object = { notlar: settings["notes"] };
+        const object = { notlar: settings[`${ forum }Notes`] };
         const text = JSON.stringify(object, null, 4);
 
         const now = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
@@ -147,7 +148,7 @@
             .replace(/\.\d+Z$/, "")
             .replace(/:/g, ".")
             .replace("T", "_");
-        const fileName = `the-blocker-notlar_${ time }.txt`;
+        const fileName = `the-blocker-notlar-${ forum }_${ time }.txt`;
 
         const downloadLink = dom.ce("a");
         dom.attr(downloadLink, "href", `data:text/plain;charset=utf-8,${ encodeURIComponent(`${ text }\n`) }`);
@@ -174,7 +175,7 @@
                 const filters = JSON.parse(fileContent);
 
                 chrome.storage.local.set({
-                    notes: { ...settings["notes"], ...filters["notlar"] },
+                    [`${ forum }Notes`]: { ...settings[`${ forum }Notes`], ...filters["notlar"] },
                 });
             }
             catch (error) {
@@ -190,7 +191,7 @@
     function renderNotes() {
         const lines = [];
         const cacheLines = [];
-        const notes = Object.entries(settings["notes"]);
+        const notes = Object.entries(settings[`${ forum }Notes`]);
         const maxUserIdLength = notes.length && notes.reduce((prev, curr) => (prev && prev[0].length > curr[0].length ? prev : curr))[0].length;
 
         for (let i = 0; i < notes.length; ++i) {
@@ -223,7 +224,7 @@
         });
 
         chrome.storage.local.set({
-            notes: notes,
+            [`${ forum }Notes`]: notes,
         });
     }
 

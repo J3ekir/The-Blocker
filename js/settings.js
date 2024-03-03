@@ -1,7 +1,10 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
 chrome.permissions.contains({
-    origins: ["https://www.technopat.net/sosyal/*"],
+    origins: [
+        "https://techolay.net/sosyal/*",
+        "https://www.technopat.net/sosyal/*",
+    ],
 }).then(granted => {
     if (!granted) {
         qs("#requestPermission").style.display = "flex";
