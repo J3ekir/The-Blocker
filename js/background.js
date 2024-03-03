@@ -215,7 +215,6 @@ function noteSavedMessage(tabId) {
             }
 
             const XF = window.wrappedJSObject.XF;
-
             switch (XF.getLocale()) {
                 case "en_US": XF.flashMessage("Note has been saved.", 1500); break;
                 case "tr_TR": XF.flashMessage("Not kaydedildi.", 1500); break;
