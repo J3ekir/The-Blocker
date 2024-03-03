@@ -85,4 +85,9 @@ nav {
         color: var(--blue-60);
         border-color: currentColor;
     }
+
+    .tabButton:not(.active):hover {
+        background-color: var(--gray-90);
+        border-color: var(--gray-80);
+    }
 }
