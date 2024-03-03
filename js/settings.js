@@ -4,7 +4,7 @@ chrome.permissions.contains({
     origins: ["https://www.technopat.net/sosyal/*"],
 }).then(granted => {
     if (!granted) {
-        document.querySelector("#requestPermission").style.display = "flex";
+        qs("#requestPermission").style.display = "flex";
     }
 });
 
