@@ -179,7 +179,6 @@
     });
 
     async function main() {
-
         blockButtons();
         observe();
 
