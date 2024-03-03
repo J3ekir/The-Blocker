@@ -17,6 +17,7 @@
     "content_scripts": [
         {
             "matches": [
+                "https://techolay.net/sosyal/",
                 "https://www.technopat.net/sosyal/"
             ],
             "js": [
@@ -27,6 +28,7 @@
         },
         {
             "matches": [
+                "https://techolay.net/sosyal/*",
                 "https://www.technopat.net/sosyal/*"
             ],
             "js": [
@@ -38,6 +40,7 @@
         },
         {
             "matches": [
+                "https://techolay.net/sosyal/konu/*",
                 "https://www.technopat.net/sosyal/konu/*"
             ],
             "js": [
@@ -47,9 +50,12 @@
             "run_at": "document_start"
         }
     ],
-    "description": "technopat.net/sosyal için RESMİ OLMAYAN kullanıcı, avatar ve imza \"engelleyici\"",
+    "description": "techolay.net/sosyal ve technopat.net/sosyal için RESMİ OLMAYAN kullanıcı, avatar ve imza \"engelleyici\"",
     "homepage_url": "https://github.com/J3ekir/The-Blocker",
-    "host_permissions": [ "https://www.technopat.net/sosyal/*" ],
+    "host_permissions": [
+        "https://techolay.net/sosyal/*",
+        "https://www.technopat.net/sosyal/*"
+    ],
     "icons": {
         "16": "img/icon_16.png",
         "32": "img/icon_32.png",
