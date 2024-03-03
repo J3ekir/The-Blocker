@@ -52,7 +52,7 @@ function loadPane(pane) {
 
 function setSelectedTab() {
     const tabButton = qs(`[data-pane="${ window.paneToLoad }"]`);
-    window.location.replace(`#${ window.paneToLoad }`);
+    window.location.hash = window.paneToLoad;
     dom.cl.remove(".tabButton.active", "active");
     dom.cl.add(tabButton, "active");
     tabButton.scrollIntoView();
