@@ -147,13 +147,11 @@ function noteSavedMessage(tabId) {
                 return;
             }
 
-            switch (window.wrappedJSObject.XF.getLocale()) {
-                case "en_US":
-                    window.wrappedJSObject.XF.flashMessage("Note has been saved.", 1500);
-                    break;
-                case "tr_TR":
-                    window.wrappedJSObject.XF.flashMessage("Not kaydedildi.", 1500);
-                    break;
+            const XF = window.wrappedJSObject.XF;
+
+            switch (XF.getLocale()) {
+                case "en_US": XF.flashMessage("Note has been saved.", 1500); break;
+                case "tr_TR": XF.flashMessage("Not kaydedildi.", 1500); break;
             }
         }
     });
@@ -166,12 +164,8 @@ function noteSavedMessageChrome(tabId) {
         world: "MAIN",
         func: () => {
             switch (XF.getLocale()) {
-                case "en_US":
-                    XF.flashMessage("Note has been saved.", 1500);
-                    break;
-                case "tr_TR":
-                    XF.flashMessage("Not kaydedildi.", 1500);
-                    break;
+                case "en_US": XF.flashMessage("Note has been saved.", 1500); break;
+                case "tr_TR": XF.flashMessage("Not kaydedildi.", 1500); break;
             }
         }
     });
