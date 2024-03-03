@@ -20,8 +20,10 @@ chrome.storage.local.get().then(settings => {
 function requestPermission() {
     chrome.permissions.request({
         origins: ["https://www.technopat.net/sosyal/*"],
-    }).then(() => {
-        qs("#requestPermission").style.display = "none";
+    }).then(granted => {
+        if (granted) {
+            qs("#requestPermission").style.display = "none";
+        }
     });
 }
 
