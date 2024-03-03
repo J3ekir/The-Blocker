@@ -184,13 +184,13 @@
         observe();
 
         async function blockButtons() {
-            postIds = Array.from(qsa(".message-userContent.lbContainer.js-lbContainer"), node => dom.attr(node, "data-lb-id").slice(5));
-            userIds = Array.from(qsa(".message-name>:is(a, span)"), node => parseInt(dom.attr(node, "data-user-id"), 10));
+            postIds = Array.from(qsa(".message-userContent.lbContainer.js-lbContainer"), node => node.dataset.lbId.slice(5));
+            userIds = Array.from(qsa(".message-name>:is(a, span)"), node => parseInt(node.dataset.userId, 10));
             messages = qsa(".message-actionBar.actionBar");
 
             // if article
             if (userIds.length === postIds.length - 1) {
-                userIds.unshift(parseInt(dom.attr(".message-articleUserName>a", "data-user-id"), 10));
+                userIds.unshift(parseInt(qs(".message-articleUserName>a").dataser.userId, 10));
             }
 
             // report ban and reaction ban
@@ -308,7 +308,7 @@
     }
 
     async function blockHandler(event) {
-        const userId = parseInt(dom.attr(event.currentTarget, "data-user-id"), 10);
+        const userId = parseInt(event.currentTarget.dataset.userId, 10);
         const type = dom.attr(event.currentTarget, "blocktype");
         const isBlocked = settings[type].includes(userId);
 
@@ -331,7 +331,7 @@
 
     function isSelfBlock(userId) {
         // if not member
-        return qs(".p-navgroup--member") && userId === parseInt(dom.attr("a[href='/sosyal/hesap/']>span", "data-user-id"), 10);
+        return qs(".p-navgroup--member") && userId === parseInt(qs("a[href='/sosyal/hesap/']>span").dataset.userId, 10);
     }
 
     function isUserIdValid(userId) {
