@@ -18,7 +18,7 @@ The Blocker technopat.net/sosyal forumu için RESMİ OLMAYAN HTML element "engel
 
 **TECHNOPAT.NET SİTESİYLE HİÇBİR ŞEKİLDE ALAKASI YOKTUR.**
 
-Engelleme kelimesini kullanmak çok daha rahat geldi. Herhangi bir şey engellediği yok. Sadece gizliyor. İlham kaynağı Xenforo'nun hard-coded olan 1000 göz ardı limiti ve benim çeşitli avatarları görmek istememem.
+Engelleme kelimesini kullanmak çok daha rahat geldi. Herhangi bir şey engellediği yok. Sadece gizliyor. İlham kaynağı XenForo'nun hard-coded olan 1000 göz ardı limiti ve benim çeşitli avatarları görmek istememem.
 
 Ayarlar sayfasında kişileri engellemek için çeşitli seçenekler arasında seçim yapılabilir.  
 Filtreler sayfasında engellenen kişilerin listesi (ID olarak) görüntülenebilir ve düzenlenebilir.  
@@ -58,7 +58,7 @@ Bug bildirimleri için [Github issues'ü](https://github.com/J3ekir/The-Blocker/
 - Navigasyon medya
 - Göz ardı edilen içeriği göster
 - Kullanıcının imzasını gizle
-- Xenforo alt bilgi
+- XenForo alt bilgi
 
 ## Teşekkürler
 [Raymond Hill'e](https://github.com/gorhill) [uBlock Origin](https://github.com/gorhill/uBlock) için teşekkürler.  
