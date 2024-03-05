@@ -184,14 +184,9 @@
         observe();
 
         async function blockButtons() {
-            postIds = Array.from(qsa(".message-userContent.lbContainer.js-lbContainer"), node => node.dataset.lbId.slice(5));
-            userIds = Array.from(qsa(".message-name>:is(a, span)"), node => parseInt(node.dataset.userId, 10));
+            postIds = Array.from(qsa(":is(.message--post,.message--article)"), node => node.dataset.content.slice(5));
+            userIds = Array.from(qsa(":is(.message-name,.message-articleUserName)>:is(a,span)"), node => parseInt(node.dataset.userId, 10));
             messages = qsa(".message-actionBar.actionBar");
-
-            // if article
-            if (userIds.length === postIds.length - 1) {
-                userIds.unshift(parseInt(qs(".message-articleUserName>a").dataset.userId, 10));
-            }
 
             // report ban and reaction ban
             if (messages.length === 0) {
