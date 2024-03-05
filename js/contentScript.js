@@ -171,9 +171,6 @@
 
 
     var settings;
-    var postIds;
-    var userIds;
-    var messages;
 
     waitForElementToExist(".block-outer--after").then(elem => {
         main();
@@ -184,9 +181,9 @@
         observe();
 
         async function blockButtons() {
-            postIds = Array.from(qsa(":is(.message--post,.message--article)"), node => node.dataset.content.slice(5));
-            userIds = Array.from(qsa(":is(.message-name,.message-articleUserName)>:is(a,span)"), node => parseInt(node.dataset.userId, 10));
-            messages = qsa(".message-actionBar.actionBar");
+            const postIds = Array.from(qsa(":is(.message--post,.message--article)"), node => node.dataset.content.slice(5));
+            const userIds = Array.from(qsa(":is(.message-name,.message-articleUserName)>:is(a,span)"), node => parseInt(node.dataset.userId, 10));
+            let messages = qsa(".message-actionBar.actionBar");
 
             // report ban and reaction ban
             if (messages.length === 0) {
