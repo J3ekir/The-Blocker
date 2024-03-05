@@ -272,7 +272,7 @@
         });
 
         function toggleButtonTexts(isBlock, userId, key) {
-            var newText;
+            let newText;
 
             switch (key.length << isBlock) {
                 case forum.length + 4 << 0: newText = STR.userBlock; break;
