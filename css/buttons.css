@@ -158,17 +158,30 @@
 
 .memberTooltip-note {
     display: flex;
-    gap: 10px;
     padding: 6px;
 }
 
-.memberTooltip-note > a {
-    border: none !important;
+.memberTooltip-note > *:first-child:not(:last-child) {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.memberTooltip-note > *:last-child:not(:first-child) {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.memberTooltip-note > *:not(:first-child):not(:last-child) {
+    border-radius: 0 !important;
 }
 
 .memberTooltip-note > input {
     font-size: 13px !important;
     padding: 0 6px !important;
+}
+
+.memberTooltip-note > a {
+    border: none !important;
 }
 
 .memberTooltip-note path {
