@@ -272,16 +272,15 @@
         });
 
         function toggleButtonTexts(isBlock, userId, key) {
-            const forumLength = forum.length;
             var newText;
 
             switch (key.length << isBlock) {
-                case forumLength + 4 << 0: newText = STR.userBlock; break;
-                case forumLength + 6 << 0: newText = STR.avatarBlock; break;
-                case forumLength + 9 << 0: newText = STR.signatureBlock; break;
-                case forumLength + 4 << 1: newText = STR.userUnblock; break;
-                case forumLength + 6 << 1: newText = STR.avatarUnblock; break;
-                case forumLength + 9 << 1: newText = STR.signatureUnblock; break;
+                case forum.length + 4 << 0: newText = STR.userBlock; break;
+                case forum.length + 6 << 0: newText = STR.avatarBlock; break;
+                case forum.length + 9 << 0: newText = STR.signatureBlock; break;
+                case forum.length + 4 << 1: newText = STR.userUnblock; break;
+                case forum.length + 6 << 1: newText = STR.avatarUnblock; break;
+                case forum.length + 9 << 1: newText = STR.signatureUnblock; break;
             }
 
             qsa(`[data-user-id="${ userId }"][blocktype="${ key }"]`).forEach(elem => {
