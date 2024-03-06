@@ -178,6 +178,7 @@
 .memberTooltip-note > input {
     font-size: 13px !important;
     padding: 0 6px !important;
+    border: none !important;
 }
 
 .memberTooltip-note > a {
