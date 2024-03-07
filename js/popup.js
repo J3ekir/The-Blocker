@@ -23,12 +23,14 @@ chrome.storage.local.get().then(settings => {
             : settings["lastForum"];
 
         if (qs(`[data-forum="${ forum }"]`)) {
-            dom.cl.add(`[data-forum="${ forum }"]`, "active");
-
-            chrome.storage.local.set({
-                lastForum: forum,
-            });
+            settings["lastForum"] = forum;
         }
+
+        dom.cl.add(`[data-forum="${ settings["lastForum"] }"]`, "active");
+
+        chrome.storage.local.set({
+            lastForum: settings["lastForum"],
+        });
     });
 });
 
