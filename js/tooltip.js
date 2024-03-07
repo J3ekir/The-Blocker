@@ -131,6 +131,7 @@
                 const element = dom.clone(BASE.baseTooltipNote);
                 dom.attr(element, "data-user-id", userId);
                 element.firstElementChild.value = settings[`${ forum }Notes`][userId] || "";
+                element.firstElementChild.addEventListener("keydown", noteEnterHandler);
                 element.lastElementChild.addEventListener("click", noteSaveHandler);
 
                 return element;
@@ -271,6 +272,12 @@
         qs(".memberHeader-buttons").append(
             BASE.tooltipNote(userId),
         );
+    }
+
+    function noteEnterHandler(event) {
+        if (event.key === "Enter") {
+            event.currentTarget.nextElementSibling.click();
+        }
     }
 
     function noteSaveHandler(event) {
