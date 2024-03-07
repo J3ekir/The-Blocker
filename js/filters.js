@@ -85,7 +85,7 @@
     });
 
     document.addEventListener("mousedown", event => {
-        if (dom.cl.has(event.target, "cm-filter-keyword") && (event.ctrlKey || event.metaKey)) {
+        if ((event.ctrlKey || event.metaKey)  && dom.cl.has(event.target, "cm-filter-keyword")) {
             chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ dom.text(event.target) }` });
         }
     });
