@@ -6,6 +6,11 @@
     padding: 0;
 }
 
+.cm-s-default .cm-keyword-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .CodeMirror-focused .CodeMirror-selected {
     background-color: var(--cm-selected-focused);
 }
@@ -56,7 +61,8 @@
         background: var(--gray-80);
     }
 
-    .cm-s-default .cm-keyword {
+    .cm-s-default .cm-keyword,
+    .cm-s-default .cm-keyword-link {
         color: var(--blue-30);
     }
 }
@@ -76,7 +82,8 @@
         background: var(--gray-30);
     }
 
-    .cm-s-default .cm-keyword {
+    .cm-s-default .cm-keyword,
+    .cm-s-default .cm-keyword-link {
         color: var(--blue-60);
     }
 }
