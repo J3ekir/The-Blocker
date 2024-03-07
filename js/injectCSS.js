@@ -1,4 +1,4 @@
-const forum = window.location.host.replace(/(?:www.)?(.*).net/, "$1");
+const forum = window.location.hostname.replace(/(?:www.)?(.*).net/, "$1");
 
 chrome.runtime.sendMessage({
     type: "injectCSS",
