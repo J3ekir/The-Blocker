@@ -22,7 +22,10 @@ chrome.storage.local.get().then(settings => {
 
 function requestPermission() {
     chrome.permissions.request({
-        origins: ["https://www.technopat.net/sosyal/*"],
+        origins: [
+            "https://techolay.net/sosyal/*",
+            "https://www.technopat.net/sosyal/*",
+        ],
     }).then(granted => {
         if (granted) {
             qs("#requestPermission").style.display = "none";
