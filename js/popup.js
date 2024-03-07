@@ -19,7 +19,7 @@ chrome.storage.local.get().then(settings => {
         currentWindow: true,
     }, tabs => {
         const forum = tabs[0]?.url
-            ? new URL(tabs[0].url).host.replace(/(?:www.)?(.*).net/, "$1")
+            ? new URL(tabs[0].url).hostname.replace(/(?:www.)?(.*).net/, "$1")
             : settings["lastForum"];
 
         if (qs(`[data-forum="${ forum }"]`)) {

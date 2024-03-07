@@ -1,5 +1,5 @@
 (async () => {
-    const forum = window.location.host.replace(/(?:www.)?(.*).net/, "$1");
+    const forum = window.location.hostname.replace(/(?:www.)?(.*).net/, "$1");
     const STR = new Proxy(
         {
             "LANGUAGE": dom.attr("html", "lang"),
