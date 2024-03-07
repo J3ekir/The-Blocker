@@ -238,11 +238,12 @@ function noteSavedMessageChrome(tabId) {
 }
 
 chrome.storage.onChanged.addListener(changes => {
-    Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+    for (const key of Object.keys(changes)) {
         if (SET_CSS_KEYS.includes(key)) {
             setCSS(FORUMS.find(forum => key.startsWith(forum)));
+            break;
         }
-    });
+    }
 });
 
 async function setCSS(forum) {
