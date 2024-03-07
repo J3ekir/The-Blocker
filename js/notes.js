@@ -101,8 +101,20 @@
         }
     });
 
+    document.addEventListener("keydown", event => {
+        if ((event.ctrlKey || event.metaKey)) {
+            dom.cl.add(".cm-keyword", "cm-keyword-link");
+        }
+    });
+
+    document.addEventListener("keyup", event => {
+        if (!(event.ctrlKey || event.metaKey)) {
+            dom.cl.remove(".cm-keyword.cm-keyword-link", "cm-keyword-link");
+        }
+    });
+
     document.addEventListener("mousedown", event => {
-        if ((event.ctrlKey || event.metaKey) && dom.cl.has(event.target, "cm-keyword")) {
+        if (dom.cl.has(event.target, "cm-keyword-link")) {
             chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
         }
     });
