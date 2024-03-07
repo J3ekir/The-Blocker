@@ -253,7 +253,7 @@ async function setCSS(forum) {
         return;
     }
 
-    console.time(`setCSS: ${ forum }`);
+    console.time(`setCSS ${ forum }`);
 
     const settings = await chrome.storage.local.get();
 
@@ -285,7 +285,7 @@ async function setCSS(forum) {
         [`${ forum }CSS`]: CSS,
     });
 
-    console.timeEnd(`setCSS: ${ forum }`);
+    console.timeEnd(`setCSS ${ forum }`);
 }
 
 /**********************************************************************************************/
