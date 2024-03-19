@@ -75,8 +75,13 @@ a[blocktype]:not([data-user-id]) ~ .actionBar-action.actionBar-action--menuTrigg
 
 .tabs.widget-group-tabs:last-child .tabs-tab {
     border-bottom: none !important;
-    border-top: 3px solid transparent;
+    border-top-width: 3px !important;
+    border-top-style: solid !important;
     padding: 4px 15px 5px !important;
+}
+
+.tabs.widget-group-tabs:last-child .tabs-tab:not(.is-active) {
+    border-top-color: transparent !important;
 }
 
 /******************************************** NOTE ********************************************/
