@@ -1,10 +1,6 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
 chrome.storage.local.get("lastPane").then(settings => {
-    loadPane(settings["lastPane"]);
-});
-
-chrome.storage.local.get("lastPane").then(settings => {
     window.location.hash === ""
         ? loadPane(settings["lastPane"])
         : loadPane(window.location.hash.substring(1));
