@@ -11,7 +11,7 @@ chrome.storage.local.get("lastPane").then(settings => {
 });
 
 qsa(".tabButton").forEach(elem => {
-    elem.addEventListener("click", event => loadPane(dom.attr(event.target, "data-pane")));
+    elem.addEventListener("click", event => loadPane(dom.attr(event.currentTarget, "data-pane")));
 });
 
 window.addEventListener("message", function (event) {

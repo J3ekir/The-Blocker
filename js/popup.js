@@ -44,7 +44,7 @@ chrome.storage.onChanged.addListener(changes => {
 
 qsa(".tabButton").forEach(elem => {
     elem.addEventListener("click", event => {
-        const forum = dom.attr(event.target, "data-forum");
+        const forum = dom.attr(event.currentTarget, "data-forum");
 
         dom.cl.remove(".active", "active");
         dom.cl.add(`[data-forum="${ forum }"]`, "active");
