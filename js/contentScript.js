@@ -48,52 +48,31 @@
             })(),
 
             baseUserButton: (() => {
-                const svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
-                dom.attr(svg, "viewBox", "0 0 448 512");
-                svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
-
-                const text = dom.ce("span");
-                dom.text(text, STR.userBlock);
-
                 const element = dom.ce("a");
                 dom.cl.add(element, "actionBar-action actionBar-action--block");
+                dom.text(element, STR.userBlock);
                 dom.attr(element, "blocktype", `${ forum }User`);
                 element.title = STR.userBlock;
-                element.append(svg, text);
 
                 return element;
             })(),
 
             baseAvatarButton: (() => {
-                const svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
-                dom.attr(svg, "viewBox", "0 0 448 512");
-                svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
-
-                const text = dom.ce("span");
-                dom.text(text, STR.avatarBlock);
-
                 const element = dom.ce("a");
                 dom.cl.add(element, "actionBar-action actionBar-action--block");
+                dom.text(element, STR.avatarBlock);
                 dom.attr(element, "blocktype", `${ forum }Avatar`);
                 element.title = STR.avatarBlock;
-                element.append(svg, text);
 
                 return element;
             })(),
 
             baseSignatureButton: (() => {
-                const svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
-                dom.attr(svg, "viewBox", "0 0 448 512");
-                svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
-
-                const text = dom.ce("span");
-                dom.text(text, STR.signatureBlock);
-
                 const element = dom.ce("a");
                 dom.cl.add(element, "actionBar-action actionBar-action--block");
+                dom.text(element, STR.signatureBlock);
                 dom.attr(element, "blocktype", `${ forum }Signature`);
                 element.title = STR.signatureBlock;
-                element.append(svg, text);
 
                 return element;
             })(),
@@ -124,7 +103,7 @@
 
                 if (settings[`${ forum }User`].includes(userId)) {
                     element.title = STR.userUnblock;
-                    dom.text(element.lastElementChild, STR.userUnblock);
+                    dom.text(element, STR.userUnblock);
                 }
 
                 dom.attr(element, "data-user-id", userId);
@@ -138,7 +117,7 @@
 
                 if (settings[`${ forum }Avatar`].includes(userId)) {
                     element.title = STR.avatarUnblock;
-                    dom.text(element.lastElementChild, STR.avatarUnblock);
+                    dom.text(element, STR.avatarUnblock);
                 }
 
                 dom.attr(element, "data-user-id", userId);
@@ -152,7 +131,7 @@
 
                 if (settings[`${ forum }Signature`].includes(userId)) {
                     element.title = STR.signatureUnblock;
-                    dom.text(element.lastElementChild, STR.signatureUnblock);
+                    dom.text(element, STR.signatureUnblock);
                 }
 
                 dom.attr(element, "data-user-id", userId);
@@ -285,7 +264,7 @@
             }
 
             qsa(`[data-user-id="${ userId }"][blocktype="${ key }"]`).forEach(elem => {
-                dom.text(elem.lastElementChild, newText);
+                dom.text(elem, newText);
                 elem.title = newText;
             });
         }
