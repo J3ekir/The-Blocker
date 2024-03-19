@@ -51,7 +51,7 @@
 
             baseUserButton: (() => {
                 const element = dom.ce("a");
-                dom.cl.add(element, "actionBar-action actionBar-action--block");
+                dom.cl.add(element, "actionBar-action actionBar-action--menuItem");
                 dom.text(element, STR.userBlock);
                 dom.attr(element, "blocktype", `${ forum }User`);
                 element.title = STR.userBlock;
@@ -61,7 +61,7 @@
 
             baseAvatarButton: (() => {
                 const element = dom.ce("a");
-                dom.cl.add(element, "actionBar-action actionBar-action--block");
+                dom.cl.add(element, "actionBar-action actionBar-action--menuItem");
                 dom.text(element, STR.avatarBlock);
                 dom.attr(element, "blocktype", `${ forum }Avatar`);
                 element.title = STR.avatarBlock;
@@ -71,7 +71,7 @@
 
             baseSignatureButton: (() => {
                 const element = dom.ce("a");
-                dom.cl.add(element, "actionBar-action actionBar-action--block");
+                dom.cl.add(element, "actionBar-action actionBar-action--menuItem");
                 dom.text(element, STR.signatureBlock);
                 dom.attr(element, "blocktype", `${ forum }Signature`);
                 element.title = STR.signatureBlock;
@@ -141,6 +141,42 @@
 
                 return element;
             },
+
+            actionBarMenu: (() => {
+                const element = dom.ce("a");
+                dom.cl.add(element, "actionBar-action actionBar-action--menuTrigger");
+                dom.attr(element, "data-xf-click", "menu");
+                dom.attr(element, "title", STR.actionBarMenu);
+                dom.attr(element, "role", "button");
+                dom.attr(element, "tabindex", "0");
+                dom.attr(element, "aria-expanded", "false");
+                dom.attr(element, "aria-haspopup", "true");
+                dom.text(element, "•••");
+
+                return element;
+            })(),
+
+            actionBarMenuList: (() => {
+                const menuHeader = dom.ce("h4");
+                dom.cl.add(menuHeader, "menu-header");
+                dom.text(menuHeader, STR.actionBarMenu);
+
+                const menuBuilderTarget = dom.ce("div");
+                dom.cl.add(menuBuilderTarget, "js-menuBuilderTarget");
+
+                const menuContent = dom.ce("div");
+                dom.cl.add(menuContent, "menu-content");
+                menuContent.append(menuHeader, menuBuilderTarget);
+
+                const element = dom.ce("div");
+                dom.cl.add(element, "menu");
+                dom.attr(element, "data-menu", "menu");
+                dom.attr(element, "aria-hidden", "true");
+                dom.attr(element, "data-menu-builder", "actionBar");
+                element.append(menuContent);
+
+                return element;
+            })(),
         },
         {
             get(target, prop) {
@@ -161,6 +197,7 @@
     async function main() {
         createBlockButtons();
         observeForNewActionBars();
+        observeForNewBlockMenus();
 
         async function createBlockButtons() {
             const postIds = Array.from(qsa(":is(.message--post,.message--article)"), node => node.dataset.content.slice(5));
@@ -199,8 +236,11 @@
                     elem.lastElementChild.prepend(BASE.reportButton(postIds[i]));
                 }
 
-                if (!elem.querySelector(".actionBar-action--block")) {
+                if (!elem.querySelector("[blocktype]")) {
                     elem.lastElementChild.append(...makeBlockButtons(userIds[i]));
+                }
+                if (!elem.querySelector(".actionBar-action.actionBar-action--menuTrigger")) {
+                    elem.lastElementChild.append(BASE.actionBarMenu, BASE.actionBarMenuList);
                 }
             });
         }
@@ -271,6 +311,16 @@
             });
         }
 
+        function addBlockButtonEventListeners(elem) {
+            if (!elem.matches(".menu[data-menu-builder='actionBar']")) {
+                return;
+            }
+
+            qsa(elem, "[blocktype]").forEach(elem => {
+                elem.addEventListener("click", blockHandler);
+            });
+        }
+
         async function observeForNewActionBars() {
             waitForElement(".block.block--messages[data-href]").then(elem => {
                 new MutationObserver(async _ => {
@@ -279,9 +329,25 @@
                     .observe(elem, { childList: true, subtree: true });
             });
         }
+
+        function observeForNewBlockMenus() {
+            const targetNode = document.body;
+            new MutationObserver(async mutationList => {
+                mutationList.forEach(mutation => {
+                    mutation.addedNodes.forEach(elem => {
+                        if (elem.nodeType === Node.ELEMENT_NODE) {
+                            addBlockButtonEventListeners(elem);
+                        }
+                    });
+                });
+            })
+                .observe(targetNode, { childList: true });
+        }
     }
 
     async function blockHandler(event) {
+        event.currentTarget.closest(".menu[data-menu-builder='actionBar']")?.dispatchEvent(new Event("menu:close"));
+
         const userId = parseInt(event.currentTarget.dataset.userId, 10);
         const type = dom.attr(event.currentTarget, "blocktype");
         const isBlocked = settings[type].includes(userId);
