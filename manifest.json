@@ -31,6 +31,9 @@
                 "https://techolay.net/sosyal/*",
                 "https://www.technopat.net/sosyal/*"
             ],
+            "css": [
+                "css/buttons.css"
+            ],
             "js": [
                 "js/injectCSS.js",
                 "js/dom.js",
