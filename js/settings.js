@@ -34,8 +34,8 @@ function requestPermission() {
 }
 
 function settingChanged(event) {
-    const settingName = dom.attr(event.target, "data-setting-name");
+    const settingName = dom.attr(event.currentTarget, "data-setting-name");
     chrome.storage.local.set({
-        [settingName]: event.target.checked,
+        [settingName]: event.currentTarget.checked,
     });
 }
