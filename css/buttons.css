@@ -18,9 +18,7 @@
 }
 
 /* actionBar external */
-@media (max-width: 550px),
-(min-width: 650px) and (max-width: 700px),
-(min-width: 901px) and (max-width: 960px) {
+@media (max-width: 550px) {
     .actionBar-action::before {
         margin: 0 !important;
     }
