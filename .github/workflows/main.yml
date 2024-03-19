@@ -1,0 +1,25 @@
+name: Firefox cherry-pick
+on:
+  push:
+    branches:
+      main
+    paths-ignore:
+      'manifest.json'
+jobs:
+  firefox-cherry-pick:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cherry-pick
+        run: |
+          git config user.name "$(git show -s --format='%an' ${{ github.sha }})"
+          git config user.email "$(git show -s --format='%ae' ${{ github.sha }})"
+          git checkout firefox
+          git cherry-pick --strategy-option=theirs --allow-empty --keep-redundant-commits ${{ github.sha }}
+          git push
