@@ -1,5 +1,6 @@
 (async () => {
     const forum = window.location.hostname.replace(/(?:www.)?(.*).net/, "$1");
+    const isLoggedIn = dom.attr("html", "data-logged-in") === "true";
     const STR = new Proxy(
         {
             "LANGUAGE": dom.attr("html", "lang"),
@@ -322,8 +323,7 @@
     }
 
     function isSelfBlock(userId) {
-        // if not member
-        return qs(".p-navgroup--member") && userId === parseInt(qs("a[href='/sosyal/hesap/']>span").dataset.userId, 10);
+        return isLoggedIn && userId === parseInt(qs(".p-navgroup-link--user>.avatar").dataset.userId, 10);
     }
 
     function isUserIdValid(userId) {
