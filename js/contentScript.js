@@ -12,6 +12,7 @@
                 avatarUnblock: "Unblock avatar",
                 signatureUnblock: "Unblock signature",
                 report: "Report",
+                actionBarMenu: "More options",
             },
             "tr-TR": {
                 userBlock: "Engelle",
@@ -21,6 +22,7 @@
                 avatarUnblock: "Avatarı göster",
                 signatureUnblock: "İmzayı göster",
                 report: "Rapor",
+                actionBarMenu: "Detaylar",
             },
         },
         {
