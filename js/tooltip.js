@@ -199,11 +199,11 @@
     ]);
     const NOTES = settings["settingNotes"];
 
-    waitForElementToExist("body").then(elem => {
+    waitForElement("body").then(elem => {
         observeForNewTooltips();
     });
 
-    waitForElementToExist(".memberHeader-buttons").then(elem => {
+    waitForElement(".memberHeader-buttons").then(elem => {
         if (NOTES) {
             addProfileNote();
         }
@@ -355,7 +355,7 @@
             .observe(targetNode, { childList: true, subtree: true });
     }
 
-    function waitForElementToExist(selector) {
+    function waitForElement(selector) {
         return new Promise(resolve => {
             if (document.querySelector(selector)) {
                 return resolve(document.querySelector(selector));

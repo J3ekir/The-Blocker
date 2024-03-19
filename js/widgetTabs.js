@@ -40,12 +40,12 @@
             type: "combineTabPanes",
         });
 
-        waitForElementToExist(".tabs-tab").then(elem => {
+        waitForElement(".tabs-tab").then(elem => {
             dom.text(elem, STR.combinedTabName);
         });
     }
 
-    waitForElementToExist("[role='tabpanel']:nth-child(6)").then(elem => {
+    waitForElement("[role='tabpanel']:nth-child(6)").then(elem => {
         dom.attr(".tabs", "data-xf-init", null);
         dom.attr("[role='tab']", "href", null);
 
@@ -85,7 +85,7 @@
         }
     });
 
-    function waitForElementToExist(selector) {
+    function waitForElement(selector) {
         return new Promise(resolve => {
             if (document.querySelector(selector)) {
                 return resolve(document.querySelector(selector));
