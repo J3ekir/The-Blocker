@@ -23,63 +23,25 @@
         margin: 0 !important;
     }
 
-    .actionBar-action .reaction-text {
+    .actionBar-action--reaction > .reaction-text {
         display: none;
     }
 
-    .actionBar-action--reaction > span,
     .actionBar-action--mq,
+    .actionBar-action--tag,
     .actionBar-action--reply,
+    .actionBar-action--mention,
     .actionBar-action--replynoquote {
-        color: transparent;
         font-size: 0;
     }
 
     .actionBar-action--mq::before,
+    .actionBar-action--tag::before,
     .actionBar-action--reply::before,
+    .actionBar-action--mention::before,
     .actionBar-action--replynoquote::before {
         font-size: 13px !important;
     }
-
-    /* karanlık stil */
-    html:has(head>meta[name=theme-color][content=#1e1e1e]) :is(.actionBar-action--mq::before, .actionBar-action--reply::before, .actionBar-action--replynoquote::before) {
-        color: #70abcb;
-    }
-
-    /* varsayılan stil */
-    html:has(head>meta[name=theme-color][content=#185886]) :is(.actionBar-action--mq::before, .actionBar-action--reply::before, .actionBar-action--replynoquote::before) {
-        color: #2577b1;
-    }
-
-    /* dimension karanlık */
-    html:has(head>meta[name=theme-color][content=#185886]) :is(.actionBar-action--mq::before, .actionBar-action--reply::before, .actionBar-action--replynoquote::before) {
-        color: #d6d9e0;
-    }
-
-    /* dimension açık */
-    html:has(head>meta[name=theme-color][content=#185886]) :is(.actionBar-action--mq::before, .actionBar-action--reply::before, .actionBar-action--replynoquote::before) {
-        color: #4f5a62;
-    }
-
-    /* karanlık stil hover */
-    html:has(head>meta[name=theme-color][content=#1e1e1e]) :is(.actionBar-action--mq::before:hover, .actionBar-action--reply::before:hover, .actionBar-action--replynoquote::before:hover) {
-        color: #c8c8c8;
-    }
-
-    /* varsayılan stil hover */
-    html:has(head>meta[name=theme-color][content=#185886]) :is(.actionBar-action--mq::before:hover, .actionBar-action--reply::before:hover, .actionBar-action--replynoquote::before:hover) {
-        color: #185886;
-    }
-
-    /* dimension karanlık hover */
-    /* html:has(head>meta[name=theme-color][content=#185886]) :is(.actionBar-action--mq::before:hover, .actionBar-action--reply::before:hover, .actionBar-action--replynoquote::before:hover) {
-        color: #e1e8f8;
-    } */
-
-    /* dimension açık hover */
-    /* html:has(head>meta[name=theme-color][content=#185886]) :is(.actionBar-action--mq::before:hover, .actionBar-action--reply::before:hover, .actionBar-action--replynoquote::before:hover) {
-        color: #323940;
-    } */
 }
 
 /***************************************** WIDGET_TABS ****************************************/
