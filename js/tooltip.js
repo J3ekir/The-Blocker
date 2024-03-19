@@ -1,5 +1,6 @@
 (async () => {
     const forum = window.location.hostname.replace(/(?:www.)?(.*).net/, "$1");
+    const isLoggedIn = dom.attr("html", "data-logged-in") === "true";
     const STR = new Proxy(
         {
             "LANGUAGE": dom.attr("html", "lang"),
@@ -312,8 +313,7 @@
     }
 
     function isSelfNote(userId) {
-        // if not member
-        return qs(".p-navgroup--member") && userId === qs("a[href='/sosyal/hesap/']>span").dataset.userId;
+        return isLoggedIn && userId === parseInt(qs(".p-navgroup-link--user>.avatar").dataset.userId, 10);
     }
 
     chrome.storage.onChanged.addListener(changes => {
