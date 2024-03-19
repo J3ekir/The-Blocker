@@ -168,12 +168,6 @@ function injectCSS(tabId, forum) {
             css: settings[`${ forum }CSS`],
         });
     });
-
-    chrome.scripting.insertCSS({
-        target: { tabId: tabId },
-        origin: "USER",
-        files: ["css/buttons.css"],
-    });
 }
 
 function insertCSSString(tabId, CSS) {
