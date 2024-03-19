@@ -172,15 +172,15 @@
 
     var settings;
 
-    waitForElementToExist(".block-outer--after").then(elem => {
+    waitForElement(".block-outer--after").then(elem => {
         main();
     });
 
     async function main() {
-        blockButtons();
-        observe();
+        createBlockButtons();
+        observeForNewActionBars();
 
-        async function blockButtons() {
+        async function createBlockButtons() {
             const postIds = Array.from(qsa(":is(.message--post,.message--article)"), node => node.dataset.content.slice(5));
             const userIds = Array.from(qsa(":is(.message-name,.message-articleUserName)>:is(a,span)"), node => parseInt(node.dataset.userId, 10));
             let messages = qsa(".message-actionBar.actionBar");
@@ -289,10 +289,10 @@
             });
         }
 
-        async function observe() {
-            waitForElementToExist(".block.block--messages[data-href]").then(elem => {
+        async function observeForNewActionBars() {
+            waitForElement(".block.block--messages[data-href]").then(elem => {
                 new MutationObserver(async _ => {
-                    blockButtons();
+                    createBlockButtons();
                 })
                     .observe(elem, { childList: true, subtree: true });
             });
@@ -330,7 +330,7 @@
         return userId && /^\d+$/.test(userId);
     }
 
-    function waitForElementToExist(selector) {
+    function waitForElement(selector) {
         return new Promise(resolve => {
             if (document.querySelector(selector)) {
                 return resolve(document.querySelector(selector));
