@@ -173,7 +173,7 @@
         const fileInput = event.target;
 
         if (fileInput.files.length === 0) {
-            console.log('No file selected');
+            console.log("No file selected");
             return;
         }
 
