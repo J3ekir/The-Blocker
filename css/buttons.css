@@ -10,9 +10,29 @@
 
 /****************************************** BUTTONS *******************************************/
 
+.actionBar-action.actionBar-action--menuItem {
+    display: none !important;
+}
+
+.actionBar-action.actionBar-action--menuTrigger {
+    display: inline-block !important;
+}
+
+a[blocktype] {
+    cursor: pointer;
+}
+
+a[blocktype]:not([data-user-id]) {
+    display: none;
+}
+
+a[blocktype]:not([data-user-id]) ~ .actionBar-action.actionBar-action--menuTrigger {
+    display: none !important;
+}
+
 /* signature */
 @media (max-width: 480px) {
-    a[blocktype$="signature" i] {
+    a[blocktype$="Signature"] {
         display: none !important;
     }
 }
