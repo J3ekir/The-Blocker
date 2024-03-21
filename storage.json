@@ -12,6 +12,7 @@
     "defaultSettings": {
         "lastPane": "settings.html",
         "lastForum": "techolay",
+        "hideDoubleTapHint": false,
         "settingNotes": true,
         "settingAddBottomTabButtons": true,
         "settingCombineTabPanes": true,
