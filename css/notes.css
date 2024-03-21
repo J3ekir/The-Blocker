@@ -20,6 +20,33 @@ body {
     line-height: 1.2;
 }
 
+#doubleTapHint {
+    display: none;
+    align-items: center;
+    gap: calc(var(--std-gap) * 2);
+    width: fit-content;
+    padding: calc(var(--std-gap) / 2) var(--std-gap);
+    border-radius: calc(var(--std-gap) / 3);
+}
+
+#doubleTapHint > .mobile {
+    display: none;
+}
+
+:root.mobile #doubleTapHint > .mobile {
+    display: block;
+}
+
+:root.mobile #doubleTapHint > .mobile + span {
+    display: none;
+}
+
+#doubleTapHint > b {
+    text-wrap: nowrap;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 #buttons {
     display: flex;
     flex-shrink: 0;
@@ -83,6 +110,11 @@ svg {
         background-color: var(--gray-10);
     }
 
+    #doubleTapHint {
+        color: var(--gray-95);
+        background-color: var(--blue-60);
+    }
+
     button {
         color: var(--gray-05);
         background-color: var(--blue-30);
@@ -102,6 +134,11 @@ svg {
     button {
         color: var(--gray-95);
         background-color: var(--blue-60);
+    }
+
+    #doubleTapHint {
+        color: var(--gray-05);
+        background-color: var(--blue-30);
     }
 
     button:hover {

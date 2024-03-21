@@ -2,9 +2,10 @@
 
 (async () => {
     const forum = parent.document.documentElement.dataset.forum;
-    const settings = await chrome.storage.local.get(
+    const settings = await chrome.storage.local.get([
         `${ forum }Notes`,
-    );
+        "hideDoubleTapHint",
+    ]);
 
     var cache = "";
 
@@ -61,6 +62,21 @@
     const noteEditor = new CodeMirror(qs("#note"), codeMirrorOptions);
 
     /***************************************** MAIN START *****************************************/
+
+    if (settings["hideDoubleTapHint"]) {
+        qs("#doubleTapHint").style.display = "none";
+    }
+    else {
+        qs("#doubleTapHint").style.display = "flex";
+        qs("#doubleTapHint>b").addEventListener("click", event => {
+            event.currentTarget.parentElement.style.display = "none";
+            chrome.storage.local.set({ "hideDoubleTapHint": true });
+        });
+    }
+
+    if (/\bMobile\b/.test(window.navigator.userAgent)) {
+        dom.cl.add("html", "mobile");
+    }
 
     renderNotes();
 

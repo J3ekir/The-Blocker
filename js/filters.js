@@ -8,7 +8,7 @@
         "Signature",
     ];
 
-    const settings = await chrome.storage.local.get(FILTERS.map(value => `${ forum }${ value }`));
+    const settings = await chrome.storage.local.get(FILTERS.map(value => `${ forum }${ value }`).concat("hideDoubleTapHint"));
     const cache = Object.assign(...FILTERS.map(value => ({ [`${ forum }${ value }`]: "" })));
 
     const buttons = {
@@ -42,6 +42,21 @@
     const editors = Object.assign(...FILTERS.map(value => ({ [`${ forum }${ value }`]: new CodeMirror(qs(`#${ value }`), codeMirrorOptions) })));
 
     /***************************************** MAIN START *****************************************/
+
+    if (settings["hideDoubleTapHint"]) {
+        qs("#doubleTapHint").style.display = "none";
+    }
+    else {
+        qs("#doubleTapHint").style.display = "flex";
+        qs("#doubleTapHint>b").addEventListener("click", event => {
+            event.currentTarget.parentElement.style.display = "none";
+            chrome.storage.local.set({ "hideDoubleTapHint": true });
+        });
+    }
+
+    if (/\bMobile\b/.test(window.navigator.userAgent)) {
+        dom.cl.add("html", "mobile");
+    }
 
     renderEditors();
 
