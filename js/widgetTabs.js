@@ -45,7 +45,7 @@
         });
     }
 
-    waitForElement("[role='tabpanel']:nth-child(6)").then(elem => {
+    waitForElement(".p-body-pageContent>.tab-wrapper.widget-group:first-child+.block").then(elem => {
         dom.attr(".tabs", "data-xf-init", null);
         dom.attr("[role='tab']", "href", null);
 
