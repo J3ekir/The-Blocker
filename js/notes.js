@@ -1,6 +1,7 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
 (async () => {
+    const isMac = window.navigator.userAgent.indexOf("Mac OS") !== -1;
     const forum = parent.document.documentElement.dataset.forum;
     const settings = await chrome.storage.local.get([
         `${ forum }Notes`,
@@ -108,7 +109,7 @@
     });
 
     document.addEventListener("keydown", event => {
-        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+        if (isMac ? event.metaKey : event.ctrlKey && event.key.toLowerCase() === "s") {
             event.preventDefault();
 
             if (!buttons.save.disabled) {
@@ -118,13 +119,13 @@
     });
 
     document.addEventListener("keydown", event => {
-        if ((event.ctrlKey || event.metaKey)) {
+        if (isMac ? event.metaKey : event.ctrlKey) {
             dom.cl.add(".cm-keyword", "cm-keyword-link");
         }
     });
 
     document.addEventListener("keyup", event => {
-        if (!(event.ctrlKey || event.metaKey)) {
+        if (!(isMac ? event.metaKey : event.ctrlKey)) {
             dom.cl.remove(".cm-keyword.cm-keyword-link", "cm-keyword-link");
         }
     });
