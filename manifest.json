@@ -53,7 +53,7 @@
             "run_at": "document_start"
         }
     ],
-    "description": "techolay.net/sosyal ve technopat.net/sosyal için RESMİ OLMAYAN kullanıcı, avatar ve imza \"engelleyici\"",
+    "description": "techolay.net/sosyal ve technopat.net/sosyal için RESMİ OLMAYAN \"engelleyici\"",
     "homepage_url": "https://github.com/J3ekir/The-Blocker",
     "host_permissions": [
         "https://techolay.net/sosyal/*",
