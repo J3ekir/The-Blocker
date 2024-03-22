@@ -16,7 +16,7 @@
 
 The Blocker techolay.net/sosyal ve technopat.net/sosyal forumları için RESMİ OLMAYAN HTML element "engelleyici"dir.
 
-**TECHOLAY.NET ve TECHNOPAT.NET SİTEERİYLE HİÇBİR ŞEKİLDE ALAKASI YOKTUR.**
+**TECHOLAY.NET ve TECHNOPAT.NET SİTELERİYLE HİÇBİR ŞEKİLDE ALAKASI YOKTUR.**
 
 Engelleme kelimesini kullanmak çok daha rahat geldi. Herhangi bir şey engellediği yok. Sadece gizliyor. İlham kaynağı XenForo'nun hard-coded olan 1000 göz ardı limiti ve benim çeşitli avatarları görmek istememem.
 
