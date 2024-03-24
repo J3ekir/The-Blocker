@@ -215,7 +215,7 @@
             return;
         }
 
-        const userId = qs(elem, ".memberTooltip-avatar>a").dataset.userId;
+        const userId = parseInt(qs(elem, ".memberTooltip-avatar>a").dataset.userId, 10);
 
         addReportButton(elem, userId);
         addFindButton(elem, userId);
@@ -264,7 +264,7 @@
     }
 
     function addProfileNote() {
-        const userId = qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId;
+        const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId, 10);
 
         if (isSelfNote(userId)) {
             return;
@@ -283,12 +283,12 @@
 
     function noteSaveHandler(event) {
         const note = event.currentTarget.previousElementSibling.value;
-        const userId = event.currentTarget.parentElement.dataset.userId;
+        const userId = parseInt(event.currentTarget.parentElement.dataset.userId, 10);
 
-        settings[`${ forum }Notes`][parseInt(userId, 10)] = note;
+        settings[`${ forum }Notes`][userId] = note;
 
         if (!note.length) {
-            delete settings[`${ forum }Notes`][parseInt(userId, 10)];
+            delete settings[`${ forum }Notes`][userId];
         }
 
         chrome.storage.local.set({
