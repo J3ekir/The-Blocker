@@ -27,6 +27,7 @@ body {
     width: fit-content;
     padding: calc(var(--std-gap) / 2) var(--std-gap);
     border-radius: calc(var(--std-gap) / 3);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #doubleTapHint > .mobile {
