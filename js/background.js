@@ -89,61 +89,6 @@ async function setDefaultSettings() {
         }
     });
 
-    // TODO: remove after 1.0.0
-    if (settings[`${ FORUMS[0] }User`] === undefined) {
-        defaultValues["lastPane"] = "settings.html";
-
-        const forumSettings = [
-            "user",
-            "avatar",
-            "signature",
-            "userCount",
-            "avatarCount",
-            "signatureCount",
-            "notes",
-            "CSS",
-        ];
-
-        forumSettings.forEach(key => {
-            if (settings[key] !== undefined) {
-                defaultValues[`technopat${ key.charAt(0).toUpperCase() }${ key.slice(1) }`] = settings[key];
-            }
-        });
-
-        const oldSettings = [
-            "settingNotes",
-            "settingAddBottomTabButtons",
-            "settingCombineTabPanes",
-            "settingUserButton",
-            "settingAvatarButton",
-            "settingSignatureButton",
-            "settingNotifications",
-            "settingProfilePosts",
-            "settingProfilePostComments",
-            "settingQuotes",
-            "settingSidebarShareThisPage",
-            "settingSidebarMembersOnline",
-            "settingSidebarRandomBlogEntries",
-            "settingSidebarLatestResources",
-            "settingNavigationBlogs",
-            "settingNavigationQuestions",
-            "settingNavigationVideos",
-            "settingNavigationAdvices",
-            "settingNavigationMedia",
-            "settingShowIgnoredContent",
-            "settingHideThisUsersSignature",
-            "settingXenforoFooter",
-        ];
-
-        oldSettings.forEach(key => {
-            if (settings[key] !== undefined) {
-                defaultValues[key] = settings[key];
-            }
-        });
-
-        await chrome.storage.local.clear();
-    }
-
     chrome.storage.local.set(defaultValues);
 }
 
