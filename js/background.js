@@ -45,30 +45,9 @@ chrome.runtime.onInstalled.addListener(async ({ reason, temporary }) => {
     }
 });
 
-chrome.runtime.onMessage.addListener(
-    async function (request, sender, sendResponse) {
-        switch (request.type) {
-            case "injectCSS":
-                injectCSS(sender.tab.id, request.forum);
-                break;
-            case "insertCSSString":
-                insertCSSString(sender.tab.id, request.CSS);
-                break;
-            case "removeCSSString":
-                removeCSSString(sender.tab.id, request.CSS);
-                break;
-            case "combineTabPanes":
-                combineTabPanes(sender.tab.id);
-                break;
-            case "noteSavedMessage":
-                noteSavedMessage(sender.tab.id);
-                break;
-            case "noteSavedMessageChrome":
-                noteSavedMessageChrome(sender.tab.id);
-                break;
-        }
-    }
-);
+chrome.runtime.onMessage.addListener(({ type, ...params }, sender, sendResponse) => {
+    self[type](sender.tab.id, ...Object.values(params));
+});
 
 async function setDefaultSettings() {
     const settings = await chrome.storage.local.get();
