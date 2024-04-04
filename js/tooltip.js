@@ -297,6 +297,7 @@
 
         chrome.runtime.sendMessage({
             type: "noteSavedMessage",
+            isChrome: !dom.cl.has("html", "has-browser-mozilla"),
         });
     }
 
