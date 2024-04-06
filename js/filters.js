@@ -21,6 +21,7 @@
 
     const codeMirrorOptions = {
         autofocus: true,
+        configureMouse: _ => ({ addNew: false }),
         extraKeys: { Enter: cm => cm.replaceSelection("\n") },
         foldGutter: true,
         gutters: ["CodeMirror-foldgutter", "CodeMirror-linenumbers"],
@@ -28,7 +29,6 @@
         lineWiseCopyCut: true,
         scrollbarStyle: "overlay",
         styleActiveLine: { nonEmpty: true },
-        configureMouse: _ => ({ addNew: false }),
     };
 
     CodeMirror.defineMode("theBlocker-filters", function (config, parserConfig) {
