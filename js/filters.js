@@ -21,6 +21,7 @@
 
     const codeMirrorOptions = {
         autofocus: true,
+        extraKeys: { Enter: cm => cm.replaceSelection("\n") },
         foldGutter: true,
         gutters: ["CodeMirror-foldgutter", "CodeMirror-linenumbers"],
         lineNumbers: true,
