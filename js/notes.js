@@ -224,11 +224,10 @@
         const notes = Object.entries(settings[`${ forum }Notes`]);
         const maxUserIdLength = notes.length && notes.reduce((prev, curr) => (prev && prev[0].length > curr[0].length ? prev : curr))[0].length;
 
-        for (let i = 0; i < notes.length; ++i) {
-            const [userId, note] = notes[i];
+        notes.forEach(([userId, note]) => {
             lines.push(`${ " ".repeat(maxUserIdLength - userId.length) }${ userId } ${ note }`);
             cacheLines.push(`${ userId } ${ note }`);
-        }
+        });
 
         lines.push("");
         cache = cacheLines.join("\n");
