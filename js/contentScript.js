@@ -190,7 +190,7 @@
 
     var settings;
 
-    waitForElement(".block-outer--after").then(elem => {
+    waitForElement(".blockMessage--none").then(elem => {
         main();
     });
 
