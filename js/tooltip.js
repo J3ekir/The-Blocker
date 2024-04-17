@@ -278,6 +278,7 @@
     function noteEnterHandler(event) {
         if (event.key === "Enter") {
             event.currentTarget.nextElementSibling.click();
+            event.currentTarget.closest(".tooltip.tooltip--member")?.dispatchEvent(new Event("mouseout"));
         }
     }
 
