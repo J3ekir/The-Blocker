@@ -300,6 +300,8 @@
             type: "noteSavedMessage",
             isChrome: !dom.cl.has("html", "has-browser-mozilla"),
         });
+
+        event.currentTarget.closest(".tooltip.tooltip--member")?.dispatchEvent(new Event("mouseout"));
     }
 
     function hasReportButton(elem) {
