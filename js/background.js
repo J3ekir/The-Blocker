@@ -166,7 +166,7 @@ async function setCSS(forum) {
         }):has${ userList }{display:none!important;}:is(.block-row,.node-extra-row .node-extra-user):has${ userList },.structItem-cell.structItem-cell--latest:has${ userList }>div,:is(.message.message--post, .message.message--article, .structItem):has(:is(.message-cell--user, .message-articleUserInfo, .structItem-cell--main) :is${ userList }){display:none!important;}`;
 
     // https://github.com/J3ekir/The-Blocker/commit/03d6569c44318ee1445049faba4e268ade3b79aa
-    const avatarCSS = `:is(#theBlocker,a:is([data-user-id="${ settings[`${ forum }Avatar`].join(`"],[data-user-id="`) }"]))>img{display:none;}`;
+    const avatarCSS = `:is(#theBlocker,:is(a,span):is([data-user-id="${ settings[`${ forum }Avatar`].join(`"],[data-user-id="`) }"]))>img{display:none;}`;
     const signatureCSS = `.message-inner:has(a:is([data-user-id="${ settings[`${ forum }Signature`].join(`"],[data-user-id="`) }"])) .message-signature{display:none;}`;
 
     const miscCSS = `:is(${ Object.keys(SELECTORS.misc)
