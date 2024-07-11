@@ -1,28 +1,4 @@
 (async () => {
-    const STR = new Proxy(
-        {
-            "LANGUAGE": dom.attr("html", "lang"),
-            "en-US": {
-                combinedTabName: "New threads and messages",
-            },
-            "tr-TR": {
-                combinedTabName: "Yeni konular ve mesajlar",
-            },
-        },
-        {
-            get(target, prop) {
-                if (!target.LANGUAGE) {
-                    return null;
-                }
-
-                return typeof target[target.LANGUAGE][prop] === "string"
-                    ? target[target.LANGUAGE][prop]
-                    : target[target.LANGUAGE][prop].bind(target);
-            },
-        },
-    );
-
-
     const settings = await chrome.storage.local.get([
         "settingCombineTabPanes",
         "settingAddBottomTabButtons",
