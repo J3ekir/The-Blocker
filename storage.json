@@ -34,6 +34,7 @@
         "settingNavigationMedia": true,
         "settingShowIgnoredContent": true,
         "settingHideThisUsersSignature": true,
-        "settingXenforoFooter": true
+        "settingXenforoFooter": true,
+        "settingReportReasonExplanation": true
     }
 }

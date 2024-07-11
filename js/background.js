@@ -21,6 +21,7 @@ const SELECTORS = {
         "settingShowIgnoredContent": ".showIgnoredLink.js-showIgnored",
         "settingHideThisUsersSignature": "[data-xf-click='signature-ignore']",
         "settingXenforoFooter": ".p-footer-copyright",
+        "settingReportReasonExplanation": ".overlay-container form[action$='/report'] ul.inputChoices[role='radiogroup'] > li > dfn",
     },
     user: {
         "settingNotifications": ".alert.js-alert",
