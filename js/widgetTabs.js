@@ -31,9 +31,7 @@
     const COMBINE_TAB_PANES = settings["settingCombineTabPanes"];
     const ADD_BOTTOM_TAB_BUTTONS = settings["settingAddBottomTabButtons"];
 
-    if (!COMBINE_TAB_PANES && !ADD_BOTTOM_TAB_BUTTONS) {
-        return;
-    }
+    if (!COMBINE_TAB_PANES && !ADD_BOTTOM_TAB_BUTTONS) { return; }
 
     if (COMBINE_TAB_PANES) {
         chrome.runtime.sendMessage({

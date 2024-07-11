@@ -31,9 +31,7 @@ document.addEventListener("keydown", event => {
 function loadPane(pane) {
     window.paneToLoad = pane;
 
-    if (dom.attr(".tabButton.active", "data-pane") === pane) {
-        return;
-    }
+    if (dom.attr(".tabButton.active", "data-pane") === pane) { return; }
 
     qs("#iframe").contentWindow.location.replace(pane.replace(/([^-]*)-?.*(.html)/, "$1$2"));
 

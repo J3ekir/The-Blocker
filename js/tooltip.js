@@ -33,9 +33,7 @@
         },
         {
             get(target, prop) {
-                if (!target.LANGUAGE) {
-                    return null;
-                }
+                if (!target.LANGUAGE) { return null; }
 
                 return typeof target[target.LANGUAGE][prop] === "string"
                     ? target[target.LANGUAGE][prop]
@@ -211,9 +209,7 @@
     });
 
     function addTooltipItems(elem) {
-        if (!qs(elem, ".tooltip-content-inner .memberTooltip")) {
-            return;
-        }
+        if (!qs(elem, ".tooltip-content-inner .memberTooltip")) { return; }
 
         const userId = parseInt(qs(elem, ".memberTooltip-avatar>a").dataset.userId, 10);
 
@@ -226,9 +222,7 @@
     }
 
     function addReportButton(elem, userId) {
-        if (hasReportButton(elem)) {
-            return;
-        }
+        if (hasReportButton(elem)) { return; }
 
         qs(elem, ".memberTooltip-headerInfo").prepend(
             BASE.tooltipReport(userId),
@@ -236,9 +230,7 @@
     }
 
     function addFindButton(elem, userId) {
-        if (hasFindButton(elem)) {
-            return;
-        }
+        if (hasFindButton(elem)) { return; }
 
         const userName = dom.text(qs(elem, ".memberTooltip-nameWrapper>a"));
 
@@ -249,13 +241,9 @@
     }
 
     function addNote(elem, userId) {
-        if (hasNote(elem)) {
-            return;
-        }
+        if (hasNote(elem)) { return; }
 
-        if (isSelfNote(userId)) {
-            return;
-        }
+        if (isSelfNote(userId)) { return; }
 
         qs(elem, ".memberTooltip-info").before(
             BASE.tooltipNote(userId),
@@ -266,9 +254,7 @@
     function addProfileNote() {
         const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId, 10);
 
-        if (isSelfNote(userId)) {
-            return;
-        }
+        if (isSelfNote(userId)) { return; }
 
         qs(".memberHeader-buttons").append(
             BASE.tooltipNote(userId),

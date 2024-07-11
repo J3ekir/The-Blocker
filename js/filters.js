@@ -77,9 +77,7 @@
     });
 
     window.addEventListener("beforeunload", event => {
-        if (buttons.save.disabled) {
-            return;
-        }
+        if (buttons.save.disabled) { return; }
 
         event.preventDefault();
         event.returnValue = "";
@@ -148,9 +146,7 @@
     });
 
     buttons.export.addEventListener("click", event => {
-        if (FILTERS.every(value => settings[`${ forum }${ value }`].length === 0)) {
-            return;
-        }
+        if (FILTERS.every(value => settings[`${ forum }${ value }`].length === 0)) { return; }
 
         const object = {};
         object["kullanıcı"] = settings[`${ forum }User`];
