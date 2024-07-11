@@ -27,9 +27,7 @@
         },
         {
             get(target, prop) {
-                if (!target.LANGUAGE) {
-                    return null;
-                }
+                if (!target.LANGUAGE) { return null; }
 
                 return typeof target[target.LANGUAGE][prop] === "string"
                     ? target[target.LANGUAGE][prop]
@@ -312,9 +310,7 @@
         }
 
         function addBlockButtonEventListeners(elem) {
-            if (!elem.matches(".menu[data-menu-builder='actionBar']")) {
-                return;
-            }
+            if (!elem.matches(".menu[data-menu-builder='actionBar']")) { return; }
 
             qsa(elem, "[blocktype]").forEach(elem => {
                 elem.addEventListener("click", blockHandler);

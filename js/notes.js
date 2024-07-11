@@ -95,9 +95,7 @@
     });
 
     window.addEventListener("beforeunload", event => {
-        if (buttons.save.disabled) {
-            return;
-        }
+        if (buttons.save.disabled) { return; }
 
         event.preventDefault();
         event.returnValue = "";
@@ -166,9 +164,7 @@
     });
 
     buttons.export.addEventListener("click", event => {
-        if (Object.keys(settings[`${ forum }Notes`]).length === 0) {
-            return;
-        }
+        if (Object.keys(settings[`${ forum }Notes`]).length === 0) { return; }
 
         const object = { notlar: settings[`${ forum }Notes`] };
         const text = JSON.stringify(object, null, 4);
