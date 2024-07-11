@@ -1,190 +1,5 @@
 (async () => {
-    const forum = window.location.hostname.replace(/(?:www.)?(.*).net/, "$1");
     const isLoggedIn = dom.attr("html", "data-logged-in") === "true";
-    const STR = new Proxy(
-        {
-            "LANGUAGE": dom.attr("html", "lang"),
-            "en-US": {
-                userBlock: "Block",
-                avatarBlock: "Block avatar",
-                signatureBlock: "Block signature",
-                userUnblock: "-",
-                avatarUnblock: "Unblock avatar",
-                signatureUnblock: "Unblock signature",
-                report: "Report",
-                actionBarMenu: "More options",
-            },
-            "tr-TR": {
-                userBlock: "Engelle",
-                avatarBlock: "Avatar engelle",
-                signatureBlock: "İmza engelle",
-                userUnblock: "-",
-                avatarUnblock: "Avatarı göster",
-                signatureUnblock: "İmzayı göster",
-                report: "Rapor",
-                actionBarMenu: "Detaylar",
-            },
-        },
-        {
-            get(target, prop) {
-                if (!target.LANGUAGE) { return null; }
-
-                return typeof target[target.LANGUAGE][prop] === "string"
-                    ? target[target.LANGUAGE][prop]
-                    : target[target.LANGUAGE][prop].bind(target);
-            },
-        },
-    );
-
-    const BASE = new Proxy(
-        {
-            baseReportButton: (() => {
-                const element = dom.ce("a");
-                dom.cl.add(element, "actionBar-action actionBar-action--report");
-                dom.text(element, STR.report);
-                dom.attr(element, "data-xf-click", "overlay");
-
-                return element;
-            })(),
-
-            baseUserButton: (() => {
-                const element = dom.ce("a");
-                dom.cl.add(element, "actionBar-action actionBar-action--menuItem");
-                dom.text(element, STR.userBlock);
-                dom.attr(element, "blocktype", `${ forum }User`);
-                element.title = STR.userBlock;
-
-                return element;
-            })(),
-
-            baseAvatarButton: (() => {
-                const element = dom.ce("a");
-                dom.cl.add(element, "actionBar-action actionBar-action--menuItem");
-                dom.text(element, STR.avatarBlock);
-                dom.attr(element, "blocktype", `${ forum }Avatar`);
-                element.title = STR.avatarBlock;
-
-                return element;
-            })(),
-
-            baseSignatureButton: (() => {
-                const element = dom.ce("a");
-                dom.cl.add(element, "actionBar-action actionBar-action--menuItem");
-                dom.text(element, STR.signatureBlock);
-                dom.attr(element, "blocktype", `${ forum }Signature`);
-                element.title = STR.signatureBlock;
-
-                return element;
-            })(),
-
-            actionBar: (() => {
-                const element = dom.ce("div");
-                dom.cl.add(element, "message-actionBar actionBar");
-
-                return element;
-            })(),
-
-            internalActionBar: (() => {
-                const element = dom.ce("div");
-                dom.cl.add(element, "actionBar-set actionBar-set--internal");
-
-                return element;
-            })(),
-
-            reportButton(postId) {
-                const element = dom.clone(BASE.baseReportButton);
-                dom.attr(element, "href", `/sosyal/mesaj/${ postId }/report`);
-
-                return element;
-            },
-
-            userButton(userId) {
-                const element = dom.clone(BASE.baseUserButton);
-
-                if (settings[`${ forum }User`].includes(userId)) {
-                    element.title = STR.userUnblock;
-                    dom.text(element, STR.userUnblock);
-                }
-
-                dom.attr(element, "data-user-id", userId);
-                element.addEventListener("click", blockHandler);
-
-                return element;
-            },
-
-            avatarButton(userId) {
-                const element = dom.clone(BASE.baseAvatarButton);
-
-                if (settings[`${ forum }Avatar`].includes(userId)) {
-                    element.title = STR.avatarUnblock;
-                    dom.text(element, STR.avatarUnblock);
-                }
-
-                dom.attr(element, "data-user-id", userId);
-                element.addEventListener("click", blockHandler);
-
-                return element;
-            },
-
-            signatureButton(userId) {
-                const element = dom.clone(BASE.baseSignatureButton);
-
-                if (settings[`${ forum }Signature`].includes(userId)) {
-                    element.title = STR.signatureUnblock;
-                    dom.text(element, STR.signatureUnblock);
-                }
-
-                dom.attr(element, "data-user-id", userId);
-                element.addEventListener("click", blockHandler);
-
-                return element;
-            },
-
-            actionBarMenu: (() => {
-                const element = dom.ce("a");
-                dom.cl.add(element, "actionBar-action actionBar-action--menuTrigger");
-                dom.attr(element, "data-xf-click", "menu");
-                dom.attr(element, "title", STR.actionBarMenu);
-                dom.attr(element, "role", "button");
-                dom.attr(element, "tabindex", "0");
-                dom.attr(element, "aria-expanded", "false");
-                dom.attr(element, "aria-haspopup", "true");
-                dom.text(element, "•••");
-
-                return element;
-            })(),
-
-            actionBarMenuList: (() => {
-                const menuHeader = dom.ce("h4");
-                dom.cl.add(menuHeader, "menu-header");
-                dom.text(menuHeader, STR.actionBarMenu);
-
-                const menuBuilderTarget = dom.ce("div");
-                dom.cl.add(menuBuilderTarget, "js-menuBuilderTarget");
-
-                const menuContent = dom.ce("div");
-                dom.cl.add(menuContent, "menu-content");
-                menuContent.append(menuHeader, menuBuilderTarget);
-
-                const element = dom.ce("div");
-                dom.cl.add(element, "menu");
-                dom.attr(element, "data-menu", "menu");
-                dom.attr(element, "aria-hidden", "true");
-                dom.attr(element, "data-menu-builder", "actionBar");
-                element.append(menuContent);
-
-                return element;
-            })(),
-        },
-        {
-            get(target, prop) {
-                return target[prop] instanceof Element
-                    ? dom.clone(target[prop])
-                    : target[prop].bind(target);
-            },
-        },
-    );
-
 
     var settings;
 
@@ -261,15 +76,15 @@
             }
 
             if (settings["settingUserButton"]) {
-                buttonArray.push(BASE.userButton(userId));
+                buttonArray.push(BASE.userButton(settings[`${ forum }User`], userId));
             }
 
             if (settings["settingAvatarButton"]) {
-                buttonArray.push(BASE.avatarButton(userId));
+                buttonArray.push(BASE.avatarButton(settings[`${ forum }Avatar`], userId));
             }
 
             if (settings["settingSignatureButton"]) {
-                buttonArray.push(BASE.signatureButton(userId));
+                buttonArray.push(BASE.signatureButton(settings[`${ forum }Signature`], userId));
             }
 
             return buttonArray;
@@ -341,7 +156,7 @@
         }
     }
 
-    async function blockHandler(event) {
+    self.blockHandler = async function (event) {
         event.currentTarget.closest(".menu[data-menu-builder='actionBar']")?.dispatchEvent(new Event("menu:close"));
 
         const userId = parseInt(event.currentTarget.dataset.userId, 10);
@@ -363,7 +178,7 @@
         });
 
         console.log(`user ID: ${ userId }, ${ type } ${ !isBlocked ? "blocked" : "unblocked" }`);
-    }
+    };
 
     function isSelfBlock(userId) {
         return isLoggedIn && userId === parseInt(qs(".p-navgroup-link--user>.avatar").dataset.userId, 10);

@@ -22,6 +22,8 @@
             ],
             "js": [
                 "js/dom.js",
+                "js/str.js",
+                "js/base.js",
                 "js/widgetTabs.js"
             ],
             "run_at": "document_start"
@@ -37,6 +39,8 @@
             "js": [
                 "js/injectCSS.js",
                 "js/dom.js",
+                "js/str.js",
+                "js/base.js",
                 "js/tooltip.js"
             ],
             "run_at": "document_start"
@@ -48,6 +52,8 @@
             ],
             "js": [
                 "js/dom.js",
+                "js/str.js",
+                "js/base.js",
                 "js/contentScript.js"
             ],
             "run_at": "document_start"
