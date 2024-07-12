@@ -4,7 +4,8 @@ on:
     branches:
       main
     paths-ignore:
-      'manifest.json'
+      - 'manifest.json'
+      - '.github/workflows/**'
 jobs:
   firefox-cherry-pick:
     permissions:
