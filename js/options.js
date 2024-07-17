@@ -1,5 +1,7 @@
 /* Heavily inspired by Raymond Hill's uBlock Origin */
 
+const isMac = window.navigator.userAgent.indexOf("Mac OS") !== -1;
+
 chrome.storage.local.get("lastPane").then(settings => {
     window.location.hash === ""
         ? loadPane(settings["lastPane"])
@@ -18,7 +20,7 @@ window.addEventListener("message", function (event) {
 });
 
 document.addEventListener("keydown", event => {
-    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+    if (isMac ? event.metaKey : event.ctrlKey && event.key.toLowerCase() === "s") {
         event.preventDefault();
 
         const applyButton = qs("#iframe").contentWindow.document.querySelector("#applyButton");
