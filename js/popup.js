@@ -26,7 +26,7 @@ chrome.storage.local.get().then(settings => {
             settings["lastForum"] = forum;
         }
 
-        dom.cl.add(`[data-forum="${ settings["lastForum"] }"]`, "active");
+        qsa(`[data-forum="${ settings["lastForum"] }"]`).forEach(elem => elem.classList.add("active"));
 
         chrome.storage.local.set({
             lastForum: settings["lastForum"],
@@ -46,8 +46,8 @@ qsa(".tabButton").forEach(elem => {
     elem.addEventListener("click", event => {
         const forum = dom.attr(event.currentTarget, "data-forum");
 
-        dom.cl.remove(".active", "active");
-        dom.cl.add(`[data-forum="${ forum }"]`, "active");
+        qsa(".active").forEach(elem => elem.classList.remove("active"));
+        qsa(`[data-forum="${ forum }"]`).forEach(elem => elem.classList.add("active"));
 
         chrome.storage.local.set({
             lastForum: forum,
