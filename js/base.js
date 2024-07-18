@@ -3,153 +3,153 @@ self.forum = self.forum || window.location.hostname.replace(/(?:www.)?(.*).net/,
 self.BASE = self.BASE || new Proxy(
     {
         baseReportButton: (() => {
-            const element = dom.ce("a");
+            const element = document.createElement("a");
             element.className = "actionBar-action actionBar-action--report";
-            dom.text(element, STR.report);
-            dom.attr(element, "data-xf-click", "overlay");
+            element.textContent = STR.report;
+            element.setAttribute("data-xf-click", "overlay");
 
             return element;
         })(),
 
         baseUserButton: (() => {
-            const element = dom.ce("a");
+            const element = document.createElement("a");
             element.className = "actionBar-action actionBar-action--menuItem";
-            dom.text(element, STR.userBlock);
-            dom.attr(element, "blocktype", `${ forum }User`);
+            element.textContent = STR.userBlock;
+            element.setAttribute("blocktype", `${ forum }User`);
             element.title = STR.userBlock;
 
             return element;
         })(),
 
         baseAvatarButton: (() => {
-            const element = dom.ce("a");
+            const element = document.createElement("a");
             element.className = "actionBar-action actionBar-action--menuItem";
-            dom.text(element, STR.avatarBlock);
-            dom.attr(element, "blocktype", `${ forum }Avatar`);
+            element.textContent = STR.avatarBlock;
+            element.setAttribute("blocktype", `${ forum }Avatar`);
             element.title = STR.avatarBlock;
 
             return element;
         })(),
 
         baseSignatureButton: (() => {
-            const element = dom.ce("a");
+            const element = document.createElement("a");
             element.className = "actionBar-action actionBar-action--menuItem";
-            dom.text(element, STR.signatureBlock);
-            dom.attr(element, "blocktype", `${ forum }Signature`);
+            element.textContent = STR.signatureBlock;
+            element.setAttribute("blocktype", `${ forum }Signature`);
             element.title = STR.signatureBlock;
 
             return element;
         })(),
 
         actionBar: (() => {
-            const element = dom.ce("div");
+            const element = document.createElement("div");
             element.className = "message-actionBar actionBar";
 
             return element;
         })(),
 
         internalActionBar: (() => {
-            const element = dom.ce("div");
+            const element = document.createElement("div");
             element.className = "actionBar-set actionBar-set--internal";
 
             return element;
         })(),
 
         reportButton(postId) {
-            const element = dom.clone(BASE.baseReportButton);
-            dom.attr(element, "href", `/sosyal/mesaj/${ postId }/report`);
+            const element = BASE.baseReportButton.cloneNode(true);
+            element.setAttribute("href", `/sosyal/mesaj/${ postId }/report`);
 
             return element;
         },
 
         userButton(users, userId) {
-            const element = dom.clone(BASE.baseUserButton);
+            const element = BASE.baseUserButton.cloneNode(true);
 
             if (users.includes(userId)) {
                 element.title = STR.userUnblock;
-                dom.text(element, STR.userUnblock);
+                element.textContent = STR.userUnblock;
             }
 
-            dom.attr(element, "data-user-id", userId);
+            element.setAttribute("data-user-id", userId);
             element.addEventListener("click", blockHandler);
 
             return element;
         },
 
         avatarButton(avatars, userId) {
-            const element = dom.clone(BASE.baseAvatarButton);
+            const element = BASE.baseAvatarButton.cloneNode(true);
 
             if (avatars.includes(userId)) {
                 element.title = STR.avatarUnblock;
-                dom.text(element, STR.avatarUnblock);
+                element.textContent = STR.avatarUnblock;
             }
 
-            dom.attr(element, "data-user-id", userId);
+            element.setAttribute("data-user-id", userId);
             element.addEventListener("click", blockHandler);
 
             return element;
         },
 
         signatureButton(signatures, userId) {
-            const element = dom.clone(BASE.baseSignatureButton);
+            const element = BASE.baseSignatureButton.cloneNode(true);
 
             if (signatures.includes(userId)) {
                 element.title = STR.signatureUnblock;
-                dom.text(element, STR.signatureUnblock);
+                element.textContent = STR.signatureUnblock;
             }
 
-            dom.attr(element, "data-user-id", userId);
+            element.setAttribute("data-user-id", userId);
             element.addEventListener("click", blockHandler);
 
             return element;
         },
 
         actionBarMenu: (() => {
-            const element = dom.ce("a");
+            const element = document.createElement("a");
             element.className = "actionBar-action actionBar-action--menuTrigger";
-            dom.attr(element, "data-xf-click", "menu");
-            dom.attr(element, "title", STR.actionBarMenu);
-            dom.attr(element, "role", "button");
-            dom.attr(element, "tabindex", "0");
-            dom.attr(element, "aria-expanded", "false");
-            dom.attr(element, "aria-haspopup", "true");
-            dom.text(element, "•••");
+            element.setAttribute("data-xf-click", "menu");
+            element.setAttribute("title", STR.actionBarMenu);
+            element.setAttribute("role", "button");
+            element.setAttribute("tabindex", "0");
+            element.setAttribute("aria-expanded", "false");
+            element.setAttribute("aria-haspopup", "true");
+            element.textContent = "•••";
 
             return element;
         })(),
 
         actionBarMenuList: (() => {
-            const menuHeader = dom.ce("h4");
+            const menuHeader = document.createElement("h4");
             menuHeader.className = "menu-header";
-            dom.text(menuHeader, STR.actionBarMenu);
+            menuHeader.textContent = STR.actionBarMenu;
 
-            const menuBuilderTarget = dom.ce("div");
+            const menuBuilderTarget = document.createElement("div");
             menuBuilderTarget.className = "js-menuBuilderTarget";
 
-            const menuContent = dom.ce("div");
+            const menuContent = document.createElement("div");
             menuContent.className = "menu-content";
             menuContent.append(menuHeader, menuBuilderTarget);
 
-            const element = dom.ce("div");
+            const element = document.createElement("div");
             element.className = "menu";
-            dom.attr(element, "data-menu", "menu");
-            dom.attr(element, "aria-hidden", "true");
-            dom.attr(element, "data-menu-builder", "actionBar");
+            element.setAttribute("data-menu", "menu");
+            element.setAttribute("aria-hidden", "true");
+            element.setAttribute("data-menu-builder", "actionBar");
             element.append(menuContent);
 
             return element;
         })(),
 
         baseTooltipReport: (() => {
-            const text = dom.ce("span");
-            dom.text(text, STR.report);
+            const text = document.createElement("span");
+            text.textContent = STR.report;
 
-            const button = dom.ce("a");
+            const button = document.createElement("a");
             button.className = "button button--link";
-            dom.attr(button, "data-xf-click", "overlay");
+            button.setAttribute("data-xf-click", "overlay");
             button.append(text);
 
-            const element = dom.ce("div");
+            const element = document.createElement("div");
             element.className = "memberTooltip-report";
             element.append(button);
 
@@ -157,23 +157,23 @@ self.BASE = self.BASE || new Proxy(
         })(),
 
         baseTooltipNote: (() => {
-            const input = dom.ce("input");
+            const input = document.createElement("input");
             input.className = "input";
             input.placeholder = STR.addNote;
             input.type = "text";
 
-            const svg = dom.ceNS("http://www.w3.org/2000/svg", "svg");
-            dom.attr(svg, "viewBox", "0 0 448 512");
-            svg.append(dom.ceNS("http://www.w3.org/2000/svg", "path"));
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("viewBox", "0 0 448 512");
+            svg.append(document.createElementNS("http://www.w3.org/2000/svg", "path"));
 
-            const text = dom.ce("span");
-            dom.text(text, STR.save);
+            const text = document.createElement("span");
+            text.textContent = STR.save;
 
-            const button = dom.ce("a");
+            const button = document.createElement("a");
             button.className = "button button--link";
             button.append(svg, text);
 
-            const element = dom.ce("div");
+            const element = document.createElement("div");
             element.className = "memberTooltip-note";
             element.append(input, button);
 
@@ -181,50 +181,50 @@ self.BASE = self.BASE || new Proxy(
         })(),
 
         baseTooltipFindMenu: (() => {
-            const menuHeader = dom.ce("h4");
+            const menuHeader = document.createElement("h4");
             menuHeader.className = "menu-header";
-            dom.text(menuHeader, STR.findContent);
+            menuHeader.textContent = STR.findContent;
 
-            const menuContent = dom.ce("div");
+            const menuContent = document.createElement("div");
             menuContent.className = "menu-content";
             menuContent.append(menuHeader);
 
-            const element = dom.ce("div");
+            const element = document.createElement("div");
             element.className = "menu";
-            dom.attr(element, "data-menu", "menu");
+            element.setAttribute("data-menu", "menu");
             element.append(menuContent);
 
             return element;
         })(),
 
         baseFindAllContentsBy: (() => {
-            const element = dom.ce("a");
+            const element = document.createElement("a");
             element.className = "menu-linkRow";
-            dom.attr(element, "rel", "nofollow");
-            dom.attr(element, "data-xf-click", "overlay");
+            element.setAttribute("rel", "nofollow");
+            element.setAttribute("data-xf-click", "overlay");
 
             return element;
         })(),
 
         baseFindAllThreadsBy: (() => {
-            const element = dom.ce("a");
+            const element = document.createElement("a");
             element.className = "menu-linkRow";
-            dom.attr(element, "rel", "nofollow");
-            dom.attr(element, "data-xf-click", "overlay");
+            element.setAttribute("rel", "nofollow");
+            element.setAttribute("data-xf-click", "overlay");
 
             return element;
         })(),
 
         tooltipReport(userId) {
-            const element = dom.clone(BASE.baseTooltipReport);
-            dom.attr(element.firstElementChild, "href", `/sosyal/uye/${ userId }/report`);
+            const element = BASE.baseTooltipReport.cloneNode(true);
+            element.firstElementChild.setAttribute("href", `/sosyal/uye/${ userId }/report`);
 
             return element;
         },
 
         tooltipNote(notes, userId) {
-            const element = dom.clone(BASE.baseTooltipNote);
-            dom.attr(element, "data-user-id", userId);
+            const element = BASE.baseTooltipNote.cloneNode(true);
+            element.setAttribute("data-user-id", userId);
             element.firstElementChild.value = notes[userId] || "";
             element.firstElementChild.addEventListener("keydown", noteEnterHandler);
             element.lastElementChild.addEventListener("click", noteSaveHandler);
@@ -233,19 +233,19 @@ self.BASE = self.BASE || new Proxy(
         },
 
         tooltipSeperator: (() => {
-            const element = dom.ce("hr");
+            const element = document.createElement("hr");
             element.className = "memberTooltip-separator";
 
             return element;
         })(),
 
         tooltipFind: (() => {
-            const text = dom.ce("span");
-            dom.text(text, STR.find);
+            const text = document.createElement("span");
+            text.textContent = STR.find;
 
-            const element = dom.ce("button");
+            const element = document.createElement("button");
             element.className = "button--link menuTrigger button";
-            dom.attr(element, "data-xf-click", "menu");
+            element.setAttribute("data-xf-click", "menu");
             element.type = "button";
             element.append(text);
 
@@ -253,7 +253,7 @@ self.BASE = self.BASE || new Proxy(
         })(),
 
         tooltipFindMenu(userId, userName) {
-            const element = dom.clone(BASE.baseTooltipFindMenu);
+            const element = BASE.baseTooltipFindMenu.cloneNode(true);
             element.firstElementChild.append(
                 BASE.findAllContentBy(userId, userName),
                 BASE.findAllThreadsBy(userId, userName),
@@ -263,17 +263,17 @@ self.BASE = self.BASE || new Proxy(
         },
 
         findAllContentBy(userId, userName) {
-            const element = dom.clone(BASE.baseFindAllContentsBy);
-            dom.attr(element, "href", `/sosyal/ara/member?user_id=${ userId }`);
-            dom.text(element, STR.findAllContentBy(userName));
+            const element = BASE.baseFindAllContentsBy.cloneNode(true);
+            element.setAttribute("href", `/sosyal/ara/member?user_id=${ userId }`);
+            element.textContent = STR.findAllContentBy(userName);
 
             return element;
         },
 
         findAllThreadsBy(userId, userName) {
-            const element = dom.clone(BASE.baseFindAllThreadsBy);
-            dom.attr(element, "href", `/sosyal/ara/member?user_id=${ userId }&content=thread`);
-            dom.text(element, STR.findAllThreadsBy(userName));
+            const element = BASE.baseFindAllThreadsBy.cloneNode(true);
+            element.setAttribute("href", `/sosyal/ara/member?user_id=${ userId }&content=thread`);
+            element.textContent = STR.findAllThreadsBy(userName);
 
             return element;
         },
@@ -281,7 +281,7 @@ self.BASE = self.BASE || new Proxy(
     {
         get(target, prop) {
             return target[prop] instanceof Element
-                ? dom.clone(target[prop])
+                ? target[prop].cloneNode(true)
                 : target[prop].bind(target);
         },
     },
