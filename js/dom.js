@@ -1,5 +1,4 @@
 self.dom = self.dom || {};
-self.dom.cl = self.dom.cl || {};
 
 
 normalizeTarget = target => {
@@ -57,39 +56,4 @@ dom.text = function (target, text) {
     for (const elem of targets) {
         elem.textContent = text;
     }
-};
-
-
-dom.cl.add = function (target, name) {
-    for (const elem of normalizeTarget(target)) {
-        elem.classList.add(...name.split(" "));
-    }
-};
-
-dom.cl.remove = function (target, name) {
-    for (const elem of normalizeTarget(target)) {
-        elem.classList.remove(...name.split(" "));
-    }
-};
-
-dom.cl.toggle = function (target, name, state) {
-    if (state === undefined) {
-        for (const elem of normalizeTarget(target)) {
-            elem.classList.toggle(name);
-        }
-    }
-    else {
-        for (const elem of normalizeTarget(target)) {
-            elem.classList.toggle(name, state);
-        }
-    }
-};
-
-dom.cl.has = function has(target, name) {
-    for (const elem of normalizeTarget(target)) {
-        if (elem.classList.contains(name)) {
-            return true;
-        }
-    }
-    return false;
 };

@@ -4,7 +4,7 @@ self.BASE = self.BASE || new Proxy(
     {
         baseReportButton: (() => {
             const element = dom.ce("a");
-            dom.cl.add(element, "actionBar-action actionBar-action--report");
+            element.className = "actionBar-action actionBar-action--report";
             dom.text(element, STR.report);
             dom.attr(element, "data-xf-click", "overlay");
 
@@ -13,7 +13,7 @@ self.BASE = self.BASE || new Proxy(
 
         baseUserButton: (() => {
             const element = dom.ce("a");
-            dom.cl.add(element, "actionBar-action actionBar-action--menuItem");
+            element.className = "actionBar-action actionBar-action--menuItem";
             dom.text(element, STR.userBlock);
             dom.attr(element, "blocktype", `${ forum }User`);
             element.title = STR.userBlock;
@@ -23,7 +23,7 @@ self.BASE = self.BASE || new Proxy(
 
         baseAvatarButton: (() => {
             const element = dom.ce("a");
-            dom.cl.add(element, "actionBar-action actionBar-action--menuItem");
+            element.className = "actionBar-action actionBar-action--menuItem";
             dom.text(element, STR.avatarBlock);
             dom.attr(element, "blocktype", `${ forum }Avatar`);
             element.title = STR.avatarBlock;
@@ -33,7 +33,7 @@ self.BASE = self.BASE || new Proxy(
 
         baseSignatureButton: (() => {
             const element = dom.ce("a");
-            dom.cl.add(element, "actionBar-action actionBar-action--menuItem");
+            element.className = "actionBar-action actionBar-action--menuItem";
             dom.text(element, STR.signatureBlock);
             dom.attr(element, "blocktype", `${ forum }Signature`);
             element.title = STR.signatureBlock;
@@ -43,14 +43,14 @@ self.BASE = self.BASE || new Proxy(
 
         actionBar: (() => {
             const element = dom.ce("div");
-            dom.cl.add(element, "message-actionBar actionBar");
+            element.className = "message-actionBar actionBar";
 
             return element;
         })(),
 
         internalActionBar: (() => {
             const element = dom.ce("div");
-            dom.cl.add(element, "actionBar-set actionBar-set--internal");
+            element.className = "actionBar-set actionBar-set--internal";
 
             return element;
         })(),
@@ -106,7 +106,7 @@ self.BASE = self.BASE || new Proxy(
 
         actionBarMenu: (() => {
             const element = dom.ce("a");
-            dom.cl.add(element, "actionBar-action actionBar-action--menuTrigger");
+            element.className = "actionBar-action actionBar-action--menuTrigger";
             dom.attr(element, "data-xf-click", "menu");
             dom.attr(element, "title", STR.actionBarMenu);
             dom.attr(element, "role", "button");
@@ -120,18 +120,18 @@ self.BASE = self.BASE || new Proxy(
 
         actionBarMenuList: (() => {
             const menuHeader = dom.ce("h4");
-            dom.cl.add(menuHeader, "menu-header");
+            menuHeader.className = "menu-header";
             dom.text(menuHeader, STR.actionBarMenu);
 
             const menuBuilderTarget = dom.ce("div");
-            dom.cl.add(menuBuilderTarget, "js-menuBuilderTarget");
+            menuBuilderTarget.className = "js-menuBuilderTarget";
 
             const menuContent = dom.ce("div");
-            dom.cl.add(menuContent, "menu-content");
+            menuContent.className = "menu-content";
             menuContent.append(menuHeader, menuBuilderTarget);
 
             const element = dom.ce("div");
-            dom.cl.add(element, "menu");
+            element.className = "menu";
             dom.attr(element, "data-menu", "menu");
             dom.attr(element, "aria-hidden", "true");
             dom.attr(element, "data-menu-builder", "actionBar");
@@ -145,12 +145,12 @@ self.BASE = self.BASE || new Proxy(
             dom.text(text, STR.report);
 
             const button = dom.ce("a");
-            dom.cl.add(button, "button button--link");
+            button.className = "button button--link";
             dom.attr(button, "data-xf-click", "overlay");
             button.append(text);
 
             const element = dom.ce("div");
-            dom.cl.add(element, "memberTooltip-report");
+            element.className = "memberTooltip-report";
             element.append(button);
 
             return element;
@@ -158,7 +158,7 @@ self.BASE = self.BASE || new Proxy(
 
         baseTooltipNote: (() => {
             const input = dom.ce("input");
-            dom.cl.add(input, "input");
+            input.className = "input";
             input.placeholder = STR.addNote;
             input.type = "text";
 
@@ -170,11 +170,11 @@ self.BASE = self.BASE || new Proxy(
             dom.text(text, STR.save);
 
             const button = dom.ce("a");
-            dom.cl.add(button, "button button--link");
+            button.className = "button button--link";
             button.append(svg, text);
 
             const element = dom.ce("div");
-            dom.cl.add(element, "memberTooltip-note");
+            element.className = "memberTooltip-note";
             element.append(input, button);
 
             return element;
@@ -182,15 +182,15 @@ self.BASE = self.BASE || new Proxy(
 
         baseTooltipFindMenu: (() => {
             const menuHeader = dom.ce("h4");
-            dom.cl.add(menuHeader, "menu-header");
+            menuHeader.className = "menu-header";
             dom.text(menuHeader, STR.findContent);
 
             const menuContent = dom.ce("div");
-            dom.cl.add(menuContent, "menu-content");
+            menuContent.className = "menu-content";
             menuContent.append(menuHeader);
 
             const element = dom.ce("div");
-            dom.cl.add(element, "menu");
+            element.className = "menu";
             dom.attr(element, "data-menu", "menu");
             element.append(menuContent);
 
@@ -199,7 +199,7 @@ self.BASE = self.BASE || new Proxy(
 
         baseFindAllContentsBy: (() => {
             const element = dom.ce("a");
-            dom.cl.add(element, "menu-linkRow");
+            element.className = "menu-linkRow";
             dom.attr(element, "rel", "nofollow");
             dom.attr(element, "data-xf-click", "overlay");
 
@@ -208,7 +208,7 @@ self.BASE = self.BASE || new Proxy(
 
         baseFindAllThreadsBy: (() => {
             const element = dom.ce("a");
-            dom.cl.add(element, "menu-linkRow");
+            element.className = "menu-linkRow";
             dom.attr(element, "rel", "nofollow");
             dom.attr(element, "data-xf-click", "overlay");
 
@@ -234,7 +234,7 @@ self.BASE = self.BASE || new Proxy(
 
         tooltipSeperator: (() => {
             const element = dom.ce("hr");
-            dom.cl.add(element, "memberTooltip-separator");
+            element.className = "memberTooltip-separator";
 
             return element;
         })(),
@@ -244,7 +244,7 @@ self.BASE = self.BASE || new Proxy(
             dom.text(text, STR.find);
 
             const element = dom.ce("button");
-            dom.cl.add(element, "button--link menuTrigger button");
+            element.className = "button--link menuTrigger button";
             dom.attr(element, "data-xf-click", "menu");
             element.type = "button";
             element.append(text);

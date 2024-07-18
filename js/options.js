@@ -49,8 +49,8 @@ function loadPane(pane) {
 function setSelectedTab() {
     const tabButton = qs(`[data-pane="${ window.paneToLoad }"]`);
     window.location.hash = window.paneToLoad;
-    dom.cl.remove(".tabButton.active", "active");
-    dom.cl.add(tabButton, "active");
+    qsa(".tabButton.active").forEach(elem => elem.classList.remove("active"));
+    tabButton.classList.add("active");
     tabButton.scrollIntoView();
     chrome.storage.local.set({
         lastPane: window.paneToLoad,

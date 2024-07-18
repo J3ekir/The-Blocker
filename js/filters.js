@@ -57,7 +57,7 @@
     }
 
     if (/\bMobile\b/.test(window.navigator.userAgent)) {
-        dom.cl.add("html", "mobile");
+        document.documentElement.classList.add("mobile");
     }
 
     renderEditors();
@@ -101,25 +101,25 @@
 
     document.addEventListener("keydown", event => {
         if (isMac ? event.metaKey : event.ctrlKey) {
-            dom.cl.add(".cm-filter-keyword", "cm-keyword-link");
+            qsa(".cm-filter-keyword").forEach(elem => elem.classList.add("cm-keyword-link"));
         }
     });
 
     document.addEventListener("keyup", event => {
         if (!(isMac ? event.metaKey : event.ctrlKey)) {
-            dom.cl.remove(".cm-filter-keyword.cm-keyword-link", "cm-keyword-link");
+            qsa(".cm-filter-keyword.cm-keyword-link").forEach(elem => elem.classList.remove("cm-keyword-link"));
         }
     });
 
     document.addEventListener("mousedown", event => {
-        if (dom.cl.has(event.target, "cm-keyword-link")) {
+        if (event.target.classList.contains("cm-keyword-link")) {
             chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ dom.text(event.target) }` });
         }
     });
 
     var tapped = null;
     document.addEventListener("touchstart", event => {
-        if (dom.cl.has(event.target, "cm-filter-keyword")) {
+        if (event.target.classList.contains("cm-filter-keyword")) {
             if (!tapped) {
                 tapped = setTimeout(_ => tapped = null, 300);
             }

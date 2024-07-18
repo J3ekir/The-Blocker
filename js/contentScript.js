@@ -69,7 +69,7 @@
                 );
 
                 buttonArray.forEach(elem => {
-                    dom.cl.add(elem, "theBlocker-hide");
+                    elem.classList.add("theBlocker-hide");
                 });
 
                 return buttonArray;
