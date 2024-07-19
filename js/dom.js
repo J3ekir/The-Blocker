@@ -30,12 +30,6 @@ dom.attr = function (target, attr, value) {
     }
 };
 
-dom.remove = function (target) {
-    for (const elem of normalizeTarget(target)) {
-        elem.remove();
-    }
-};
-
 dom.text = function (target, text) {
     const targets = normalizeTarget(target);
     if (text === undefined) {
