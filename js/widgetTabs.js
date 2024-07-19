@@ -42,7 +42,7 @@
         }
 
         if (ADD_BOTTOM_TAB_BUTTONS) {
-            const bottomTabs = dom.clone(tabs);
+            const bottomTabs = tabs.cloneNode(true);
             const bottomButtons = bottomTabs.firstElementChild.firstElementChild.children;
 
             Array.from(bottomButtons).forEach(elem => {
