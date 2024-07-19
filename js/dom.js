@@ -30,10 +30,6 @@ dom.attr = function (target, attr, value) {
     }
 };
 
-dom.ce = function (tag) {
-    return document.createElement(tag);
-};
-
 dom.remove = function (target) {
     for (const elem of normalizeTarget(target)) {
         elem.remove();
