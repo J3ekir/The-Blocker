@@ -119,7 +119,7 @@
             }
 
             qsa(`[data-user-id="${ userId }"][blocktype="${ key }"]`).forEach(elem => {
-                dom.text(elem, newText);
+                elem.textContent = newText;
                 elem.title = newText;
             });
         }

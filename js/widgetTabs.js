@@ -15,7 +15,7 @@
         });
 
         waitForElement(".tabs-tab").then(elem => {
-            dom.text(elem, STR.combinedTabName);
+            elem.textContent = STR.combinedTabName;
         });
     }
 

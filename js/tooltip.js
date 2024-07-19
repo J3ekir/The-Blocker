@@ -41,7 +41,7 @@
     function addFindButton(elem, userId) {
         if (hasFindButton(elem)) { return; }
 
-        const userName = dom.text(qs(elem, ".memberTooltip-nameWrapper>a"));
+        const userName = qs(elem, ".memberTooltip-nameWrapper>a").textContent;
 
         qs(elem, ".memberTooltip-actions").append(
             BASE.tooltipFind,

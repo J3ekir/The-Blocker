@@ -11,7 +11,7 @@ const VALUES = FORUMS.flatMap(forum => VALUE_TYPES.map(type => `${ forum }${ typ
 
 chrome.storage.local.get().then(settings => {
     VALUES.forEach(value => {
-        dom.text(`#${ value }`, settings[value]);
+        qs(`#${ value }`).textContent = settings[value];
     });
 
     chrome.tabs.query({
@@ -37,7 +37,7 @@ chrome.storage.local.get().then(settings => {
 chrome.storage.onChanged.addListener(changes => {
     Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
         if (VALUES.includes(key)) {
-            dom.text(`#${ key }`, newValue);
+            qs(`#${ key }`).textContent = newValue;
         }
     });
 });
