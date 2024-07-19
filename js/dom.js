@@ -34,10 +34,6 @@ dom.ce = function (tag) {
     return document.createElement(tag);
 };
 
-dom.ceNS = function (NS, tag) {
-    return document.createElementNS(NS, tag);
-};
-
 dom.remove = function (target) {
     for (const elem of normalizeTarget(target)) {
         elem.remove();
