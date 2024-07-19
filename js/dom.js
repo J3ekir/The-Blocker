@@ -29,13 +29,3 @@ dom.attr = function (target, attr, value) {
         else { elem.setAttribute(attr, value); }
     }
 };
-
-dom.text = function (target, text) {
-    const targets = normalizeTarget(target);
-    if (text === undefined) {
-        return targets.length !== 0 ? targets[0].textContent : undefined;
-    }
-    for (const elem of targets) {
-        elem.textContent = text;
-    }
-};

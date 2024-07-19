@@ -131,7 +131,7 @@
 
     document.addEventListener("mousedown", event => {
         if (event.target.classList.contains("cm-keyword-link")) {
-            chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
+            chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ event.target.textContent.trimStart() }` });
         }
     });
 
@@ -144,7 +144,7 @@
             else {
                 clearTimeout(tapped);
                 tapped = null;
-                chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ dom.text(event.target).trimStart() }` });
+                chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ event.target.textContent.trimStart() }` });
             }
 
             event.preventDefault();

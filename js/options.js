@@ -56,6 +56,6 @@ function setSelectedTab() {
         lastPane: window.paneToLoad,
     });
 
-    document.title = dom.text(tabButton);
+    document.title = tabButton.textContent;
     document.documentElement.dataset.forum = tabButton.dataset.pane.replace(/[^-]*-?(.*?)\.html/, "$1");
 }
