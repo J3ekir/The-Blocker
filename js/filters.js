@@ -161,7 +161,7 @@
             .replace("T", "_");
         const fileName = `the-blocker-filtreler-${ forum }_${ time }.txt`;
 
-        const downloadLink = dom.ce("a");
+        const downloadLink = document.createElement("a");
         dom.attr(downloadLink, "href", `data:text/plain;charset=utf-8,${ encodeURIComponent(`${ text }\n`) }`);
         dom.attr(downloadLink, "download", fileName);
         dom.attr(downloadLink, "type", "text/plain");
