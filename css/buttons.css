@@ -8,24 +8,23 @@
 
 /****************************************** BUTTONS *******************************************/
 
-.actionBar-action.actionBar-action--menuItem {
-    display: none !important;
-}
-
-.actionBar-action.actionBar-action--menuTrigger {
-    display: inline-block !important;
+.actionBar-action {
+    &.actionBar-action--menuItem {
+        display: none !important;
+    }
+    &.actionBar-action--menuTrigger {
+        display: inline-block !important;
+    }
 }
 
 a[blocktype] {
     cursor: pointer;
-}
-
-a[blocktype]:not([data-user-id]) {
-    display: none;
-}
-
-a[blocktype]:not([data-user-id]) ~ .actionBar-action.actionBar-action--menuTrigger {
-    display: none !important;
+    &:not([data-user-id]) {
+        display: none;
+    }
+    &:not([data-user-id]) ~ .actionBar-action.actionBar-action--menuTrigger {
+        display: none !important;
+    }
 }
 
 /* signature */
@@ -51,14 +50,9 @@ a[blocktype]:not([data-user-id]) ~ .actionBar-action.actionBar-action--menuTrigg
     .actionBar-action--mention,
     .actionBar-action--replynoquote {
         font-size: 0;
-    }
-
-    .actionBar-action--mq::before,
-    .actionBar-action--tag::before,
-    .actionBar-action--reply::before,
-    .actionBar-action--mention::before,
-    .actionBar-action--replynoquote::before {
-        font-size: 13px !important;
+        &::before {
+            font-size: 13px !important;
+        }
     }
 }
 
@@ -69,17 +63,15 @@ a[blocktype]:not([data-user-id]) ~ .actionBar-action.actionBar-action--menuTrigg
     border-top: 1px solid var(--input-border-light) !important;
     margin-top: -12px !important;
     margin-bottom: 20px !important;
-}
-
-.tabs.widget-group-tabs:last-child .tabs-tab {
-    border-bottom: none !important;
-    border-top-width: 3px !important;
-    border-top-style: solid !important;
-    padding: 4px 15px 5px !important;
-}
-
-.tabs.widget-group-tabs:last-child .tabs-tab:not(.is-active) {
-    border-top-color: transparent !important;
+    & .tabs-tab {
+        border-bottom: none !important;
+        border-top-width: 3px !important;
+        border-top-style: solid !important;
+        padding: 4px 15px 5px !important;
+        &:not(.is-active) {
+            border-top-color: transparent !important;
+        }
+    }
 }
 
 /******************************************** NOTE ********************************************/
@@ -88,62 +80,51 @@ a[blocktype]:not([data-user-id]) ~ .actionBar-action.actionBar-action--menuTrigg
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-}
-
-.memberHeader-buttons:has(.memberTooltip-note) .button {
-    border: none !important;
-    height: 100%;
-}
-
-.memberHeader-buttons:has(.memberTooltip-note) > * {
-    display: inline-flex;
-}
-
-.memberHeader-buttons:has(.memberTooltip-note) input {
-    min-width: 100px;
-}
-
-.memberHeader-buttons > .memberTooltip-note {
-    flex: 1;
-    padding: 0;
+    & .button {
+        border: none !important;
+        height: 100%;
+    }
+    & > * {
+        display: inline-flex;
+    }
+    & input {
+        min-width: 100px;
+    }
+    & > .memberTooltip-note {
+        flex: 1;
+        padding: 0;
+    }
 }
 
 .memberTooltip-note {
     display: flex;
     padding: 6px;
-}
-
-.memberTooltip-note > *:first-child:not(:last-child) {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-}
-
-.memberTooltip-note > *:last-child:not(:first-child) {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-}
-
-.memberTooltip-note > *:not(:first-child):not(:last-child) {
-    border-radius: 0 !important;
-}
-
-.memberTooltip-note > input {
-    font-size: 13px !important;
-    padding: 0 6px !important;
-    border: none !important;
-}
-
-.memberTooltip-note > a {
-    border: none !important;
-}
-
-.memberTooltip-note path {
-    d: path("M64 32c-35 0-64 29-64 64v320c0 35 29 64 64 64h320c35 0 64-29 64-64v-246c0-17-7-33-19-45l-74-74c-12-12-28-19-45-19zM80 80v104c0 13 11 24 24 24h192c13 0 24-11 24-24v-100l75 75c3 3 5 7 5 11v246c0 9-7 16-16 16h-320c-9 0-16-7-16-16v-320c0-9 7-16 16-16zM128 80h144v80h-144zM160 320a64 64 0 00128 0 64 64 0 00-128 0z");
-}
-
-.memberTooltip-note svg {
-    height: 13px;
-    margin-right: 5px;
+    & > input {
+        font-size: 13px !important;
+        padding: 0 6px !important;
+        border: none !important;
+    }
+    & > a {
+        border: none !important;
+    }
+    & path {
+        d: path("M64 32c-35 0-64 29-64 64v320c0 35 29 64 64 64h320c35 0 64-29 64-64v-246c0-17-7-33-19-45l-74-74c-12-12-28-19-45-19zM80 80v104c0 13 11 24 24 24h192c13 0 24-11 24-24v-100l75 75c3 3 5 7 5 11v246c0 9-7 16-16 16h-320c-9 0-16-7-16-16v-320c0-9 7-16 16-16zM128 80h144v80h-144zM160 320a64 64 0 00128 0 64 64 0 00-128 0z");
+    }
+    & svg {
+        height: 13px;
+        margin-right: 5px;
+    }
+    & > *:first-child:not(:last-child) {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+    & > *:last-child:not(:first-child) {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+    & > *:not(:first-child):not(:last-child) {
+        border-radius: 0 !important;
+    }
 }
 
 .memberTooltip-report {
