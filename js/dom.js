@@ -38,10 +38,6 @@ dom.ceNS = function (NS, tag) {
     return document.createElementNS(NS, tag);
 };
 
-dom.clone = function (target) {
-    return normalizeTarget(target)[0].cloneNode(true);
-};
-
 dom.remove = function (target) {
     for (const elem of normalizeTarget(target)) {
         elem.remove();
