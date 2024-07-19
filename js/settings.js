@@ -15,7 +15,7 @@ qs("#requestPermission>button").addEventListener("click", requestPermission);
 
 chrome.storage.local.get().then(settings => {
     qsa("[data-setting-name]").forEach(elem => {
-        elem.checked = settings[dom.attr(elem, "data-setting-name")];
+        elem.checked = settings[elem.getAttribute("data-setting-name")];
         elem.addEventListener("change", settingChanged);
     });
 });
@@ -34,7 +34,7 @@ function requestPermission() {
 }
 
 function settingChanged(event) {
-    const settingName = dom.attr(event.currentTarget, "data-setting-name");
+    const settingName = event.currentTarget.getAttribute("data-setting-name");
     chrome.storage.local.set({
         [settingName]: event.currentTarget.checked,
     });

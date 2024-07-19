@@ -177,9 +177,9 @@
         const fileName = `the-blocker-notlar-${ forum }_${ time }.txt`;
 
         const downloadLink = document.createElement("a");
-        dom.attr(downloadLink, "href", `data:text/plain;charset=utf-8,${ encodeURIComponent(`${ text }\n`) }`);
-        dom.attr(downloadLink, "download", fileName);
-        dom.attr(downloadLink, "type", "text/plain");
+        downloadLink.href = `data:text/plain;charset=utf-8,${ encodeURIComponent(`${ text }\n`) }`;
+        downloadLink.download = fileName;
+        downloadLink.type = "text/plain";
         downloadLink.click();
     });
 

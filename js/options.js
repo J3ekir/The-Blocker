@@ -9,7 +9,7 @@ chrome.storage.local.get("lastPane").then(settings => {
 });
 
 qsa(".tabButton").forEach(elem => {
-    elem.addEventListener("click", event => loadPane(dom.attr(event.currentTarget, "data-pane")));
+    elem.addEventListener("click", event => loadPane(event.currentTarget.getAttribute("data-pane")));
 });
 
 window.addEventListener("message", function (event) {
@@ -33,11 +33,11 @@ document.addEventListener("keydown", event => {
 function loadPane(pane) {
     window.paneToLoad = pane;
 
-    if (dom.attr(".tabButton.active", "data-pane") === pane) { return; }
+    if (qs(".tabButton.active")?.getAttribute("data-pane") === pane) { return; }
 
     qs("#iframe").contentWindow.location.replace(pane.replace(/([^-]*)-?.*(.html)/, "$1$2"));
 
-    switch (dom.attr(".tabButton.active", "data-pane")?.replace(/([^-]*)-?.*(.html)/, "$1$2")) {
+    switch (qs(".tabButton.active")?.getAttribute("data-pane")?.replace(/([^-]*)-?.*(.html)/, "$1$2")) {
         case "filters.html":
         case "notes.html":
             return;

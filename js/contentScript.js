@@ -1,5 +1,5 @@
 (async () => {
-    const isLoggedIn = dom.attr("html", "data-logged-in") === "true";
+    const isLoggedIn = document.documentElement.getAttribute("data-logged-in") === "true";
 
     var settings;
 
@@ -160,7 +160,7 @@
         event.currentTarget.closest(".menu[data-menu-builder='actionBar']")?.dispatchEvent(new Event("menu:close"));
 
         const userId = parseInt(event.currentTarget.dataset.userId, 10);
-        const type = dom.attr(event.currentTarget, "blocktype");
+        const type = event.currentTarget.getAttribute("blocktype");
         const isBlocked = settings[type].includes(userId);
 
         if (!isUserIdValid(userId)) {

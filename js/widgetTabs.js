@@ -20,8 +20,8 @@
     }
 
     waitForElement(".p-body-pageContent>.tab-wrapper.widget-group:first-child+.block").then(elem => {
-        dom.attr(".tabs", "data-xf-init", null);
-        dom.attr("[role='tab']", "href", null);
+        qsa(".tabs").forEach(elem => elem.removeAttribute("data-xf-init"));
+        qsa("[role='tab']").forEach(elem => elem.removeAttribute("href"));
 
         const tabs = qs(".tabs");
 

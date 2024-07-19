@@ -1,5 +1,5 @@
 (async () => {
-    const isLoggedIn = dom.attr("html", "data-logged-in") === "true";
+    const isLoggedIn = document.documentElement.getAttribute("data-logged-in") === "true";
 
     const settings = await chrome.storage.local.get([
         `${ forum }Notes`,
