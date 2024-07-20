@@ -15,6 +15,10 @@
     &.actionBar-action--menuTrigger {
         display: inline !important;
     }
+    &.actionBar-action--report + .theBlocker-hide ~ &.actionBar-action--menuTrigger,
+    &.actionBar-action--report + &.actionBar-action--menuTrigger {
+        display: none !important;
+    }
 }
 
 a[blocktype] {
@@ -22,14 +26,14 @@ a[blocktype] {
     &:not([data-user-id]) {
         display: none;
     }
-    &:not([data-user-id]) ~ .actionBar-action.actionBar-action--menuTrigger {
-        display: none !important;
-    }
 }
 
 /* signature */
 @media (max-width: 480px) {
     a[blocktype$="Signature"] {
+        display: none !important;
+    }
+    .actionBar-action.actionBar-action--report + a[blocktype$="Signature"] + .actionBar-action.actionBar-action--menuTrigger {
         display: none !important;
     }
 }
