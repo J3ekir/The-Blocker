@@ -13,7 +13,7 @@
         display: none !important;
     }
     &.actionBar-action--menuTrigger {
-        display: inline-block !important;
+        display: inline !important;
     }
 }
 
