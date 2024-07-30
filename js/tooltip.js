@@ -93,7 +93,6 @@
 
         chrome.runtime.sendMessage({
             type: "noteSavedMessage",
-            isChrome: !document.documentElement.classList.contains("has-browser-mozilla"),
         });
 
         event.currentTarget.closest(".tooltip.tooltip--member")?.dispatchEvent(new Event("mouseout"));

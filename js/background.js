@@ -119,13 +119,12 @@ function combineTabPanes(tabId) {
     });
 }
 
-function noteSavedMessage(tabId, isChrome) {
+function noteSavedMessage(tabId) {
     chrome.scripting.executeScript({
-        target: { tabId: tabId },
+        target: { tabId },
         injectImmediately: true,
-        ...(isChrome && { world: "MAIN" }),
+        world: "MAIN",
         func: () => {
-            const XF = window.XF || window.wrappedJSObject.XF;
             switch (XF.getLocale()) {
                 case "en_US": XF.flashMessage("Note has been saved.", 1500); break;
                 case "tr_TR": XF.flashMessage("Not kaydedildi.", 1500); break;
