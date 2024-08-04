@@ -1,0 +1,38 @@
+name: Release
+run-name: Release ${{ github.ref_name }}
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Chrome
+        env:
+          EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+          CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+        run: |
+          rm -rf img/SVG
+          npx chrome-webstore-upload-cli@^3
+      - name: Firefox
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
+          WEB_EXT_CHANNEL: listed
+          WEB_EXT_APPROVAL_TIMEOUT: 0
+        run: |
+          git checkout firefox
+          rm -rf img/SVG
+          npx web-ext@^8 sign
