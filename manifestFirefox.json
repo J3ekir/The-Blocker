@@ -1,0 +1,24 @@
+{
+    "$merge": {
+        "source": {
+            "$import": "manifest.json"
+        },
+        "with": {
+            "background": {
+                "scripts": [ "js/background.js" ],
+                "service_worker": {
+                    "$remove": true
+                }
+            },
+            "browser_specific_settings": {
+                "gecko": {
+                    "id": "the_blocker@addons.mozilla.org",
+                    "strict_min_version": "128.0"
+                },
+                "gecko_android": {
+                    "strict_min_version": "128.0"
+                }
+            }
+        }
+    }
+}

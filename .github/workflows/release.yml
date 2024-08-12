@@ -24,8 +24,9 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
           REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
         run: |
-          rm -rf img/SVG
-          npx chrome-webstore-upload-cli@^3
+          mkdir -p .builds
+          zip -r .builds/ChromeExtension.zip . -x "img/SVG/*" "manifestFirefox.json"
+          npx chrome-webstore-upload-cli@^3 --source .builds/ChromeExtension.zip
       - name: Firefox
         env:
           WEB_EXT_API_KEY: ${{ secrets.FIREFOX_JWT_ISSUER }}
@@ -33,6 +34,5 @@ jobs:
           WEB_EXT_CHANNEL: listed
           WEB_EXT_APPROVAL_TIMEOUT: 0
         run: |
-          git checkout firefox
-          rm -rf img/SVG
-          npx web-ext@^8 sign
+          npx json-merger@^1 manifestFirefox.json -o manifest.json
+          npx web-ext@^8 sign --ignore-files "img/SVG" "manifestFirefox.json"
