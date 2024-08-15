@@ -41,6 +41,13 @@
     function addFindButton(elem, userId) {
         if (hasFindButton(elem)) { return; }
 
+        if (!hasActions(elem)) {
+            qs(elem, ".memberTooltip").append(
+                BASE.tooltipSeperator,
+                BASE.tooltipActions,
+            );
+        }
+
         const userName = qs(elem, ".memberTooltip-nameWrapper>a").textContent;
 
         qs(elem, ".memberTooltip-actions").append(
@@ -100,6 +107,10 @@
 
     function hasReportButton(elem) {
         return qs(elem, ".button--link[href$='report']");
+    }
+
+    function hasActions(elem) {
+        return qs(elem, ".memberTooltip .memberTooltip-actions");
     }
 
     function hasFindButton(elem) {

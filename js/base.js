@@ -239,6 +239,13 @@ self.BASE = self.BASE || new Proxy(
             return element;
         })(),
 
+        tooltipActions: (() => {
+            const element = document.createElement("div");
+            element.className = "memberTooltip-actions";
+
+            return element;
+        })(),
+
         tooltipFind: (() => {
             const text = document.createElement("span");
             text.textContent = STR.find;
