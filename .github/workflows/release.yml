@@ -17,6 +17,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Install jq
+        run: sudo apt-get install jq
       - name: Chrome
         env:
           EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
@@ -32,5 +34,5 @@ jobs:
           WEB_EXT_CHANNEL: listed
           WEB_EXT_APPROVAL_TIMEOUT: 0
         run: |
-          npx json-merger@^1 manifestFirefox.json -o manifest.json
+          echo "$(jq -s '.[0] * .[1] | del(.background.service_worker)' manifest.json .manifestFirefox.json)" > manifest.json
           npx web-ext@^8 sign --ignore-files
