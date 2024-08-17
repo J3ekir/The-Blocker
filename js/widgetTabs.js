@@ -34,11 +34,7 @@
         });
 
         if (COMBINE_TAB_PANES) {
-            qsa("[role='tabpanel']:nth-child(2)").forEach(elem => elem.classList.add("is-active"));
-
-            qs("[role='tab']:nth-child(1)").addEventListener("click", () => {
-                qsa("[role='tabpanel']:nth-child(2)").forEach(elem => elem.classList.add("is-active"));
-            });
+            combineTabPanes();
         }
 
         if (ADD_BOTTOM_TAB_BUTTONS) {
@@ -58,6 +54,14 @@
             tabs.parentElement.appendChild(bottomTabs);
         }
     });
+
+    function combineTabPanes() {
+        qs("[role='tabpanel']:nth-child(2)").classList.add("is-active");
+
+        qs("[role='tab']:first-child").addEventListener("click", event => {
+            qsa("[role='tabpanel']:nth-child(2)").forEach(elem => elem.classList.add("is-active"));
+        });
+    }
 
     function waitForElement(selector) {
         return new Promise(resolve => {
