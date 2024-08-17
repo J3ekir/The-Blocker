@@ -20,12 +20,10 @@
     }
 
     waitForElement(".p-body-pageContent>.tab-wrapper.widget-group:first-child+.block").then(elem => {
-        qsa(".tabs").forEach(elem => elem.removeAttribute("data-xf-init"));
-        qsa("[role='tab']").forEach(elem => elem.removeAttribute("href"));
+        qs(".tabs").removeAttribute("data-xf-init");
 
-        const tabs = qs(".tabs");
-
-        qsa(tabs, "[role='tab']").forEach(elem => {
+        qsa("[role='tab']").forEach(elem => {
+            elem.removeAttribute("href");
             elem.addEventListener("click", activateTab);
         });
 
