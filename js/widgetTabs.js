@@ -34,14 +34,7 @@
         }
 
         if (ADD_BOTTOM_TAB_BUTTONS) {
-            const bottomTabs = tabs.cloneNode(true);
-            const bottomButtons = bottomTabs.firstElementChild.firstElementChild.children;
-
-            Array.from(bottomButtons).forEach(elem => {
-                elem.addEventListener("click", activateTab);
-            });
-
-            tabs.parentElement.appendChild(bottomTabs);
+            addBottomTabButtons();
         }
     });
 
@@ -50,6 +43,11 @@
         const index = Array.from(tab.parentElement.children).indexOf(tab);
         qsa(":is([role='tab'],[role='tabpanel']).is-active").forEach(elem => elem.classList.remove("is-active"));
         qsa(`:is([role='tab'],[role='tabpanel']):nth-child(${ index + 1 })`).forEach(elem => elem.classList.add("is-active"));
+
+        const tabs = tab.closest("[role='tablist']");
+        if (tabs.classList.contains("bottom-tabs")) {
+            tabs.parentElement.firstElementChild.scrollIntoView();
+        }
     }
 
     function combineTabPanes() {
@@ -58,6 +56,18 @@
         qs("[role='tab']:first-child").addEventListener("click", event => {
             qsa("[role='tabpanel']:nth-child(2)").forEach(elem => elem.classList.add("is-active"));
         });
+    }
+
+    function addBottomTabButtons() {
+        const tabs = qs("[role='tablist']");
+        const bottomTabs = tabs.cloneNode(true);
+        bottomTabs.classList.add("bottom-tabs");
+
+        bottomTabs.querySelectorAll("[role='tab']").forEach(elem => {
+            elem.addEventListener("click", activateTab);
+        });
+
+        tabs.parentElement.append(bottomTabs);
     }
 
     function waitForElement(selector) {
