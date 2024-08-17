@@ -18,8 +18,6 @@
     });
 
     function addTooltipItems(elem) {
-        if (!qs(elem, ".tooltip-content-inner .memberTooltip")) { return; }
-
         const userId = parseInt(qs(elem, ".memberTooltip-avatar>a").dataset.userId, 10);
 
         addReportButton(elem, userId);
@@ -155,7 +153,7 @@
         new MutationObserver(async (mutationList, observer) => {
             mutationList.forEach(mutation => {
                 mutation.addedNodes.forEach(elem => {
-                    if (elem.nodeType === Node.ELEMENT_NODE) {
+                    if (elem.matches?.(".tooltip--member .tooltip-content-inner")) {
                         addTooltipItems(elem);
                     }
                 });
