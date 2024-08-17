@@ -26,11 +26,7 @@
         const tabs = qs(".tabs");
 
         qsa(tabs, "[role='tab']").forEach(elem => {
-            elem.addEventListener("click", event => {
-                const index = Array.from(event.currentTarget.parentElement.children).indexOf(event.currentTarget);
-                qsa(":is([role='tab'],[role='tabpanel']).is-active").forEach(elem => elem.classList.remove("is-active"));
-                qsa(`:is([role='tab'],[role='tabpanel']):nth-child(${ index + 1 })`).forEach(elem => elem.classList.add("is-active"));
-            });
+            elem.addEventListener("click", activateTab);
         });
 
         if (COMBINE_TAB_PANES) {
@@ -42,18 +38,19 @@
             const bottomButtons = bottomTabs.firstElementChild.firstElementChild.children;
 
             Array.from(bottomButtons).forEach(elem => {
-                elem.addEventListener("click", event => {
-                    const index = Array.from(event.currentTarget.parentElement.children).indexOf(event.currentTarget);
-                    qsa(":is([role='tab'],[role='tabpanel']).is-active").forEach(elem => elem.classList.remove("is-active"));
-                    qsa(`:is([role='tab'],[role='tabpanel']):nth-child(${ index + 1 })`).forEach(elem => elem.classList.add("is-active"));
-
-                    tabs.scrollIntoView();
-                });
+                elem.addEventListener("click", activateTab);
             });
 
             tabs.parentElement.appendChild(bottomTabs);
         }
     });
+
+    function activateTab(event) {
+        const tab = event.currentTarget;
+        const index = Array.from(tab.parentElement.children).indexOf(tab);
+        qsa(":is([role='tab'],[role='tabpanel']).is-active").forEach(elem => elem.classList.remove("is-active"));
+        qsa(`:is([role='tab'],[role='tabpanel']):nth-child(${ index + 1 })`).forEach(elem => elem.classList.add("is-active"));
+    }
 
     function combineTabPanes() {
         qs("[role='tabpanel']:nth-child(2)").classList.add("is-active");
