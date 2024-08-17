@@ -15,6 +15,15 @@
     <link rel="stylesheet" type="text/css" href="css/colors.css">
     <link rel="stylesheet" type="text/css" href="css/codemirror.css">
     <link rel="stylesheet" type="text/css" href="css/notes.css">
+
+    <script defer src="codemirror/lib/codemirror.js"></script>
+    <script defer src="codemirror/addon/selection/active-line.js"></script>
+    <script defer src="codemirror/addon/fold/foldcode.js"></script>
+    <script defer src="codemirror/addon/fold/foldgutter.js"></script>
+    <script defer src="codemirror/addon/scroll/simplescrollbars.js"></script>
+
+    <script defer src="js/dom.js"></script>
+    <script defer src="js/notes.js"></script>
 </head>
 
 <body>
@@ -47,15 +56,6 @@
     <main id="note" class="codeMirrorContainer cm-theme-override" spellcheck="false"></main>
 
     <input id="filePicker" type="file" accept="text/plain">
-
-    <script src="codemirror/lib/codemirror.js"></script>
-    <script src="codemirror/addon/selection/active-line.js"></script>
-    <script src="codemirror/addon/fold/foldcode.js"></script>
-    <script src="codemirror/addon/fold/foldgutter.js"></script>
-    <script src="codemirror/addon/scroll/simplescrollbars.js"></script>
-
-    <script src="js/dom.js"></script>
-    <script src="js/notes.js" type="module"></script>
 </body>
 
 </html>
