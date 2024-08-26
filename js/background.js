@@ -1,3 +1,6 @@
+import * as backgroundUtils from "./backgroundUtils.js";
+Object.assign(self, backgroundUtils);
+
 const FORUMS = [
     "techolay",
     "technopat",
