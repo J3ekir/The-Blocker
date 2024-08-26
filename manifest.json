@@ -84,11 +84,5 @@
         "storage",
         "unlimitedStorage"
     ],
-    "version": "1.0.3",
-    "web_accessible_resources": [
-        {
-            "matches": [ ],
-            "resources": [ "storage.json" ]
-        }
-    ]
+    "version": "1.0.3"
 }

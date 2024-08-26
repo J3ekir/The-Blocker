@@ -1,45 +1,6 @@
+import { FORUMS, SELECTORS, SET_CSS_KEYS, storage } from "./backgroundConfig.js";
 import * as backgroundUtils from "./backgroundUtils.js";
 Object.assign(self, backgroundUtils);
-
-const FORUMS = [
-    "techolay",
-    "technopat",
-];
-const SELECTORS = {
-    filters: [
-        "User",
-        "Avatar",
-        "Signature",
-    ],
-    misc: {
-        "settingSidebarShareThisPage": "div[data-widget-definition='share_page']",
-        "settingSidebarMembersOnline": "div[data-widget-section='onlineNow']",
-        "settingSidebarRandomBlogEntries": "div[data-widget-definition='xa_ubs_latest_entries']",
-        "settingSidebarLatestResources": "div[data-widget-definition='xfrm_new_resources']",
-        "settingNavigationBlogs": "li:has(a[data-nav-id='xa_ubs'])",
-        "settingNavigationQuestions": "li:has(a[data-nav-id='sorular'])",
-        "settingNavigationVideos": "li:has(a[data-nav-id='videolar'])",
-        "settingNavigationAdvices": "li:has(a[data-nav-id='sistem'])",
-        "settingNavigationMedia": "li:has(a[data-nav-id='xfmg'])",
-        "settingShowIgnoredContent": ".showIgnoredLink.js-showIgnored",
-        "settingHideThisUsersSignature": "[data-xf-click='signature-ignore']",
-        "settingXenforoFooter": ".p-footer-copyright",
-        "settingReportReasonExplanation": ".overlay-container form[action$='/report'] ul.inputChoices[role='radiogroup'] > li > dfn",
-    },
-    user: {
-        "settingNotifications": ".alert.js-alert",
-        "settingProfilePosts": ".message.message--simple",
-        "settingProfilePostComments": ".message-responseRow",
-    },
-};
-
-const SET_CSS_KEYS = [
-    "settingQuotes",
-    ...FORUMS.flatMap(forum => SELECTORS.filters.map(filter => `${ forum }${ filter }`)),
-    ...Object.keys(SELECTORS.user),
-    ...Object.keys(SELECTORS.misc),
-];
-
 
 chrome.runtime.onInstalled.addListener(async ({ reason, temporary }) => {
     await setDefaultSettings();
@@ -55,13 +16,6 @@ chrome.runtime.onMessage.addListener(({ type, ...params }, sender, sendResponse)
 
 async function setDefaultSettings() {
     const settings = await chrome.storage.local.get();
-
-    const storage = await (async () => {
-        const storageURL = await chrome.runtime.getURL("storage.json");
-        const response = await fetch(storageURL);
-        return response.json();
-    })();
-
     storage["defaultSettings"] = Object.assign(storage["defaultSettings"], ...FORUMS.map(forum => Object.assign(...Object.entries(storage["defaultForumSettings"]).map(([key, value]) => ({ [`${ forum }${ key }`]: value })))));
 
     const defaultValues = {};
@@ -84,54 +38,6 @@ function checkPermissions() {
     }).then(granted => {
         if (!granted) {
             chrome.tabs.create({ url: `${ chrome.runtime.getURL("options.html") }#settings.html` });
-        }
-    });
-}
-
-function injectCSS(tabId, forum) {
-    chrome.storage.local.get(`${ forum }CSS`).then(settings => {
-        chrome.scripting.insertCSS({
-            target: { tabId: tabId },
-            origin: "AUTHOR",
-            css: settings[`${ forum }CSS`],
-        });
-    });
-}
-
-function insertCSSString(tabId, CSS) {
-    chrome.scripting.insertCSS({
-        target: { tabId: tabId },
-        origin: "USER",
-        css: CSS,
-    });
-}
-
-function removeCSSString(tabId, CSS) {
-    chrome.scripting.removeCSS({
-        target: { tabId: tabId },
-        origin: "USER",
-        css: CSS,
-    });
-}
-
-function combineTabPanes(tabId) {
-    chrome.scripting.insertCSS({
-        target: { tabId: tabId },
-        origin: "USER",
-        css: ".tab-wrapper.widget-group .tabs-tab:nth-child(2){display:none!important;}",
-    });
-}
-
-function noteSavedMessage(tabId) {
-    chrome.scripting.executeScript({
-        target: { tabId },
-        injectImmediately: true,
-        world: "MAIN",
-        func: () => {
-            switch (XF.getLocale()) {
-                case "en_US": XF.flashMessage("Note has been saved.", 1500); break;
-                case "tr_TR": XF.flashMessage("Not kaydedildi.", 1500); break;
-            }
         }
     });
 }
