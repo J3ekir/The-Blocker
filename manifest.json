@@ -12,7 +12,8 @@
     },
     "author": "Vavien.",
     "background": {
-        "service_worker": "js/background.js"
+        "service_worker": "js/background.js",
+        "type": "module"
     },
     "content_scripts": [
         {
