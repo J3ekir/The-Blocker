@@ -2,7 +2,7 @@ self.forum = self.forum || window.location.hostname.replace(/(?:www.)?(.*).net/,
 
 chrome.runtime.sendMessage({
     type: "injectCSS",
-    forum: forum,
+    forum,
 });
 
 chrome.storage.onChanged.addListener(changes => {

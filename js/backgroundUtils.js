@@ -22,7 +22,7 @@ const bottomTabButtonsCssMap = {
 export function injectCSS(tabId, { forum }) {
     chrome.storage.local.get(`${ forum }CSS`).then(settings => {
         chrome.scripting.insertCSS({
-            target: { tabId: tabId },
+            target: { tabId },
             origin: "AUTHOR",
             css: settings[`${ forum }CSS`],
         });
@@ -31,7 +31,7 @@ export function injectCSS(tabId, { forum }) {
 
 export function insertCSSString(tabId, { css }) {
     chrome.scripting.insertCSS({
-        target: { tabId: tabId },
+        target: { tabId },
         origin: "USER",
         css,
     });
@@ -39,7 +39,7 @@ export function insertCSSString(tabId, { css }) {
 
 export function removeCSSString(tabId, { css }) {
     chrome.scripting.removeCSS({
-        target: { tabId: tabId },
+        target: { tabId },
         origin: "USER",
         css,
     });
@@ -47,7 +47,7 @@ export function removeCSSString(tabId, { css }) {
 
 export function combineTabPanes(tabId) {
     chrome.scripting.insertCSS({
-        target: { tabId: tabId },
+        target: { tabId },
         origin: "USER",
         css: ".tab-wrapper.widget-group .tabs-tab:nth-child(2){display:none!important;}",
     });
@@ -55,7 +55,7 @@ export function combineTabPanes(tabId) {
 
 export function addBottomTabButtons(tabId, { forum, styleId }) {
     chrome.scripting.insertCSS({
-        target: { tabId: tabId },
+        target: { tabId },
         origin: "USER",
         css: bottomTabButtonsCssMap[forum][styleId],
     });
