@@ -66,6 +66,12 @@
         });
 
         tabs.parentElement.append(bottomTabs);
+
+        chrome.runtime.sendMessage({
+            type: "addBottomTabButtons",
+            styleId: /'style_id':(\d+)/.exec(document.querySelector('script[src^="https://www.googletagmanager.com/gtag/js"]+script').textContent)[1],
+            forum,
+        });
     }
 
     function waitForElement(selector) {
