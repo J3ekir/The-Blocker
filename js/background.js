@@ -11,7 +11,7 @@ chrome.runtime.onInstalled.addListener(async ({ reason, temporary }) => {
 });
 
 chrome.runtime.onMessage.addListener(({ type, ...params }, sender, sendResponse) => {
-    self[type](sender.tab.id, ...Object.values(params));
+    self[type](sender.tab.id, params);
 });
 
 async function setDefaultSettings() {

@@ -62,12 +62,12 @@ async function toggleCSS(isBlock, userId, key) {
 
     chrome.runtime.sendMessage({
         type: "insertCSSString",
-        CSS: isBlock ? CSS_HIDE : CSS_SHOW,
+        css: isBlock ? CSS_HIDE : CSS_SHOW,
     });
 
     // ???
     chrome.runtime.sendMessage({
         type: "removeCSSString",
-        CSS: isBlock ? CSS_SHOW : CSS_HIDE,
+        css: isBlock ? CSS_SHOW : CSS_HIDE,
     });
 }

@@ -1,4 +1,4 @@
-export function injectCSS(tabId, forum) {
+export function injectCSS(tabId, { forum }) {
     chrome.storage.local.get(`${ forum }CSS`).then(settings => {
         chrome.scripting.insertCSS({
             target: { tabId: tabId },
@@ -8,19 +8,19 @@ export function injectCSS(tabId, forum) {
     });
 }
 
-export function insertCSSString(tabId, CSS) {
+export function insertCSSString(tabId, { css }) {
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
         origin: "USER",
-        css: CSS,
+        css,
     });
 }
 
-export function removeCSSString(tabId, CSS) {
+export function removeCSSString(tabId, { css }) {
     chrome.scripting.removeCSS({
         target: { tabId: tabId },
         origin: "USER",
-        css: CSS,
+        css,
     });
 }
 
