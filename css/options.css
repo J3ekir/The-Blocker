@@ -15,6 +15,7 @@ body {
     height: 100svh;
     margin: 0;
     overflow: hidden;
+    background-color: var(--body-bg);
 }
 
 nav {
@@ -25,6 +26,7 @@ nav {
     overflow-x: auto;
     position: sticky;
     outline: none;
+    border-color: var(--nav-border);
 }
 
 .tabButton {
@@ -37,14 +39,25 @@ nav {
     border: 0;
     border-bottom: 3px solid transparent;
     background-color: transparent;
+    color: var(--tab-btn);
 }
 
 .tabButton:focus {
     outline: 0;
 }
 
+.tabButton.active {
+    color: var(--tab-btn-active);
+    border-color: currentColor;
+}
+
 .tabButton:not(.active) {
     cursor: pointer;
+}
+
+.tabButton:not(.active):hover {
+    background-color: var(--tab-btn-inactive-bg);
+    border-color: var(--tab-btn-inactive-border);
 }
 
 #iframe {
@@ -52,40 +65,4 @@ nav {
     width: 100%;
     background-color: transparent;
     border: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: var(--gray-10);
-    }
-
-    nav {
-        border-color: var(--gray-40);
-    }
-
-    .tabButton {
-        color: var(--gray-95);
-    }
-
-    .tabButton.active {
-        color: var(--blue-30);
-        border-color: currentColor;
-    }
-
-    .tabButton:not(.active):hover {
-        background-color: var(--gray-20);
-        border-color: var(--gray-30);
-    }
-}
-
-@media (prefers-color-scheme: light) {
-    .tabButton.active {
-        color: var(--blue-60);
-        border-color: currentColor;
-    }
-
-    .tabButton:not(.active):hover {
-        background-color: var(--gray-90);
-        border-color: var(--gray-80);
-    }
 }

@@ -16,6 +16,7 @@ body {
     margin: 0;
     padding: var(--std-gap);
     line-height: 1.2;
+    background-color: var(--body-bg);
 }
 
 #doubleTapHint {
@@ -26,6 +27,8 @@ body {
     padding: calc(var(--std-gap) / 2) var(--std-gap);
     border-radius: calc(var(--std-gap) / 3);
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--double-tap-hint);
+    background-color: var(--double-tap-hint-bg);
 }
 
 #doubleTapHint > .mobile {
@@ -62,11 +65,19 @@ button {
     font-weight: 500;
     border: none;
     border-radius: 0.375em;
+    color: var(--btn);
+    background-color: var(--btn-bg);
+}
+
+button:hover {
+    background-color: var(--btn-hover-bg);
 }
 
 button[disabled] {
     pointer-events: none;
     opacity: 0.5;
+    color: var(--btn-disabled);
+    background-color: var(--btn-disabled-bg);
 }
 
 svg {
@@ -101,51 +112,5 @@ svg {
 @media (max-width: 550px) {
     button > span {
         display: none;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: var(--gray-10);
-    }
-
-    #doubleTapHint {
-        color: var(--gray-95);
-        background-color: var(--blue-60);
-    }
-
-    button {
-        color: var(--gray-05);
-        background-color: var(--blue-30);
-    }
-
-    button:hover {
-        background-color: var(--blue-30-08);
-    }
-
-    button[disabled] {
-        color: var(--gray-95);
-        background-color: var(--gray-30);
-    }
-}
-
-@media (prefers-color-scheme: light) {
-    button {
-        color: var(--gray-95);
-        background-color: var(--blue-60);
-    }
-
-    #doubleTapHint {
-        color: var(--gray-05);
-        background-color: var(--blue-30);
-    }
-
-    button:hover {
-        background-color: var(--blue-50);
-    }
-
-    button[disabled] {
-        color: var(--gray-05);
-        background-color: var(--gray-80);
     }
 }
