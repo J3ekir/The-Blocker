@@ -39,7 +39,7 @@ body {
     display: block;
 }
 
-:root.mobile #doubleTapHint > .mobile + span  {
+:root.mobile #doubleTapHint > .mobile + span {
     display: none;
 }
 
