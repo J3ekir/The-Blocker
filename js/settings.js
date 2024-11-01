@@ -1,5 +1,3 @@
-/* Heavily inspired by Raymond Hill's uBlock Origin */
-
 chrome.permissions.contains({
     origins: [
         "https://techolay.net/sosyal/*",

@@ -1,5 +1,3 @@
-/* Heavily inspired by Raymond Hill's uBlock Origin */
-
 (async () => {
     const isMac = window.navigator.userAgent.indexOf("Mac OS") !== -1;
     const forum = parent.document.documentElement.dataset.forum;

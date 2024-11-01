@@ -1,5 +1,3 @@
-/* Heavily inspired by Raymond Hill's uBlock Origin */
-
 const isMac = window.navigator.userAgent.indexOf("Mac OS") !== -1;
 
 chrome.storage.local.get("lastPane").then(settings => {
