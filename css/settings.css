@@ -1,6 +1,7 @@
 :root {
     color-scheme: light dark;
     --std-gap: 12px;
+    --font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 * {
@@ -34,7 +35,7 @@ body {
     gap: calc(var(--std-gap) / 2);
     width: fit-content;
     padding: 0.5em 1em;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font);
     font-size: calc(var(--std-gap) * 3 / 2);
     font-weight: 500;
     border: none;
@@ -74,7 +75,7 @@ input {
 }
 
 span {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font);
     font-size: 16px;
     font-weight: 400;
 }

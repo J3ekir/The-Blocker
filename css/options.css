@@ -1,6 +1,7 @@
 :root {
     color-scheme: light dark;
     --std-gap: 12px;
+    --font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 * {
@@ -31,7 +32,7 @@ nav {
 
 .tabButton {
     padding: 0.75em 1.5em calc(0.75em - 3px);
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font);
     font-size: 20px;
     letter-spacing: 0.5px;
     text-decoration: none;
