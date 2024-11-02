@@ -162,7 +162,7 @@
             : settings[type].splice(settings[type].indexOf(userId), 1);
 
         chrome.storage.local.set({
-            [type]: settings[type].map(id => parseInt(id, 10)),
+            [type]: settings[type],
             [`${ type }Count`]: settings[type].length,
         });
 
