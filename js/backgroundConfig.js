@@ -23,6 +23,7 @@ export const SELECTORS = {
         "settingHideThisUsersSignature": "[data-xf-click='signature-ignore']",
         "settingXenforoFooter": ".p-footer-copyright",
         "settingReportReasonExplanation": ".overlay-container form[action$='/report'] ul.inputChoices[role='radiogroup'] > li > dfn",
+        "settingScheduledContent": "form[method='post'] dl:has([name='ozzmodz_sc_check'])",
     },
     user: {
         "settingNotifications": ".alert.js-alert",
@@ -76,5 +77,6 @@ export const storage = {
         "settingHideThisUsersSignature": true,
         "settingXenforoFooter": true,
         "settingReportReasonExplanation": true,
+        "settingScheduledContent": true,
     },
 };
