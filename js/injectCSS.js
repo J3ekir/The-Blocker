@@ -57,17 +57,10 @@ async function toggleCSS(isBlock, userId, key) {
             break;
     }
 
-    const CSS_HIDE = `${ CSS }{display:none!important;}`;
-    const CSS_SHOW = `${ CSS }{display:block!important;}`;
+    const css = `${ CSS }{display:${ isBlock ? "none" : "block" }!important;}`;
 
     chrome.runtime.sendMessage({
         type: "insertCSSString",
-        css: isBlock ? CSS_HIDE : CSS_SHOW,
-    });
-
-    // ???
-    chrome.runtime.sendMessage({
-        type: "removeCSSString",
-        css: isBlock ? CSS_SHOW : CSS_HIDE,
+        css,
     });
 }
