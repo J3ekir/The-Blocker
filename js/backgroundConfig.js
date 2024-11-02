@@ -24,6 +24,7 @@ export const SELECTORS = {
         "settingXenforoFooter": ".p-footer-copyright",
         "settingReportReasonExplanation": ".overlay-container form[action$='/report'] ul.inputChoices[role='radiogroup'] > li > dfn",
         "settingScheduledContent": "form[method='post'] dl:has([name='ozzmodz_sc_check'])",
+        "settingSpellCheck": "form[method='post'] dl:has([name='fixDot'])",
     },
     user: {
         "settingNotifications": ".alert.js-alert",
@@ -78,5 +79,6 @@ export const storage = {
         "settingXenforoFooter": true,
         "settingReportReasonExplanation": true,
         "settingScheduledContent": true,
+        "settingSpellCheck": true,
     },
 };
