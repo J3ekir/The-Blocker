@@ -14,7 +14,7 @@ export const SELECTORS = {
         "settingSidebarMembersOnline": "div[data-widget-section='onlineNow']",
         "settingSidebarRandomBlogEntries": "div[data-widget-definition='xa_ubs_latest_entries']",
         "settingSidebarLatestResources": "div[data-widget-definition='xfrm_new_resources']",
-        "settingNavigationBlogs": "li:has(a[data-nav-id='xa_ubs'])",
+        "settingNavigationBlogs": "li:has(a[data-nav-id='xa_ubs'],a[data-nav-id='taylorjBlogs'])",
         "settingNavigationQuestions": "li:has(a[data-nav-id='sorular'])",
         "settingNavigationVideos": "li:has(a[data-nav-id='videolar'])",
         "settingNavigationAdvices": "li:has(a[data-nav-id='sistem'])",
