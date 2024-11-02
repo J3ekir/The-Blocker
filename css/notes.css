@@ -46,7 +46,7 @@ body {
     }
 }
 
-#buttons {
+#controlButtons {
     display: flex;
     flex-shrink: 0;
     gap: var(--std-gap);
