@@ -23,29 +23,28 @@ body {
     display: none;
     flex-direction: column;
     gap: var(--std-gap);
-}
-
-#requestPermission > span {
-    font-size: calc(var(--std-gap) * 3);
-}
-
-#requestPermission > button {
-    display: flex;
-    align-items: center;
-    gap: calc(var(--std-gap) / 2);
-    width: fit-content;
-    padding: 0.5em 1em;
-    font-family: var(--font);
-    font-size: calc(var(--std-gap) * 3 / 2);
-    font-weight: 500;
-    border: none;
-    border-radius: 0.375em;
-    color: var(--btn);
-    background-color: var(--btn-bg);
-}
-
-#requestPermission > button:hover {
-    background-color: var(--btn-hover-bg);
+    & > span {
+        font-family: var(--font);
+        font-size: calc(var(--std-gap) * 3);
+        font-weight: 400;
+    }
+    & > button {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--std-gap) / 2);
+        width: fit-content;
+        padding: 0.5em 1em;
+        font-family: var(--font);
+        font-size: calc(var(--std-gap) * 3 / 2);
+        font-weight: 500;
+        border: none;
+        border-radius: 0.375em;
+        color: var(--btn);
+        background-color: var(--btn-bg);
+        &:hover {
+            background-color: var(--btn-hover-bg);
+        }
+    }
 }
 
 .fieldset {
@@ -55,6 +54,7 @@ body {
 }
 
 .fieldset-header {
+    font-family: var(--font);
     font-size: 28px;
     font-weight: 500;
     color: var(--title);
@@ -65,23 +65,18 @@ label {
     gap: calc(var(--std-gap) * 2 / 3);
     align-items: center;
     width: fit-content;
-}
-
-input {
-    flex: none;
-    width: 16px;
-    height: 16px;
-    margin: 0;
-}
-
-span {
-    font-family: var(--font);
-    font-size: 16px;
-    font-weight: 400;
-}
-
-label span {
-    color: var(--text);
+    & > input {
+        flex: none;
+        width: 16px;
+        height: 16px;
+        margin: 0;
+    }
+    & > span {
+        font-family: var(--font);
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--text);
+    }
 }
 
 hr {

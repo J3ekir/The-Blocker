@@ -41,24 +41,20 @@ nav {
     border-bottom: 3px solid transparent;
     background-color: transparent;
     color: var(--tab-btn);
-}
-
-.tabButton:focus {
-    outline: 0;
-}
-
-.tabButton.active {
-    color: var(--tab-btn-active);
-    border-color: currentColor;
-}
-
-.tabButton:not(.active) {
-    cursor: pointer;
-}
-
-.tabButton:not(.active):hover {
-    background-color: var(--tab-btn-inactive-bg);
-    border-color: var(--tab-btn-inactive-border);
+    &:focus {
+        outline: 0;
+    }
+    &.active {
+        color: var(--tab-btn-active);
+        border-color: currentColor;
+    }
+    &:not(.active) {
+        cursor: pointer;
+        &:hover {
+            background-color: var(--tab-btn-inactive-bg);
+            border-color: var(--tab-btn-inactive-border);
+        }
+    }
 }
 
 #iframe {

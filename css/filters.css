@@ -30,62 +30,59 @@ body {
     font-family: var(--font);
     color: var(--double-tap-hint);
     background-color: var(--double-tap-hint-bg);
-}
-
-#doubleTapHint > .mobile {
-    display: none;
-}
-
-:root.mobile #doubleTapHint > .mobile {
-    display: block;
-}
-
-:root.mobile #doubleTapHint > .mobile + span {
-    display: none;
-}
-
-#doubleTapHint > b {
-    text-wrap: nowrap;
-    text-decoration: underline;
-    cursor: pointer;
+    & > .mobile {
+        display: none;
+        :root.mobile & {
+            display: block;
+            & + span {
+                display: none;
+            }
+        }
+    }
+    & > b {
+        text-wrap: nowrap;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }
 
 #buttons {
     display: flex;
     flex-shrink: 0;
     gap: var(--std-gap);
-}
-
-button {
-    display: flex;
-    align-items: center;
-    gap: calc(var(--std-gap) / 2);
-    padding: 0.5em 1em;
-    font-family: var(--font);
-    font-size: calc(var(--std-gap) * 4 / 3);
-    font-weight: 500;
-    border: none;
-    border-radius: 0.375em;
-    color: var(--btn);
-    background-color: var(--btn-bg);
-}
-
-button:hover {
-    background-color: var(--btn-hover-bg);
-}
-
-button[disabled] {
-    pointer-events: none;
-    opacity: 0.5;
-    color: var(--btn-disabled);
-    background-color: var(--btn-disabled-bg);
-}
-
-svg {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+    & > button {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--std-gap) / 2);
+        padding: 0.5em 1em;
+        font-family: var(--font);
+        font-size: calc(var(--std-gap) * 4 / 3);
+        font-weight: 500;
+        border: none;
+        border-radius: 0.375em;
+        color: var(--btn);
+        background-color: var(--btn-bg);
+        &:hover {
+            background-color: var(--btn-hover-bg);
+        }
+        &[disabled] {
+            pointer-events: none;
+            opacity: 0.5;
+            color: var(--btn-disabled);
+            background-color: var(--btn-disabled-bg);
+        }
+        & > svg {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+        & > span {
+            @media (max-width: 550px) {
+                display: none;
+            }
+        }
+    }
 }
 
 #applyButton path {
@@ -105,6 +102,10 @@ main {
     flex-grow: 1;
     gap: var(--std-gap);
     overflow: hidden;
+    @media (max-width: 750px) {
+        flex-direction: column;
+        overflow: scroll;
+    }
 }
 
 .editorContainer {
@@ -127,26 +128,12 @@ main {
     flex-grow: 1;
     font-size: 16px;
     overflow: hidden;
-}
-
-#filePicker {
-    display: none;
-}
-
-@media (max-width: 750px) {
-    main {
-        flex-direction: column;
-        overflow: scroll;
-    }
-
-    .codeMirrorContainer {
+    @media (max-width: 750px) {
         min-height: 3lh;
         max-height: 40svh;
     }
 }
 
-@media (max-width: 550px) {
-    button > span {
-        display: none;
-    }
+#filePicker {
+    display: none;
 }
