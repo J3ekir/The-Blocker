@@ -166,7 +166,7 @@
             [`${ type }Count`]: settings[type].length,
         });
 
-        console.log(`user ID: ${ userId }, ${ type } ${ !isBlocked ? "blocked" : "unblocked" }`);
+        console.log(`user ID: ${ userId }, ${ type.replace(forum, "") } ${ !isBlocked ? "blocked" : "unblocked" }`);
     };
 
     function isSelfBlock(userId) {
