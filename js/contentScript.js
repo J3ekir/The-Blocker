@@ -107,20 +107,9 @@
         });
 
         function toggleButtonTexts(isBlock, userId, key) {
-            let newText;
-
-            switch (key.length << isBlock) {
-                case forum.length + 4 << 0: newText = STR.userBlock; break;
-                case forum.length + 6 << 0: newText = STR.avatarBlock; break;
-                case forum.length + 9 << 0: newText = STR.signatureBlock; break;
-                case forum.length + 4 << 1: newText = STR.userUnblock; break;
-                case forum.length + 6 << 1: newText = STR.avatarUnblock; break;
-                case forum.length + 9 << 1: newText = STR.signatureUnblock; break;
-            }
-
+            const newText = STR[`${ key.replace(forum, "").toLowerCase() }${ isBlock ? "Unblock" : "Block" }`];
             qsa(`[data-user-id="${ userId }"][blocktype="${ key }"]`).forEach(elem => {
-                elem.textContent = newText;
-                elem.title = newText;
+                elem.textContent = elem.title = newText;
             });
         }
 
