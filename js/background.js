@@ -4,6 +4,7 @@ Object.assign(self, backgroundUtils);
 
 chrome.runtime.onInstalled.addListener(async ({ reason, temporary }) => {
     await setDefaultSettings();
+    setCSS();
 
     if (reason === "install") {
         checkPermissions();
