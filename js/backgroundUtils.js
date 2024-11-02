@@ -32,16 +32,12 @@ export function combineTabPanes(tabId) {
     });
 }
 
-export function noteSavedMessage(tabId) {
+export function noteSavedMessage(tabId, { message }) {
     chrome.scripting.executeScript({
         target: { tabId },
         injectImmediately: true,
         world: "MAIN",
-        func: () => {
-            switch (XF.getLocale()) {
-                case "en_US": XF.flashMessage("Note has been saved.", 1500); break;
-                case "tr_TR": XF.flashMessage("Not kaydedildi.", 1500); break;
-            }
-        }
+        args: [message],
+        func: message => XF.flashMessage(message, 1500),
     });
 }

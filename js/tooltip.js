@@ -98,6 +98,7 @@
 
         chrome.runtime.sendMessage({
             type: "noteSavedMessage",
+            message: STR.noteSavedMessage,
         });
 
         event.currentTarget.closest(".tooltip.tooltip--member")?.dispatchEvent(new Event("mouseout"));
