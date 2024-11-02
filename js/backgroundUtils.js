@@ -2,21 +2,21 @@
 const bottomTabButtonsCssMap = {
     techolay: {
         // varsayılan stil
-        11: "",
+        11: ``,
         // techolay eski
-        12: "",
+        12: ``,
         // aurora alternative
-        13: "",
+        13: ``,
     },
     technopat: {
         // varsayılan stil
-        1: "",
+        1: ``,
         // karanlık Stil
-        26: "",
+        26: ``,
         // dimension açık
-        34: "",
+        34: ``,
         // dimension karanlık
-        36: "",
+        36: ``,
     },
 };
 
