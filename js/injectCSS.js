@@ -53,7 +53,7 @@ async function toggleCSS(isBlock, userId, key) {
             CSS = `:is(a,span)[data-user-id="${ userId }"]>img`;
             break;
         case `${ forum }Signature`:
-            CSS = `.message-signature:has(.js-userSignature-${ userId })`;
+            CSS = `.message-inner:has(a[data-user-id="${ userId }"]) .message-signature`;
             break;
     }
 
