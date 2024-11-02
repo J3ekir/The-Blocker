@@ -1,25 +1,3 @@
-// TODO: fill
-const bottomTabButtonsCssMap = {
-    techolay: {
-        // varsayılan stil
-        11: ``,
-        // techolay eski
-        12: ``,
-        // aurora alternative
-        13: ``,
-    },
-    technopat: {
-        // varsayılan stil
-        1: ``,
-        // karanlık Stil
-        26: ``,
-        // dimension açık
-        34: ``,
-        // dimension karanlık
-        36: ``,
-    },
-};
-
 export function injectCSS(tabId, { forum }) {
     chrome.storage.local.get(`${ forum }CSS`).then(settings => {
         chrome.scripting.insertCSS({
@@ -51,14 +29,6 @@ export function combineTabPanes(tabId) {
         target: { tabId },
         origin: "USER",
         css: ".tab-wrapper.widget-group .tabs-tab:nth-child(2){display:none!important;}",
-    });
-}
-
-export function addBottomTabButtons(tabId, { forum, styleId }) {
-    chrome.scripting.insertCSS({
-        target: { tabId },
-        origin: "USER",
-        css: bottomTabButtonsCssMap[forum][styleId],
     });
 }
 

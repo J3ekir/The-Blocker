@@ -61,18 +61,13 @@
         const tabs = qs("[role='tablist']");
         const bottomTabs = tabs.cloneNode(true);
         bottomTabs.classList.add("bottom-tabs");
+        bottomTabs.setAttribute("style-id", /'style_id':(\d+)/.exec(document.querySelector('script[src^="https://www.googletagmanager.com/gtag/js"]+script').textContent)[1]);
 
         bottomTabs.querySelectorAll("[role='tab']").forEach(elem => {
             elem.addEventListener("click", activateTab);
         });
 
         tabs.parentElement.append(bottomTabs);
-
-        chrome.runtime.sendMessage({
-            type: "addBottomTabButtons",
-            styleId: /'style_id':(\d+)/.exec(document.querySelector('script[src^="https://www.googletagmanager.com/gtag/js"]+script').textContent)[1],
-            forum,
-        });
     }
 
     function waitForElement(selector) {
