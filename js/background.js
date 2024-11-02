@@ -54,7 +54,6 @@ chrome.storage.onChanged.addListener(changes => {
 async function setCSS(forum) {
     if (forum === undefined) {
         FORUMS.forEach(forum => setCSS(forum));
-
         return;
     }
 
