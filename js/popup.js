@@ -9,7 +9,7 @@ const VALUE_TYPES = [
 ];
 const VALUES = FORUMS.flatMap(forum => VALUE_TYPES.map(type => `${ forum }${ type }`));
 
-chrome.storage.local.get().then(settings => {
+chrome.storage.local.get([...VALUES, "lastForum"]).then(settings => {
     VALUES.forEach(value => {
         qs(`#${ value }`).textContent = settings[value];
     });
