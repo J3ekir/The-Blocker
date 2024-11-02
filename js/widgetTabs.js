@@ -15,7 +15,8 @@
         });
 
         waitForElement(".tabs-tab").then(elem => {
-            elem.textContent = STR.combinedTabName;
+            const nextStr = elem.nextElementSibling.textContent;
+            elem.textContent += `${ STR.combinedTabConjunction }${ nextStr.substring(nextStr.indexOf(" ")) }`;
         });
     }
 
