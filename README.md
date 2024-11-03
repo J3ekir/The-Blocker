@@ -62,4 +62,5 @@ Bug bildirimleri için [Github issues'ü](https://github.com/J3ekir/The-Blocker/
 
 ## Teşekkürler
 [Raymond Hill'e](https://github.com/gorhill) [uBlock Origin](https://github.com/gorhill/uBlock) için teşekkürler.  
-[Marijn Haverbeke'e](https://github.com/marijnh) [Codemirror](https://codemirror.net/5/index.html) için teşekkürler.
+[Marijn Haverbeke'e](https://github.com/marijnh) [Codemirror](https://codemirror.net/5/index.html) için teşekkürler.  
+[Dean McNamee'ye](https://github.com/deanm) [omggif](https://github.com/deanm/omggif) için teşekkürler.  
