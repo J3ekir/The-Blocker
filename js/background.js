@@ -1,8 +1,8 @@
 import "./backgroundConfig.js";
 import "./backgroundUtils.js";
 
-chrome.runtime.onInstalled.addListener(async ({ reason, temporary }) => {
-    await setDefaultSettings();
+chrome.runtime.onInstalled.addListener(({ reason, temporary }) => {
+    setDefaultSettings();
     setCSS();
 
     if (reason === "install") {
@@ -14,19 +14,20 @@ chrome.runtime.onMessage.addListener(({ type, ...params }, sender, sendResponse)
     self[type](sender.tab.id, params);
 });
 
-async function setDefaultSettings() {
-    const settings = await chrome.storage.local.get();
-    storage["defaultSettings"] = Object.assign(storage["defaultSettings"], ...FORUMS.map(forum => Object.assign(...Object.entries(storage["defaultForumSettings"]).map(([key, value]) => ({ [`${ forum }${ key }`]: value })))));
+function setDefaultSettings() {
+    const keys = Object.keys(defaultSettings);
 
-    const defaultValues = {};
+    chrome.storage.local.get(keys).then(settings => {
+        const defaultValues = {};
 
-    Object.keys(storage["defaultSettings"]).forEach(key => {
-        if (settings[key] === undefined) {
-            defaultValues[key] = storage["defaultSettings"][key];
-        }
+        keys.forEach(key => {
+            if (settings[key] === undefined) {
+                defaultValues[key] = defaultSettings[key];
+            }
+        });
+
+        chrome.storage.local.set(defaultValues);
     });
-
-    chrome.storage.local.set(defaultValues);
 }
 
 function checkPermissions() {

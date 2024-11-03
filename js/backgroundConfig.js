@@ -51,7 +51,7 @@ self.getSetCssKeys = forum => {
     ];
 };
 
-self.storage = {
+const storage = {
     "defaultForumSettings": {
         "User": [],
         "Avatar": [],
@@ -92,4 +92,9 @@ self.storage = {
         "settingScheduledContent": true,
         "settingSpellCheck": true,
     },
+};
+
+self.defaultSettings = {
+    ...storage.defaultSettings,
+    ...Object.assign(...FORUMS.map(forum => Object.assign(...Object.entries(storage.defaultForumSettings).map(([key, value]) => ({ [`${ forum }${ key }`]: value }))))),
 };
