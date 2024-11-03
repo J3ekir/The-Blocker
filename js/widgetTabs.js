@@ -10,9 +10,9 @@
     if (!COMBINE_TAB_PANES && !ADD_BOTTOM_TAB_BUTTONS) { return; }
 
     if (COMBINE_TAB_PANES) {
-        chrome.runtime.sendMessage({
-            type: "combineTabPanes",
-        });
+        const elem = document.createElement("style");
+        elem.textContent = ".tab-wrapper.widget-group .tabs-tab:nth-child(2){display:none!important;}";
+        document.head.append(elem);
 
         waitForElement(".tabs-tab").then(elem => {
             const nextStr = elem.nextElementSibling.textContent;

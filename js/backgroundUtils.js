@@ -24,14 +24,6 @@ export function removeCSSString(tabId, { css }) {
     });
 }
 
-export function combineTabPanes(tabId) {
-    chrome.scripting.insertCSS({
-        target: { tabId },
-        origin: "USER",
-        css: ".tab-wrapper.widget-group .tabs-tab:nth-child(2){display:none!important;}",
-    });
-}
-
 export function noteSavedMessage(tabId, { message }) {
     chrome.scripting.executeScript({
         target: { tabId },
