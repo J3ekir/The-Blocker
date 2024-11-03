@@ -33,7 +33,7 @@ export const SELECTORS = {
     },
 };
 
-export const SET_CSS_KEYS = [
+export const SET_CSS_TRIGGER_KEYS = [
     "settingQuotes",
     ...FORUMS.flatMap(forum => SELECTORS.filters.map(filter => `${ forum }${ filter }`)),
     ...Object.keys(SELECTORS.user),

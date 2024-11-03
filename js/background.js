@@ -1,4 +1,4 @@
-import { FORUMS, SELECTORS, SET_CSS_KEYS, storage } from "./backgroundConfig.js";
+import { FORUMS, SELECTORS, SET_CSS_TRIGGER_KEYS, storage } from "./backgroundConfig.js";
 import * as backgroundUtils from "./backgroundUtils.js";
 Object.assign(self, backgroundUtils);
 
@@ -48,7 +48,7 @@ chrome.storage.onChanged.addListener(changes => {
     let setCssCalled = false;
 
     keys.forEach(key => {
-        if (!setCssCalled && SET_CSS_KEYS.includes(key)) {
+        if (!setCssCalled && SET_CSS_TRIGGER_KEYS.includes(key)) {
             setCSS(FORUMS.find(forum => key.startsWith(forum)));
             setCssCalled = true;
         }
