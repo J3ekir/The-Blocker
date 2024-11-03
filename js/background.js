@@ -1,6 +1,5 @@
-import { FORUMS, SELECTORS, SET_CSS_TRIGGER_KEYS, getSetCssKeys, storage } from "./backgroundConfig.js";
-import * as backgroundUtils from "./backgroundUtils.js";
-Object.assign(self, backgroundUtils);
+import "./backgroundConfig.js";
+import "./backgroundUtils.js";
 
 chrome.runtime.onInstalled.addListener(async ({ reason, temporary }) => {
     await setDefaultSettings();

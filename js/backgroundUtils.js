@@ -1,4 +1,4 @@
-export function injectCSS(tabId, { forum }) {
+self.injectCSS = (tabId, { forum }) => {
     chrome.storage.local.get(`${ forum }CSS`).then(settings => {
         chrome.scripting.insertCSS({
             target: { tabId },
@@ -6,25 +6,25 @@ export function injectCSS(tabId, { forum }) {
             css: settings[`${ forum }CSS`],
         });
     });
-}
+};
 
-export function insertCSSString(tabId, { css }) {
+self.insertCSSString = (tabId, { css }) => {
     chrome.scripting.insertCSS({
         target: { tabId },
         origin: "USER",
         css,
     });
-}
+};
 
-export function removeCSSString(tabId, { css }) {
+self.removeCSSString = (tabId, { css }) => {
     chrome.scripting.removeCSS({
         target: { tabId },
         origin: "USER",
         css,
     });
-}
+};
 
-export function noteSavedMessage(tabId, { message }) {
+self.noteSavedMessage = (tabId, { message }) => {
     chrome.scripting.executeScript({
         target: { tabId },
         injectImmediately: true,
@@ -32,4 +32,4 @@ export function noteSavedMessage(tabId, { message }) {
         args: [message],
         func: message => XF.flashMessage(message, 1500),
     });
-}
+};

@@ -1,9 +1,9 @@
-export const FORUMS = [
+self.FORUMS = [
     "techolay",
     "technopat",
 ];
 
-export const SELECTORS = {
+self.SELECTORS = {
     filters: [
         "User",
         "Avatar",
@@ -39,19 +39,19 @@ const SET_CSS_KEYS = [
     ...Object.keys(SELECTORS.misc),
 ];
 
-export const SET_CSS_TRIGGER_KEYS = [
+self.SET_CSS_TRIGGER_KEYS = [
     ...SET_CSS_KEYS,
     ...FORUMS.flatMap(forum => SELECTORS.filters.map(filter => `${ forum }${ filter }`)),
 ];
 
-export function getSetCssKeys(forum) {
+self.getSetCssKeys = forum => {
     return [
         ...SET_CSS_KEYS,
         ...SELECTORS.filters.map(filter => `${ forum }${ filter }`),
     ];
-}
+};
 
-export const storage = {
+self.storage = {
     "defaultForumSettings": {
         "User": [],
         "Avatar": [],
