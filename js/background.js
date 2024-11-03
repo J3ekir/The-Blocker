@@ -1,4 +1,4 @@
-import { FORUMS, SELECTORS, SET_CSS_TRIGGER_KEYS, storage } from "./backgroundConfig.js";
+import { FORUMS, SELECTORS, SET_CSS_TRIGGER_KEYS, getSetCssKeys, storage } from "./backgroundConfig.js";
 import * as backgroundUtils from "./backgroundUtils.js";
 Object.assign(self, backgroundUtils);
 
@@ -63,7 +63,7 @@ async function setCSS(forum) {
 
     console.time(`setCSS ${ forum }`);
 
-    const settings = await chrome.storage.local.get();
+    const settings = await chrome.storage.local.get(getSetCssKeys(forum));
 
     const quoteCSS = settings["settingQuotes"]
         ? `[data-attributes="member: ${ settings[`${ forum }User`].join(`"],[data-attributes="member: `) }"]{display:none!important;}`

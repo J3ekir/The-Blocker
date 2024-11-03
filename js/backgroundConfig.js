@@ -40,6 +40,20 @@ export const SET_CSS_TRIGGER_KEYS = [
     ...Object.keys(SELECTORS.misc),
 ];
 
+
+const SET_CSS_KEYS = [
+    "settingQuotes",
+    ...Object.keys(SELECTORS.user),
+    ...Object.keys(SELECTORS.misc),
+];
+
+export function getSetCssKeys(forum) {
+    return [
+        ...SELECTORS.filters.map(filter => `${ forum }${ filter }`),
+        ...SET_CSS_KEYS,
+    ];
+}
+
 export const storage = {
     "defaultForumSettings": {
         "User": [],
