@@ -50,7 +50,7 @@
     }
 
     function combineTabPanes() {
-        qs("[role='tabpanel']:nth-child(2)").classList.add("is-active");
+        qs("[role='tabpanel']:nth-child(2)").classList.add("is-active", "tb-combine-tab-panes");
 
         qs("[role='tab']:first-child").addEventListener("click", event => {
             qsa("[role='tabpanel']:nth-child(2)").forEach(elem => elem.classList.add("is-active"));
