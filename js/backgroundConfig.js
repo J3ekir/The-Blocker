@@ -33,24 +33,21 @@ export const SELECTORS = {
     },
 };
 
-export const SET_CSS_TRIGGER_KEYS = [
-    "settingQuotes",
-    ...FORUMS.flatMap(forum => SELECTORS.filters.map(filter => `${ forum }${ filter }`)),
-    ...Object.keys(SELECTORS.user),
-    ...Object.keys(SELECTORS.misc),
-];
-
-
 const SET_CSS_KEYS = [
     "settingQuotes",
     ...Object.keys(SELECTORS.user),
     ...Object.keys(SELECTORS.misc),
 ];
 
+export const SET_CSS_TRIGGER_KEYS = [
+    ...SET_CSS_KEYS,
+    ...FORUMS.flatMap(forum => SELECTORS.filters.map(filter => `${ forum }${ filter }`)),
+];
+
 export function getSetCssKeys(forum) {
     return [
-        ...SELECTORS.filters.map(filter => `${ forum }${ filter }`),
         ...SET_CSS_KEYS,
+        ...SELECTORS.filters.map(filter => `${ forum }${ filter }`),
     ];
 }
 
