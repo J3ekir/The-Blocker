@@ -47,8 +47,8 @@
 }
 
 .cm-s-default {
-    .cm-keyword,
-    .cm-keyword-link {
+    & .cm-keyword,
+    & .cm-keyword-link {
         color: var(--cm-keyword);
     }
 }
