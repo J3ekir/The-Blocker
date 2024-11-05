@@ -18,7 +18,7 @@ The Blocker techolay.net/sosyal ve technopat.net/sosyal forumları için RESMİ 
 
 **TECHOLAY.NET ve TECHNOPAT.NET SİTELERİYLE HİÇBİR ŞEKİLDE ALAKASI YOKTUR.**
 
-Engelleme kelimesini kullanmak çok daha rahat geldi. Herhangi bir şey engellediği yok. Sadece gizliyor. İlham kaynağı XenForo'nun hard-coded olan 1000 göz ardı limiti ve benim çeşitli avatarları görmek istememem.
+Engelleme kelimesini kullanmak çok daha rahat geldi. Herhangi bir şey engellediği yok. Sadece gizliyor. İlham kaynağı, XenForo'nun forum sahipleri tarafından değiştirilmesi pek tercih edilmeyen, varsayılanı 1000 olan göz ardı limiti ve benim çeşitli avatarları görmek istememem.
 
 Ayarlar sayfasında kişileri engellemek için çeşitli seçenekler arasında seçim yapılabilir.  
 Filtreler sayfasında engellenen kişilerin listesi (ID olarak) görüntülenebilir ve düzenlenebilir.  
