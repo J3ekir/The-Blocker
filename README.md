@@ -59,6 +59,8 @@ Bug bildirimleri için [Github issues'ü](https://github.com/J3ekir/The-Blocker/
 - Göz ardı edilen içeriği göster
 - Kullanıcının imzasını gizle
 - XenForo alt bilgi
+- Yayınlamayı planla
+- Yazım denetimi
 
 ## Teşekkürler
 [Raymond Hill'e](https://github.com/gorhill) [uBlock Origin](https://github.com/gorhill/uBlock) için teşekkürler.  
