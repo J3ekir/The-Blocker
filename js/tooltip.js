@@ -165,10 +165,10 @@
 
     function waitForElement(selector) {
         return new Promise(resolve => {
-            const elem = document.querySelector(selector);
+            const elem = qs(selector);
             if (elem) { return resolve(elem); }
             new MutationObserver((_, observer) => {
-                const elem = document.querySelector(selector);
+                const elem = qs(selector);
                 if (elem) {
                     observer.disconnect();
                     return resolve(elem);

@@ -40,19 +40,19 @@
 
             messages.forEach((elem, i) => {
                 // no report and no edit
-                if (!elem.querySelector(".actionBar-set.actionBar-set--internal")) {
+                if (!qs(elem, ".actionBar-set.actionBar-set--internal")) {
                     elem.append(BASE.internalActionBar);
                 }
 
                 // no report
-                if (!elem.querySelector(".actionBar-action.actionBar-action--report")) {
+                if (!qs(elem, ".actionBar-action.actionBar-action--report")) {
                     elem.lastElementChild.prepend(BASE.reportButton(postIds[i]));
                 }
 
-                if (!elem.querySelector("[blocktype]")) {
+                if (!qs(elem, "[blocktype]")) {
                     elem.lastElementChild.append(...makeBlockButtons(userIds[i]));
                 }
-                if (!elem.querySelector(".actionBar-action.actionBar-action--menuTrigger")) {
+                if (!qs(elem, ".actionBar-action.actionBar-action--menuTrigger")) {
                     elem.lastElementChild.append(BASE.actionBarMenu, BASE.actionBarMenuList);
                 }
             });
@@ -179,10 +179,10 @@
 
     function waitForElement(selector) {
         return new Promise(resolve => {
-            const elem = document.querySelector(selector);
+            const elem = qs(selector);
             if (elem) { return resolve(elem); }
             new MutationObserver((_, observer) => {
-                const elem = document.querySelector(selector);
+                const elem = qs(selector);
                 if (elem) {
                     observer.disconnect();
                     return resolve(elem);

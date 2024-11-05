@@ -61,9 +61,9 @@
         const tabs = qs("[role='tablist']");
         const bottomTabs = tabs.cloneNode(true);
         bottomTabs.classList.add("bottom-tabs");
-        bottomTabs.setAttribute("style-id", /'style_id':(\d+)/.exec(document.querySelector('script[src^="https://www.googletagmanager.com/gtag/js"]+script').textContent)[1]);
+        bottomTabs.setAttribute("style-id", /'style_id':(\d+)/.exec(qs('script[src^="https://www.googletagmanager.com/gtag/js"]+script').textContent)[1]);
 
-        bottomTabs.querySelectorAll("[role='tab']").forEach(elem => {
+        qsa(bottomTabs, "[role='tab']").forEach(elem => {
             elem.addEventListener("click", activateTab);
         });
 
@@ -72,10 +72,10 @@
 
     function waitForElement(selector) {
         return new Promise(resolve => {
-            const elem = document.querySelector(selector);
+            const elem = qs(selector);
             if (elem) { return resolve(elem); }
             new MutationObserver((_, observer) => {
-                const elem = document.querySelector(selector);
+                const elem = qs(selector);
                 if (elem) {
                     observer.disconnect();
                     return resolve(elem);
