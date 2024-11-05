@@ -35,7 +35,7 @@
                 "https://www.technopat.net/sosyal/*"
             ],
             "css": [
-                "css/buttons.css"
+                "css/interface.css"
             ],
             "js": [
                 "js/injectCSS.js",
