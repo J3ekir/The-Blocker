@@ -150,17 +150,18 @@
     }
 
     function observeForNewTooltips() {
-        const targetNode = document.body;
-        new MutationObserver(async (mutationList, observer) => {
-            mutationList.forEach(mutation => {
-                mutation.addedNodes.forEach(elem => {
-                    if (elem.matches?.(".tooltip--member .tooltip-content-inner")) {
-                        addTooltipItems(elem);
-                    }
+        waitForElement("body").then(elem => {
+            new MutationObserver(async (mutationList, observer) => {
+                mutationList.forEach(mutation => {
+                    mutation.addedNodes.forEach(elem => {
+                        if (elem.matches?.(".tooltip--member .tooltip-content-inner")) {
+                            addTooltipItems(elem);
+                        }
+                    });
                 });
-            });
-        })
-            .observe(targetNode, { childList: true, subtree: true });
+            })
+                .observe(elem, { childList: true, subtree: true });
+        });
     }
 
     function waitForElement(selector) {

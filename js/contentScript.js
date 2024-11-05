@@ -131,17 +131,18 @@
         }
 
         function observeForNewBlockMenus() {
-            const targetNode = document.body;
-            new MutationObserver(async mutationList => {
-                mutationList.forEach(mutation => {
-                    mutation.addedNodes.forEach(elem => {
-                        if (elem.nodeType === Node.ELEMENT_NODE) {
-                            addBlockButtonEventListeners(elem);
-                        }
+            waitForElement("body").then(elem => {
+                new MutationObserver(async mutationList => {
+                    mutationList.forEach(mutation => {
+                        mutation.addedNodes.forEach(elem => {
+                            if (elem.nodeType === Node.ELEMENT_NODE) {
+                                addBlockButtonEventListeners(elem);
+                            }
+                        });
                     });
-                });
-            })
-                .observe(targetNode, { childList: true });
+                })
+                    .observe(elem, { childList: true });
+            });
         }
     }
 
