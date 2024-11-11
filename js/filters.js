@@ -7,7 +7,10 @@
         "Signature",
     ];
 
-    const settings = await chrome.storage.local.get(FILTERS.map(value => `${ forum }${ value }`).concat("hideDoubleTapHint"));
+    const settings = await chrome.storage.local.get([
+        "hideDoubleTapHint",
+        ...FILTERS.map(value => `${ forum }${ value }`),
+    ]);
     const cache = Object.assign(...FILTERS.map(value => ({ [`${ forum }${ value }`]: "" })));
 
     const buttons = {

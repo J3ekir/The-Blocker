@@ -7,12 +7,8 @@ const STATS = [
     "SignatureCount",
 ].map(type => `${ forum }${ type }`));
 
-chrome.storage.local.get(["theme", ...STATS, "lastForum"]).then(settings => {
+chrome.storage.local.get(["theme", "lastForum", ...STATS]).then(settings => {
     document.documentElement.setAttribute("theme", settings["theme"]);
-
-    STATS.forEach(value => {
-        qs(`#${ value }`).textContent = settings[value];
-    });
 
     chrome.tabs.query({
         active: true,
@@ -31,6 +27,10 @@ chrome.storage.local.get(["theme", ...STATS, "lastForum"]).then(settings => {
         chrome.storage.local.set({
             lastForum: settings["lastForum"],
         });
+    });
+
+    STATS.forEach(value => {
+        qs(`#${ value }`).textContent = settings[value];
     });
 });
 
