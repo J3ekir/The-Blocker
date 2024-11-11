@@ -1,25 +1,22 @@
 (async () => {
     const isMac = window.navigator.userAgent.indexOf("Mac OS") !== -1;
     const forum = parent.document.documentElement.dataset.forum;
-    const FILTERS = [
-        "User",
-        "Avatar",
-        "Signature",
-    ];
-
+    const cache = {
+        [`${ forum }User`]: "",
+        [`${ forum }Avatar`]: "",
+        [`${ forum }Signature`]: "",
+    };
+    const FILTERS = Object.keys(cache);
     const settings = await chrome.storage.local.get([
         "hideDoubleTapHint",
-        ...FILTERS.map(value => `${ forum }${ value }`),
+        ...FILTERS,
     ]);
-    const cache = Object.assign(...FILTERS.map(value => ({ [`${ forum }${ value }`]: "" })));
-
     const buttons = {
         save: qs("#applyButton"),
         import: qs("#importButton"),
         export: qs("#exportButton"),
         filePicker: qs("#filePicker"),
     };
-
     const codeMirrorOptions = {
         autofocus: true,
         configureMouse: _ => ({ addNew: false }),
@@ -42,7 +39,7 @@
         };
     });
 
-    const editors = Object.assign(...FILTERS.map(value => ({ [`${ forum }${ value }`]: new CodeMirror(qs(`#${ value }`), codeMirrorOptions) })));
+    const editors = Object.fromEntries(FILTERS.map(value => ([value, new CodeMirror(qs(`#${ value.replace(forum, "") }`), codeMirrorOptions)])));
 
     /***************************************** MAIN START *****************************************/
 
@@ -63,14 +60,14 @@
 
     renderEditors();
 
-    FILTERS.forEach(value => editors[`${ forum }${ value }`].on("beforeChange", beforeEditorChanged));
-    FILTERS.forEach(value => editors[`${ forum }${ value }`].on("changes", editorChanged));
+    FILTERS.forEach(value => editors[value].on("beforeChange", beforeEditorChanged));
+    FILTERS.forEach(value => editors[value].on("changes", editorChanged));
 
     editors[`${ forum }User`].focus();
 
     chrome.storage.onChanged.addListener(changes => {
         Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-            if (FILTERS.map(value => `${ forum }${ value }`).includes(key)) {
+            if (FILTERS.includes(key)) {
                 settings[key] = newValue;
                 renderEditor(key);
             }
@@ -136,7 +133,7 @@
 
     buttons.save.addEventListener("click", event => {
         saveEditorText();
-        FILTERS.forEach(value => editors[`${ forum }${ value }`].clearHistory());
+        FILTERS.forEach(value => editors[value].clearHistory());
         buttons.save.disabled = true;
     });
 
@@ -147,7 +144,7 @@
     });
 
     buttons.export.addEventListener("click", event => {
-        if (FILTERS.every(value => settings[`${ forum }${ value }`].length === 0)) { return; }
+        if (FILTERS.every(value => settings[value].length === 0)) { return; }
 
         const object = {};
         object["kullanıcı"] = settings[`${ forum }User`];
@@ -203,7 +200,7 @@
     /****************************************** MAIN END ******************************************/
 
     function renderEditors() {
-        FILTERS.forEach(value => renderEditor(`${ forum }${ value }`));
+        FILTERS.forEach(value => renderEditor(value));
     }
 
     function renderEditor(editor) {
@@ -224,8 +221,8 @@
     }
 
     function saveEditorText() {
-        FILTERS.forEach(value => cache[`${ forum }${ value }`] = getEditorText(editors[`${ forum }${ value }`]));
-        chrome.storage.local.set(Object.assign(...FILTERS.map(value => ({ [`${ forum }${ value }`]: cache[`${ forum }${ value }`] === "" ? [] : cache[`${ forum }${ value }`].split("\n").map(id => parseInt(id, 10)), [`${ forum }${ value }Count`]: cache[`${ forum }${ value }`] === "" ? 0 : cache[`${ forum }${ value }`].split("\n").length }))));
+        FILTERS.forEach(value => cache[value] = getEditorText(editors[value]));
+        chrome.storage.local.set(Object.fromEntries(FILTERS.flatMap(value => ([[value, cache[value] === "" ? [] : cache[value].split("\n").map(id => parseInt(id, 10))], [`${ value }Count`, cache[value] === "" ? 0 : cache[value].split("\n").length]]))));
     }
 
     function getEditorText(editor) {
