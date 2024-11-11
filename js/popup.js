@@ -1,18 +1,16 @@
-const FORUMS = [
+const STATS = [
     "techolay",
     "technopat",
-];
-const VALUE_TYPES = [
+].flatMap(forum => [
     "UserCount",
     "AvatarCount",
     "SignatureCount",
-];
-const VALUES = FORUMS.flatMap(forum => VALUE_TYPES.map(type => `${ forum }${ type }`));
+].map(type => `${ forum }${ type }`));
 
-chrome.storage.local.get(["theme", ...VALUES, "lastForum"]).then(settings => {
+chrome.storage.local.get(["theme", ...STATS, "lastForum"]).then(settings => {
     document.documentElement.setAttribute("theme", settings["theme"]);
 
-    VALUES.forEach(value => {
+    STATS.forEach(value => {
         qs(`#${ value }`).textContent = settings[value];
     });
 
@@ -38,7 +36,7 @@ chrome.storage.local.get(["theme", ...VALUES, "lastForum"]).then(settings => {
 
 chrome.storage.onChanged.addListener(changes => {
     Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-        if (VALUES.includes(key)) {
+        if (STATS.includes(key)) {
             qs(`#${ key }`).textContent = newValue;
         }
         if (key === "theme") {
