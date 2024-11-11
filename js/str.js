@@ -50,11 +50,8 @@ self.STR = self.STR || new Proxy(
     },
     {
         get(target, prop) {
-            if (!target.LANGUAGE) { return null; }
-
-            return typeof target[target.LANGUAGE][prop] === "string"
-                ? target[target.LANGUAGE][prop]
-                : target[target.LANGUAGE][prop].bind(target);
+            const value = target[target.LANGUAGE]?.[prop];
+            return typeof value === "function" ? value.bind(target) : value;
         },
     },
 );
