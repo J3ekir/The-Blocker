@@ -75,3 +75,18 @@
     --cm-line-number: light-dark(var(--gray-20), var(--gray-80));
     --cm-keyword: light-dark(var(--blue-40), var(--blue-70));
 }
+
+:root:is(:not([theme]), [theme="system"]) {
+    @media (prefers-color-scheme: light) {
+        color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+        color-scheme: dark;
+    }
+}
+:root[theme="light"] {
+    color-scheme: light;
+}
+:root[theme="dark"] {
+    color-scheme: dark;
+}

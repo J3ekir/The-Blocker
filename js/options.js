@@ -1,9 +1,19 @@
 const isMac = window.navigator.userAgent.indexOf("Mac OS") !== -1;
 
-chrome.storage.local.get("lastPane").then(settings => {
+chrome.storage.local.get(["theme", "lastPane"]).then(settings => {
+    document.documentElement.setAttribute("theme", settings["theme"]);
+
     window.location.hash === ""
         ? loadPane(settings["lastPane"])
         : loadPane(window.location.hash.substring(1));
+});
+
+chrome.storage.onChanged.addListener(changes => {
+    Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+        if (key === "theme") {
+            document.documentElement.setAttribute(key, newValue);
+        }
+    });
 });
 
 qsa(".tabButton").forEach(elem => {

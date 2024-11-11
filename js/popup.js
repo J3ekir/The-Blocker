@@ -9,7 +9,9 @@ const VALUE_TYPES = [
 ];
 const VALUES = FORUMS.flatMap(forum => VALUE_TYPES.map(type => `${ forum }${ type }`));
 
-chrome.storage.local.get([...VALUES, "lastForum"]).then(settings => {
+chrome.storage.local.get(["theme", ...VALUES, "lastForum"]).then(settings => {
+    document.documentElement.setAttribute("theme", settings["theme"]);
+
     VALUES.forEach(value => {
         qs(`#${ value }`).textContent = settings[value];
     });
@@ -38,6 +40,9 @@ chrome.storage.onChanged.addListener(changes => {
     Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
         if (VALUES.includes(key)) {
             qs(`#${ key }`).textContent = newValue;
+        }
+        if (key === "theme") {
+            document.documentElement.setAttribute(key, newValue);
         }
     });
 });

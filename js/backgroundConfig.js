@@ -65,6 +65,7 @@ const storage = {
     "defaultSettings": {
         "lastPane": "settings.html",
         "lastForum": "techolay",
+        "theme": "system",
         "hideDoubleTapHint": false,
         "settingNotes": true,
         "settingAddBottomTabButtons": true,

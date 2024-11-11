@@ -1,5 +1,4 @@
 :root {
-    color-scheme: light dark;
     --std-gap: 12px;
     --font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -44,6 +43,18 @@ body {
         &:hover {
             background-color: var(--btn-hover-bg);
         }
+    }
+}
+
+#theme {
+    padding: 4px;
+    border-radius: 4px;
+    outline: none;
+    color: var(--text);
+    background-color: var(--body-bg);
+    & > option {
+        color: var(--text);
+        background-color: var(--body-bg);
     }
 }
 

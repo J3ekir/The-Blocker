@@ -11,7 +11,13 @@ chrome.permissions.contains({
 
 qs("#requestPermission>button").addEventListener("click", requestPermission);
 
+qs("#theme").addEventListener("change", event => {
+    chrome.storage.local.set({ theme: event.currentTarget.value });
+});
+
 chrome.storage.local.get().then(settings => {
+    qs("#theme").value = settings["theme"];
+
     qsa("[data-setting-name]").forEach(elem => {
         elem.checked = settings[elem.getAttribute("data-setting-name")];
         elem.addEventListener("change", settingChanged);
