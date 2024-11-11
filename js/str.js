@@ -1,6 +1,6 @@
 self.STR = self.STR || new Proxy(
     {
-        "LANGUAGE": document.documentElement.getAttribute("lang"),
+        LANGUAGE: document.documentElement.getAttribute("lang"),
         "en-US": {
             userBlock: "Block",
             avatarBlock: "Block avatar",

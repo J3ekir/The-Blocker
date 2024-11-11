@@ -70,7 +70,7 @@
         qs("#doubleTapHint").style.display = "flex";
         qs("#doubleTapHint>b").addEventListener("click", event => {
             event.currentTarget.parentElement.style.display = "none";
-            chrome.storage.local.set({ "hideDoubleTapHint": true });
+            chrome.storage.local.set({ hideDoubleTapHint: true });
         });
     }
 
