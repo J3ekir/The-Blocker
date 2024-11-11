@@ -97,5 +97,5 @@ const storage = {
 
 self.defaultSettings = {
     ...storage.defaultSettings,
-    ...Object.assign(...FORUMS.map(forum => Object.assign(...Object.entries(storage.defaultForumSettings).map(([key, value]) => ({ [`${ forum }${ key }`]: value }))))),
+    ...Object.fromEntries(FORUMS.flatMap(forum => Object.entries(storage.defaultForumSettings).map(([key, value]) => ([`${ forum }${ key }`, value])))),
 };
