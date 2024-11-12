@@ -1,5 +1,4 @@
 :root {
-    --std-gap: 12px;
     --font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -51,7 +50,7 @@ nav {
 }
 
 main {
-    margin: calc(2 * var(--std-gap) / 3) 0;
+    margin: 8px 0;
 }
 
 article {
@@ -71,7 +70,7 @@ article {
 
 span {
     display: block;
-    margin: calc(var(--std-gap) / 3);
+    margin: 4px;
     font-family: var(--font);
     font-weight: 500;
     text-align: center;

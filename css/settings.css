@@ -1,5 +1,4 @@
 :root {
-    --std-gap: 12px;
     --font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -11,9 +10,9 @@
 body {
     display: flex;
     flex-direction: column;
-    gap: var(--std-gap);
+    gap: 12px;
     margin: 0;
-    padding: var(--std-gap);
+    padding: 12px;
     line-height: 1.2;
     background-color: var(--body-bg);
 }
@@ -21,20 +20,20 @@ body {
 #requestPermission {
     display: none;
     flex-direction: column;
-    gap: var(--std-gap);
+    gap: 12px;
     & > span {
         font-family: var(--font);
-        font-size: calc(var(--std-gap) * 3);
+        font-size: 36px;
         font-weight: 400;
     }
     & > button {
         display: flex;
         align-items: center;
-        gap: calc(var(--std-gap) / 2);
+        gap: 6px;
         width: fit-content;
         padding: 0.5em 1em;
         font-family: var(--font);
-        font-size: calc(var(--std-gap) * 3 / 2);
+        font-size: 18px;
         font-weight: 500;
         border: none;
         border-radius: 0.375em;
@@ -61,7 +60,7 @@ body {
 .fieldset {
     display: flex;
     flex-direction: column;
-    gap: calc(var(--std-gap) * 2 / 3);
+    gap: 8px;
 }
 
 .fieldset-header {
@@ -73,7 +72,7 @@ body {
 
 label {
     display: flex;
-    gap: calc(var(--std-gap) * 2 / 3);
+    gap: 8px;
     align-items: center;
     width: fit-content;
     & > input {

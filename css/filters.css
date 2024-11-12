@@ -1,5 +1,4 @@
 :root {
-    --std-gap: 12px;
     --font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -11,10 +10,10 @@
 body {
     display: flex;
     flex-direction: column;
-    gap: var(--std-gap);
+    gap: 12px;
     height: 100svh;
     margin: 0;
-    padding: var(--std-gap);
+    padding: 12px;
     line-height: 1.2;
     background-color: var(--body-bg);
 }
@@ -22,10 +21,10 @@ body {
 #doubleTapHint {
     display: none;
     align-items: center;
-    gap: calc(var(--std-gap) * 2);
+    gap: 24px;
     width: fit-content;
-    padding: calc(var(--std-gap) / 2) var(--std-gap);
-    border-radius: calc(var(--std-gap) / 3);
+    padding: 6px 12px;
+    border-radius: 4px;
     font-family: var(--font);
     color: var(--double-tap-hint);
     background-color: var(--double-tap-hint-bg);
@@ -48,14 +47,14 @@ body {
 #controlButtons {
     display: flex;
     flex-shrink: 0;
-    gap: var(--std-gap);
+    gap: 12px;
     & > button {
         display: flex;
         align-items: center;
-        gap: calc(var(--std-gap) / 2);
+        gap: 6px;
         padding: 0.5em 1em;
         font-family: var(--font);
-        font-size: calc(var(--std-gap) * 4 / 3);
+        font-size: 16px;
         font-weight: 500;
         border: none;
         border-radius: 0.375em;
@@ -99,7 +98,7 @@ body {
 main {
     display: flex;
     flex-grow: 1;
-    gap: var(--std-gap);
+    gap: 12px;
     overflow: hidden;
     @media (max-width: 750px) {
         flex-direction: column;
@@ -111,7 +110,7 @@ main {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    gap: calc(var(--std-gap) * 2 / 3);
+    gap: 8px;
 }
 
 .editorTitle {
