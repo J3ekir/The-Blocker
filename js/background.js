@@ -18,14 +18,7 @@ function setDefaultSettings() {
     const keys = Object.keys(defaultSettings);
 
     chrome.storage.local.get(keys).then(settings => {
-        const defaultValues = {};
-
-        keys.forEach(key => {
-            if (settings[key] === undefined) {
-                defaultValues[key] = defaultSettings[key];
-            }
-        });
-
+        const defaultValues = Object.fromEntries(keys.map(key => [key, settings[key] ?? defaultSettings[key]]));
         chrome.storage.local.set(defaultValues);
     });
 }
