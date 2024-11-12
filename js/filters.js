@@ -217,7 +217,7 @@
     }
 
     function editorChanged(editor, changes) {
-        buttons.save.disabled = cache[`${ forum }${ editor.getWrapperElement().parentElement.id }`] === getEditorText(editor);
+        buttons.save.disabled = FILTERS.every(value => cache[value] === getEditorText(editors[value]));
     }
 
     function saveEditorText() {
