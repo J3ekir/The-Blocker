@@ -48,45 +48,33 @@ chrome.storage.onChanged.addListener(changes => {
     });
 });
 
-async function setCss(forum) {
-    if (forum === undefined) {
-        FORUMS.forEach(forum => setCss(forum));
-        return;
+async function setCss(...forums) {
+    forums = forums.length ? forums : FORUMS;
+
+    for (const forum of forums) {
+        console.time(`setCss ${ forum }`);
+
+        const settings = await chrome.storage.local.get(getSetCssKeys(forum));
+
+        const quoteCSS = settings["settingQuotes"]
+            ? `[data-attributes="member: ${ settings[`${ forum }User`].join(`"],[data-attributes="member: `) }"]`
+            : "";
+        const userList = `[data-user-id="${ settings[`${ forum }User`].join(`"],[data-user-id="`) }"]`;
+        const commonUserCSS = Object.keys(SELECTORS.user).filter(key => settings[key]).map(key => SELECTORS.user[key]).join();
+        const userCSS = `:is(${ commonUserCSS }):has(${ userList }),:is(.block-row,.node-extra-row .node-extra-user):has(${ userList }),.structItem-cell.structItem-cell--latest:has(${ userList })>div,:is(.message.message--post, .message.message--article, .structItem):has(:is(.message-cell--user, .message-articleUserInfo, .structItem-cell--main) :is(${ userList }))`;
+        // https://github.com/J3ekir/The-Blocker/commit/03d6569
+        const avatarCSS = `:is(#theBlocker,:is(a,span):is([data-user-id="${ settings[`${ forum }Avatar`].join(`"],[data-user-id="`) }"]))>img`;
+        const signatureCSS = `.message-inner:has(a:is([data-user-id="${ settings[`${ forum }Signature`].join(`"],[data-user-id="`) }"])) .message-signature`;
+        const miscCSS = Object.keys(SELECTORS.misc).filter(key => settings[key]).map(key => SELECTORS.misc[key]).join();
+
+        const CSS = `${ quoteCSS },${ userCSS },${ avatarCSS },${ signatureCSS },${ miscCSS }{display:none!important;}`;
+
+        await chrome.storage.local.set({
+            [`${ forum }CSS`]: CSS,
+        });
+
+        console.timeEnd(`setCss ${ forum }`);
     }
-
-    console.time(`setCss ${ forum }`);
-
-    const settings = await chrome.storage.local.get(getSetCssKeys(forum));
-
-    const quoteCSS = settings["settingQuotes"]
-        ? `[data-attributes="member: ${ settings[`${ forum }User`].join(`"],[data-attributes="member: `) }"]{display:none!important;}`
-        : "";
-
-    const userList = `(a:is([data-user-id="${ settings[`${ forum }User`].join(`"],[data-user-id="`) }"]))`;
-
-    const userCSS = `:is(${ Object.keys(SELECTORS.user)
-        .filter(key => settings[key])
-        .map(key => SELECTORS.user[key])
-        .join()
-        }):has${ userList }{display:none!important;}:is(.block-row,.node-extra-row .node-extra-user):has${ userList },.structItem-cell.structItem-cell--latest:has${ userList }>div,:is(.message.message--post, .message.message--article, .structItem):has(:is(.message-cell--user, .message-articleUserInfo, .structItem-cell--main) :is${ userList }){display:none!important;}`;
-
-    // https://github.com/J3ekir/The-Blocker/commit/03d6569
-    const avatarCSS = `:is(#theBlocker,:is(a,span):is([data-user-id="${ settings[`${ forum }Avatar`].join(`"],[data-user-id="`) }"]))>img{display:none;}`;
-    const signatureCSS = `.message-inner:has(a:is([data-user-id="${ settings[`${ forum }Signature`].join(`"],[data-user-id="`) }"])) .message-signature{display:none;}`;
-
-    const miscCSS = `:is(${ Object.keys(SELECTORS.misc)
-        .filter(key => settings[key])
-        .map(key => SELECTORS.misc[key])
-        .join()
-        }){display:none!important;}`;
-
-    const CSS = `${ quoteCSS }${ userCSS }${ avatarCSS }${ signatureCSS }${ miscCSS }`;
-
-    await chrome.storage.local.set({
-        [`${ forum }CSS`]: CSS,
-    });
-
-    console.timeEnd(`setCss ${ forum }`);
 }
 
 /**********************************************************************************************/
