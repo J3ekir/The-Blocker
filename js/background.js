@@ -24,12 +24,7 @@ function setDefaultSettings() {
 }
 
 function checkPermissions() {
-    chrome.permissions.contains({
-        origins: [
-            "https://techolay.net/sosyal/*",
-            "https://www.technopat.net/sosyal/*",
-        ]
-    }).then(granted => {
+    chrome.permissions.contains({ origins }).then(granted => {
         if (!granted) {
             chrome.tabs.create({ url: `${ chrome.runtime.getURL("options.html") }#settings.html` });
         }

@@ -1,9 +1,9 @@
-chrome.permissions.contains({
-    origins: [
-        "https://techolay.net/sosyal/*",
-        "https://www.technopat.net/sosyal/*",
-    ],
-}).then(granted => {
+const origins = [
+    "https://techolay.net/sosyal/*",
+    "https://www.technopat.net/sosyal/*",
+];
+
+chrome.permissions.contains({ origins }).then(granted => {
     if (!granted) {
         qs("#requestPermission").style.display = "flex";
     }
@@ -27,12 +27,7 @@ chrome.storage.local.get(["theme", ...settingKeys]).then(settings => {
 });
 
 function requestPermission() {
-    chrome.permissions.request({
-        origins: [
-            "https://techolay.net/sosyal/*",
-            "https://www.technopat.net/sosyal/*",
-        ],
-    }).then(granted => {
+    chrome.permissions.request({ origins }).then(granted => {
         if (granted) {
             qs("#requestPermission").style.display = "none";
         }

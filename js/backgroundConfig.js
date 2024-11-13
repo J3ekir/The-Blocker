@@ -3,6 +3,11 @@ self.FORUMS = [
     "technopat",
 ];
 
+self.origins = [
+    "https://techolay.net/sosyal/*",
+    "https://www.technopat.net/sosyal/*",
+];
+
 self.SELECTORS = {
     filters: [
         "User",
