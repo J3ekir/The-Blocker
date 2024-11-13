@@ -99,16 +99,17 @@
                         settings[key] = newValue;
                         settings[`${ key }Count`] = newValue.length;
 
-                        const isBlock = newValue.length > oldValue.length;
-                        const userId = isBlock ? newValue.at(-1) : oldValue.find((elem, i) => elem !== newValue[i]);
-                        toggleButtonTexts(isBlock, userId, key);
+                        const oldSet = new Set(oldValue);
+                        const newSet = new Set(newValue);
+                        toggleButtonTexts(true, key, [...newSet.difference(oldSet)]);
+                        toggleButtonTexts(false, key, [...oldSet.difference(newSet)]);
                 }
             });
         });
 
-        function toggleButtonTexts(isBlock, userId, key) {
+        function toggleButtonTexts(isBlock, key, userIds) {
             const newText = STR[`${ key.replace(forum, "").toLowerCase() }${ isBlock ? "Unblock" : "Block" }`];
-            qsa(`[data-user-id="${ userId }"][blocktype="${ key }"]`).forEach(elem => {
+            qsa(`[blocktype="${ key }"]:is([data-user-id="${ userIds.join(`"],[data-user-id="`) }"])`).forEach(elem => {
                 elem.textContent = elem.title = newText;
             });
         }
