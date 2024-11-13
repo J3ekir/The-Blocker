@@ -8,7 +8,7 @@ self.injectCSS = (tabId, { forum }) => {
     });
 };
 
-self.insertCSSString = (tabId, { css }) => {
+self.insertCssString = (tabId, { css }) => {
     chrome.scripting.insertCSS({
         target: { tabId },
         origin: "USER",

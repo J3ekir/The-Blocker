@@ -57,7 +57,7 @@ async function toggleCSS(isBlock, key, userIds) {
     const css = `${ CSS }{display:${ isBlock ? "none" : "block" }!important;}`;
 
     chrome.runtime.sendMessage({
-        type: "insertCSSString",
+        type: "insertCssString",
         css,
     });
 }
