@@ -3,7 +3,7 @@ import "./backgroundUtils.js";
 
 chrome.runtime.onInstalled.addListener(({ reason, temporary }) => {
     setDefaultSettings();
-    setCss();
+    setCSS();
 
     if (reason === "install") {
         checkPermissions();
@@ -42,17 +42,17 @@ chrome.storage.onChanged.addListener(changes => {
 
     keys.forEach(key => {
         if (!setCssCalled && SET_CSS_TRIGGER_KEYS.includes(key)) {
-            setCss(FORUMS.find(forum => key.startsWith(forum)));
+            setCSS(FORUMS.find(forum => key.startsWith(forum)));
             setCssCalled = true;
         }
     });
 });
 
-async function setCss(...forums) {
+async function setCSS(...forums) {
     forums = forums.length ? forums : FORUMS;
 
     for (const forum of forums) {
-        console.time(`setCss ${ forum }`);
+        console.time(`setCSS ${ forum }`);
 
         const settings = await chrome.storage.local.get(getSetCssKeys(forum));
 
@@ -73,7 +73,7 @@ async function setCss(...forums) {
             [`${ forum }CSS`]: CSS,
         });
 
-        console.timeEnd(`setCss ${ forum }`);
+        console.timeEnd(`setCSS ${ forum }`);
     }
 }
 
