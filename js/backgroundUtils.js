@@ -16,7 +16,7 @@ self.insertCssString = (tabId, { css }) => {
     });
 };
 
-self.removeCSSString = (tabId, { css }) => {
+self.removeCssString = (tabId, { css }) => {
     chrome.scripting.removeCSS({
         target: { tabId },
         origin: "USER",
