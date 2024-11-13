@@ -40,3 +40,14 @@ function settingChanged(event) {
         [settingName]: event.currentTarget.checked,
     });
 }
+
+chrome.storage.onChanged.addListener(changes => {
+    Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+        if (key === "theme") {
+            qs("#theme").value = newValue;
+        }
+        if (settingKeys.includes(key)) {
+            qs(`[data-setting-name="${ key }"]`).checked = newValue;
+        }
+    });
+});
