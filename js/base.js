@@ -56,14 +56,14 @@ self.BASE = self.BASE || new Proxy(
         })(),
 
         reportButton(postId) {
-            const element = BASE.baseReportButton.cloneNode(true);
+            const element = BASE.baseReportButton;
             element.setAttribute("href", `/sosyal/mesaj/${ postId }/report`);
 
             return element;
         },
 
         userButton(userId, isBlocked) {
-            const element = BASE.baseUserButton.cloneNode(true);
+            const element = BASE.baseUserButton;
 
             if (isBlocked) {
                 element.title = STR.userUnblock;
@@ -77,7 +77,7 @@ self.BASE = self.BASE || new Proxy(
         },
 
         avatarButton(userId, isBlocked) {
-            const element = BASE.baseAvatarButton.cloneNode(true);
+            const element = BASE.baseAvatarButton;
 
             if (isBlocked) {
                 element.title = STR.avatarUnblock;
@@ -91,7 +91,7 @@ self.BASE = self.BASE || new Proxy(
         },
 
         signatureButton(userId, isBlocked) {
-            const element = BASE.baseSignatureButton.cloneNode(true);
+            const element = BASE.baseSignatureButton;
 
             if (isBlocked) {
                 element.title = STR.signatureUnblock;
@@ -216,14 +216,14 @@ self.BASE = self.BASE || new Proxy(
         })(),
 
         tooltipReport(userId) {
-            const element = BASE.baseTooltipReport.cloneNode(true);
+            const element = BASE.baseTooltipReport;
             element.firstElementChild.setAttribute("href", `/sosyal/uye/${ userId }/report`);
 
             return element;
         },
 
         tooltipNote(notes, userId) {
-            const element = BASE.baseTooltipNote.cloneNode(true);
+            const element = BASE.baseTooltipNote;
             element.setAttribute("data-user-id", userId);
             element.firstElementChild.value = notes[userId] || "";
             element.firstElementChild.addEventListener("keydown", noteEnterHandler);
@@ -260,7 +260,7 @@ self.BASE = self.BASE || new Proxy(
         })(),
 
         tooltipFindMenu(userId, userName) {
-            const element = BASE.baseTooltipFindMenu.cloneNode(true);
+            const element = BASE.baseTooltipFindMenu;
             element.firstElementChild.append(
                 BASE.findAllContentBy(userId, userName),
                 BASE.findAllThreadsBy(userId, userName),
@@ -270,7 +270,7 @@ self.BASE = self.BASE || new Proxy(
         },
 
         findAllContentBy(userId, userName) {
-            const element = BASE.baseFindAllContentsBy.cloneNode(true);
+            const element = BASE.baseFindAllContentsBy;
             element.setAttribute("href", `/sosyal/ara/member?user_id=${ userId }`);
             element.textContent = STR.findAllContentBy(userName);
 
@@ -278,7 +278,7 @@ self.BASE = self.BASE || new Proxy(
         },
 
         findAllThreadsBy(userId, userName) {
-            const element = BASE.baseFindAllThreadsBy.cloneNode(true);
+            const element = BASE.baseFindAllThreadsBy;
             element.setAttribute("href", `/sosyal/ara/member?user_id=${ userId }&content=thread`);
             element.textContent = STR.findAllThreadsBy(userName);
 
