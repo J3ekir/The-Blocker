@@ -62,10 +62,10 @@ self.BASE = self.BASE || new Proxy(
             return element;
         },
 
-        userButton(users, userId) {
+        userButton(userId, isBlocked) {
             const element = BASE.baseUserButton.cloneNode(true);
 
-            if (users.includes(userId)) {
+            if (isBlocked) {
                 element.title = STR.userUnblock;
                 element.textContent = STR.userUnblock;
             }
@@ -76,10 +76,10 @@ self.BASE = self.BASE || new Proxy(
             return element;
         },
 
-        avatarButton(avatars, userId) {
+        avatarButton(userId, isBlocked) {
             const element = BASE.baseAvatarButton.cloneNode(true);
 
-            if (avatars.includes(userId)) {
+            if (isBlocked) {
                 element.title = STR.avatarUnblock;
                 element.textContent = STR.avatarUnblock;
             }
@@ -90,10 +90,10 @@ self.BASE = self.BASE || new Proxy(
             return element;
         },
 
-        signatureButton(signatures, userId) {
+        signatureButton(userId, isBlocked) {
             const element = BASE.baseSignatureButton.cloneNode(true);
 
-            if (signatures.includes(userId)) {
+            if (isBlocked) {
                 element.title = STR.signatureUnblock;
                 element.textContent = STR.signatureUnblock;
             }

@@ -76,15 +76,18 @@
             }
 
             if (settings["settingUserButton"]) {
-                buttonArray.push(BASE.userButton(settings[`${ forum }User`], userId));
+                const isBlocked = settings[`${ forum }User`].includes(userId);
+                buttonArray.push(BASE.userButton(userId, isBlocked));
             }
 
             if (settings["settingAvatarButton"]) {
-                buttonArray.push(BASE.avatarButton(settings[`${ forum }Avatar`], userId));
+                const isBlocked = settings[`${ forum }Avatar`].includes(userId);
+                buttonArray.push(BASE.avatarButton(userId, isBlocked));
             }
 
             if (settings["settingSignatureButton"]) {
-                buttonArray.push(BASE.signatureButton(settings[`${ forum }Signature`], userId));
+                const isBlocked = settings[`${ forum }Signature`].includes(userId);
+                buttonArray.push(BASE.signatureButton(userId, isBlocked));
             }
 
             return buttonArray;
