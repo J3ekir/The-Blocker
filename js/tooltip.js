@@ -56,7 +56,6 @@
 
     function addNote(elem, userId) {
         if (hasNote(elem)) { return; }
-
         if (isSelfNote(userId)) { return; }
 
         qs(elem, ".memberTooltip-info").before(
