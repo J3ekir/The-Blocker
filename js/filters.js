@@ -1,5 +1,6 @@
 (async () => {
     const isMac = window.navigator.userAgent.indexOf("Mac OS") !== -1;
+    const isMobile = /\bMobile\b/.test(window.navigator.userAgent);
     const forum = parent.document.documentElement.dataset.forum;
     const cache = {
         [`${ forum }User`]: "",
@@ -54,7 +55,7 @@
         });
     }
 
-    if (/\bMobile\b/.test(window.navigator.userAgent)) {
+    if (isMobile) {
         document.documentElement.classList.add("mobile");
     }
 
