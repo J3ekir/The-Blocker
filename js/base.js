@@ -222,7 +222,7 @@ self.BASE = self.BASE || new Proxy(
             return element;
         },
 
-        tooltipNote(notes, userId) {
+        tooltipNote(userId, notes) {
             const element = BASE.baseTooltipNote;
             element.setAttribute("data-user-id", userId);
             element.firstElementChild.value = notes[userId] || "";

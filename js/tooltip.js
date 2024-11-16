@@ -59,7 +59,7 @@
         if (isSelfNote(userId)) { return; }
 
         qs(elem, ".memberTooltip-info").before(
-            BASE.tooltipNote(settings[`${ forum }Notes`], userId),
+            BASE.tooltipNote(userId, settings[`${ forum }Notes`]),
             BASE.tooltipSeperator
         );
     }
@@ -70,7 +70,7 @@
         if (isSelfNote(userId)) { return; }
 
         qs(".memberHeader-buttons").append(
-            BASE.tooltipNote(settings[`${ forum }Notes`], userId),
+            BASE.tooltipNote(userId, settings[`${ forum }Notes`]),
         );
     }
 
