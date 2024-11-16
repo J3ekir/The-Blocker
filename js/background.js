@@ -3,7 +3,6 @@ import "./backgroundUtils.js";
 
 chrome.runtime.onInstalled.addListener(({ reason, temporary }) => {
     setDefaultSettings();
-    setCSS();
 
     if (reason === "install") {
         checkPermissions();
