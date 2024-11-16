@@ -44,7 +44,7 @@ chrome.storage.onChanged.addListener(changes => {
 });
 
 async function setCSS(...forums) {
-    forums = forums.length ? forums : FORUMS;
+    forums = forums[0] ? forums : FORUMS;
 
     for (const forum of forums) {
         console.time(`setCSS ${ forum }`);
