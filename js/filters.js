@@ -134,7 +134,7 @@
 
     buttons.save.addEventListener("click", event => {
         saveEditorText();
-        FILTERS.forEach(value => editors[value].clearHistory());
+        renderEditors();
         buttons.save.disabled = true;
     });
 
@@ -222,8 +222,8 @@
     }
 
     function saveEditorText() {
-        FILTERS.forEach(value => cache[value] = getEditorText(editors[value]));
-        chrome.storage.local.set(Object.fromEntries(FILTERS.flatMap(value => ([[value, cache[value] === "" ? [] : cache[value].split("\n").map(id => parseInt(id, 10))], [`${ value }Count`, cache[value] === "" ? 0 : cache[value].split("\n").length]]))));
+        FILTERS.forEach(value => settings[value] = [...new Set(getEditorText(editors[value]).split("\n").map(id => parseInt(id, 10)).filter(Boolean))]);
+        chrome.storage.local.set(Object.fromEntries(FILTERS.flatMap(value => ([[value, settings[value]], [`${ value }Count`, settings[value].length]]))));
     }
 
     function getEditorText(editor) {

@@ -37,6 +37,9 @@
                 "settingAvatarButton",
                 "settingSignatureButton",
             ]);
+            settings.user = new Set(settings[`${ forum }User`]);
+            settings.avatar = new Set(settings[`${ forum }Avatar`]);
+            settings.signature = new Set(settings[`${ forum }Signature`]);
 
             messages.forEach((elem, i) => {
                 // no report and no edit
@@ -76,18 +79,15 @@
             }
 
             if (settings["settingUserButton"]) {
-                const isBlocked = settings[`${ forum }User`].includes(userId);
-                buttonArray.push(BASE.userButton(userId, isBlocked));
+                buttonArray.push(BASE.userButton(userId, settings.user.has(userId)));
             }
 
             if (settings["settingAvatarButton"]) {
-                const isBlocked = settings[`${ forum }Avatar`].includes(userId);
-                buttonArray.push(BASE.avatarButton(userId, isBlocked));
+                buttonArray.push(BASE.avatarButton(userId, settings.avatar.has(userId)));
             }
 
             if (settings["settingSignatureButton"]) {
-                const isBlocked = settings[`${ forum }Signature`].includes(userId);
-                buttonArray.push(BASE.signatureButton(userId, isBlocked));
+                buttonArray.push(BASE.signatureButton(userId, settings.signature.has(userId)));
             }
 
             return buttonArray;
@@ -99,13 +99,14 @@
                     case `${ forum }User`:
                     case `${ forum }Avatar`:
                     case `${ forum }Signature`:
-                        settings[key] = newValue;
-                        settings[`${ key }Count`] = newValue.length;
-
+                        // https://issues.chromium.org/issues/40321352
                         const oldSet = new Set(oldValue);
                         const newSet = new Set(newValue);
                         toggleButtonTexts(true, key, [...newSet.difference(oldSet)]);
                         toggleButtonTexts(false, key, [...oldSet.difference(newSet)]);
+
+                        settings[key.replace(forum, "").toLowerCase()] = newSet;
+                        settings[`${ key }Count`] = newSet.size;
                 }
             });
         });
@@ -155,17 +156,22 @@
 
         const userId = parseInt(event.currentTarget.dataset.userId, 10);
         const type = event.currentTarget.getAttribute("blocktype");
-        const isBlocked = settings[type].includes(userId);
+        const key = type.replace(forum, "").toLowerCase();
+        const isBlocked = settings[key].has(userId);
 
         if (!isUserIdValid(userId)) {
             console.log(`user ID is not a number: ${ userId }`);
             return;
         }
 
-        !isBlocked
-            ? settings[type].push(userId)
-            : settings[type].splice(settings[type].indexOf(userId), 1);
+        if (isBlocked) {
+            settings[key].delete(userId);
+        }
+        else {
+            settings[key].add(userId);
+        }
 
+        settings[type] = [...settings[key]];
         chrome.storage.local.set({
             [type]: settings[type],
             [`${ type }Count`]: settings[type].length,
