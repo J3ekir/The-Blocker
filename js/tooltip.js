@@ -5,6 +5,7 @@
         `${ forum }Notes`,
         "settingNotes",
     ]);
+    settings.notes = new Map(Object.entries(settings[`${ forum }Notes`]).map(([key, value]) => [parseInt(key, 10), value]));
     const NOTES = settings["settingNotes"];
 
     waitForElement("body").then(elem => {
@@ -59,7 +60,7 @@
         if (isSelfNote(userId)) { return; }
 
         qs(elem, ".memberTooltip-info").before(
-            BASE.tooltipNote(userId, settings[`${ forum }Notes`]),
+            BASE.tooltipNote(userId, settings.notes.get(userId)),
             BASE.tooltipSeperator
         );
     }
@@ -70,7 +71,7 @@
         if (isSelfNote(userId)) { return; }
 
         qs(".memberHeader-buttons").append(
-            BASE.tooltipNote(userId, settings[`${ forum }Notes`]),
+            BASE.tooltipNote(userId, settings.notes.get(userId)),
         );
     }
 
@@ -85,14 +86,14 @@
         const note = event.currentTarget.previousElementSibling.value;
         const userId = parseInt(event.currentTarget.parentElement.dataset.userId, 10);
 
-        settings[`${ forum }Notes`][userId] = note;
+        settings.notes.set(userId, note);
 
         if (!note.length) {
-            delete settings[`${ forum }Notes`][userId];
+            settings.notes.delete(userId);
         }
 
         chrome.storage.local.set({
-            [`${ forum }Notes`]: settings[`${ forum }Notes`],
+            [`${ forum }Notes`]: Object.fromEntries(settings.notes),
         });
 
         chrome.runtime.sendMessage({
@@ -126,25 +127,21 @@
     chrome.storage.onChanged.addListener(changes => {
         Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
             if (key === `${ forum }Notes`) {
-                // it might be one of three things
-                // 1) a new key and value added => new keys are more
-                // 2) an existing key and value deleted => new keys are less
-                // 3) an existing key's value changed => new keys are the same
+                // https://issues.chromium.org/issues/40321352
+                const oldNotes = settings.notes;
+                settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));
 
-                settings[`${ forum }Notes`] = newValue;
-
-                const oldKeys = Object.keys(oldValue);
-                const newKeys = Object.keys(newValue);
-                const keys = oldKeys.length < newKeys.length ? newKeys : oldKeys;
-                const userId = keys.find(key => newValue[key] !== oldValue[key]);
-                setNewNoteValue(newValue, userId);
+                const allUserIds = new Set([...oldNotes.keys(), ...settings.notes.keys()]);
+                allUserIds.forEach(userId => {
+                    setNewNoteValue(userId, settings.notes.get(userId));
+                });
             }
         });
     });
 
-    function setNewNoteValue(newValue, userId) {
+    function setNewNoteValue(userId, note) {
         qsa(`.memberTooltip-note[data-user-id="${ userId }"]>.input`).forEach(elem => {
-            elem.value = newValue[userId] || "";
+            elem.value = note || "";
         });
     }
 

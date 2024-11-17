@@ -222,10 +222,10 @@ self.BASE = self.BASE || new Proxy(
             return element;
         },
 
-        tooltipNote(userId, notes) {
+        tooltipNote(userId, note) {
             const element = BASE.baseTooltipNote;
             element.setAttribute("data-user-id", userId);
-            element.firstElementChild.value = notes[userId] || "";
+            element.firstElementChild.value = note || "";
             element.firstElementChild.addEventListener("keydown", noteEnterHandler);
             element.lastElementChild.addEventListener("click", noteSaveHandler);
 

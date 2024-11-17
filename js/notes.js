@@ -6,6 +6,7 @@
         `${ forum }Notes`,
         "hideDoubleTapHint",
     ]);
+    settings.notes = new Map(Object.entries(settings[`${ forum }Notes`]).map(([key, value]) => [parseInt(key, 10), value]));
 
     var cache = "";
 
@@ -46,12 +47,12 @@
                 }
 
                 if (stream.match(/\d+/, false)) {
-                    lastUserId = stream.match(/\d+/)[0];
+                    lastUserId = parseInt(stream.match(/\d+/)[0], 10);
                     return "keyword";
                 }
 
                 const note = stream.match(/[ ].+/)[0];
-                if (note.trim() !== settings[`${ forum }Notes`][lastUserId]) {
+                if (note.trim() !== settings.notes.get(lastUserId)) {
                     return "line-cm-strong";
                 }
 
@@ -87,7 +88,7 @@
         Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
             switch (key) {
                 case `${ forum }Notes`:
-                    settings[key] = newValue;
+                    settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));
                     renderNotes();
             }
         });
@@ -163,9 +164,9 @@
     });
 
     buttons.export.addEventListener("click", event => {
-        if (Object.keys(settings[`${ forum }Notes`]).length === 0) { return; }
+        if (settings.notes.size === 0) { return; }
 
-        const object = { notlar: settings[`${ forum }Notes`] };
+        const object = { notlar: Object.fromEntries(settings.notes) };
         const text = JSON.stringify(object, null, 4);
 
         const now = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
@@ -200,7 +201,7 @@
                 const filters = JSON.parse(fileContent);
 
                 chrome.storage.local.set({
-                    [`${ forum }Notes`]: { ...settings[`${ forum }Notes`], ...filters["notlar"] },
+                    [`${ forum }Notes`]: { ...Object.fromEntries(settings.notes), ...filters["notlar"] },
                 });
             }
             catch (error) {
@@ -216,7 +217,7 @@
     function renderNotes() {
         const lines = [];
         const cacheLines = [];
-        const notes = Object.entries(settings[`${ forum }Notes`]);
+        const notes = [...settings.notes.entries()].map(([userId, note]) => [userId.toString(), note]);
         const maxUserIdLength = notes.length && notes.reduce((prev, curr) => (prev && prev[0].length > curr[0].length ? prev : curr))[0].length;
 
         notes.forEach(([userId, note]) => {
@@ -237,18 +238,18 @@
     function saveEditorText() {
         const text = getEditorText();
         const lines = text.split("\n");
-        const notes = {};
+        const notes = new Map();
 
         lines.forEach(elem => {
             const match = /^(\d+) (.+)$/gm.exec(elem);
 
             if (match !== null) {
-                notes[parseInt(match[1], 10)] = match[2];
+                notes.set(parseInt(match[1], 10), match[2]);
             }
         });
 
         chrome.storage.local.set({
-            [`${ forum }Notes`]: notes,
+            [`${ forum }Notes`]: Object.fromEntries(notes),
         });
     }
 
