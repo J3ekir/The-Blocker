@@ -2,10 +2,13 @@
     const isMac = window.navigator.userAgent.indexOf("Mac OS") !== -1;
     const isMobile = /\bMobile\b/.test(window.navigator.userAgent);
     const forum = parent.document.documentElement.dataset.forum;
+    const userKey = `${ forum }User`;
+    const avatarKey = `${ forum }Avatar`;
+    const signatureKey = `${ forum }Signature`;
     const cache = {
-        [`${ forum }User`]: "",
-        [`${ forum }Avatar`]: "",
-        [`${ forum }Signature`]: "",
+        [userKey]: "",
+        [avatarKey]: "",
+        [signatureKey]: "",
     };
     const FILTERS = Object.keys(cache);
     const settings = await chrome.storage.local.get([
@@ -64,7 +67,7 @@
     FILTERS.forEach(value => editors[value].on("beforeChange", beforeEditorChanged));
     FILTERS.forEach(value => editors[value].on("changes", editorChanged));
 
-    editors[`${ forum }User`].focus();
+    editors[userKey].focus();
 
     chrome.storage.onChanged.addListener(changes => {
         Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
@@ -148,9 +151,9 @@
         if (FILTERS.every(value => settings[value].length === 0)) { return; }
 
         const object = {};
-        object["kullanıcı"] = settings[`${ forum }User`];
-        object["avatar"] = settings[`${ forum }Avatar`];
-        object["imza"] = settings[`${ forum }Signature`];
+        object["kullanıcı"] = settings[userKey];
+        object["avatar"] = settings[avatarKey];
+        object["imza"] = settings[signatureKey];
         const text = JSON.stringify(object, null, 4);
 
         const now = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
@@ -185,9 +188,9 @@
                 const filters = JSON.parse(fileContent);
 
                 chrome.storage.local.set({
-                    [`${ forum }User`]: [...new Set([...settings[`${ forum }User`], ...filters["kullanıcı"]])],
-                    [`${ forum }Avatar`]: [...new Set([...settings[`${ forum }Avatar`], ...filters["avatar"]])],
-                    [`${ forum }Signature`]: [...new Set([...settings[`${ forum }Signature`], ...filters["imza"]])],
+                    [userKey]: [...new Set([...settings[userKey], ...filters["kullanıcı"]])],
+                    [avatarKey]: [...new Set([...settings[avatarKey], ...filters["avatar"]])],
+                    [signatureKey]: [...new Set([...settings[signatureKey], ...filters["imza"]])],
                 });
             }
             catch (error) {

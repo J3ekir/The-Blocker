@@ -1,6 +1,8 @@
 (async () => {
     const isLoggedIn = document.documentElement.getAttribute("data-logged-in") === "true";
-
+    const userKey = `${ forum }User`;
+    const avatarKey = `${ forum }Avatar`;
+    const signatureKey = `${ forum }Signature`;
     var settings;
 
     waitForElement(".blockMessage--none").then(elem => {
@@ -27,19 +29,19 @@
             }
 
             settings = await chrome.storage.local.get([
-                `${ forum }User`,
-                `${ forum }Avatar`,
-                `${ forum }Signature`,
-                `${ forum }UserCount`,
-                `${ forum }AvatarCount`,
-                `${ forum }SignatureCount`,
+                userKey,
+                avatarKey,
+                signatureKey,
+                `${ userKey }Count`,
+                `${ avatarKey }Count`,
+                `${ signatureKey }Count`,
                 "settingUserButton",
                 "settingAvatarButton",
                 "settingSignatureButton",
             ]);
-            settings.user = new Set(settings[`${ forum }User`]);
-            settings.avatar = new Set(settings[`${ forum }Avatar`]);
-            settings.signature = new Set(settings[`${ forum }Signature`]);
+            settings.user = new Set(settings[userKey]);
+            settings.avatar = new Set(settings[avatarKey]);
+            settings.signature = new Set(settings[signatureKey]);
 
             messages.forEach((elem, i) => {
                 // no report and no edit
@@ -96,9 +98,9 @@
         chrome.storage.onChanged.addListener(changes => {
             Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
                 switch (key) {
-                    case `${ forum }User`:
-                    case `${ forum }Avatar`:
-                    case `${ forum }Signature`:
+                    case userKey:
+                    case avatarKey:
+                    case signatureKey:
                         // https://issues.chromium.org/issues/40321352
                         const oldSet = new Set(oldValue);
                         const newSet = new Set(newValue);
