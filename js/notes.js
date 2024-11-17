@@ -2,11 +2,12 @@
     const isMac = window.navigator.userAgent.indexOf("Mac OS") !== -1;
     const isMobile = /\bMobile\b/.test(window.navigator.userAgent);
     const forum = parent.document.documentElement.dataset.forum;
+    const notesKey = `${ forum }Notes`;
     const settings = await chrome.storage.local.get([
-        `${ forum }Notes`,
+        notesKey,
         "hideDoubleTapHint",
     ]);
-    settings.notes = new Map(Object.entries(settings[`${ forum }Notes`]).map(([key, value]) => [parseInt(key, 10), value]));
+    settings.notes = new Map(Object.entries(settings[notesKey]).map(([key, value]) => [parseInt(key, 10), value]));
 
     var cache = "";
 
@@ -87,7 +88,7 @@
     chrome.storage.onChanged.addListener(changes => {
         Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
             switch (key) {
-                case `${ forum }Notes`:
+                case notesKey:
                     settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));
                     renderNotes();
             }
@@ -201,7 +202,7 @@
                 const filters = JSON.parse(fileContent);
 
                 chrome.storage.local.set({
-                    [`${ forum }Notes`]: { ...Object.fromEntries(settings.notes), ...filters["notlar"] },
+                    [notesKey]: { ...Object.fromEntries(settings.notes), ...filters["notlar"] },
                 });
             }
             catch (error) {
@@ -249,7 +250,7 @@
         });
 
         chrome.storage.local.set({
-            [`${ forum }Notes`]: Object.fromEntries(notes),
+            [notesKey]: Object.fromEntries(notes),
         });
     }
 

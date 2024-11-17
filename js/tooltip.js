@@ -1,11 +1,11 @@
 (async () => {
     const isLoggedIn = document.documentElement.getAttribute("data-logged-in") === "true";
-
+    const notesKey = `${ forum }Notes`;
     const settings = await chrome.storage.local.get([
-        `${ forum }Notes`,
+        notesKey,
         "settingNotes",
     ]);
-    settings.notes = new Map(Object.entries(settings[`${ forum }Notes`]).map(([key, value]) => [parseInt(key, 10), value]));
+    settings.notes = new Map(Object.entries(settings[notesKey]).map(([key, value]) => [parseInt(key, 10), value]));
     const NOTES = settings["settingNotes"];
 
     waitForElement("body").then(elem => {
@@ -93,7 +93,7 @@
         }
 
         chrome.storage.local.set({
-            [`${ forum }Notes`]: Object.fromEntries(settings.notes),
+            [notesKey]: Object.fromEntries(settings.notes),
         });
 
         chrome.runtime.sendMessage({
@@ -126,7 +126,7 @@
 
     chrome.storage.onChanged.addListener(changes => {
         Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-            if (key === `${ forum }Notes`) {
+            if (key === notesKey) {
                 // https://issues.chromium.org/issues/40321352
                 const oldNotes = settings.notes;
                 settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));
