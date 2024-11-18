@@ -104,3 +104,5 @@ self.defaultSettings = {
     ...storage.defaultSettings,
     ...Object.fromEntries(FORUMS.flatMap(forum => Object.entries(storage.defaultForumSettings).map(([key, value]) => ([`${ forum }${ key }`, value])))),
 };
+
+self.defaultSettingsKeys = Object.keys(defaultSettings);

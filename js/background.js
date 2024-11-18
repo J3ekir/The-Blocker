@@ -14,10 +14,8 @@ chrome.runtime.onMessage.addListener(({ type, ...params }, sender, sendResponse)
 });
 
 function setDefaultSettings() {
-    const keys = Object.keys(defaultSettings);
-
-    chrome.storage.local.get(keys).then(settings => {
-        const defaultValues = Object.fromEntries(keys.map(key => [key, settings[key] ?? defaultSettings[key]]));
+    chrome.storage.local.get(defaultSettingsKeys).then(settings => {
+        const defaultValues = Object.fromEntries(defaultSettingsKeys.map(key => [key, settings[key] ?? defaultSettings[key]]));
         chrome.storage.local.set(defaultValues);
     });
 }
