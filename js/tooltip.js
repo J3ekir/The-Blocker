@@ -1,5 +1,4 @@
 (async () => {
-    const isLoggedIn = document.documentElement.getAttribute("data-logged-in") === "true";
     const notesKey = `${ forum }Notes`;
     const settings = await chrome.storage.local.get([
         notesKey,
@@ -57,7 +56,7 @@
 
     function addNote(elem, userId) {
         if (hasNote(elem)) { return; }
-        if (isSelfNote(userId)) { return; }
+        if (isSelf(userId)) { return; }
 
         qs(elem, ".memberTooltip-info").before(
             BASE.tooltipNote(userId, settings.notes.get(userId)),
@@ -68,7 +67,7 @@
     function addProfileNote() {
         const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId, 10);
 
-        if (isSelfNote(userId)) { return; }
+        if (isSelf(userId)) { return; }
 
         qs(".memberHeader-buttons").append(
             BASE.tooltipNote(userId, settings.notes.get(userId)),
@@ -118,10 +117,6 @@
 
     function hasNote(elem) {
         return qs(elem, ".memberTooltip .memberTooltip-note");
-    }
-
-    function isSelfNote(userId) {
-        return isLoggedIn && userId === parseInt(qs(".p-navgroup-link--user>.avatar").dataset.userId, 10);
     }
 
     chrome.storage.onChanged.addListener(changes => {

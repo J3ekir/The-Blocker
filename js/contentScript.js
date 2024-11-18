@@ -1,5 +1,4 @@
 (async () => {
-    const isLoggedIn = document.documentElement.getAttribute("data-logged-in") === "true";
     const userKey = `${ forum }User`;
     const avatarKey = `${ forum }Avatar`;
     const signatureKey = `${ forum }Signature`;
@@ -66,7 +65,7 @@
         function makeBlockButtons(userId) {
             const buttonArray = [];
 
-            if (!userId || isSelfBlock(userId)) {
+            if (!userId || isSelf(userId)) {
                 buttonArray.push(
                     BASE.baseUserButton,
                     BASE.baseAvatarButton,
@@ -181,10 +180,6 @@
 
         console.log(`user ID: ${ userId }, ${ type.replace(forum, "") } ${ !isBlocked ? "blocked" : "unblocked" }`);
     };
-
-    function isSelfBlock(userId) {
-        return isLoggedIn && userId === parseInt(qs(".p-navgroup-link--user>.avatar").dataset.userId, 10);
-    }
 
     function isUserIdValid(userId) {
         return userId && /^\d+$/.test(userId);
