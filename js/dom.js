@@ -1,16 +1,8 @@
-function qs(a, b) {
-    return typeof a === "string"
-        ? document.querySelector(a)
-        : a.querySelector?.(b);
-};
+self.qs = (a, b) => typeof a === "string" ? document.querySelector(a) : a.querySelector?.(b);
 
-function qsa(a, b) {
-    return typeof a === "string"
-        ? document.querySelectorAll(a)
-        : a.querySelectorAll?.(b);
-};
+self.qsa = (a, b) => typeof a === "string" ? document.querySelectorAll(a) : a.querySelectorAll?.(b);
 
-function waitForElement(selector) {
+self.waitForElement = selector => {
     return new Promise(resolve => {
         const elem = qs(selector);
         if (elem) { return resolve(elem); }
@@ -23,4 +15,4 @@ function waitForElement(selector) {
         })
             .observe(document, { childList: true, subtree: true });
     });
-}
+};
