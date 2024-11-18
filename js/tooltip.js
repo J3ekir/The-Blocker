@@ -159,19 +159,4 @@
                 .observe(elem, { childList: true, subtree: true });
         });
     }
-
-    function waitForElement(selector) {
-        return new Promise(resolve => {
-            const elem = qs(selector);
-            if (elem) { return resolve(elem); }
-            new MutationObserver((_, observer) => {
-                const elem = qs(selector);
-                if (elem) {
-                    observer.disconnect();
-                    return resolve(elem);
-                }
-            })
-                .observe(document, { childList: true, subtree: true });
-        });
-    }
 })();

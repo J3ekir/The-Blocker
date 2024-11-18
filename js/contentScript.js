@@ -189,19 +189,4 @@
     function isUserIdValid(userId) {
         return userId && /^\d+$/.test(userId);
     }
-
-    function waitForElement(selector) {
-        return new Promise(resolve => {
-            const elem = qs(selector);
-            if (elem) { return resolve(elem); }
-            new MutationObserver((_, observer) => {
-                const elem = qs(selector);
-                if (elem) {
-                    observer.disconnect();
-                    return resolve(elem);
-                }
-            })
-                .observe(document, { childList: true, subtree: true });
-        });
-    }
 })();
