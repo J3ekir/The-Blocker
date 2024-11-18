@@ -9,33 +9,22 @@ chrome.runtime.onInstalled.addListener(({ reason, temporary }) => {
     }
 });
 
-chrome.runtime.onMessage.addListener(({ type, ...params }, sender, sendResponse) => {
-    self[type](sender.tab.id, params);
-});
+chrome.runtime.onMessage.addListener(({ type, ...params }, sender, sendResponse) => self[type](sender.tab.id, params));
 
 function setDefaultSettings() {
-    chrome.storage.local.get(defaultSettingsKeys).then(settings => {
-        const defaultValues = Object.fromEntries(defaultSettingsKeys.map(key => [key, settings[key] ?? defaultSettings[key]]));
-        chrome.storage.local.set(defaultValues);
-    });
+    chrome.storage.local.get(defaultSettingsKeys).then(settings => chrome.storage.local.set(Object.fromEntries(defaultSettingsKeys.map(key => [key, settings[key] ?? defaultSettings[key]]))));
 }
 
 function checkPermissions() {
-    chrome.permissions.contains({ origins }).then(granted => {
-        if (!granted) {
-            chrome.tabs.create({ url: `${ chrome.runtime.getURL("options.html") }#settings.html` });
-        }
-    });
+    chrome.permissions.contains({ origins }).then(granted => !granted && chrome.tabs.create({ url: `${ chrome.runtime.getURL("options.html") }#settings.html` }));
 }
 
 chrome.storage.onChanged.addListener(changes => {
-    const keys = Object.keys(changes);
     let setCssCalled = false;
-
-    keys.forEach(key => {
+    Object.keys(changes).forEach(key => {
         if (!setCssCalled && SET_CSS_TRIGGER_KEYS.includes(key)) {
-            setCSS(FORUMS.find(forum => key.startsWith(forum)));
             setCssCalled = true;
+            setCSS(FORUMS.find(forum => key.startsWith(forum)));
         }
     });
 });
