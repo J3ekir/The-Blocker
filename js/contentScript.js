@@ -120,7 +120,7 @@
 		}
 
 		function addBlockButtonEventListeners(elem) {
-			if (!elem.matches(".menu[data-menu-builder='actionBar']")) { return; }
+			if (!elem.matches?.(".menu[data-menu-builder='actionBar']")) { return; }
 
 			qsa(elem, "[blocktype]").forEach(elem => {
 				elem.addEventListener("click", blockHandler);
@@ -140,11 +140,7 @@
 			waitForElement("body").then(elem => {
 				new MutationObserver(async mutationList => {
 					mutationList.forEach(mutation => {
-						mutation.addedNodes.forEach(elem => {
-							if (elem.nodeType === Node.ELEMENT_NODE) {
-								addBlockButtonEventListeners(elem);
-							}
-						});
+						mutation.addedNodes.forEach(elem => addBlockButtonEventListeners(elem));
 					});
 				})
 					.observe(elem, { childList: true });
