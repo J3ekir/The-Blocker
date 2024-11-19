@@ -58,7 +58,7 @@
 
 	function addNote(elem, userId) {
 		if (hasNote(elem)) { return; }
-		if (isSelf(userId)) { return; }
+		if (isSelfUserId(userId)) { return; }
 
 		qs(elem, ".memberTooltip-info").before(
 			BASE.tooltipNote(userId, settings.notes.get(userId)),
@@ -67,7 +67,7 @@
 	}
 
 	function addProfileNote(userId) {
-		if (isSelf(userId)) { return; }
+		if (isSelfUserId(userId)) { return; }
 
 		qs(".memberHeader-buttons").append(
 			BASE.tooltipNote(userId, settings.notes.get(userId)),

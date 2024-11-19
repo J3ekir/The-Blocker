@@ -65,7 +65,7 @@
 		function makeBlockButtons(userId) {
 			const buttonArray = [];
 
-			if (!userId || isSelf(userId)) {
+			if (!userId || isSelfUserId(userId)) {
 				buttonArray.push(
 					BASE.baseUserButton,
 					BASE.baseAvatarButton,
