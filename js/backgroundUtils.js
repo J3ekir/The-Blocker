@@ -1,32 +1,32 @@
-self.injectCSS = (tabId, { forum }) => {
+self.injectCSS = ({ tab }, { forum }) => {
     chrome.storage.local.get(`${ forum }CSS`).then(settings => {
         chrome.scripting.insertCSS({
-            target: { tabId },
+            target: { tabId: tab.id },
             origin: "AUTHOR",
             css: settings[`${ forum }CSS`],
         });
     });
 };
 
-self.insertCssString = (tabId, { css }) => {
+self.insertCssString = ({ tab }, { css }) => {
     chrome.scripting.insertCSS({
-        target: { tabId },
+        target: { tabId: tab.id },
         origin: "USER",
         css,
     });
 };
 
-self.removeCssString = (tabId, { css }) => {
+self.removeCssString = ({ tab }, { css }) => {
     chrome.scripting.removeCSS({
-        target: { tabId },
+        target: { tabId: tab.id },
         origin: "USER",
         css,
     });
 };
 
-self.noteSavedMessage = (tabId, { message }) => {
+self.noteSavedMessage = ({ tab }, { message }) => {
     chrome.scripting.executeScript({
-        target: { tabId },
+        target: { tabId: tab.id },
         injectImmediately: true,
         world: "MAIN",
         args: [message],
