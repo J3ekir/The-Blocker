@@ -12,8 +12,9 @@
     });
 
     waitForElement(".memberHeader-buttons").then(elem => {
+        const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId, 10);
         if (NOTES) {
-            addProfileNote();
+            addProfileNote(userId);
         }
     });
 
@@ -64,9 +65,7 @@
         );
     }
 
-    function addProfileNote() {
-        const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId, 10);
-
+    function addProfileNote(userId) {
         if (isSelf(userId)) { return; }
 
         qs(".memberHeader-buttons").append(
