@@ -1,92 +1,92 @@
 :root {
-    --brightness: light-dark(black, white);
+	--brightness: light-dark(black, white);
 
-    --gray-05: hsl(240 19 05);
-    --gray-10: hsl(240 18 10);
-    --gray-15: hsl(240 17 15);
-    --gray-20: hsl(240 16 20);
-    --gray-25: hsl(240 15 25);
-    --gray-30: hsl(240 14 30);
-    --gray-35: hsl(240 13 35);
-    --gray-40: hsl(240 12 40);
-    --gray-45: hsl(240 11 45);
-    --gray-50: hsl(240 10 50);
-    --gray-55: hsl(240 09 55);
-    --gray-60: hsl(240 08 60);
-    --gray-65: hsl(240 07 65);
-    --gray-70: hsl(240 06 70);
-    --gray-75: hsl(240 05 75);
-    --gray-80: hsl(240 04 80);
-    --gray-85: hsl(240 03 85);
-    --gray-90: hsl(240 02 90);
-    --gray-95: hsl(240 01 95);
+	--gray-05: hsl(240 19 05);
+	--gray-10: hsl(240 18 10);
+	--gray-15: hsl(240 17 15);
+	--gray-20: hsl(240 16 20);
+	--gray-25: hsl(240 15 25);
+	--gray-30: hsl(240 14 30);
+	--gray-35: hsl(240 13 35);
+	--gray-40: hsl(240 12 40);
+	--gray-45: hsl(240 11 45);
+	--gray-50: hsl(240 10 50);
+	--gray-55: hsl(240 09 55);
+	--gray-60: hsl(240 08 60);
+	--gray-65: hsl(240 07 65);
+	--gray-70: hsl(240 06 70);
+	--gray-75: hsl(240 05 75);
+	--gray-80: hsl(240 04 80);
+	--gray-85: hsl(240 03 85);
+	--gray-90: hsl(240 02 90);
+	--gray-95: hsl(240 01 95);
 
-    --blue-05: hsl(220 99 05);
-    --blue-10: hsl(220 98 10);
-    --blue-15: hsl(220 97 15);
-    --blue-20: hsl(220 96 20);
-    --blue-25: hsl(220 95 25);
-    --blue-30: hsl(220 94 30);
-    --blue-35: hsl(220 93 35);
-    --blue-40: hsl(220 92 40);
-    --blue-45: hsl(220 91 45);
-    --blue-50: hsl(220 90 50);
-    --blue-55: hsl(220 89 55);
-    --blue-60: hsl(220 88 60);
-    --blue-65: hsl(220 87 65);
-    --blue-70: hsl(220 86 70);
-    --blue-75: hsl(220 85 75);
-    --blue-80: hsl(220 84 80);
-    --blue-85: hsl(220 83 85);
-    --blue-90: hsl(220 82 90);
-    --blue-95: hsl(220 81 95);
+	--blue-05: hsl(220 99 05);
+	--blue-10: hsl(220 98 10);
+	--blue-15: hsl(220 97 15);
+	--blue-20: hsl(220 96 20);
+	--blue-25: hsl(220 95 25);
+	--blue-30: hsl(220 94 30);
+	--blue-35: hsl(220 93 35);
+	--blue-40: hsl(220 92 40);
+	--blue-45: hsl(220 91 45);
+	--blue-50: hsl(220 90 50);
+	--blue-55: hsl(220 89 55);
+	--blue-60: hsl(220 88 60);
+	--blue-65: hsl(220 87 65);
+	--blue-70: hsl(220 86 70);
+	--blue-75: hsl(220 85 75);
+	--blue-80: hsl(220 84 80);
+	--blue-85: hsl(220 83 85);
+	--blue-90: hsl(220 82 90);
+	--blue-95: hsl(220 81 95);
 
-    --body-bg: light-dark(var(--gray-95), var(--gray-10));
-    --double-tap-hint: light-dark(var(--gray-05), var(--gray-95));
-    --double-tap-hint-bg: light-dark(var(--blue-70), var(--blue-30));
-    --btn: light-dark(var(--gray-95), var(--gray-05));
-    --btn-bg: light-dark(var(--blue-50), var(--blue-70));
-    --btn-hover-bg: color-mix(in srgb, var(--btn-bg) 80%, var(--brightness));
-    --btn-disabled: light-dark(var(--gray-05), var(--gray-95));
-    --btn-disabled-bg: light-dark(var(--gray-80), var(--gray-30));
-    --title: light-dark(var(--blue-05), var(--blue-70));
-    --nav-border: light-dark(var(--gray-05), var(--gray-40));
-    --tab-btn: light-dark(var(--gray-05), var(--gray-95));
-    --tab-btn-active: light-dark(var(--blue-50), var(--blue-70));
-    --tab-btn-inactive-bg: light-dark(var(--gray-90), var(--gray-20));
-    --tab-btn-inactive-border: light-dark(var(--gray-80), var(--gray-30));
-    --stats: light-dark(var(--blue-05), var(--blue-75));
-    --text: light-dark(var(--gray-05), var(--gray-95));
-    --hr: light-dark(var(--gray-50), var(--gray-25));
+	--body-bg: light-dark(var(--gray-95), var(--gray-10));
+	--double-tap-hint: light-dark(var(--gray-05), var(--gray-95));
+	--double-tap-hint-bg: light-dark(var(--blue-70), var(--blue-30));
+	--btn: light-dark(var(--gray-95), var(--gray-05));
+	--btn-bg: light-dark(var(--blue-50), var(--blue-70));
+	--btn-hover-bg: color-mix(in srgb, var(--btn-bg) 80%, var(--brightness));
+	--btn-disabled: light-dark(var(--gray-05), var(--gray-95));
+	--btn-disabled-bg: light-dark(var(--gray-80), var(--gray-30));
+	--title: light-dark(var(--blue-05), var(--blue-70));
+	--nav-border: light-dark(var(--gray-05), var(--gray-40));
+	--tab-btn: light-dark(var(--gray-05), var(--gray-95));
+	--tab-btn-active: light-dark(var(--blue-50), var(--blue-70));
+	--tab-btn-inactive-bg: light-dark(var(--gray-90), var(--gray-20));
+	--tab-btn-inactive-border: light-dark(var(--gray-80), var(--gray-30));
+	--stats: light-dark(var(--blue-05), var(--blue-75));
+	--text: light-dark(var(--gray-05), var(--gray-95));
+	--hr: light-dark(var(--gray-50), var(--gray-25));
 
-    --cm-error: hsl(0 100 60);
-    --cm-error-bg: color-mix(in srgb, var(--cm-error) 50%, transparent);
-    --cm-selected: light-dark(var(--gray-65), var(--gray-35));
-    --cm-selected-focused: light-dark(var(--blue-65), var(--blue-35));
-    --cm-scrollbar: light-dark(var(--gray-55), var(--gray-45));
-    --cm-scrollbar-hover: color-mix(in srgb, var(--cm-scrollbar) 80%, var(--brightness));
-    --cm-bg: light-dark(var(--gray-95), var(--gray-05));
-    --cm-border: light-dark(var(--gray-30), var(--body-bg));
-    --cm-cursor: light-dark(var(--gray-05), var(--gray-95));
-    --cm-gutter-bg: light-dark(var(--gray-80), var(--gray-20));
-    --cm-gutter-border: light-dark(var(--gray-90), var(--gray-10));
-    --cm-line: light-dark(var(--gray-10), var(--gray-90));
-    --cm-active-line-bg: var(--cm-gutter-bg);
-    --cm-line-number: light-dark(var(--gray-20), var(--gray-80));
-    --cm-keyword: light-dark(var(--blue-40), var(--blue-70));
+	--cm-error: hsl(0 100 60);
+	--cm-error-bg: color-mix(in srgb, var(--cm-error) 50%, transparent);
+	--cm-selected: light-dark(var(--gray-65), var(--gray-35));
+	--cm-selected-focused: light-dark(var(--blue-65), var(--blue-35));
+	--cm-scrollbar: light-dark(var(--gray-55), var(--gray-45));
+	--cm-scrollbar-hover: color-mix(in srgb, var(--cm-scrollbar) 80%, var(--brightness));
+	--cm-bg: light-dark(var(--gray-95), var(--gray-05));
+	--cm-border: light-dark(var(--gray-30), var(--body-bg));
+	--cm-cursor: light-dark(var(--gray-05), var(--gray-95));
+	--cm-gutter-bg: light-dark(var(--gray-80), var(--gray-20));
+	--cm-gutter-border: light-dark(var(--gray-90), var(--gray-10));
+	--cm-line: light-dark(var(--gray-10), var(--gray-90));
+	--cm-active-line-bg: var(--cm-gutter-bg);
+	--cm-line-number: light-dark(var(--gray-20), var(--gray-80));
+	--cm-keyword: light-dark(var(--blue-40), var(--blue-70));
 }
 
 :root:is(:not([theme]), [theme="system"]) {
-    @media (prefers-color-scheme: light) {
-        color-scheme: light;
-    }
-    @media (prefers-color-scheme: dark) {
-        color-scheme: dark;
-    }
+	@media (prefers-color-scheme: light) {
+		color-scheme: light;
+	}
+	@media (prefers-color-scheme: dark) {
+		color-scheme: dark;
+	}
 }
 :root[theme="light"] {
-    color-scheme: light;
+	color-scheme: light;
 }
 :root[theme="dark"] {
-    color-scheme: dark;
+	color-scheme: dark;
 }

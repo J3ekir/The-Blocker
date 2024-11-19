@@ -1,255 +1,255 @@
 /* https://github.com/J3ekir/The-Blocker/commit/03d6569 */
 :is(#theBlocker, .theBlocker-hide) {
-    display: none !important;
+	display: none !important;
 }
 :is(#theBlocker, .theBlocker-show) {
-    display: block !important;
+	display: block !important;
 }
 
 /****************************************** BUTTONS *******************************************/
 
 .actionBar-action {
-    &.actionBar-action--menuItem {
-        display: none !important;
-    }
-    &.actionBar-action--menuTrigger {
-        display: inline !important;
-    }
-    &.actionBar-action--report + .theBlocker-hide ~ &.actionBar-action--menuTrigger,
-    &.actionBar-action--report + &.actionBar-action--menuTrigger {
-        display: none !important;
-    }
+	&.actionBar-action--menuItem {
+		display: none !important;
+	}
+	&.actionBar-action--menuTrigger {
+		display: inline !important;
+	}
+	&.actionBar-action--report + .theBlocker-hide ~ &.actionBar-action--menuTrigger,
+	&.actionBar-action--report + &.actionBar-action--menuTrigger {
+		display: none !important;
+	}
 }
 
 a[blocktype] {
-    cursor: pointer;
-    &:not([data-user-id]) {
-        display: none;
-    }
+	cursor: pointer;
+	&:not([data-user-id]) {
+		display: none;
+	}
 }
 
 /* signature */
 @media (max-width: 480px) {
-    a[blocktype$="Signature"] {
-        display: none !important;
-    }
-    .actionBar-action.actionBar-action--report + a[blocktype$="Signature"] + .actionBar-action.actionBar-action--menuTrigger {
-        display: none !important;
-    }
+	a[blocktype$="Signature"] {
+		display: none !important;
+	}
+	.actionBar-action.actionBar-action--report + a[blocktype$="Signature"] + .actionBar-action.actionBar-action--menuTrigger {
+		display: none !important;
+	}
 }
 
 /* actionBar external */
 @media (max-width: 550px) {
-    .actionBar-action::before {
-        margin: 0 !important;
-    }
+	.actionBar-action::before {
+		margin: 0 !important;
+	}
 
-    .actionBar-action--reaction > .reaction-text {
-        display: none;
-    }
+	.actionBar-action--reaction > .reaction-text {
+		display: none;
+	}
 
-    .actionBar-action--mq,
-    .actionBar-action--tag,
-    .actionBar-action--reply,
-    .actionBar-action--mention,
-    .actionBar-action--replynoquote {
-        font-size: 0;
-        &::before {
-            font-size: 13px !important;
-        }
-    }
+	.actionBar-action--mq,
+	.actionBar-action--tag,
+	.actionBar-action--reply,
+	.actionBar-action--mention,
+	.actionBar-action--replynoquote {
+		font-size: 0;
+		&::before {
+			font-size: 13px !important;
+		}
+	}
 }
 
 /***************************************** WIDGET_TABS ****************************************/
 
 /* 
 techolay
-    11: default
-    12: old
-    13: aurora
-    16: iO
+	11: default
+	12: old
+	13: aurora
+	16: iO
 technopat
-    1: default
-    26: dark
-    34: dimension light
-    36: dimension dark
+	1: default
+	26: dark
+	34: dimension light
+	36: dimension dark
 */
 .tab-wrapper.widget-group:has(>.bottom-tabs) .block {
-    margin-bottom: 0 !important;
+	margin-bottom: 0 !important;
 }
 .tab-wrapper.widget-group:has(>.bottom-tabs:not([style-id="13"])) .tb-combine-tab-panes > .block {
-    margin-top: 20px !important;
+	margin-top: 20px !important;
 }
 .bottom-tabs {
-    margin-block: 0.5rem 20px !important;
-    border-bottom: none !important;
-    & .tabs-tab {
-        border-bottom: none !important;
-        &.is-active {
-            border-top-width: 3px !important;
-            border-top-style: solid !important;
-        }
-    }
-    &[style-id="13"] {
-        margin-top: 0 !important;
-        margin-inline: 0 !important;
-        border-radius: 0 0 13px 13px !important;
-        border: 1px solid hsl(var(--xf-borderColor)) !important;
-        @media (max-width: 650px) {
-            margin-top: 0 !important;
-            border-radius: 0 0 13px 13px !important;
-            border: 1px solid hsl(var(--xf-borderColor)) !important;
-            border-top: 1px solid var(--input-border-light) !important;
-        }
-        .tab-wrapper.widget-group:has(>&) {
-            & > :first-child {
-                margin: 0 !important;
-                @media (max-width: 650px) {
-                    margin: 0 !important;
-                    border-radius: 13px 13px 0 0 !important;
-                    border: 1px solid hsl(var(--xf-borderColor)) !important;
-                    border-bottom: 1px solid var(--input-border-light) !important;
-                }
-            }
-            & :is(.block-container, .block-header, .block-footer) {
-                border-radius: 0 !important;
-            }
-        }
-        & .hScroller-action--start {
-            border-bottom-left-radius: 12px !important;
-        }
-        & .hScroller-action--end {
-            border-bottom-right-radius: 12px !important;
-        }
-    }
-    &[style-id="11"],
-    &[style-id="12"] {
-        background: linear-gradient(0deg, hsl(var(--xf-contentHighlightBg--h), var(--xf-contentHighlightBg--s), calc(var(--xf-contentHighlightBg--l) + (var(--xf-color-adjust, 1) * 5%)), var(--xf-contentHighlightBg--a)), hsl(var(--xf-contentHighlightBg)));
-    }
-    &[style-id="1"] {
-        background: linear-gradient(0deg, #f5faff, #edf6fc) !important;
-    }
-    &[style-id="26"] {
-        background: linear-gradient(0deg, #232323, #1e1e1e) !important;
-    }
-    &[style-id="34"] {
-        background: linear-gradient(0deg, #f9f9fa, #f2f3f4) !important;
-    }
-    &[style-id="36"] {
-        background: linear-gradient(0deg, #3e444f, #4f5766) !important;
-    }
-    &[style-id="11"],
-    &[style-id="12"],
-    &[style-id="13"],
-    &[style-id="16"],
-    &[style-id="1"],
-    &[style-id="26"],
-    &[style-id="34"],
-    &[style-id="36"] {
-        border-top: 1px solid var(--input-border-light) !important;
-    }
-    :is(&[style-id="11"], &[style-id="12"], &[style-id="13"], &[style-id="1"], &[style-id="26"]) .tabs-tab {
-        padding: 3px 15px 6px !important;
-    }
-    :is(&[style-id="34"], &[style-id="36"]) .tabs-tab {
-        padding: 9px 15px 12px !important;
-    }
-    &[style-id="16"] .tabs-tab {
-        padding: 13px 12px 15px !important;
-        &.is-active {
-            border-top-width: 2px !important;
-        }
-    }
+	margin-block: 0.5rem 20px !important;
+	border-bottom: none !important;
+	& .tabs-tab {
+		border-bottom: none !important;
+		&.is-active {
+			border-top-width: 3px !important;
+			border-top-style: solid !important;
+		}
+	}
+	&[style-id="13"] {
+		margin-top: 0 !important;
+		margin-inline: 0 !important;
+		border-radius: 0 0 13px 13px !important;
+		border: 1px solid hsl(var(--xf-borderColor)) !important;
+		@media (max-width: 650px) {
+			margin-top: 0 !important;
+			border-radius: 0 0 13px 13px !important;
+			border: 1px solid hsl(var(--xf-borderColor)) !important;
+			border-top: 1px solid var(--input-border-light) !important;
+		}
+		.tab-wrapper.widget-group:has(>&) {
+			& > :first-child {
+				margin: 0 !important;
+				@media (max-width: 650px) {
+					margin: 0 !important;
+					border-radius: 13px 13px 0 0 !important;
+					border: 1px solid hsl(var(--xf-borderColor)) !important;
+					border-bottom: 1px solid var(--input-border-light) !important;
+				}
+			}
+			& :is(.block-container, .block-header, .block-footer) {
+				border-radius: 0 !important;
+			}
+		}
+		& .hScroller-action--start {
+			border-bottom-left-radius: 12px !important;
+		}
+		& .hScroller-action--end {
+			border-bottom-right-radius: 12px !important;
+		}
+	}
+	&[style-id="11"],
+	&[style-id="12"] {
+		background: linear-gradient(0deg, hsl(var(--xf-contentHighlightBg--h), var(--xf-contentHighlightBg--s), calc(var(--xf-contentHighlightBg--l) + (var(--xf-color-adjust, 1) * 5%)), var(--xf-contentHighlightBg--a)), hsl(var(--xf-contentHighlightBg)));
+	}
+	&[style-id="1"] {
+		background: linear-gradient(0deg, #f5faff, #edf6fc) !important;
+	}
+	&[style-id="26"] {
+		background: linear-gradient(0deg, #232323, #1e1e1e) !important;
+	}
+	&[style-id="34"] {
+		background: linear-gradient(0deg, #f9f9fa, #f2f3f4) !important;
+	}
+	&[style-id="36"] {
+		background: linear-gradient(0deg, #3e444f, #4f5766) !important;
+	}
+	&[style-id="11"],
+	&[style-id="12"],
+	&[style-id="13"],
+	&[style-id="16"],
+	&[style-id="1"],
+	&[style-id="26"],
+	&[style-id="34"],
+	&[style-id="36"] {
+		border-top: 1px solid var(--input-border-light) !important;
+	}
+	:is(&[style-id="11"], &[style-id="12"], &[style-id="13"], &[style-id="1"], &[style-id="26"]) .tabs-tab {
+		padding: 3px 15px 6px !important;
+	}
+	:is(&[style-id="34"], &[style-id="36"]) .tabs-tab {
+		padding: 9px 15px 12px !important;
+	}
+	&[style-id="16"] .tabs-tab {
+		padding: 13px 12px 15px !important;
+		&.is-active {
+			border-top-width: 2px !important;
+		}
+	}
 }
 /* aurora magic */
 #top:has(> .p-navSticky:first-child) {
-    & .tab-wrapper.widget-group {
-        & > :first-child {
-            margin: 0 !important;
-            & .hScroller-action--start {
-                border-top-left-radius: 12px !important;
-            }
-            & .hScroller-action--end {
-                border-top-right-radius: 12px !important;
-            }
-        }
-        & :is(.block-container, .block-header, .block-footer) {
-            border-top-left-radius: 0 !important;
-            border-top-right-radius: 0 !important;
-        }
-    }
-    & [role="tabpanel"]:has(+ .tb-combine-tab-panes) {
-        & .block {
-            margin: 0 !important;
-        }
-        & .block-container {
-            border-radius: 0 !important;
-        }
-    }
+	& .tab-wrapper.widget-group {
+		& > :first-child {
+			margin: 0 !important;
+			& .hScroller-action--start {
+				border-top-left-radius: 12px !important;
+			}
+			& .hScroller-action--end {
+				border-top-right-radius: 12px !important;
+			}
+		}
+		& :is(.block-container, .block-header, .block-footer) {
+			border-top-left-radius: 0 !important;
+			border-top-right-radius: 0 !important;
+		}
+	}
+	& [role="tabpanel"]:has(+ .tb-combine-tab-panes) {
+		& .block {
+			margin: 0 !important;
+		}
+		& .block-container {
+			border-radius: 0 !important;
+		}
+	}
 }
 
 /******************************************** NOTE ********************************************/
 
 .memberHeader-buttons:has(.memberTooltip-note) {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    & .button {
-        border: none !important;
-        height: 100%;
-    }
-    & > * {
-        display: inline-flex;
-    }
-    & input {
-        min-width: 100px;
-    }
-    & > .memberTooltip-note {
-        flex: 1;
-        padding: 0;
-    }
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+	& .button {
+		border: none !important;
+		height: 100%;
+	}
+	& > * {
+		display: inline-flex;
+	}
+	& input {
+		min-width: 100px;
+	}
+	& > .memberTooltip-note {
+		flex: 1;
+		padding: 0;
+	}
 }
 
 .memberTooltip-note {
-    display: flex;
-    padding: 6px;
-    & > input {
-        font-size: 13px !important;
-        padding: 0 6px !important;
-        border: none !important;
-    }
-    & > a {
-        border: none !important;
-    }
-    & path {
-        d: path("M64 32c-35 0-64 29-64 64v320c0 35 29 64 64 64h320c35 0 64-29 64-64v-246c0-17-7-33-19-45l-74-74c-12-12-28-19-45-19zM80 80v104c0 13 11 24 24 24h192c13 0 24-11 24-24v-100l75 75c3 3 5 7 5 11v246c0 9-7 16-16 16h-320c-9 0-16-7-16-16v-320c0-9 7-16 16-16zM128 80h144v80h-144zM160 320a64 64 0 00128 0 64 64 0 00-128 0z");
-    }
-    & svg {
-        height: 13px;
-        margin-right: 5px;
-    }
-    & > *:first-child:not(:last-child) {
-        border-top-right-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
-    }
-    & > *:last-child:not(:first-child) {
-        border-top-left-radius: 0 !important;
-        border-bottom-left-radius: 0 !important;
-    }
-    & > *:not(:first-child):not(:last-child) {
-        border-radius: 0 !important;
-    }
+	display: flex;
+	padding: 6px;
+	& > input {
+		font-size: 13px !important;
+		padding: 0 6px !important;
+		border: none !important;
+	}
+	& > a {
+		border: none !important;
+	}
+	& path {
+		d: path("M64 32c-35 0-64 29-64 64v320c0 35 29 64 64 64h320c35 0 64-29 64-64v-246c0-17-7-33-19-45l-74-74c-12-12-28-19-45-19zM80 80v104c0 13 11 24 24 24h192c13 0 24-11 24-24v-100l75 75c3 3 5 7 5 11v246c0 9-7 16-16 16h-320c-9 0-16-7-16-16v-320c0-9 7-16 16-16zM128 80h144v80h-144zM160 320a64 64 0 00128 0 64 64 0 00-128 0z");
+	}
+	& svg {
+		height: 13px;
+		margin-right: 5px;
+	}
+	& > *:first-child:not(:last-child) {
+		border-top-right-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
+	}
+	& > *:last-child:not(:first-child) {
+		border-top-left-radius: 0 !important;
+		border-bottom-left-radius: 0 !important;
+	}
+	& > *:not(:first-child):not(:last-child) {
+		border-radius: 0 !important;
+	}
 }
 
 .memberTooltip-report {
-    float: right;
-    margin-left: 6px;
+	float: right;
+	margin-left: 6px;
 }
 
 .memberTooltip-separator {
-    margin: 0 6px !important;
+	margin: 0 6px !important;
 }
 
 .memberTooltip--withBanner .memberTooltip-blurbContainer {
-    margin-top: 10px !important;
+	margin-top: 10px !important;
 }

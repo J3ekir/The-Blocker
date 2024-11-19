@@ -1,66 +1,66 @@
 .CodeMirror {
-    height: 100%;
+	height: 100%;
 }
 
 .CodeMirror-lines {
-    padding: 0;
+	padding: 0;
 }
 
 .cm-s-default .cm-keyword-link {
-    text-decoration: underline;
-    cursor: pointer;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 .CodeMirror,
 .codeMirrorContainer {
-    background-color: var(--cm-bg);
-    border: 1px solid var(--cm-border);
+	background-color: var(--cm-bg);
+	border: 1px solid var(--cm-border);
 }
 
 .CodeMirror-cursor {
-    border-left-color: var(--cm-cursor);
+	border-left-color: var(--cm-cursor);
 }
 
 .CodeMirror-gutters {
-    background-color: var(--cm-gutter-bg);
-    border-color: var(--cm-gutter-border);
+	background-color: var(--cm-gutter-bg);
+	border-color: var(--cm-gutter-border);
 }
 
 .cm-theme-override .cm-s-default .CodeMirror-line {
-    color: var(--cm-line);
+	color: var(--cm-line);
 }
 
 .CodeMirror-activeline-background {
-    background-color: var(--cm-active-line-bg);
+	background-color: var(--cm-active-line-bg);
 }
 
 .CodeMirror-linenumber {
-    color: var(--cm-line-number);
+	color: var(--cm-line-number);
 }
 
 .CodeMirror-overlayscroll-horizontal div,
 .CodeMirror-overlayscroll-vertical div {
-    background-color: var(--cm-scrollbar);
-    &:hover {
-        background-color: var(--cm-scrollbar-hover);
-    }
+	background-color: var(--cm-scrollbar);
+	&:hover {
+		background-color: var(--cm-scrollbar-hover);
+	}
 }
 
 .cm-s-default {
-    & .cm-keyword,
-    & .cm-keyword-link {
-        color: var(--cm-keyword);
-    }
+	& .cm-keyword,
+	& .cm-keyword-link {
+		color: var(--cm-keyword);
+	}
 }
 
 .CodeMirror-selected {
-    background-color: var(--cm-selected);
-    .CodeMirror-focused & {
-        background-color: var(--cm-selected-focused);
-    }
+	background-color: var(--cm-selected);
+	.CodeMirror-focused & {
+		background-color: var(--cm-selected-focused);
+	}
 }
 
 .cm-theme-override .cm-s-default .cm-error {
-    text-decoration: var(--cm-error) wavy underline;
-    background-color: var(--cm-error-bg);
+	text-decoration: var(--cm-error) wavy underline;
+	background-color: var(--cm-error-bg);
 }

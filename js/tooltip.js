@@ -1,156 +1,157 @@
 (async () => {
-    const notesKey = `${ forum }Notes`;
-    const settings = await chrome.storage.local.get([
-        notesKey,
-        "settingNotes",
-    ]);
-    settings.notes = new Map(Object.entries(settings[notesKey]).map(([key, value]) => [parseInt(key, 10), value]));
-    const NOTES = settings["settingNotes"];
+	const notesKey = `${ forum }Notes`;
+	const settings = await chrome.storage.local.get([
+		notesKey,
+		"settingNotes",
+	]);
+	settings.notes = new Map(Object.entries(settings[notesKey]).map(([key, value]) => [parseInt(key, 10), value]));
+	const NOTES = settings["settingNotes"];
 
-    waitForElement("body").then(elem => {
-        observeForNewTooltips();
-    });
+	waitForElement("body").then(elem => {
+		observeForNewTooltips();
+	});
 
-    waitForElement(".memberHeader-buttons").then(elem => {
-        const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId, 10);
-        if (NOTES) {
-            addProfileNote(userId);
-        }
-    });
+	waitForElement(".memberHeader-buttons").then(elem => {
+		const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId, 10);
 
-    function addTooltipItems(elem) {
-        const userId = parseInt(qs(elem, ".memberTooltip-avatar>a").dataset.userId, 10);
+		if (NOTES) {
+			addProfileNote(userId);
+		}
+	});
 
-        addReportButton(elem, userId);
-        addFindButton(elem, userId);
+	function addTooltipItems(elem) {
+		const userId = parseInt(qs(elem, ".memberTooltip-avatar>a").dataset.userId, 10);
 
-        if (NOTES) {
-            addNote(elem, userId);
-        }
-    }
+		addReportButton(elem, userId);
+		addFindButton(elem, userId);
 
-    function addReportButton(elem, userId) {
-        if (hasReportButton(elem)) { return; }
+		if (NOTES) {
+			addNote(elem, userId);
+		}
+	}
 
-        qs(elem, ".memberTooltip-headerInfo").prepend(
-            BASE.tooltipReport(userId),
-        );
-    }
+	function addReportButton(elem, userId) {
+		if (hasReportButton(elem)) { return; }
 
-    function addFindButton(elem, userId) {
-        if (hasFindButton(elem)) { return; }
+		qs(elem, ".memberTooltip-headerInfo").prepend(
+			BASE.tooltipReport(userId),
+		);
+	}
 
-        if (!hasActions(elem)) {
-            qs(elem, ".memberTooltip").append(
-                BASE.tooltipSeperator,
-                BASE.tooltipActions,
-            );
-        }
+	function addFindButton(elem, userId) {
+		if (hasFindButton(elem)) { return; }
 
-        const userName = qs(elem, ".memberTooltip-nameWrapper>a").textContent;
+		if (!hasActions(elem)) {
+			qs(elem, ".memberTooltip").append(
+				BASE.tooltipSeperator,
+				BASE.tooltipActions,
+			);
+		}
 
-        qs(elem, ".memberTooltip-actions").append(
-            BASE.tooltipFind,
-            BASE.tooltipFindMenu(userId, userName),
-        );
-    }
+		const userName = qs(elem, ".memberTooltip-nameWrapper>a").textContent;
 
-    function addNote(elem, userId) {
-        if (hasNote(elem)) { return; }
-        if (isSelf(userId)) { return; }
+		qs(elem, ".memberTooltip-actions").append(
+			BASE.tooltipFind,
+			BASE.tooltipFindMenu(userId, userName),
+		);
+	}
 
-        qs(elem, ".memberTooltip-info").before(
-            BASE.tooltipNote(userId, settings.notes.get(userId)),
-            BASE.tooltipSeperator
-        );
-    }
+	function addNote(elem, userId) {
+		if (hasNote(elem)) { return; }
+		if (isSelf(userId)) { return; }
 
-    function addProfileNote(userId) {
-        if (isSelf(userId)) { return; }
+		qs(elem, ".memberTooltip-info").before(
+			BASE.tooltipNote(userId, settings.notes.get(userId)),
+			BASE.tooltipSeperator
+		);
+	}
 
-        qs(".memberHeader-buttons").append(
-            BASE.tooltipNote(userId, settings.notes.get(userId)),
-        );
-    }
+	function addProfileNote(userId) {
+		if (isSelf(userId)) { return; }
 
-    self.noteEnterHandler = function (event) {
-        if (event.key === "Enter") {
-            event.currentTarget.nextElementSibling.click();
-            event.currentTarget.closest(".tooltip.tooltip--member")?.dispatchEvent(new Event("mouseout"));
-        }
-    };
+		qs(".memberHeader-buttons").append(
+			BASE.tooltipNote(userId, settings.notes.get(userId)),
+		);
+	}
 
-    self.noteSaveHandler = function (event) {
-        const note = event.currentTarget.previousElementSibling.value;
-        const userId = parseInt(event.currentTarget.parentElement.dataset.userId, 10);
+	self.noteEnterHandler = function (event) {
+		if (event.key === "Enter") {
+			event.currentTarget.nextElementSibling.click();
+			event.currentTarget.closest(".tooltip.tooltip--member")?.dispatchEvent(new Event("mouseout"));
+		}
+	};
 
-        settings.notes.set(userId, note);
+	self.noteSaveHandler = function (event) {
+		const note = event.currentTarget.previousElementSibling.value;
+		const userId = parseInt(event.currentTarget.parentElement.dataset.userId, 10);
 
-        if (!note.length) {
-            settings.notes.delete(userId);
-        }
+		settings.notes.set(userId, note);
 
-        chrome.storage.local.set({
-            [notesKey]: Object.fromEntries(settings.notes),
-        });
+		if (!note.length) {
+			settings.notes.delete(userId);
+		}
 
-        chrome.runtime.sendMessage({
-            type: "noteSavedMessage",
-            message: STR.noteSavedMessage,
-        });
+		chrome.storage.local.set({
+			[notesKey]: Object.fromEntries(settings.notes),
+		});
 
-        event.currentTarget.closest(".tooltip.tooltip--member")?.dispatchEvent(new Event("mouseout"));
-    };
+		chrome.runtime.sendMessage({
+			type: "noteSavedMessage",
+			message: STR.noteSavedMessage,
+		});
 
-    function hasReportButton(elem) {
-        return qs(elem, ".button--link[href$='report']");
-    }
+		event.currentTarget.closest(".tooltip.tooltip--member")?.dispatchEvent(new Event("mouseout"));
+	};
 
-    function hasActions(elem) {
-        return qs(elem, ".memberTooltip .memberTooltip-actions");
-    }
+	function hasReportButton(elem) {
+		return qs(elem, ".button--link[href$='report']");
+	}
 
-    function hasFindButton(elem) {
-        return qs(elem, ".memberTooltip .memberTooltip-actions>.menu");
-    }
+	function hasActions(elem) {
+		return qs(elem, ".memberTooltip .memberTooltip-actions");
+	}
 
-    function hasNote(elem) {
-        return qs(elem, ".memberTooltip .memberTooltip-note");
-    }
+	function hasFindButton(elem) {
+		return qs(elem, ".memberTooltip .memberTooltip-actions>.menu");
+	}
 
-    chrome.storage.onChanged.addListener(changes => {
-        Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-            if (key === notesKey) {
-                // https://issues.chromium.org/issues/40321352
-                const oldNotes = settings.notes;
-                settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));
+	function hasNote(elem) {
+		return qs(elem, ".memberTooltip .memberTooltip-note");
+	}
 
-                const allUserIds = new Set([...oldNotes.keys(), ...settings.notes.keys()]);
-                allUserIds.forEach(userId => {
-                    setNewNoteValue(userId, settings.notes.get(userId));
-                });
-            }
-        });
-    });
+	chrome.storage.onChanged.addListener(changes => {
+		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+			if (key === notesKey) {
+				// https://issues.chromium.org/issues/40321352
+				const oldNotes = settings.notes;
+				settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));
 
-    function setNewNoteValue(userId, note) {
-        qsa(`.memberTooltip-note[data-user-id="${ userId }"]>.input`).forEach(elem => {
-            elem.value = note || "";
-        });
-    }
+				const allUserIds = new Set([...oldNotes.keys(), ...settings.notes.keys()]);
+				allUserIds.forEach(userId => {
+					setNewNoteValue(userId, settings.notes.get(userId));
+				});
+			}
+		});
+	});
 
-    function observeForNewTooltips() {
-        waitForElement("body").then(elem => {
-            new MutationObserver(async (mutationList, observer) => {
-                mutationList.forEach(mutation => {
-                    mutation.addedNodes.forEach(elem => {
-                        if (elem.matches?.(".tooltip--member .tooltip-content-inner")) {
-                            addTooltipItems(elem);
-                        }
-                    });
-                });
-            })
-                .observe(elem, { childList: true, subtree: true });
-        });
-    }
+	function setNewNoteValue(userId, note) {
+		qsa(`.memberTooltip-note[data-user-id="${ userId }"]>.input`).forEach(elem => {
+			elem.value = note || "";
+		});
+	}
+
+	function observeForNewTooltips() {
+		waitForElement("body").then(elem => {
+			new MutationObserver(async (mutationList, observer) => {
+				mutationList.forEach(mutation => {
+					mutation.addedNodes.forEach(elem => {
+						if (elem.matches?.(".tooltip--member .tooltip-content-inner")) {
+							addTooltipItems(elem);
+						}
+					});
+				});
+			})
+				.observe(elem, { childList: true, subtree: true });
+		});
+	}
 })();

@@ -1,88 +1,88 @@
 {
-    "action": {
-        "default_icon": {
-            "16": "img/icon_16.png",
-            "32": "img/icon_32.png",
-            "48": "img/icon_48.png",
-            "64": "img/icon_64.png",
-            "128": "img/icon_128.png"
-        },
-        "default_popup": "popup.html",
-        "default_title": "The Blocker"
-    },
-    "author": "Vavien.",
-    "background": {
-        "service_worker": "js/background.js",
-        "type": "module"
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "https://techolay.net/sosyal/",
-                "https://www.technopat.net/sosyal/"
-            ],
-            "js": [
-                "js/dom.js",
-                "js/str.js",
-                "js/base.js",
-                "js/widgetTabs.js"
-            ],
-            "run_at": "document_start"
-        },
-        {
-            "matches": [
-                "https://techolay.net/sosyal/*",
-                "https://www.technopat.net/sosyal/*"
-            ],
-            "css": [
-                "css/interface.css"
-            ],
-            "js": [
-                "js/injectCSS.js",
-                "js/dom.js",
-                "js/str.js",
-                "js/base.js",
-                "js/tooltip.js"
-            ],
-            "run_at": "document_start"
-        },
-        {
-            "matches": [
-                "https://techolay.net/sosyal/konu/*",
-                "https://www.technopat.net/sosyal/konu/*"
-            ],
-            "js": [
-                "js/dom.js",
-                "js/str.js",
-                "js/base.js",
-                "js/contentScript.js"
-            ],
-            "run_at": "document_start"
-        }
-    ],
-    "description": "techolay.net/sosyal ve technopat.net/sosyal için RESMİ OLMAYAN \"engelleyici\"",
-    "homepage_url": "https://github.com/J3ekir/The-Blocker",
-    "host_permissions": [
-        "https://techolay.net/sosyal/*",
-        "https://www.technopat.net/sosyal/*"
-    ],
-    "icons": {
-        "16": "img/icon_16.png",
-        "32": "img/icon_32.png",
-        "48": "img/icon_48.png",
-        "64": "img/icon_64.png",
-        "128": "img/icon_128.png"
-    },
-    "manifest_version": 3,
-    "name": "The Blocker",
-    "options_ui": {
-        "open_in_tab": true,
-        "page": "options.html"
-    },
-    "permissions": [
-        "scripting",
-        "storage",
-        "unlimitedStorage"
-    ],
-    "version": "1.0.3"
+	"action": {
+		"default_icon": {
+			"16": "img/icon_16.png",
+			"32": "img/icon_32.png",
+			"48": "img/icon_48.png",
+			"64": "img/icon_64.png",
+			"128": "img/icon_128.png"
+		},
+		"default_popup": "popup.html",
+		"default_title": "The Blocker"
+	},
+	"author": "Vavien.",
+	"background": {
+		"service_worker": "js/background.js",
+		"type": "module"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"https://techolay.net/sosyal/",
+				"https://www.technopat.net/sosyal/"
+			],
+			"js": [
+				"js/dom.js",
+				"js/str.js",
+				"js/base.js",
+				"js/widgetTabs.js"
+			],
+			"run_at": "document_start"
+		},
+		{
+			"matches": [
+				"https://techolay.net/sosyal/*",
+				"https://www.technopat.net/sosyal/*"
+			],
+			"css": [
+				"css/interface.css"
+			],
+			"js": [
+				"js/injectCSS.js",
+				"js/dom.js",
+				"js/str.js",
+				"js/base.js",
+				"js/tooltip.js"
+			],
+			"run_at": "document_start"
+		},
+		{
+			"matches": [
+				"https://techolay.net/sosyal/konu/*",
+				"https://www.technopat.net/sosyal/konu/*"
+			],
+			"js": [
+				"js/dom.js",
+				"js/str.js",
+				"js/base.js",
+				"js/contentScript.js"
+			],
+			"run_at": "document_start"
+		}
+	],
+	"description": "techolay.net/sosyal ve technopat.net/sosyal için RESMİ OLMAYAN \"engelleyici\"",
+	"homepage_url": "https://github.com/J3ekir/The-Blocker",
+	"host_permissions": [
+		"https://techolay.net/sosyal/*",
+		"https://www.technopat.net/sosyal/*"
+	],
+	"icons": {
+		"16": "img/icon_16.png",
+		"32": "img/icon_32.png",
+		"48": "img/icon_48.png",
+		"64": "img/icon_64.png",
+		"128": "img/icon_128.png"
+	},
+	"manifest_version": 3,
+	"name": "The Blocker",
+	"options_ui": {
+		"open_in_tab": true,
+		"page": "options.html"
+	},
+	"permissions": [
+		"scripting",
+		"storage",
+		"unlimitedStorage"
+	],
+	"version": "1.0.3"
 }

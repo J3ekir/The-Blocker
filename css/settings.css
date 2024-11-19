@@ -1,96 +1,96 @@
 :root {
-    --font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	--font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 * {
-    box-sizing: border-box;
-    touch-action: manipulation;
+	box-sizing: border-box;
+	touch-action: manipulation;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 0;
-    padding: 12px;
-    line-height: 1.2;
-    background-color: var(--body-bg);
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin: 0;
+	padding: 12px;
+	line-height: 1.2;
+	background-color: var(--body-bg);
 }
 
 #requestPermission {
-    display: none;
-    flex-direction: column;
-    gap: 12px;
-    & > span {
-        font-family: var(--font);
-        font-size: 36px;
-        font-weight: 400;
-    }
-    & > button {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        width: fit-content;
-        padding: 0.5em 1em;
-        font-family: var(--font);
-        font-size: 18px;
-        font-weight: 500;
-        border: none;
-        border-radius: 0.375em;
-        color: var(--btn);
-        background-color: var(--btn-bg);
-        &:hover {
-            background-color: var(--btn-hover-bg);
-        }
-    }
+	display: none;
+	flex-direction: column;
+	gap: 12px;
+	& > span {
+		font-family: var(--font);
+		font-size: 36px;
+		font-weight: 400;
+	}
+	& > button {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		width: fit-content;
+		padding: 0.5em 1em;
+		font-family: var(--font);
+		font-size: 18px;
+		font-weight: 500;
+		border: none;
+		border-radius: 0.375em;
+		color: var(--btn);
+		background-color: var(--btn-bg);
+		&:hover {
+			background-color: var(--btn-hover-bg);
+		}
+	}
 }
 
 #theme {
-    padding: 4px;
-    border-radius: 4px;
-    outline: none;
-    color: var(--text);
-    background-color: var(--body-bg);
-    & > option {
-        color: var(--text);
-        background-color: var(--body-bg);
-    }
+	padding: 4px;
+	border-radius: 4px;
+	outline: none;
+	color: var(--text);
+	background-color: var(--body-bg);
+	& > option {
+		color: var(--text);
+		background-color: var(--body-bg);
+	}
 }
 
 .fieldset {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 }
 
 .fieldset-header {
-    font-family: var(--font);
-    font-size: 28px;
-    font-weight: 500;
-    color: var(--title);
+	font-family: var(--font);
+	font-size: 28px;
+	font-weight: 500;
+	color: var(--title);
 }
 
 label {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    width: fit-content;
-    & > input {
-        flex: none;
-        width: 16px;
-        height: 16px;
-        margin: 0;
-    }
-    & > span {
-        font-family: var(--font);
-        font-size: 16px;
-        font-weight: 400;
-        color: var(--text);
-    }
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	width: fit-content;
+	& > input {
+		flex: none;
+		width: 16px;
+		height: 16px;
+		margin: 0;
+	}
+	& > span {
+		font-family: var(--font);
+		font-size: 16px;
+		font-weight: 400;
+		color: var(--text);
+	}
 }
 
 hr {
-    margin: 0;
-    border-style: solid;
-    border-color: var(--hr);
+	margin: 0;
+	border-style: solid;
+	border-color: var(--hr);
 }
