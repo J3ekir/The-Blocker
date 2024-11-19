@@ -13,3 +13,4 @@ self.waitForElement = selector => new Promise(resolve => {
 });
 self.isLoggedIn = document.documentElement.getAttribute("data-logged-in") === "true";
 self.isSelf = userId => isLoggedIn && userId === parseInt(qs(".p-navgroup-link--user>.avatar").dataset.userId, 10);
+self.isUserIdValid = userId => userId && /^\d+$/.test(userId);

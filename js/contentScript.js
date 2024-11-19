@@ -180,8 +180,4 @@
 
         console.log(`user ID: ${ userId }, ${ type.replace(forum, "") } ${ !isBlocked ? "blocked" : "unblocked" }`);
     };
-
-    function isUserIdValid(userId) {
-        return userId && /^\d+$/.test(userId);
-    }
 })();
