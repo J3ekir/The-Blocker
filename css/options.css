@@ -24,7 +24,6 @@ nav {
 	border-bottom: 1px solid;
 	overflow-x: auto;
 	position: sticky;
-	outline: none;
 	border-color: var(--nav-border);
 }
 
@@ -39,9 +38,6 @@ nav {
 	border-bottom: 3px solid transparent;
 	background-color: transparent;
 	color: var(--tab-btn);
-	&:focus {
-		outline: 0;
-	}
 	&.active {
 		color: var(--tab-btn-active);
 		border-color: currentColor;
