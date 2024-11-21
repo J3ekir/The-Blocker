@@ -36,12 +36,12 @@
 		return {
 			token(stream) {
 				if (stream.sol()) {
-					if (!stream.match(/^[ ]*\d+[ ].+$/, false)) {
+					if (!stream.match(/^\s*\d+[ ].+$/, false)) {
 						stream.skipToEnd();
 						return "line-cm-error";
 					}
 
-					if (stream.match(/[ ]+/, false)) {
+					if (stream.match(/\s+/, false)) {
 						stream.eatSpace();
 						return null;
 					}
