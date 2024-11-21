@@ -55,6 +55,11 @@
 	--tab-btn-active: light-dark(var(--blue-50), var(--blue-70));
 	--tab-btn-inactive-bg: light-dark(var(--gray-90), var(--gray-20));
 	--tab-btn-inactive-border: light-dark(var(--gray-80), var(--gray-30));
+	--checkbox: light-dark(var(--gray-95), var(--gray-25));
+	--checkbox-border: light-dark(var(--gray-55), var(--gray-60));
+	--checkbox-border-hover: color-mix(in srgb, var(--checkbox-border) 60%, var(--brightness));
+	--checkbox-checked: light-dark(var(--blue-60), var(--blue-80));
+	--checkbox-checked-hover: color-mix(in srgb, var(--checkbox-checked) 60%, var(--brightness));
 	--stats: light-dark(var(--blue-05), var(--blue-75));
 	--text: light-dark(var(--gray-05), var(--gray-95));
 	--hr: light-dark(var(--gray-50), var(--gray-25));

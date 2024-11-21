@@ -76,10 +76,31 @@ label {
 	align-items: center;
 	width: fit-content;
 	& > input {
-		flex: none;
+		display: none;
+		appearance: none;
+		user-select: none;
+	}
+	& > svg {
 		width: 16px;
 		height: 16px;
-		margin: 0;
+		flex: none;
+		background-color: var(--checkbox);
+		border-radius: 2px;
+		border: 1px solid var(--checkbox-border);
+		&:has(+ input:checked) {
+			border: none;
+			background-color: var(--checkbox-checked);
+			& > path {
+				d: path("M201 299l-71-70-54 58 131 130 232-287-61-52z");
+				fill: var(--checkbox);
+			}
+		}
+	}
+	&:hover > svg {
+		border-color: var(--checkbox-border-hover);
+		&:has(+ input:checked) {
+			background-color: var(--checkbox-checked-hover);
+		}
 	}
 	& > span {
 		font-family: var(--font);
