@@ -43,7 +43,7 @@
 		};
 	});
 
-	const editors = Object.fromEntries(FILTERS.map(value => ([value, new CodeMirror(qs(`#${ value.replace(forum, "") }`), codeMirrorOptions)])));
+	const editors = Object.fromEntries(FILTERS.map(value => [value, new CodeMirror(qs(`#${ value.replace(forum, "") }`), codeMirrorOptions)]));
 
 	/***************************************** MAIN START *****************************************/
 
@@ -226,7 +226,7 @@
 
 	function saveEditorText() {
 		FILTERS.forEach(value => settings[value] = [...new Set(getEditorText(editors[value]).split("\n").map(id => parseInt(id, 10)).filter(Boolean))]);
-		chrome.storage.local.set(Object.fromEntries(FILTERS.flatMap(value => ([[value, settings[value]], [`${ value }Count`, settings[value].length]]))));
+		chrome.storage.local.set(Object.fromEntries(FILTERS.flatMap(value => [[value, settings[value]], [`${ value }Count`, settings[value].length]])));
 	}
 
 	function getEditorText(editor) {
