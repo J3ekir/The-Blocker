@@ -35,7 +35,7 @@
 
 	CodeMirror.defineMode("theBlocker-filters", function (config, parserConfig) {
 		return {
-			token: function (stream) {
+			token(stream) {
 				return stream.match(/\d+/) === null
 					? "line-cm-error"
 					: "filter-keyword";
