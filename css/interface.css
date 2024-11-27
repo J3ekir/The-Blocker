@@ -7,7 +7,6 @@
 }
 
 /****************************************** BUTTONS *******************************************/
-
 .actionBar-action {
 	&.actionBar-action--menuItem {
 		display: none !important;
@@ -61,7 +60,6 @@ a[blocktype] {
 }
 
 /***************************************** WIDGET_TABS ****************************************/
-
 /* 
 techolay
 	11: default
@@ -189,7 +187,6 @@ technopat
 }
 
 /******************************************** NOTE ********************************************/
-
 .memberHeader-buttons:has(.memberTooltip-note) {
 	display: flex;
 	flex-wrap: wrap;
