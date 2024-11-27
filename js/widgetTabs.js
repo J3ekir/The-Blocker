@@ -1,4 +1,6 @@
 (async () => {
+	if (window.location.pathname !== "/sosyal/") { return; }
+
 	const settings = await chrome.storage.local.get([
 		"settingCombineTabPanes",
 		"settingAddBottomTabButtons",

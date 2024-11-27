@@ -1,4 +1,6 @@
 (async () => {
+	if (!window.location.pathname.startsWith("/sosyal/konu/")) { return; }
+
 	const userKey = `${ forum }User`;
 	const avatarKey = `${ forum }Avatar`;
 	const signatureKey = `${ forum }Signature`;
