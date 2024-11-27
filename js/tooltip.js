@@ -7,27 +7,17 @@
 	settings.notes = new Map(Object.entries(settings[notesKey]).map(([key, value]) => [parseInt(key, 10), value]));
 	const NOTES = settings["settingNotes"];
 
-	waitForElement("body").then(elem => {
-		observeForNewTooltips();
-	});
-
-	waitForElement(".memberHeader-buttons").then(elem => {
-		const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId, 10);
-
-		if (NOTES) {
-			addProfileNote(userId);
-		}
-	});
+	observeForNewTooltips();
+	observeForMemberHeader();
 
 	function addTooltipItems(elem) {
+		if (!elem.matches?.(".tooltip--member .tooltip-content-inner")) { return; }
+
 		const userId = parseInt(qs(elem, ".memberTooltip-avatar>a").dataset.userId, 10);
 
 		addReportButton(elem, userId);
 		addFindButton(elem, userId);
-
-		if (NOTES) {
-			addNote(elem, userId);
-		}
+		addNote(elem, userId);
 	}
 
 	function addReportButton(elem, userId) {
@@ -57,6 +47,7 @@
 	}
 
 	function addNote(elem, userId) {
+		if (!NOTES) { return; }
 		if (hasNote(elem)) { return; }
 		if (isSelfUserId(userId)) { return; }
 
@@ -66,7 +57,9 @@
 		);
 	}
 
-	function addProfileNote(userId) {
+	function addProfileNote() {
+		const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId, 10);
+
 		if (isSelfUserId(userId)) { return; }
 
 		qs(".memberHeader-buttons").append(
@@ -141,17 +134,17 @@
 	}
 
 	function observeForNewTooltips() {
-		waitForElement("body").then(elem => {
-			new MutationObserver(async (mutationList, observer) => {
-				mutationList.forEach(mutation => {
-					mutation.addedNodes.forEach(elem => {
-						if (elem.matches?.(".tooltip--member .tooltip-content-inner")) {
-							addTooltipItems(elem);
-						}
-					});
-				});
-			})
-				.observe(elem, { childList: true, subtree: true });
-		});
+		new MutationObserver(mutationList =>
+			mutationList.forEach(mutation =>
+				mutation.addedNodes.forEach(addTooltipItems)
+			)
+		).observe(document, { childList: true, subtree: true });
+	}
+
+	function observeForMemberHeader() {
+		if (!window.location.pathname.startsWith("/sosyal/uye/")) { return; }
+		if (!NOTES) { return; }
+
+		waitForElement(".memberHeader-buttons").then(addProfileNote);
 	}
 })();
