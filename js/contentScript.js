@@ -6,9 +6,7 @@
 	const signatureKey = `${ forum }Signature`;
 	var settings;
 
-	waitForElement(".blockMessage--none").then(elem => {
-		main();
-	});
+	waitForElement(".blockMessage--none").then(main);
 
 	async function main() {
 		createBlockButtons();
@@ -129,28 +127,22 @@
 			});
 		}
 
-		async function observeForNewActionBars() {
+		function observeForNewActionBars() {
 			waitForElement(".block.block--messages[data-href]").then(elem => {
-				new MutationObserver(async _ => {
-					createBlockButtons();
-				})
-					.observe(elem, { childList: true, subtree: true });
+				new MutationObserver(createBlockButtons).observe(elem, { childList: true, subtree: true });
 			});
 		}
 
 		function observeForNewBlockMenus() {
-			waitForElement("body").then(elem => {
-				new MutationObserver(async mutationList => {
-					mutationList.forEach(mutation => {
-						mutation.addedNodes.forEach(elem => addBlockButtonEventListeners(elem));
-					});
-				})
-					.observe(elem, { childList: true });
-			});
+			new MutationObserver(mutationList => {
+				mutationList.forEach(mutation => {
+					mutation.addedNodes.forEach(addBlockButtonEventListeners);
+				});
+			}).observe(document.body, { childList: true });
 		}
 	}
 
-	self.blockHandler = async function (event) {
+	self.blockHandler = function (event) {
 		event.currentTarget.closest(".menu[data-menu-builder='actionBar']")?.dispatchEvent(new Event("menu:close"));
 
 		const userId = parseInt(event.currentTarget.dataset.userId, 10);
