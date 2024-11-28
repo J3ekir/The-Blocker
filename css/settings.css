@@ -31,9 +31,9 @@ body {
 		align-items: center;
 		gap: 6px;
 		width: fit-content;
-		padding: 0.5em 1em;
+		padding: 0.375em 0.750em;
 		font-family: var(--font);
-		font-size: 18px;
+		font-size: 16px;
 		font-weight: 500;
 		border: none;
 		border-radius: 0.375em;
