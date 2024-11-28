@@ -33,3 +33,7 @@ self.noteSavedMessage = ({ tab }, { message }) => {
 		func: message => XF.flashMessage(message, 1500),
 	});
 };
+
+self.getVariable = (_, { variable }, sendResponse) => {
+	sendResponse({ [variable]: self[variable] });
+};
