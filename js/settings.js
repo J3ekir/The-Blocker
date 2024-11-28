@@ -1,14 +1,6 @@
-const origins = [
-	"https://techolay.net/sosyal/*",
-	"https://www.technopat.net/sosyal/*",
-];
+self.origins = null;
 
-chrome.permissions.contains({ origins }).then(granted => {
-	if (!granted) {
-		qs("#requestPermission").style.display = "flex";
-	}
-});
-
+requestPermission();
 qs("#requestPermission>button").addEventListener("click", requestPermission);
 
 qs("#theme").addEventListener("change", event => {
@@ -27,10 +19,30 @@ chrome.storage.local.get(["theme", ...settingKeys]).then(settings => {
 });
 
 function requestPermission() {
+	if (!self.origins) {
+		setOrigins();
+		return;
+	}
+
+	chrome.permissions.contains({ origins }).then(granted => {
+		setRequestPermissionVisibility(granted);
+	});
 	chrome.permissions.request({ origins }).then(granted => {
-		if (granted) {
-			qs("#requestPermission").style.display = "none";
-		}
+		setRequestPermissionVisibility(granted);
+	});
+}
+
+function setRequestPermissionVisibility(granted) {
+	qs("#requestPermission").style.display = granted ? "none" : "flex";
+}
+
+function setOrigins() {
+	chrome.runtime.sendMessage({
+		type: "getVariable",
+		variable: "origins",
+	}).then(({ origins }) => {
+		self.origins = origins;
+		requestPermission();
 	});
 }
 
