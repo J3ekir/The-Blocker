@@ -61,7 +61,7 @@ body {
 		color: var(--btn);
 		background-color: var(--btn-bg);
 		&:hover {
-			background-color: var(--btn-hover-bg);
+			background-color: var(--btn-bg-hover);
 		}
 		&[disabled] {
 			pointer-events: none;

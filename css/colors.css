@@ -46,7 +46,7 @@
 	--double-tap-hint-bg: light-dark(var(--blue-70), var(--blue-30));
 	--btn: light-dark(var(--gray-95), var(--gray-05));
 	--btn-bg: light-dark(var(--blue-50), var(--blue-70));
-	--btn-hover-bg: color-mix(in srgb, var(--btn-bg) 80%, var(--brightness));
+	--btn-bg-hover: color-mix(in srgb, var(--btn-bg) 80%, var(--brightness));
 	--btn-disabled: light-dark(var(--gray-05), var(--gray-95));
 	--btn-disabled-bg: light-dark(var(--gray-80), var(--gray-30));
 	--title: light-dark(var(--blue-05), var(--blue-70));
