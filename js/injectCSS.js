@@ -1,5 +1,3 @@
-self.forum = self.forum || window.location.hostname.replace(/(?:www.)?(.*).net/, "$1");
-
 chrome.runtime.sendMessage({
 	type: "injectCSS",
 	forum,

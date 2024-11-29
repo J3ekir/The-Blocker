@@ -25,8 +25,8 @@
 				"css/interface.css"
 			],
 			"js": [
-				"js/injectCSS.js",
 				"js/dom.js",
+				"js/injectCSS.js",
 				"js/str.js",
 				"js/base.js",
 				"js/widgetTabs.js",

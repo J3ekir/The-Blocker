@@ -1,5 +1,3 @@
-self.forum = self.forum || window.location.hostname.replace(/(?:www.)?(.*).net/, "$1");
-
 self.BASE = self.BASE || new Proxy(
 	{
 		baseReportButton: (() => {
