@@ -27,7 +27,7 @@ async function toggleCSS(isBlock, key, userIds) {
 		"settingProfilePostComments",
 	]);
 	const userList = `[data-user-id="${ userIds.join(`"],[data-user-id="`) }"]`;
-	var CSS;
+	let CSS;
 
 	switch (key) {
 		case `${ forum }User`:

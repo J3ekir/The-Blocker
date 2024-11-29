@@ -119,7 +119,7 @@
 		}
 	});
 
-	var tapped = null;
+	let tapped = null;
 	document.addEventListener("touchstart", event => {
 		if (event.target.classList.contains("cm-filter-keyword")) {
 			if (!tapped) {

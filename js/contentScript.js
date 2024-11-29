@@ -4,7 +4,7 @@
 	const userKey = `${ forum }User`;
 	const avatarKey = `${ forum }Avatar`;
 	const signatureKey = `${ forum }Signature`;
-	var settings;
+	let settings;
 
 	waitForElement(".blockMessage--none").then(main);
 

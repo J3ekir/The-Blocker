@@ -9,7 +9,7 @@
 	]);
 	settings.notes = new Map(Object.entries(settings[notesKey]).map(([key, value]) => [parseInt(key, 10), value]));
 
-	var cache = "";
+	let cache = "";
 
 	const buttons = {
 		save: qs("#applyButton"),
@@ -136,7 +136,7 @@
 		}
 	});
 
-	var tapped = null;
+	let tapped = null;
 	document.addEventListener("touchstart", event => {
 		if (event.target.classList.contains("cm-keyword")) {
 			if (!tapped) {
