@@ -1,3 +1,5 @@
+self.getVariable = (_, { variable }, sendResponse) => sendResponse(self[variable]);
+
 self.injectCSS = ({ tab }, { forum }) => {
 	chrome.storage.local.get(`${ forum }CSS`).then(settings => {
 		chrome.scripting.insertCSS({
@@ -32,8 +34,4 @@ self.noteSavedMessage = ({ tab }, { message }) => {
 		args: [message],
 		func: message => XF.flashMessage(message, 1500),
 	});
-};
-
-self.getVariable = (_, { variable }, sendResponse) => {
-	sendResponse({ [variable]: self[variable] });
 };
