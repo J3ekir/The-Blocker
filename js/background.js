@@ -20,13 +20,19 @@ function checkPermissions() {
 }
 
 chrome.storage.onChanged.addListener(changes => {
-	let setCssCalled = false;
+	let callSetCSS = false;
+	const setCssParams = new Set();
+
 	Object.keys(changes).forEach(key => {
-		if (!setCssCalled && SET_CSS_TRIGGER_KEYS.includes(key)) {
-			setCssCalled = true;
-			setCSS(FORUMS.find(forum => key.startsWith(forum)));
+		if (SET_CSS_TRIGGER_KEYS.includes(key)) {
+			callSetCSS = true;
+			FORUMS.filter(forum => key.startsWith(forum)).forEach(forum => setCssParams.add(forum));
 		}
 	});
+
+	if (callSetCSS) {
+		setCSS(...setCssParams);
+	}
 });
 
 async function setCSS(...forums) {
