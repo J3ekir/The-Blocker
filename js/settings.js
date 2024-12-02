@@ -16,8 +16,8 @@
 	chrome.storage.local.get(["theme", ...settingKeys]).then(settings => {
 		qs("#theme").value = settings["theme"];
 
-		settingElements.forEach(elem => {
-			elem.checked = settings[elem.getAttribute("data-setting-name")];
+		settingElements.forEach((elem, i) => {
+			elem.checked = settings[settingKeys[i]];
 			elem.addEventListener("change", settingChanged);
 		});
 	});
