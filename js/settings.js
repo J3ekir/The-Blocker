@@ -4,7 +4,7 @@
 		variable: "origins",
 	});
 
-	requestPermission();
+	checkPermission();
 	qs("#requestPermission>button").addEventListener("click", requestPermission);
 
 	qs("#theme").addEventListener("change", event => {
@@ -22,10 +22,13 @@
 		});
 	});
 
-	function requestPermission() {
+	function checkPermission() {
 		chrome.permissions.contains({ origins }).then(granted => {
 			setRequestPermissionVisibility(granted);
 		});
+	}
+
+	function requestPermission() {
 		chrome.permissions.request({ origins }).then(granted => {
 			setRequestPermissionVisibility(granted);
 		});
