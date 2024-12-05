@@ -31,7 +31,7 @@ document.addEventListener("keydown", event => {
 	if (isMac ? event.metaKey : event.ctrlKey && event.key.toLowerCase() === "s") {
 		event.preventDefault();
 
-		const applyButton = qs("#iframe").contentWindow.document.querySelector("#applyButton");
+		const applyButton = qs(qs("#iframe").contentDocument, "#applyButton");
 		if (applyButton && !applyButton.disabled) {
 			applyButton.click();
 		}
