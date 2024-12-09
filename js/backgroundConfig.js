@@ -8,6 +8,17 @@ self.origins = [
 	"https://www.technopat.net/sosyal/*",
 ];
 
+self.forumGifData = Object.fromEntries(
+	FORUMS.map((forum, index) => [
+		forum,
+		{
+			origin: origins[index].replace("/sosyal/*", ""),
+			id: index + 1,
+			prefix: `${ index + 1 }_`,
+		},
+	])
+);
+
 self.SELECTORS = {
 	filters: [
 		"User",
@@ -66,6 +77,7 @@ const storage = {
 		SignatureCount: 0,
 		Notes: {},
 		CSS: "",
+		Gif: true,
 	},
 	defaultSettings: {
 		lastPane: "settings.html",
