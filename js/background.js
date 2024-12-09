@@ -28,6 +28,9 @@ chrome.storage.onChanged.addListener(changes => {
 			callSetCSS = true;
 			FORUMS.filter(forum => key.startsWith(forum)).forEach(forum => setCssParams.add(forum));
 		}
+		if (key.endsWith("Gif")) {
+			gifRule(key, changes[key].newValue);
+		}
 	});
 
 	if (callSetCSS) {

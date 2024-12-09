@@ -250,3 +250,8 @@ technopat
 .memberTooltip--withBanner .memberTooltip-blurbContainer {
 	margin-top: 10px !important;
 }
+
+/********************************************* GIF ********************************************/
+.avatar > img {
+	object-fit: cover !important;
+}

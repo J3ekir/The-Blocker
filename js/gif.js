@@ -6,7 +6,7 @@
 		type: "getVariable",
 		variable: "forumGifData",
 	});
-	const avatarSelector = ".avatar[data-user-id]>img";
+	const avatarSelector = ".avatar[data-user-id]>img:not([class$='l'])";
 	const processedAvatars = new Set();
 	const cache = {};
 	let avatarProcessor = processAvatarOnLoad;

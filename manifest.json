@@ -57,6 +57,7 @@
 		"page": "options.html"
 	},
 	"permissions": [
+		"declarativeNetRequest",
 		"scripting",
 		"storage",
 		"unlimitedStorage"

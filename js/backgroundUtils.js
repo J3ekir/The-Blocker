@@ -39,7 +39,7 @@ self.noteSavedMessage = ({ tab }, { message }) => {
 };
 
 self.url2Base64 = (_, { url, forumUserId, t }) => {
-	fetch(url.replace(/\/avatars\/[smlh]\//, "/avatars/o/"))
+	fetch(url.replace(/\/avatars\/[sm]\//, "/avatars/o/"))
 		.then(response => response.arrayBuffer())
 		.then(arrayBuffer => new Uint8Array(arrayBuffer))
 		.then(async typedArray => {
@@ -47,7 +47,8 @@ self.url2Base64 = (_, { url, forumUserId, t }) => {
 
 			if (gifResizer.frameCount === 1) { throw new Error("1 frame GIF."); }
 
-			Promise.all([gifResizer.resize(48), gifResizer.resize(96), gifResizer.resize(192)]).then(([s, m, l]) => chrome.storage.local.set({ [forumUserId]: { t, s, m, l, g: 1 } }));
+			const [s, m] = await Promise.all([gifResizer.resize(48), gifResizer.resize(96)]);
+			chrome.storage.local.set({ [forumUserId]: { t, s, m, g: 1 } });
 		})
 		.catch(error => {
 			chrome.storage.local.set({ [forumUserId]: { t, g: 0 } });
@@ -57,4 +58,26 @@ self.url2Base64 = (_, { url, forumUserId, t }) => {
 				default: console.log(forumUserId, error.message);
 			}
 		});
+};
+
+self.gifRule = (key, value) => {
+	const forum = key.slice(0, -3);
+	const { origin, id } = forumGifData[forum];
+	const addRules = [{
+		id,
+		action: {
+			type: "redirect",
+			redirect: {
+				regexSubstitution: `${ origin }/sosyal/data/avatars/o/\\1`
+			}
+		},
+		condition: {
+			regexFilter: `^${ origin }/sosyal/data/avatars/[lh]/(.+)$`
+		}
+	}];
+
+	chrome.declarativeNetRequest.updateDynamicRules({
+		...value && { addRules },
+		removeRuleIds: [id],
+	});
 };
