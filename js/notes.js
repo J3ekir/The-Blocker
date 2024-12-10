@@ -64,8 +64,6 @@
 
 	const noteEditor = new CodeMirror(qs("#note"), codeMirrorOptions);
 
-	/***************************************** MAIN START *****************************************/
-
 	if (settings["hideDoubleTapHint"]) {
 		qs("#doubleTapHint").style.display = "none";
 	}
@@ -212,8 +210,6 @@
 
 		reader.readAsText(selectedFile);
 	});
-
-	/****************************************** MAIN END ******************************************/
 
 	function renderNotes() {
 		const lines = [];

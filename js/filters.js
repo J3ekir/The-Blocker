@@ -45,8 +45,6 @@
 
 	const editors = Object.fromEntries(FILTERS.map(value => [value, new CodeMirror(qs(`#${ value.replace(forum, "") }`), codeMirrorOptions)]));
 
-	/***************************************** MAIN START *****************************************/
-
 	if (settings["hideDoubleTapHint"]) {
 		qs("#doubleTapHint").style.display = "none";
 	}
@@ -200,8 +198,6 @@
 
 		reader.readAsText(selectedFile);
 	});
-
-	/****************************************** MAIN END ******************************************/
 
 	function renderEditors() {
 		FILTERS.forEach(value => renderEditor(value));
