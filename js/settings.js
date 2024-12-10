@@ -1,12 +1,12 @@
 (async () => {
-	const [origins] = await chrome.runtime.sendMessage({
+	const [origins, gifPrefixes] = await chrome.runtime.sendMessage({
 		type: "getVariables",
-		variables: ["origins"],
+		variables: ["origins", "gifPrefixes"],
 	});
 
 	checkPermission();
 	qs("#requestPermission>button").addEventListener("click", requestPermission);
-
+	qs("#resetGifs").addEventListener("click", resetGifs);
 	qs("#theme").addEventListener("change", event => {
 		chrome.storage.local.set({ theme: event.currentTarget.value });
 	});
@@ -43,6 +43,20 @@
 		chrome.storage.local.set({
 			[settingName]: event.currentTarget.checked,
 		});
+	}
+
+	async function resetGifs() {
+		const gifKeys = await getGifKeys();
+		chrome.storage.local.remove(gifKeys);
+	}
+
+	async function getGifKeys() {
+		const settings = await chrome.storage.local.get();
+		return Object.keys(settings).filter(isGifEntry);
+	}
+
+	function isGifEntry(value) {
+		return gifPrefixes.some(prefix => value.startsWith(prefix));
 	}
 
 	chrome.storage.onChanged.addListener(changes => {

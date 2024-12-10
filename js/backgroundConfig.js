@@ -13,6 +13,8 @@ self.forumGifData = Object.fromEntries(
 	])
 );
 
+self.gifPrefixes = Object.values(forumGifData).map(({ prefix }) => prefix);
+
 self.SELECTORS = {
 	filters: [
 		"User",
