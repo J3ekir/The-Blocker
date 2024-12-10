@@ -1,7 +1,7 @@
 (async () => {
-	self.origins = await chrome.runtime.sendMessage({
-		type: "getVariable",
-		variable: "origins",
+	const [origins] = await chrome.runtime.sendMessage({
+		type: "getVariables",
+		variables: ["origins"],
 	});
 
 	checkPermission();

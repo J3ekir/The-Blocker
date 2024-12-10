@@ -1,7 +1,7 @@
 (async () => {
-	const forums = await chrome.runtime.sendMessage({
-		type: "getVariable",
-		variable: "FORUMS",
+	const [forums] = await chrome.runtime.sendMessage({
+		type: "getVariables",
+		variables: ["FORUMS"],
 	});
 
 	const STATS = forums.flatMap(forum => [

@@ -2,9 +2,9 @@
 	const USE_GIF = await chrome.storage.local.get(`${ forum }Gif`).then(settings => settings[`${ forum }Gif`]);
 	if (!USE_GIF) { return; }
 
-	const { [forum]: { origin, prefix } } = await chrome.runtime.sendMessage({
-		type: "getVariable",
-		variable: "forumGifData",
+	const [{ origin, prefix }] = await chrome.runtime.sendMessage({
+		type: "getVariables",
+		variables: [`forumGifData.${ forum }`],
 	});
 	const avatarSelector = ".avatar[data-user-id]>img:not([class$='l'])";
 	const processedAvatars = new Set();
