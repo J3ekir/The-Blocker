@@ -3,10 +3,7 @@ self.FORUMS = [
 	"technopat",
 ];
 
-self.origins = [
-	"https://techolay.net/sosyal/*",
-	"https://www.technopat.net/sosyal/*",
-];
+self.origins = chrome.runtime.getManifest()["host_permissions"];
 
 self.forumGifData = Object.fromEntries(
 	FORUMS.map((forum, index) => [
