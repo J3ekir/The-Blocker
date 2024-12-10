@@ -5,6 +5,7 @@
 	});
 
 	checkPermission();
+	calculateGifDataInUse();
 	qs("#requestPermission>button").addEventListener("click", requestPermission);
 	qs("#resetGifs").addEventListener("click", resetGifs);
 	qs("#theme").addEventListener("change", event => {
@@ -59,7 +60,44 @@
 		return gifPrefixes.some(prefix => value.startsWith(prefix));
 	}
 
+	async function calculateGifDataInUse() {
+		const gifKeys = await getGifKeys();
+
+		// https://bugzilla.mozilla.org/show_bug.cgi?id=1385832#c20
+		if (chrome.storage.local.getBytesInUse instanceof Function === false) {
+			const bytes = new TextEncoder().encode(gifKeys.map(key => `${ key }${ JSON.stringify(settings[key]) }`).join("")).length;
+			updateGifDataInUse(bytes);
+		}
+		else {
+			chrome.storage.local.getBytesInUse(gifKeys).then(updateGifDataInUse);
+		}
+	}
+
+	function updateGifDataInUse(bytes) {
+		let unit;
+
+		if (bytes < 1e3) {
+			unit = "B";
+		}
+		else if (bytes < 1e6) {
+			bytes /= 1e3;
+			unit = "KB";
+		}
+		else if (bytes < 1e9) {
+			bytes /= 1e6;
+			unit = "MB";
+		}
+		else {
+			bytes /= 1e9;
+			unit = "GB";
+		}
+
+		qs("#gifDataInUse").textContent = `${ bytes.toLocaleString(undefined, { maximumSignificantDigits: 3 }) } ${ unit }`;
+	}
+
 	chrome.storage.onChanged.addListener(changes => {
+		let callCalculateGifDataInUse = false;
+
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			if (key === "theme") {
 				qs("#theme").value = newValue;
@@ -67,6 +105,13 @@
 			if (settingKeys.includes(key)) {
 				qs(`[data-setting-name="${ key }"]`).checked = newValue;
 			}
+			if (isGifEntry(key)) {
+				callCalculateGifDataInUse = true;
+			}
 		});
+
+		if (callCalculateGifDataInUse) {
+			calculateGifDataInUse();
+		}
 	});
 })();
