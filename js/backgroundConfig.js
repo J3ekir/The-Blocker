@@ -78,7 +78,7 @@ const storage = {
 	},
 	defaultSettings: {
 		lastPane: "settings.html",
-		lastForum: "techolay",
+		lastForum: FORUMS[0],
 		theme: "system",
 		hideDoubleTapHint: false,
 		settingNotes: true,
