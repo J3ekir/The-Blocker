@@ -26,6 +26,7 @@ body {
 	padding: 8px 16px;
 	border-radius: 4px;
 	font-family: var(--font);
+	font-size: 16px;
 	color: var(--double-tap-hint);
 	background-color: var(--double-tap-hint-bg);
 	& > .mobile {
