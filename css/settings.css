@@ -23,7 +23,7 @@ body {
 	& > span {
 		font-family: var(--font);
 		font-size: 32px;
-		font-weight: 400;
+		font-weight: 500;
 	}
 	& > button {
 		display: flex;
