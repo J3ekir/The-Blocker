@@ -64,7 +64,7 @@ body {
 
 .fieldset-header {
 	font-family: var(--font);
-	font-size: 28px;
+	font-size: 24px;
 	font-weight: 500;
 	color: var(--title);
 }
