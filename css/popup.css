@@ -22,7 +22,7 @@ nav {
 }
 
 .tabButton {
-	padding: 0.5em 1em calc(0.5em - 3px);
+	padding: 0.625em 1.25em calc(0.625em - 3px);
 	font-family: var(--font);
 	font-size: 16px;
 	letter-spacing: 0.5px;
