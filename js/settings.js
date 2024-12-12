@@ -8,9 +8,7 @@
 	calculateGifDataInUse();
 	qs("#requestPermission>button").addEventListener("click", requestPermission);
 	qs("#resetGifs").addEventListener("click", resetGifs);
-	qs("#theme").addEventListener("change", event => {
-		chrome.storage.local.set({ theme: event.currentTarget.value });
-	});
+	qs("#theme").addEventListener("change", setTheme);
 
 	const settingElements = qsa("[data-setting-name]");
 	const settingKeys = Array.from(settingElements, elem => elem.getAttribute("data-setting-name"));
@@ -37,6 +35,10 @@
 
 	function setRequestPermissionVisibility(granted) {
 		qs("#requestPermission").style.display = granted ? "none" : "flex";
+	}
+
+	function setTheme(event) {
+		chrome.storage.local.set({ theme: event.currentTarget.value });
 	}
 
 	function settingChanged(event) {
