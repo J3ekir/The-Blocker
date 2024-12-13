@@ -14,15 +14,11 @@
 	calculateGifDataInUse();
 
 	function checkPermission() {
-		chrome.permissions.contains({ origins }).then(granted => {
-			setRequestPermissionVisibility(granted);
-		});
+		chrome.permissions.contains({ origins }).then(setRequestPermissionVisibility);
 	}
 
 	function requestPermission() {
-		chrome.permissions.request({ origins }).then(granted => {
-			setRequestPermissionVisibility(granted);
-		});
+		chrome.permissions.request({ origins }).then(setRequestPermissionVisibility);
 	}
 
 	function setRequestPermissionVisibility(granted) {
