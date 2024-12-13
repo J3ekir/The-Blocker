@@ -12,14 +12,7 @@
 
 	const settingElements = qsa("[data-setting-name]");
 	const settingKeys = Array.from(settingElements, elem => elem.getAttribute("data-setting-name"));
-	chrome.storage.local.get(["theme", ...settingKeys]).then(settings => {
-		qs("#theme").value = settings["theme"];
-
-		settingElements.forEach((elem, i) => {
-			elem.checked = settings[settingKeys[i]];
-			elem.addEventListener("change", settingChanged);
-		});
-	});
+	chrome.storage.local.get(["theme", ...settingKeys]).then(initSettings);
 
 	function checkPermission() {
 		chrome.permissions.contains({ origins }).then(granted => {
@@ -39,6 +32,15 @@
 
 	function setTheme(event) {
 		chrome.storage.local.set({ theme: event.currentTarget.value });
+	}
+
+	function initSettings(settings) {
+		qs("#theme").value = settings["theme"];
+
+		settingElements.forEach((elem, i) => {
+			elem.checked = settings[settingKeys[i]];
+			elem.addEventListener("change", settingChanged);
+		});
 	}
 
 	function settingChanged(event) {
