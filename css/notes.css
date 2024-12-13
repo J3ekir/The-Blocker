@@ -40,39 +40,6 @@ body {
 	display: flex;
 	flex-shrink: 0;
 	gap: 12px;
-	& > button {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-		padding: 0.5em 1em;
-		font-family: var(--font);
-		font-size: 16px;
-		font-weight: 500;
-		border: none;
-		border-radius: 0.375em;
-		color: var(--btn);
-		background-color: var(--btn-bg);
-		&:hover {
-			background-color: var(--btn-bg-hover);
-		}
-		&[disabled] {
-			pointer-events: none;
-			opacity: 0.5;
-			color: var(--btn-disabled);
-			background-color: var(--btn-disabled-bg);
-		}
-		& > svg {
-			flex-shrink: 0;
-			width: 20px;
-			height: 20px;
-			fill: currentColor;
-		}
-		& > span {
-			@media (max-width: 550px) {
-				display: none;
-			}
-		}
-	}
 }
 
 #applyButton path {
