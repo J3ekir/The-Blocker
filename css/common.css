@@ -1,0 +1,8 @@
+:root {
+	--font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+	touch-action: manipulation;
+}
