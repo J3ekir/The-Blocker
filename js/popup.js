@@ -13,9 +13,9 @@
 	chrome.storage.local.get(["theme", "lastForum", ...STATS]).then(settings => {
 		document.documentElement.setAttribute("theme", settings["theme"]);
 
-		chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-			const forum = tabs[0]?.url
-				? new URL(tabs[0].url).hostname.replace(/(?:www.)?(.*).net/, "$1")
+		chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+			const forum = tab?.url
+				? new URL(tab.url).hostname.replace(/(?:www.)?(.*).net/, "$1")
 				: settings["lastForum"];
 
 			if (qs(`[data-forum="${ forum }"]`)) {
