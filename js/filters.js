@@ -113,7 +113,7 @@
 
 	document.addEventListener("mousedown", event => {
 		if (event.target.classList.contains("cm-keyword-link")) {
-			chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ event.target.textContent }` });
+			openUserProfile(event.target.textContent);
 		}
 	});
 
@@ -126,7 +126,7 @@
 			else {
 				clearTimeout(tapped);
 				tapped = null;
-				chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ event.target.textContent }` });
+				openUserProfile(event.target.textContent);
 			}
 
 			event.preventDefault();
@@ -229,5 +229,9 @@
 		return editor.getValue()
 			.replace(/\n{2,}/g, "\n")
 			.trim();
+	}
+
+	function openUserProfile(userId) {
+		chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ userId }` });
 	}
 })();
