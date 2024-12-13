@@ -6,12 +6,11 @@
 
 	checkPermission();
 	qs("#requestPermission>button").addEventListener("click", requestPermission);
-	qs("#resetGifs").addEventListener("click", resetGifs);
-	qs("#theme").addEventListener("change", setTheme);
-
 	const settingElements = qsa("[data-setting-name]");
 	const settingKeys = Array.from(settingElements, elem => elem.getAttribute("data-setting-name"));
 	chrome.storage.local.get(["theme", ...settingKeys]).then(initSettings);
+	qs("#resetGifs").addEventListener("click", resetGifs);
+	qs("#theme").addEventListener("change", setTheme);
 	calculateGifDataInUse();
 
 	function checkPermission() {
