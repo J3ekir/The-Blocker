@@ -19,7 +19,7 @@ nav {
 }
 
 .tabButton {
-	font-size: 20px;
+	font-size: var(--20);
 }
 
 #iframe {

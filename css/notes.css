@@ -1,10 +1,10 @@
 body {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: var(--12);
 	height: 100svh;
 	margin: 0;
-	padding: 12px;
+	padding: var(--12);
 	line-height: 1.2;
 	background-color: var(--body-bg);
 }
@@ -12,12 +12,12 @@ body {
 #doubleTapHint {
 	display: none;
 	align-items: center;
-	gap: 24px;
+	gap: var(--24);
 	width: fit-content;
-	padding: 8px 16px;
-	border-radius: 4px;
+	padding: var(--8) var(--16);
+	border-radius: var(--4);
 	font-family: var(--font);
-	font-size: 16px;
+	font-size: var(--16);
 	color: var(--double-tap-hint);
 	background-color: var(--double-tap-hint-bg);
 	& > .mobile {
@@ -39,7 +39,7 @@ body {
 #controlButtons {
 	display: flex;
 	flex-shrink: 0;
-	gap: 12px;
+	gap: var(--12);
 }
 
 #applyButton path {
@@ -56,7 +56,7 @@ body {
 
 .codeMirrorContainer {
 	flex-grow: 1;
-	font-size: 16px;
+	font-size: var(--16);
 	overflow: hidden;
 }
 
