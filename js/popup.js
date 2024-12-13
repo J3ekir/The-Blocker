@@ -55,6 +55,9 @@
 			if (key === "theme") {
 				document.documentElement.setAttribute(key, newValue);
 			}
+			if (key === "lastForum") {
+				qs(`.tabButton[data-forum="${ newValue }"]`).click();
+			}
 		});
 	});
 })();
