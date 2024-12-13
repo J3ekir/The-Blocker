@@ -16,8 +16,9 @@
 	observeForAvatars();
 
 	function processAllAvatarsAfterLoad() {
+		processedAvatars.clear();
+		qsa(avatarSelector).forEach(processAvatarOnLoad);
 		avatarProcessor = processAvatarAfterLoad;
-		qsa(avatarSelector).forEach(processAvatar);
 	}
 
 	function processAvatarOnLoad(elem) {
