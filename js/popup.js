@@ -34,17 +34,6 @@
 		});
 	});
 
-	chrome.storage.onChanged.addListener(changes => {
-		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-			if (STATS.includes(key)) {
-				qs(`#${ key }`).textContent = newValue;
-			}
-			if (key === "theme") {
-				document.documentElement.setAttribute(key, newValue);
-			}
-		});
-	});
-
 	qsa(".tabButton").forEach(elem => {
 		elem.addEventListener("click", event => {
 			const forum = event.currentTarget.getAttribute("data-forum");
@@ -55,6 +44,17 @@
 			chrome.storage.local.set({
 				lastForum: forum,
 			});
+		});
+	});
+
+	chrome.storage.onChanged.addListener(changes => {
+		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+			if (STATS.includes(key)) {
+				qs(`#${ key }`).textContent = newValue;
+			}
+			if (key === "theme") {
+				document.documentElement.setAttribute(key, newValue);
+			}
 		});
 	});
 })();
