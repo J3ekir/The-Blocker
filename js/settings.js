@@ -63,13 +63,9 @@
 		const gifKeys = await getGifKeys();
 
 		// https://bugzilla.mozilla.org/show_bug.cgi?id=1385832#c20
-		if (typeof chrome.storage.local.getBytesInUse !== "function") {
-			const bytes = new TextEncoder().encode(gifKeys.map(key => `${ key }${ JSON.stringify(settings[key]) }`).join("")).length;
-			updateGifDataInUse(bytes);
-		}
-		else {
-			chrome.storage.local.getBytesInUse(gifKeys).then(updateGifDataInUse);
-		}
+		typeof chrome.storage.local.getBytesInUse !== "function"
+			? updateGifDataInUse(new TextEncoder().encode(gifKeys.map(key => `${ key }${ JSON.stringify(settings[key]) }`).join("")).length)
+			: chrome.storage.local.getBytesInUse(gifKeys).then(updateGifDataInUse);
 	}
 
 	function updateGifDataInUse(bytes) {
