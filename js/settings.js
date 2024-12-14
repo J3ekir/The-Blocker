@@ -68,7 +68,7 @@
 
 		// https://github.com/J3ekir/The-Blocker/issues/3
 		// https://bugzilla.mozilla.org/show_bug.cgi?id=1385832#c20
-		typeof supportsStorageLocalGetBytesInUse
+		supportsStorageLocalGetBytesInUse
 			? chrome.storage.local.getBytesInUse(gifKeys).then(updateGifDataInUse)
 			: updateGifDataInUse(new TextEncoder().encode(gifKeys.map(key => `${ key }${ JSON.stringify(settings[key]) }`).join("")).length);
 	}
