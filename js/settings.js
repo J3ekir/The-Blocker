@@ -1,4 +1,6 @@
 (async () => {
+	const supportsStorageLocalGetKeys = typeof chrome.storage.local.getKeys === "function";
+	const supportsStorageLocalGetBytesInUse = typeof chrome.storage.local.getBytesInUse === "function";
 	const [origins, gifPrefixes] = await chrome.runtime.sendMessage({
 		type: "getVariables",
 		variables: ["origins", "gifPrefixes"],
@@ -52,9 +54,9 @@
 
 	async function getGifKeys() {
 		// https://github.com/J3ekir/The-Blocker/issues/4
-		return typeof chrome.storage.local.getKeys !== "function"
-			? Object.keys(await chrome.storage.local.get()).filter(isGifEntry)
-			: await chrome.storage.local.getKeys().then(keys => keys.filter(isGifEntry));
+		return supportsStorageLocalGetKeys
+			? await chrome.storage.local.getKeys().then(keys => keys.filter(isGifEntry))
+			: Object.keys(await chrome.storage.local.get()).filter(isGifEntry);
 	}
 
 	function isGifEntry(value) {
@@ -64,10 +66,11 @@
 	async function calculateGifDataInUse() {
 		const gifKeys = await getGifKeys();
 
+		// https://github.com/J3ekir/The-Blocker/issues/3
 		// https://bugzilla.mozilla.org/show_bug.cgi?id=1385832#c20
-		typeof chrome.storage.local.getBytesInUse !== "function"
-			? updateGifDataInUse(new TextEncoder().encode(gifKeys.map(key => `${ key }${ JSON.stringify(settings[key]) }`).join("")).length)
-			: chrome.storage.local.getBytesInUse(gifKeys).then(updateGifDataInUse);
+		typeof supportsStorageLocalGetBytesInUse
+			? chrome.storage.local.getBytesInUse(gifKeys).then(updateGifDataInUse)
+			: updateGifDataInUse(new TextEncoder().encode(gifKeys.map(key => `${ key }${ JSON.stringify(settings[key]) }`).join("")).length);
 	}
 
 	function updateGifDataInUse(bytes) {
