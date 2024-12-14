@@ -74,7 +74,7 @@ const storage = {
 		SignatureCount: 0,
 		Notes: {},
 		CSS: "",
-		Gif: true,
+		Gif: !navigator.userAgent.toLowerCase().includes("firefox"),
 	},
 	defaultSettings: {
 		lastPane: "settings.html",
