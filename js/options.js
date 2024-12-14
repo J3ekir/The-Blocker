@@ -3,9 +3,7 @@ const isMac = window.navigator.userAgent.includes("Mac OS");
 chrome.storage.local.get(["theme", "lastPane"]).then(settings => {
 	document.documentElement.setAttribute("theme", settings["theme"]);
 
-	window.location.hash === ""
-		? loadPane(settings["lastPane"])
-		: loadPane(window.location.hash.substring(1));
+	loadPane(window.location.hash.substring(1) || settings["lastPane"]);
 });
 
 chrome.storage.onChanged.addListener(changes => {
