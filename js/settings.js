@@ -51,8 +51,10 @@
 	}
 
 	async function getGifKeys() {
-		const settings = await chrome.storage.local.get();
-		return Object.keys(settings).filter(isGifEntry);
+		// https://github.com/J3ekir/The-Blocker/issues/4
+		return typeof chrome.storage.local.getKeys !== "function"
+			? Object.keys(await chrome.storage.local.get()).filter(isGifEntry)
+			: await chrome.storage.local.getKeys().then(keys => keys.filter(isGifEntry));
 	}
 
 	function isGifEntry(value) {
