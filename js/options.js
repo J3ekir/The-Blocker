@@ -28,7 +28,8 @@ window.addEventListener("message", function (event) {
 });
 
 document.addEventListener("keydown", event => {
-	if (isMac ? event.metaKey : event.ctrlKey && event.key.toLowerCase() === "s") {
+	const isCtrl = isMac ? event.metaKey : event.ctrlKey;
+	if (isCtrl && event.key.toLowerCase() === "s") {
 		event.preventDefault();
 
 		const applyButton = qs(qs("#iframe").contentDocument, "#applyButton");

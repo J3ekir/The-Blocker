@@ -90,7 +90,8 @@
 	});
 
 	document.addEventListener("keydown", event => {
-		if (isMac ? event.metaKey : event.ctrlKey && event.key.toLowerCase() === "s") {
+		const isCtrl = isMac ? event.metaKey : event.ctrlKey;
+		if (isCtrl && event.key.toLowerCase() === "s") {
 			event.preventDefault();
 
 			if (!buttons.save.disabled) {
@@ -100,13 +101,15 @@
 	});
 
 	document.addEventListener("keydown", event => {
-		if (isMac ? event.metaKey : event.ctrlKey) {
+		const isCtrl = isMac ? event.metaKey : event.ctrlKey;
+		if (isCtrl) {
 			qsa(".cm-filter-keyword").forEach(elem => elem.classList.add("cm-keyword-link"));
 		}
 	});
 
 	document.addEventListener("keyup", event => {
-		if (!(isMac ? event.metaKey : event.ctrlKey)) {
+		const isCtrl = isMac ? event.metaKey : event.ctrlKey;
+		if (!isCtrl) {
 			qsa(".cm-filter-keyword.cm-keyword-link").forEach(elem => elem.classList.remove("cm-keyword-link"));
 		}
 	});
