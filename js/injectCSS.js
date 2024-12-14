@@ -29,7 +29,7 @@ async function toggleCSS(isBlock, key, userIds) {
 
 	switch (key) {
 		case `${ forum }User`:
-			const commonUserCSS = `.structItem:has(.structItem-cell--main :is(${ userList })){display:${ isBlock ? "none" : "table" }!important;}.node-extra-row .node-extra-user:has(${ userList }){display:${ isBlock ? "none" : "inline" }!important;}.block-row:has(${ userList }),.structItem-cell.structItem-cell--latest:has(${ userList })>div,:is(.message.message--post, .message.message--article):has(:is(.message-cell--user, .message-articleUserInfo) :is(${ userList }))`;
+			const commonUserCSS = `.structItem:has(.structItem-cell--main :is(${ userList })){display:${ isBlock ? "none" : "table" }!important;}:is(.node-extra-row .node-extra-user,.memberOverviewBlock-list>li):has(${ userList }){display:${ isBlock ? "none" : "inline" }!important;}.block-row:has(${ userList }),.structItem-cell.structItem-cell--latest:has(${ userList })>div,:is(.message.message--post, .message.message--article):has(:is(.message-cell--user, .message-articleUserInfo) :is(${ userList }))`;
 			const quoteCSS = settings["settingQuotes"]
 				? `[data-attributes="member: ${ userIds.join(`"],[data-attributes="member: `) }"]`
 				: "";
