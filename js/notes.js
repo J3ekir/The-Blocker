@@ -1,5 +1,5 @@
 (async () => {
-	const isMac = window.navigator.userAgent.indexOf("Mac OS") !== -1;
+	const isMac = window.navigator.userAgent.includes("Mac OS");
 	const isMobile = /\bMobile\b/.test(window.navigator.userAgent);
 	const forum = parent.document.documentElement.dataset.forum;
 	const notesKey = `${ forum }Notes`;

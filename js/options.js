@@ -1,4 +1,4 @@
-const isMac = window.navigator.userAgent.indexOf("Mac OS") !== -1;
+const isMac = window.navigator.userAgent.includes("Mac OS");
 
 chrome.storage.local.get(["theme", "lastPane"]).then(settings => {
 	document.documentElement.setAttribute("theme", settings["theme"]);
