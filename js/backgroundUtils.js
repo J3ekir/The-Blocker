@@ -40,16 +40,18 @@ self.noteSavedMessage = ({ tab }, { message }) => {
 	});
 };
 
+const supportsResponseBytes = typeof new Response().bytes === "function";
 self.url2Base64 = (_, { url, forumUserId, t }) => {
 	fetch(url.replace(/\/avatars\/[sm]\//, "/avatars/o/"))
-		.then(response => response.arrayBuffer())
-		.then(arrayBuffer => new Uint8Array(arrayBuffer))
-		.then(async typedArray => {
+		.then(response => supportsResponseBytes ? response.bytes() : response.arrayBuffer().then(buffer => new Uint8Array(buffer)))
+		.then(typedArray => {
 			const gifResizer = new GifResizer(typedArray);
 
 			if (gifResizer.frameCount === 1) { throw new Error("1 frame GIF."); }
 
-			const [s, m] = await Promise.all([gifResizer.resize(48), gifResizer.resize(96)]);
+			return Promise.all([gifResizer.resize(48), gifResizer.resize(96)]);
+		})
+		.then(([s, m]) => {
 			chrome.storage.local.set({ [forumUserId]: { t, s, m, g: 1 } });
 		})
 		.catch(error => {
