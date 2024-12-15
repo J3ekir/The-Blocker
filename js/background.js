@@ -19,7 +19,7 @@ function checkPermissions() {
 	chrome.permissions.contains({ origins }).then(granted => !granted && chrome.tabs.create({ url: `${ chrome.runtime.getURL("options.html") }#settings.html` }));
 }
 
-chrome.storage.onChanged.addListener(changes => {
+chrome.storage.local.onChanged.addListener(changes => {
 	let callSetCSS = false;
 	const setCssParams = new Set();
 

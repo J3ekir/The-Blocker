@@ -83,7 +83,7 @@
 		).observe(document, { childList: true, subtree: true });
 	}
 
-	chrome.storage.onChanged.addListener(changes => {
+	chrome.storage.local.onChanged.addListener(changes => {
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			if (newValue.g && key.startsWith(prefix)) {
 				cache[key] = newValue;

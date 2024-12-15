@@ -47,7 +47,7 @@
 		});
 	});
 
-	chrome.storage.onChanged.addListener(changes => {
+	chrome.storage.local.onChanged.addListener(changes => {
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			if (STATS.includes(key)) {
 				qs(`#${ key }`).textContent = newValue;

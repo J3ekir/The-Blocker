@@ -112,7 +112,7 @@
 		return qs(elem, ".memberTooltip .memberTooltip-note");
 	}
 
-	chrome.storage.onChanged.addListener(changes => {
+	chrome.storage.local.onChanged.addListener(changes => {
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			if (key === notesKey) {
 				// https://issues.chromium.org/issues/40321352

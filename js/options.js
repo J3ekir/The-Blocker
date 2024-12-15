@@ -6,7 +6,7 @@ chrome.storage.local.get(["theme", "lastPane"]).then(settings => {
 	loadPane(window.location.hash.substring(1) || settings["lastPane"]);
 });
 
-chrome.storage.onChanged.addListener(changes => {
+chrome.storage.local.onChanged.addListener(changes => {
 	Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 		if (key === "theme") {
 			document.documentElement.setAttribute(key, newValue);

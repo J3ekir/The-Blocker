@@ -83,7 +83,7 @@
 
 	noteEditor.on("changes", editorChanged);
 
-	chrome.storage.onChanged.addListener(changes => {
+	chrome.storage.local.onChanged.addListener(changes => {
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			switch (key) {
 				case notesKey:

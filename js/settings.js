@@ -95,7 +95,7 @@
 		qs("#gifDataInUse").textContent = `${ bytes.toLocaleString(undefined, { maximumSignificantDigits: 3 }) } ${ unit }`;
 	}
 
-	chrome.storage.onChanged.addListener(changes => {
+	chrome.storage.local.onChanged.addListener(changes => {
 		let callCalculateGifDataInUse = false;
 
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
