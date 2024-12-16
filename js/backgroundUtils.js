@@ -85,3 +85,16 @@ self.gifRule = (key, value) => {
 		removeRuleIds: [id],
 	});
 };
+
+self.gifStopperStopper = ({ tab }) => {
+	chrome.scripting.executeScript({
+		target: { tabId: tab.id },
+		injectImmediately: true,
+		world: "MAIN",
+		func: _ => Object.defineProperty(window, "LEO_GM_PAUSE_GIFS", {
+			value: false,
+			writable: false,
+			configurable: false,
+		}),
+	});
+};

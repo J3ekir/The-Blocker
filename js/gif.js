@@ -2,6 +2,10 @@
 	const USE_GIF = await chrome.storage.local.get(`${ forum }Gif`).then(settings => settings[`${ forum }Gif`]);
 	if (!USE_GIF) { return; }
 
+	chrome.runtime.sendMessage({
+		type: "gifStopperStopper",
+	});
+
 	const [{ origin, prefix }] = await chrome.runtime.sendMessage({
 		type: "getVariables",
 		variables: [`forumGifData.${ forum }`],
