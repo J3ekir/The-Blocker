@@ -115,4 +115,6 @@ self.defaultSettings = {
 	...Object.fromEntries(FORUMS.flatMap(forum => Object.entries(storage.defaultForumSettings).map(([key, value]) => ([`${ forum }${ key }`, value])))),
 };
 
+self.defaultSettings.techolayGif = false;
+
 self.defaultSettingsKeys = Object.keys(defaultSettings);
