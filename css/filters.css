@@ -86,8 +86,8 @@ main {
 	font-size: var(--16);
 	overflow: hidden;
 	@media (max-width: 750px) {
-		min-height: 3lh;
-		max-height: 40svh;
+		min-height: 5lh;
+		max-height: 60svh;
 	}
 }
 
