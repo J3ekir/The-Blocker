@@ -12,10 +12,9 @@ nav {
 	display: flex;
 	flex-shrink: 0;
 	border: 0;
-	border-bottom: 1px solid;
+	border-bottom: 1px solid var(--nav-border);
 	overflow-x: auto;
 	position: sticky;
-	border-color: var(--nav-border);
 }
 
 .tabButton {
