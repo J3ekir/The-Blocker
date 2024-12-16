@@ -142,7 +142,7 @@
 		}
 	}
 
-	self.blockHandler = function (event) {
+	self.blockHandler = event => {
 		event.currentTarget.closest(".menu[data-menu-builder='actionBar']")?.dispatchEvent(new Event("menu:close"));
 
 		const userId = parseInt(event.currentTarget.dataset.userId, 10);

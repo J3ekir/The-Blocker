@@ -30,7 +30,7 @@
 		styleActiveLine: { nonEmpty: true },
 	};
 
-	CodeMirror.defineMode("theBlocker-notes", function () {
+	CodeMirror.defineMode("theBlocker-notes", (config, parserConfig) => {
 		let lastUserId = "";
 
 		return {

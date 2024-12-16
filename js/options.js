@@ -18,7 +18,7 @@ qsa(".tabButton").forEach(elem => {
 	elem.addEventListener("click", event => loadPane(event.currentTarget.getAttribute("data-pane")));
 });
 
-window.addEventListener("message", function (event) {
+window.addEventListener("message", event => {
 	switch (event.data["type"]) {
 		case "tab":
 			setSelectedTab();

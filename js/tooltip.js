@@ -67,14 +67,14 @@
 		);
 	}
 
-	self.noteEnterHandler = function (event) {
+	self.noteEnterHandler = event => {
 		if (event.key === "Enter") {
 			event.currentTarget.nextElementSibling.click();
 			event.currentTarget.closest(".tooltip.tooltip--member")?.dispatchEvent(new Event("mouseout"));
 		}
 	};
 
-	self.noteSaveHandler = function (event) {
+	self.noteSaveHandler = event => {
 		const note = event.currentTarget.previousElementSibling.value;
 		const userId = parseInt(event.currentTarget.parentElement.dataset.userId, 10);
 

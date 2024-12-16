@@ -33,12 +33,10 @@
 		styleActiveLine: { nonEmpty: true },
 	};
 
-	CodeMirror.defineMode("theBlocker-filters", function (config, parserConfig) {
+	CodeMirror.defineMode("theBlocker-filters", (config, parserConfig) => {
 		return {
 			token(stream) {
-				return stream.match(/\d+/) === null
-					? "line-cm-error"
-					: "filter-keyword";
+				return stream.match(/\d+/) === null ? "line-cm-error" : "filter-keyword";
 			}
 		};
 	});
