@@ -99,7 +99,7 @@ technopat
 			border: 1px solid hsl(var(--xf-borderColor)) !important;
 			border-top: 1px solid var(--input-border-light) !important;
 		}
-		.tab-wrapper.widget-group:has(>&) {
+		.tab-wrapper.widget-group:has(> &) {
 			& > :first-child {
 				margin: 0 !important;
 				@media (max-width: 650px) {
