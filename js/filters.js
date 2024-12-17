@@ -188,11 +188,17 @@
 
 			try {
 				const filters = JSON.parse(fileContent);
+				const user = [...new Set([...settings[userKey], ...filters["kullanıcı"]])];
+				const avatar = [...new Set([...settings[avatarKey], ...filters["avatar"]])];
+				const signature = [...new Set([...settings[signatureKey], ...filters["imza"]])];
 
 				chrome.storage.local.set({
-					[userKey]: [...new Set([...settings[userKey], ...filters["kullanıcı"]])],
-					[avatarKey]: [...new Set([...settings[avatarKey], ...filters["avatar"]])],
-					[signatureKey]: [...new Set([...settings[signatureKey], ...filters["imza"]])],
+					[userKey]: user,
+					[avatarKey]: avatar,
+					[signatureKey]: signature,
+					[`${ userKey }Count`]: user.length,
+					[`${ avatarKey }Count`]: avatar.length,
+					[`${ signatureKey }Count`]: signature.length,
 				});
 			}
 			catch (error) {
