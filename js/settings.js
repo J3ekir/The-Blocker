@@ -1,6 +1,7 @@
 (async () => {
 	const supportsStorageLocalGetKeys = typeof chrome.storage.local.getKeys === "function";
 	const supportsStorageLocalGetBytesInUse = typeof chrome.storage.local.getBytesInUse === "function";
+	const DATA_SIZE_UNITS = ["B", "KB", "MB", "GB"];
 	const [origins, gifPrefixes] = await chrome.runtime.sendMessage({
 		type: "getVariables",
 		variables: ["origins", "gifPrefixes"],
@@ -74,25 +75,14 @@
 	}
 
 	function updateGifDataInUse(bytes) {
-		let unit;
+		let unitIndex = 0;
 
-		if (bytes < 1e3) {
-			unit = "B";
-		}
-		else if (bytes < 1e6) {
+		while (bytes >= 1e3 && unitIndex < DATA_SIZE_UNITS.length - 1) {
 			bytes /= 1e3;
-			unit = "KB";
-		}
-		else if (bytes < 1e9) {
-			bytes /= 1e6;
-			unit = "MB";
-		}
-		else {
-			bytes /= 1e9;
-			unit = "GB";
+			++unitIndex;
 		}
 
-		qs("#gifDataInUse").textContent = `${ bytes.toLocaleString(undefined, { maximumSignificantDigits: 3 }) } ${ unit }`;
+		qs("#gifDataInUse").textContent = `${ bytes.toLocaleString(undefined, { maximumSignificantDigits: 3 }) } ${ DATA_SIZE_UNITS[unitIndex] }`;
 	}
 
 	chrome.storage.local.onChanged.addListener(changes => {
