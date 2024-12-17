@@ -90,6 +90,9 @@
 	chrome.storage.local.onChanged.addListener(changes => {
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			if (newValue.g && key.startsWith(prefix)) {
+				// https://github.com/w3c/webextensions/issues/511
+				if (isFirefox && oldValue.t === newValue.t) { return; }
+
 				cache[key] = newValue;
 				updateAvatars(key);
 			}

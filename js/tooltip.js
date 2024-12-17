@@ -115,6 +115,9 @@
 	chrome.storage.local.onChanged.addListener(changes => {
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			if (key === notesKey) {
+				// https://github.com/w3c/webextensions/issues/511
+				if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+
 				// https://issues.chromium.org/issues/40321352
 				const oldNotes = settings.notes;
 				settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));

@@ -100,6 +100,9 @@
 					case userKey:
 					case avatarKey:
 					case signatureKey:
+						// https://github.com/w3c/webextensions/issues/511
+						if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+
 						// https://issues.chromium.org/issues/40321352
 						const oldSet = new Set(oldValue);
 						const newSet = new Set(newValue);

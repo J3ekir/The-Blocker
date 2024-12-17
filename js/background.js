@@ -23,12 +23,18 @@ chrome.storage.local.onChanged.addListener(changes => {
 	let callSetCSS = false;
 	const setCssParams = new Set();
 
-	Object.keys(changes).forEach(key => {
+	Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 		if (SET_CSS_TRIGGER_KEYS.includes(key)) {
+			// https://github.com/w3c/webextensions/issues/511
+			if (isFirefox && oldValue === newValue) { return; }
+
 			callSetCSS = true;
 			FORUMS.filter(forum => key.startsWith(forum)).forEach(forum => setCssParams.add(forum));
 		}
 		if (key.endsWith("Gif")) {
+			// https://github.com/w3c/webextensions/issues/511
+			if (isFirefox && oldValue === newValue) { return; }
+
 			gifRule(key, changes[key].newValue);
 		}
 	});

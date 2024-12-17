@@ -9,6 +9,9 @@ chrome.storage.local.onChanged.addListener(changes => {
 			case `${ forum }User`:
 			case `${ forum }Avatar`:
 			case `${ forum }Signature`:
+				// https://github.com/w3c/webextensions/issues/511
+				if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+
 				const oldSet = new Set(oldValue);
 				const newSet = new Set(newValue);
 				toggleCSS(true, key, [...newSet.difference(oldSet)]);

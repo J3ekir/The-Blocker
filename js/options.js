@@ -1,3 +1,4 @@
+const isFirefox = window.navigator.userAgent.toLowerCase().includes("firefox");
 const isMac = window.navigator.userAgent.includes("Mac OS");
 
 chrome.storage.local.get(["theme", "lastPane"]).then(settings => {
@@ -9,6 +10,9 @@ chrome.storage.local.get(["theme", "lastPane"]).then(settings => {
 chrome.storage.local.onChanged.addListener(changes => {
 	Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 		if (key === "theme") {
+			// https://github.com/w3c/webextensions/issues/511
+			if (isFirefox && oldValue === newValue) { return; }
+
 			document.documentElement.setAttribute(key, newValue);
 		}
 	});

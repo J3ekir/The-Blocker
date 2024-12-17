@@ -90,12 +90,21 @@
 
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			if (key === "theme") {
+				// https://github.com/w3c/webextensions/issues/511
+				if (isFirefox && oldValue === newValue) { return; }
+
 				qs("#theme").value = newValue;
 			}
 			if (settingKeys.includes(key)) {
+				// https://github.com/w3c/webextensions/issues/511
+				if (isFirefox && oldValue === newValue) { return; }
+
 				qs(`[data-setting-name="${ key }"]`).checked = newValue;
 			}
 			if (isGifEntry(key)) {
+				// https://github.com/w3c/webextensions/issues/511
+				if (isFirefox && oldValue.t === newValue.t) { return; }
+
 				callCalculateGifDataInUse = true;
 			}
 		});

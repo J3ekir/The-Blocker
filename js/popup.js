@@ -1,4 +1,5 @@
 (async () => {
+	const isFirefox = window.navigator.userAgent.toLowerCase().includes("firefox");
 	const [forums] = await chrome.runtime.sendMessage({
 		type: "getVariables",
 		variables: ["FORUMS"],
@@ -50,12 +51,21 @@
 	chrome.storage.local.onChanged.addListener(changes => {
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			if (STATS.includes(key)) {
+				// https://github.com/w3c/webextensions/issues/511
+				if (isFirefox && oldValue === newValue) { return; }
+
 				qs(`#${ key }`).textContent = newValue;
 			}
 			if (key === "theme") {
+				// https://github.com/w3c/webextensions/issues/511
+				if (isFirefox && oldValue === newValue) { return; }
+
 				document.documentElement.setAttribute(key, newValue);
 			}
 			if (key === "lastForum") {
+				// https://github.com/w3c/webextensions/issues/511
+				if (isFirefox && oldValue === newValue) { return; }
+
 				qs(`.tabButton[data-forum="${ newValue }"]`).click();
 			}
 		});

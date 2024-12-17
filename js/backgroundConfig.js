@@ -1,3 +1,5 @@
+self.isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
+
 self.origins = chrome.runtime.getManifest()["host_permissions"];
 
 self.FORUMS = origins.map(origin => new URL(origin).hostname.replace(/(?:www.)?(.*).net/, "$1"));
@@ -54,7 +56,7 @@ const SET_CSS_KEYS = [
 
 self.SET_CSS_TRIGGER_KEYS = [
 	...SET_CSS_KEYS,
-	...FORUMS.flatMap(forum => SELECTORS.filters.map(filter => `${ forum }${ filter }`)),
+	...FORUMS.flatMap(forum => SELECTORS.filters.map(filter => `${ forum }${ filter }Count`)),
 ];
 
 self.getSetCssKeys = forum => {
@@ -74,7 +76,7 @@ const storage = {
 		SignatureCount: 0,
 		Notes: {},
 		CSS: "",
-		Gif: !navigator.userAgent.toLowerCase().includes("firefox"),
+		Gif: !self.isFirefox,
 	},
 	defaultSettings: {
 		lastPane: "settings.html",

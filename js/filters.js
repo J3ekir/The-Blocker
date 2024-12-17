@@ -68,6 +68,9 @@
 	chrome.storage.local.onChanged.addListener(changes => {
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			if (FILTERS.includes(key)) {
+				// https://github.com/w3c/webextensions/issues/511
+				if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+
 				settings[key] = newValue;
 				renderEditor(key);
 			}

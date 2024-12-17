@@ -15,3 +15,4 @@ self.isLoggedIn = document.documentElement.getAttribute("data-logged-in") === "t
 self.isSelfUserId = userId => isLoggedIn && userId === parseInt(qs(".p-navgroup-link--user>.avatar").dataset.userId, 10);
 self.isUserIdValid = userId => userId && /^\d+$/.test(userId);
 self.forum = window.location.hostname.replace(/(?:www.)?(.*).net/, "$1");
+self.isFirefox = window.navigator.userAgent.toLowerCase().includes("firefox");
