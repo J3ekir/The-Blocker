@@ -16,7 +16,12 @@
 		waitForElement(".tabs-tab").then(updateTabName);
 	}
 
+	waitForElement("head>link[href^='/sosyal/css.php']").then(addStyleId);
 	waitForElement(".p-body-pageContent>.tab-wrapper.widget-group:first-child+.block").then(initializaTabs);
+
+	function addStyleId(elem) {
+		document.documentElement.setAttribute("data-style-id", /&s=(\d+)/.exec(elem.href)[1]);
+	}
 
 	function initializaTabs() {
 		qs(".tabs").removeAttribute("data-xf-init");
@@ -59,7 +64,7 @@
 		const tabs = qs("[role='tablist']");
 		const bottomTabs = tabs.cloneNode(true);
 		bottomTabs.classList.add("bottom-tabs");
-		bottomTabs.setAttribute("style-id", /'style_id':(\d+)/.exec(qs('script[src^="https://www.googletagmanager.com/gtag/js"]+script').textContent)[1]);
+		bottomTabs.setAttribute("style-id", document.documentElement.dataset.styleId || /&s=(\d+)/.exec(qs("head>link[href^='/sosyal/css.php']").href)[1]);
 
 		qsa(bottomTabs, "[role='tab']").forEach(elem => {
 			elem.addEventListener("click", activateTab);
@@ -78,5 +83,4 @@
 		const nextStr = elem.nextElementSibling.textContent;
 		elem.textContent += `${ STR.combinedTabConjunction }${ nextStr.substring(nextStr.indexOf(" ")) }`;
 	}
-
 })();

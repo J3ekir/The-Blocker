@@ -160,7 +160,7 @@ technopat
 	}
 }
 /* aurora magic */
-#top:has(> .p-navSticky:first-child) {
+:root[data-style-id="13"] {
 	& .tab-wrapper.widget-group {
 		& > :first-child {
 			margin: 0 !important;
