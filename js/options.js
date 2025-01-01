@@ -1,4 +1,3 @@
-const isFirefox = window.navigator.userAgent.toLowerCase().includes("firefox");
 const isMac = window.navigator.userAgent.includes("Mac OS");
 
 chrome.storage.local.get(["theme", "lastPane"]).then(settings => {

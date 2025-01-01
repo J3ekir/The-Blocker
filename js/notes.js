@@ -1,5 +1,4 @@
 (async () => {
-	const isFirefox = window.navigator.userAgent.toLowerCase().includes("firefox");
 	const isMac = window.navigator.userAgent.includes("Mac OS");
 	const isMobile = /\bMobile\b/.test(window.navigator.userAgent);
 	const forum = parent.document.documentElement.dataset.forum;

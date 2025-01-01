@@ -1,5 +1,4 @@
 (async () => {
-	const isFirefox = window.navigator.userAgent.toLowerCase().includes("firefox");
 	const [forums] = await chrome.runtime.sendMessage({
 		type: "getVariables",
 		variables: ["FORUMS"],
