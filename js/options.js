@@ -63,8 +63,10 @@ function setSelectedTab() {
 	qsa(".tabButton.active").forEach(elem => elem.classList.remove("active"));
 	tabButton.classList.add("active");
 	tabButton.scrollIntoView();
-	chrome.storage.local.set({
-		lastPane: window.paneToLoad,
+	qs("#iframe").contentWindow.addEventListener("beforeunload", event => {
+		chrome.storage.local.set({
+			lastPane: window.paneToLoad,
+		});
 	});
 
 	document.title = tabButton.textContent;
