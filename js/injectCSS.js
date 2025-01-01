@@ -48,7 +48,7 @@ async function toggleCSS(isBlock, key, userIds) {
 			CSS = [commonUserCSS, quoteCSS, notificationsCSS, profilePostsCSS, profilePostCommentsCSS].filter(Boolean).join();
 			break;
 		case `${ forum }Avatar`:
-			CSS = `:is(a,span):is(${ userList })>img`;
+			CSS = `:is(a,span):is(${ userList })>:is(img,canvas)`;
 			break;
 		case `${ forum }Signature`:
 			CSS = `.message-inner:has(${ userList }) .message-signature`;

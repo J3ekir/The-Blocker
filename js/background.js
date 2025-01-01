@@ -59,7 +59,7 @@ async function setCSS(...forums) {
 		const commonUserCSS = Object.keys(SELECTORS.user).filter(key => settings[key]).map(key => SELECTORS.user[key]).join();
 		const userCSS = `:is(${ commonUserCSS }):has(${ userList }),:is(.block-row,.node-extra-row .node-extra-user,.memberOverviewBlock-list>li):has(${ userList }),.structItem-cell.structItem-cell--latest:has(${ userList })>div,:is(.message.message--post, .message.message--article, .structItem):has(:is(.message-cell--user, .message-articleUserInfo, .structItem-cell--main) :is(${ userList }))`;
 		// https://github.com/J3ekir/The-Blocker/commit/03d6569
-		const avatarCSS = `:is(#theBlocker,:is(a,span):is([data-user-id="${ settings[`${ forum }Avatar`].join(`"],[data-user-id="`) }"]))>img`;
+		const avatarCSS = `:is(#theBlocker,:is(a,span):is([data-user-id="${ settings[`${ forum }Avatar`].join(`"],[data-user-id="`) }"]))>:is(img,canvas)`;
 		const signatureCSS = `.message-inner:has(a:is([data-user-id="${ settings[`${ forum }Signature`].join(`"],[data-user-id="`) }"])) .message-signature`;
 		const miscCSS = Object.keys(SELECTORS.misc).filter(key => settings[key]).map(key => SELECTORS.misc[key]).join();
 
