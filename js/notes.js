@@ -100,7 +100,6 @@
 		if (buttons.save.disabled) { return; }
 
 		event.preventDefault();
-		event.returnValue = "";
 	});
 
 	window.addEventListener("unload", event => {
