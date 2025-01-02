@@ -83,7 +83,7 @@
 		event.preventDefault();
 	});
 
-	window.addEventListener("unload", event => {
+	window.addEventListener("pagehide", event => {
 		parent.postMessage({
 			type: "tab",
 		}, "*");
