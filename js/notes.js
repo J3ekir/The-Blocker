@@ -87,9 +87,10 @@
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			switch (key) {
 				case notesKey:
-					// https://github.com/w3c/webextensions/issues/511
+					// https://github.com/J3ekir/The-Blocker/issues/5
 					if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
 
+					// https://crbug.com/40321352
 					settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));
 					renderNotes();
 			}

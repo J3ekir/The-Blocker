@@ -68,7 +68,7 @@
 		const gifKeys = await getGifKeys();
 
 		// https://github.com/J3ekir/The-Blocker/issues/3
-		// https://bugzilla.mozilla.org/show_bug.cgi?id=1385832#c20
+		// https://bugzil.la/1385832#c20
 		supportsStorageLocalGetBytesInUse
 			? chrome.storage.local.getBytesInUse(gifKeys).then(updateGifDataInUse)
 			: updateGifDataInUse(new TextEncoder().encode(gifKeys.map(key => `${ key }${ JSON.stringify(settings[key]) }`).join("")).length);
@@ -90,19 +90,19 @@
 
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			if (key === "theme") {
-				// https://github.com/w3c/webextensions/issues/511
+				// https://github.com/J3ekir/The-Blocker/issues/5
 				if (isFirefox && oldValue === newValue) { return; }
 
 				qs("#theme").value = newValue;
 			}
 			if (settingKeys.includes(key)) {
-				// https://github.com/w3c/webextensions/issues/511
+				// https://github.com/J3ekir/The-Blocker/issues/5
 				if (isFirefox && oldValue === newValue) { return; }
 
 				qs(`[data-setting-name="${ key }"]`).checked = newValue;
 			}
 			if (isGifEntry(key)) {
-				// https://github.com/w3c/webextensions/issues/511
+				// https://github.com/J3ekir/The-Blocker/issues/5
 				if (isFirefox && oldValue.t === newValue.t) { return; }
 
 				callCalculateGifDataInUse = true;

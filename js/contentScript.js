@@ -100,10 +100,10 @@
 					case userKey:
 					case avatarKey:
 					case signatureKey:
-						// https://github.com/w3c/webextensions/issues/511
+						// https://github.com/J3ekir/The-Blocker/issues/5
 						if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
 
-						// https://issues.chromium.org/issues/40321352
+						// https://crbug.com/40321352
 						const oldSet = new Set(oldValue);
 						const newSet = new Set(newValue);
 						toggleButtonTexts(true, key, [...newSet.difference(oldSet)]);

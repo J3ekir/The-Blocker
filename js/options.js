@@ -9,7 +9,7 @@ chrome.storage.local.get(["theme", "lastPane"]).then(settings => {
 chrome.storage.local.onChanged.addListener(changes => {
 	Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 		if (key === "theme") {
-			// https://github.com/w3c/webextensions/issues/511
+			// https://github.com/J3ekir/The-Blocker/issues/5
 			if (isFirefox && oldValue === newValue) { return; }
 
 			document.documentElement.setAttribute(key, newValue);

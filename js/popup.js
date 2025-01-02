@@ -50,19 +50,19 @@
 	chrome.storage.local.onChanged.addListener(changes => {
 		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 			if (STATS.includes(key)) {
-				// https://github.com/w3c/webextensions/issues/511
+				// https://github.com/J3ekir/The-Blocker/issues/5
 				if (isFirefox && oldValue === newValue) { return; }
 
 				qs(`#${ key }`).textContent = newValue;
 			}
 			if (key === "theme") {
-				// https://github.com/w3c/webextensions/issues/511
+				// https://github.com/J3ekir/The-Blocker/issues/5
 				if (isFirefox && oldValue === newValue) { return; }
 
 				document.documentElement.setAttribute(key, newValue);
 			}
 			if (key === "lastForum") {
-				// https://github.com/w3c/webextensions/issues/511
+				// https://github.com/J3ekir/The-Blocker/issues/5
 				if (isFirefox && oldValue === newValue) { return; }
 
 				qs(`.tabButton[data-forum="${ newValue }"]`).click();

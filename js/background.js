@@ -25,14 +25,14 @@ chrome.storage.local.onChanged.addListener(changes => {
 
 	Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
 		if (SET_CSS_TRIGGER_KEYS.includes(key)) {
-			// https://github.com/w3c/webextensions/issues/511
+			// https://github.com/J3ekir/The-Blocker/issues/5
 			if (isFirefox && oldValue === newValue) { return; }
 
 			callSetCSS = true;
 			FORUMS.filter(forum => key.startsWith(forum)).forEach(forum => setCssParams.add(forum));
 		}
 		if (key.endsWith("Gif")) {
-			// https://github.com/w3c/webextensions/issues/511
+			// https://github.com/J3ekir/The-Blocker/issues/5
 			if (isFirefox && oldValue === newValue) { return; }
 
 			gifRule(key, changes[key].newValue);
@@ -75,7 +75,7 @@ async function setCSS(...forums) {
 
 /**********************************************************************************************/
 // keepAlive
-// https://stackoverflow.com/a/66618269/13630257
+// https://stackoverflow.com/a/66618269
 // "Persistent" service worker while a connectable tab is present
 // "host_permissions": ["<all_urls>"],
 // const onUpdate = (tabId, info, tab) => /^https?:/.test(info.url) && findTab([tab]);
