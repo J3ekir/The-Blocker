@@ -17,7 +17,7 @@
 	}
 
 	waitForElement("head>link[href^='/sosyal/css.php']").then(addStyleId);
-	waitForElement(".p-body-pageContent>.tab-wrapper.widget-group:first-child+.block").then(initializaTabs);
+	waitForElement(".p-body-pageContent>.tab-wrapper.widget-group:first-child+div").then(initializaTabs);
 
 	function addStyleId(elem) {
 		document.documentElement.setAttribute("data-style-id", /&s=(\d+)/.exec(elem.href)[1]);
