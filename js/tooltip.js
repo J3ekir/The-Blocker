@@ -58,7 +58,7 @@
 	}
 
 	function addProfileNote() {
-		const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)").dataset.userId, 10);
+		const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)[data-user-id]").dataset.userId, 10);
 
 		if (isSelfUserId(userId)) { return; }
 

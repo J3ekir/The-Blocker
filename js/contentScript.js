@@ -15,7 +15,7 @@
 
 		async function createBlockButtons() {
 			const postIds = Array.from(qsa(":is(.message--post,.message--article)"), node => node.dataset.content.slice(5));
-			const userIds = Array.from(qsa(":is(.message-name,.message-articleUserName)>:is(a,span)"), node => parseInt(node.dataset.userId, 10));
+			const userIds = Array.from(qsa(":is(.message-name,.message-articleUserName)>:is(a,span)[data-user-id]"), node => parseInt(node.dataset.userId, 10));
 			let messages = qsa(".message-actionBar.actionBar");
 
 			// report ban and reaction ban
