@@ -80,6 +80,33 @@
 	}
 }
 
+.hint {
+	display: flex;
+	align-items: center;
+	gap: var(--24);
+	width: fit-content;
+	padding: var(--8) var(--16);
+	border-radius: var(--4);
+	font-family: var(--font);
+	font-size: var(--16);
+	color: var(--hint);
+	background-color: var(--hint-bg);
+	& .mobile {
+		display: none;
+		:root.mobile & {
+			display: inline;
+			& + b {
+				display: none;
+			}
+		}
+	}
+	& > b {
+		text-wrap: nowrap;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+}
+
 .hidden {
 	display: none !important;
 	& + hr {
