@@ -64,20 +64,13 @@
 
 	const noteEditor = new CodeMirror(qs("#note"), codeMirrorOptions);
 
-	if (settings["hideDoubleTapHint"]) {
-		qs("#doubleTapHint").style.display = "none";
-	}
-	else {
-		qs("#doubleTapHint").style.display = "flex";
-		qs("#doubleTapHint>b").addEventListener("click", event => {
-			event.currentTarget.parentElement.style.display = "none";
-			chrome.storage.local.set({ hideDoubleTapHint: true });
-		});
-	}
+	document.documentElement.classList.toggle("mobile", isMobile);
 
-	if (isMobile) {
-		document.documentElement.classList.add("mobile");
-	}
+	qs("#doubleTapHint").classList.toggle("hidden", settings["hideDoubleTapHint"]);
+	qs("#doubleTapHint>b").addEventListener("click", event => {
+		event.currentTarget.parentElement.classList.add("hidden");
+		chrome.storage.local.set({ hideDoubleTapHint: true });
+	});
 
 	renderNotes();
 

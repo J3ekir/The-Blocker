@@ -10,7 +10,7 @@ body {
 }
 
 #doubleTapHint {
-	display: none;
+	display: flex;
 	align-items: center;
 	gap: var(--24);
 	width: fit-content;

@@ -79,3 +79,10 @@
 		}
 	}
 }
+
+.hidden {
+	display: none !important;
+	& + hr {
+		display: none !important;
+	}
+}

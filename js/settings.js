@@ -25,7 +25,7 @@
 	}
 
 	function setRequestPermissionVisibility(granted) {
-		qs("#requestPermission").style.display = granted ? "none" : "flex";
+		qs("#requestPermission").classList.toggle("hidden", granted);
 	}
 
 	function setTheme(event) {
