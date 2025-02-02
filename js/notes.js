@@ -26,37 +26,7 @@
 		scrollbarStyle: "overlay",
 		styleActiveLine: { nonEmpty: true },
 	};
-	CodeMirror.defineMode("theBlocker-notes", (config, parserConfig) => {
-		let lastUserId = "";
-
-		return {
-			token(stream) {
-				if (stream.sol()) {
-					if (!stream.match(/^\s*\d+[ ].+$/, false)) {
-						stream.skipToEnd();
-						return "line-cm-error";
-					}
-
-					if (stream.match(/\s+/, false)) {
-						stream.eatSpace();
-						return null;
-					}
-				}
-
-				if (stream.match(/\d+/, false)) {
-					lastUserId = parseInt(stream.match(/\d+/)[0], 10);
-					return "keyword";
-				}
-
-				const note = stream.match(/[ ].+/)[0];
-				if (note.trim() !== settings.notes.get(lastUserId)) {
-					return "line-cm-strong";
-				}
-
-				return null;
-			}
-		};
-	});
+	CodeMirror.defineMode("theBlocker-notes", theBlockerNotes);
 	const noteEditor = new CodeMirror(qs("#note"), codeMirrorOptions);
 	document.documentElement.classList.toggle("mobile", isMobile);
 	qs("#doubleTapHint").classList.toggle("hidden", settings["hideDoubleTapHint"]);
@@ -197,6 +167,38 @@
 
 		reader.readAsText(selectedFile);
 	});
+
+	function theBlockerNotes(config, parserConfig) {
+		let lastUserId = "";
+
+		return {
+			token(stream) {
+				if (stream.sol()) {
+					if (!stream.match(/^\s*\d+[ ].+$/, false)) {
+						stream.skipToEnd();
+						return "line-cm-error";
+					}
+
+					if (stream.match(/\s+/, false)) {
+						stream.eatSpace();
+						return null;
+					}
+				}
+
+				if (stream.match(/\d+/, false)) {
+					lastUserId = parseInt(stream.match(/\d+/)[0], 10);
+					return "keyword";
+				}
+
+				const note = stream.match(/[ ].+/)[0];
+				if (note.trim() !== settings.notes.get(lastUserId)) {
+					return "line-cm-strong";
+				}
+
+				return null;
+			}
+		};
+	}
 
 	function hideDoubleTapHint(event) {
 		event.currentTarget.parentElement.classList.add("hidden");

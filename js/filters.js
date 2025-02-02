@@ -32,13 +32,7 @@
 		scrollbarStyle: "overlay",
 		styleActiveLine: { nonEmpty: true },
 	};
-	CodeMirror.defineMode("theBlocker-filters", (config, parserConfig) => {
-		return {
-			token(stream) {
-				return stream.match(/\d+/) === null ? "line-cm-error" : "filter-keyword";
-			}
-		};
-	});
+	CodeMirror.defineMode("theBlocker-filters", theBlockerFilters);
 	const editors = Object.fromEntries(FILTERS.map(value => [value, new CodeMirror(qs(`#${ value.replace(forum, "") }`), codeMirrorOptions)]));
 	document.documentElement.classList.toggle("mobile", isMobile);
 	qs("#doubleTapHint").classList.toggle("hidden", settings["hideDoubleTapHint"]);
@@ -191,6 +185,12 @@
 
 		reader.readAsText(selectedFile);
 	});
+
+	function theBlockerFilters(config, parserConfig) {
+		return {
+			token: stream => stream.match(/\d+/) === null ? "line-cm-error" : "filter-keyword"
+		};
+	}
 
 	function hideDoubleTapHint(event) {
 		event.currentTarget.parentElement.classList.add("hidden");
