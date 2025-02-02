@@ -8,16 +8,13 @@
 		"hideDoubleTapHint",
 	]);
 	settings.notes = new Map(Object.entries(settings[notesKey]).map(([key, value]) => [parseInt(key, 10), value]));
-
 	let cache = "";
-
 	const buttons = {
 		save: qs("#applyButton"),
 		import: qs("#importButton"),
 		export: qs("#exportButton"),
 		filePicker: qs("#filePicker"),
 	};
-
 	const codeMirrorOptions = {
 		autofocus: true,
 		configureMouse: _ => ({ addNew: false }),
@@ -29,7 +26,6 @@
 		scrollbarStyle: "overlay",
 		styleActiveLine: { nonEmpty: true },
 	};
-
 	CodeMirror.defineMode("theBlocker-notes", (config, parserConfig) => {
 		let lastUserId = "";
 
@@ -61,19 +57,11 @@
 			}
 		};
 	});
-
 	const noteEditor = new CodeMirror(qs("#note"), codeMirrorOptions);
-
 	document.documentElement.classList.toggle("mobile", isMobile);
-
 	qs("#doubleTapHint").classList.toggle("hidden", settings["hideDoubleTapHint"]);
-	qs("#doubleTapHint>b").addEventListener("click", event => {
-		event.currentTarget.parentElement.classList.add("hidden");
-		chrome.storage.local.set({ hideDoubleTapHint: true });
-	});
-
+	qs("#doubleTapHint>b").addEventListener("click", hideDoubleTapHint);
 	renderNotes();
-
 	noteEditor.on("changes", editorChanged);
 
 	chrome.storage.local.onChanged.addListener(changes => {
@@ -209,6 +197,11 @@
 
 		reader.readAsText(selectedFile);
 	});
+
+	function hideDoubleTapHint(event) {
+		event.currentTarget.parentElement.classList.add("hidden");
+		chrome.storage.local.set({ hideDoubleTapHint: true });
+	}
 
 	function renderNotes() {
 		const lines = [];

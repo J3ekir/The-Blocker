@@ -32,7 +32,6 @@
 		scrollbarStyle: "overlay",
 		styleActiveLine: { nonEmpty: true },
 	};
-
 	CodeMirror.defineMode("theBlocker-filters", (config, parserConfig) => {
 		return {
 			token(stream) {
@@ -40,19 +39,11 @@
 			}
 		};
 	});
-
 	const editors = Object.fromEntries(FILTERS.map(value => [value, new CodeMirror(qs(`#${ value.replace(forum, "") }`), codeMirrorOptions)]));
-
 	document.documentElement.classList.toggle("mobile", isMobile);
-
 	qs("#doubleTapHint").classList.toggle("hidden", settings["hideDoubleTapHint"]);
-	qs("#doubleTapHint>b").addEventListener("click", event => {
-		event.currentTarget.parentElement.classList.add("hidden");
-		chrome.storage.local.set({ hideDoubleTapHint: true });
-	});
-
+	qs("#doubleTapHint>b").addEventListener("click", hideDoubleTapHint);
 	renderEditors();
-
 	FILTERS.forEach(value => editors[value].on("beforeChange", beforeEditorChanged));
 	FILTERS.forEach(value => editors[value].on("changes", editorChanged));
 
@@ -200,6 +191,11 @@
 
 		reader.readAsText(selectedFile);
 	});
+
+	function hideDoubleTapHint(event) {
+		event.currentTarget.parentElement.classList.add("hidden");
+		chrome.storage.local.set({ hideDoubleTapHint: true });
+	}
 
 	function renderEditors() {
 		FILTERS.forEach(value => renderEditor(value));
