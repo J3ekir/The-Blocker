@@ -83,6 +83,7 @@ const storage = {
 		lastForum: FORUMS[0],
 		theme: "system",
 		hideDoubleTapHint: false,
+		hideAnimationPolicyHint: false,
 		settingNotes: true,
 		settingAddBottomTabButtons: true,
 		settingCombineTabPanes: true,

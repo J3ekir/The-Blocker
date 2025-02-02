@@ -57,6 +57,8 @@
 		"page": "options.html"
 	},
 	"permissions": [
+		"accessibilityFeatures.modify",
+		"accessibilityFeatures.read",
 		"declarativeNetRequest",
 		"scripting",
 		"storage",

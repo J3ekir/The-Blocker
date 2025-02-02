@@ -33,6 +33,18 @@
     <hr>
     <div class="fieldset">
         <span class="fieldset-header">GIF</span>
+        <label id="animationPolicyHint" class="hint hidden">
+            <span>Animasyonlu görsel oynatma ayarı eklenti tarafından kullanılamıyor. Başka eklenti tarafından kontrol ediliyor olabilir.</span>
+            <b>Bir daha gösterme</b>
+        </label>
+        <label>
+            <span>Animasyonlu görsel oynatma seçeneği</span>
+            <select id="animationPolicy" tabindex="-1">
+                <option value="allowed">Oynat</option>
+                <option value="once">Bir kere</option>
+                <option value="none">Asla</option>
+            </select>
+        </label>
         <label>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path></path></svg>
             <input type="checkbox" data-setting-name="techolayGif">
