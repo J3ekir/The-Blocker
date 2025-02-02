@@ -18,8 +18,8 @@ body {
 	border-radius: var(--4);
 	font-family: var(--font);
 	font-size: var(--16);
-	color: var(--double-tap-hint);
-	background-color: var(--double-tap-hint-bg);
+	color: var(--hint);
+	background-color: var(--hint-bg);
 	& .mobile {
 		display: none;
 		:root.mobile & {
