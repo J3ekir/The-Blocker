@@ -36,7 +36,7 @@ body {
 	}
 }
 
-#theme {
+select {
 	padding: var(--4);
 	border-radius: var(--4);
 	outline: none;
