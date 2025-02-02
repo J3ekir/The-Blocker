@@ -20,11 +20,11 @@ body {
 	font-size: var(--16);
 	color: var(--double-tap-hint);
 	background-color: var(--double-tap-hint-bg);
-	& > .mobile {
+	& .mobile {
 		display: none;
 		:root.mobile & {
-			display: block;
-			& + span {
+			display: inline;
+			& + b {
 				display: none;
 			}
 		}
