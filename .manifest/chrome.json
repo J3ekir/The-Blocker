@@ -1,0 +1,9 @@
+{
+	"background": {
+		"service_worker": "js/background.js"
+	},
+	"permissions": [
+		"accessibilityFeatures.modify",
+		"accessibilityFeatures.read"
+	]
+}

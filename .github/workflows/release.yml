@@ -34,5 +34,5 @@ jobs:
           WEB_EXT_CHANNEL: listed
           WEB_EXT_APPROVAL_TIMEOUT: 0
         run: |
-          echo "$(jq -s '.[0] * .[1] | del(.background.service_worker) | del(.permissions[:2]) | ' manifest.json .manifestFirefox.json)" > manifest.json
-          npx web-ext@^8 sign --ignore-files
+          echo "$(jq -n -S -L .manifest -f .manifest/manifest.jq)" > manifest.json
+          npx web-ext@^8 sign
