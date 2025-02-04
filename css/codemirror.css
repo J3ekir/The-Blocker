@@ -63,4 +63,7 @@
 .cm-theme-override .cm-s-default .cm-error {
 	text-decoration: var(--cm-error) wavy underline;
 	background-color: var(--cm-error-bg);
+	& > * {
+		text-decoration: inherit;
+	}
 }
