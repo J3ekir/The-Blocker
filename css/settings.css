@@ -39,7 +39,6 @@ body {
 select {
 	padding: var(--4);
 	border-radius: var(--4);
-	outline: none;
 	color: var(--text);
 	background-color: var(--body-bg);
 	& > option {

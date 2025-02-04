@@ -107,6 +107,13 @@
 	}
 }
 
+button,
+input,
+select,
+nav {
+	outline: none;
+}
+
 .hidden {
 	display: none !important;
 	& + hr {
