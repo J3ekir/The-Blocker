@@ -4,6 +4,13 @@ self.origins = chrome.runtime.getManifest()["host_permissions"];
 
 self.FORUMS = origins.map(origin => new URL(origin).hostname.replace(/(?:www.)?(.*).net/, "$1"));
 
+self.animationPolicyValues = {
+	allowed: "allowed",
+	normal: "allowed",
+	once: "once",
+	none: "none",
+};
+
 self.forumGifData = Object.fromEntries(
 	FORUMS.map((forum, index) => [
 		forum,
@@ -81,6 +88,7 @@ const storage = {
 		Gif: !self.isFirefox,
 	},
 	defaultSettings: {
+		animationPolicy: "allow",
 		lastPane: "settings.html",
 		lastForum: FORUMS[0],
 		theme: "system",

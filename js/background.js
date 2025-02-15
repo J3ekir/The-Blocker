@@ -6,6 +6,7 @@ chrome.runtime.onInstalled.addListener(({ reason, temporary }) => {
 
 	if (reason === "install") {
 		checkPermissions();
+		checkAnimationPolicy();
 	}
 });
 
@@ -17,6 +18,13 @@ function setDefaultSettings() {
 
 function checkPermissions() {
 	chrome.permissions.contains({ origins }).then(granted => !granted && chrome.tabs.create({ url: `${ chrome.runtime.getURL("options.html") }#settings.html` }));
+}
+
+function checkAnimationPolicy() {
+	const policy = !isFirefox
+		? chrome?.accessibilityFeatures?.animationPolicy?.get({})
+		: chrome?.browserSettings?.imageAnimationBehavior?.get({});
+	policy.then(({ value }) => chrome.storage.local.set({ animationPolicy: animationPolicyValues[value] }));
 }
 
 chrome.storage.local.onChanged.addListener(changes => {

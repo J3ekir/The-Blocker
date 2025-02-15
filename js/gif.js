@@ -1,5 +1,5 @@
 (async () => {
-	const USE_GIF = await chrome.storage.local.get(`${ forum }Gif`).then(settings => settings[`${ forum }Gif`]);
+	const USE_GIF = await chrome.storage.local.get([`${ forum }Gif`, "animationPolicy"]).then(settings => settings[`${ forum }Gif`] && settings.animationPolicy !== "none");
 	if (!USE_GIF) { return; }
 
 	chrome.runtime.sendMessage({

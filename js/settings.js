@@ -54,6 +54,7 @@
 		}
 
 		qs("#animationPolicy").value = animationPolicy[policyInfo.value];
+		chrome.storage.local.set({ animationPolicy: animationPolicy[policyInfo.value] });
 		animationPolicyVisibility(policyInfo.levelOfControl);
 	}
 
