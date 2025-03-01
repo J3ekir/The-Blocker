@@ -1,5 +1,5 @@
-import "./backgroundConfig.js";
-import "./backgroundUtils.js";
+import "./background_config.js";
+import "./background_utils.js";
 
 chrome.runtime.onInstalled.addListener(({ reason, temporary }) => {
 	setDefaultSettings();

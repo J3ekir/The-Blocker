@@ -1,4 +1,4 @@
-import { GifResizer } from "./../lib/omggif/omggif.js";
+import { GifResizer } from "../lib/omggif/omggif.js";
 
 self.getNestedValue = (obj, keys) => keys.reduce((acc, key) => acc && acc[key], obj);
 

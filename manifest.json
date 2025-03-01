@@ -23,11 +23,11 @@
 			],
 			"js": [
 				"js/dom.js",
-				"js/injectCSS.js",
+				"js/inject_css.js",
 				"js/str.js",
 				"js/base.js",
-				"js/widgetTabs.js",
-				"js/contentScript.js",
+				"js/widget_tabs.js",
+				"js/content_script.js",
 				"js/gif.js",
 				"js/tooltip.js"
 			],
