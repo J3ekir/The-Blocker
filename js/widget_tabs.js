@@ -42,7 +42,7 @@
 
 	function activateTab(event) {
 		const tab = event.currentTarget;
-		const index = Array.from(tab.parentElement.children).indexOf(tab);
+		const index = [...tab.parentElement.children].indexOf(tab);
 		qsa(":is([role='tab'],[role='tabpanel']).is-active").forEach(elem => elem.classList.remove("is-active"));
 		qsa(`:is([role='tab'],[role='tabpanel']):nth-child(${ index + 1 })`).forEach(elem => elem.classList.add("is-active"));
 
