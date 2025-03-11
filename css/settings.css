@@ -81,7 +81,7 @@ label {
 			border: none;
 			background-color: var(--checkbox-checked);
 			& > path {
-				d: path("M201 299l-71-70-54 58 131 130 232-287-61-52z");
+				d: path("M440 171l-56-56-184 184-72-72-56 56 128 128z");
 				fill: var(--checkbox);
 			}
 		}
