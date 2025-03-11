@@ -65,19 +65,19 @@ label {
 	gap: var(--8);
 	align-items: center;
 	width: fit-content;
-	& > input {
+	& > input[type="checkbox"] {
 		display: none;
 		appearance: none;
 		user-select: none;
 	}
-	& > svg {
+	& > svg:has(+ input[type="checkbox"]) {
 		width: var(--16);
 		height: var(--16);
 		flex: none;
 		background-color: var(--checkbox);
 		border-radius: var(--2);
 		border: 1px solid var(--checkbox-border);
-		&:has(+ input:checked) {
+		&:has(+ input[type="checkbox"]:checked) {
 			border: none;
 			background-color: var(--checkbox-checked);
 			& > path {
@@ -86,9 +86,9 @@ label {
 			}
 		}
 	}
-	&:hover > svg {
+	&:hover > svg:has(+ input[type="checkbox"]) {
 		border-color: var(--checkbox-border-hover);
-		&:has(+ input:checked) {
+		&:has(+ input[type="checkbox"]:checked) {
 			background-color: var(--checkbox-checked-hover);
 		}
 	}
