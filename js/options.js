@@ -68,6 +68,6 @@ function setSelectedTab() {
 		});
 	});
 
-	document.title = tabButton.textContent;
+	document.title = `${ tabButton.textContent } - ${ chrome.runtime.getManifest().name }`;
 	document.documentElement.dataset.forum = tabButton.dataset.pane.replace(/[^-]*-?(.*?)\.html/, "$1");
 }
