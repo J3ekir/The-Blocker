@@ -121,9 +121,8 @@
 	});
 
 	buttons.import.addEventListener("click", event => {
-		const filePicker = qs("#filePicker");
-		filePicker.value = "";
-		filePicker.click();
+		buttons.filePicker.value = "";
+		buttons.filePicker.click();
 	});
 
 	buttons.export.addEventListener("click", event => {
