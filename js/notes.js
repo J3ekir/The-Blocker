@@ -1,5 +1,6 @@
 (async () => {
 	const isMac = window.navigator.userAgent.includes("Mac OS");
+	const ctrlKey = isMac ? "metaKey" : "ctrlKey";
 	const isMobile = /\bMobile\b/.test(window.navigator.userAgent);
 	const forum = parent.document.documentElement.dataset.forum;
 	const notesKey = `${ forum }Notes`;
@@ -61,8 +62,7 @@
 	});
 
 	document.addEventListener("keydown", event => {
-		const isCtrl = isMac ? event.metaKey : event.ctrlKey;
-		if (isCtrl && event.key.toLowerCase() === "s") {
+		if (event[ctrlKey] && event.key.toLowerCase() === "s") {
 			event.preventDefault();
 
 			if (!buttons.save.disabled) {
@@ -72,15 +72,13 @@
 	});
 
 	document.addEventListener("keydown", event => {
-		const isCtrl = isMac ? event.metaKey : event.ctrlKey;
-		if (isCtrl) {
+		if (event[ctrlKey]) {
 			qsa(".cm-keyword").forEach(elem => elem.classList.add("cm-keyword-link"));
 		}
 	});
 
 	document.addEventListener("keyup", event => {
-		const isCtrl = isMac ? event.metaKey : event.ctrlKey;
-		if (!isCtrl) {
+		if (!event[ctrlKey]) {
 			qsa(".cm-keyword.cm-keyword-link").forEach(elem => elem.classList.remove("cm-keyword-link"));
 		}
 	});

@@ -1,4 +1,5 @@
 const isMac = window.navigator.userAgent.includes("Mac OS");
+const ctrlKey = isMac ? "metaKey" : "ctrlKey";
 
 chrome.storage.local.get(["theme", "lastPane"]).then(settings => {
 	document.documentElement.setAttribute("theme", settings["theme"]);
@@ -29,8 +30,7 @@ window.addEventListener("message", event => {
 });
 
 document.addEventListener("keydown", event => {
-	const isCtrl = isMac ? event.metaKey : event.ctrlKey;
-	if (isCtrl && event.key.toLowerCase() === "s") {
+	if (event[ctrlKey] && event.key.toLowerCase() === "s") {
 		event.preventDefault();
 
 		const applyButton = qs(qs("#iframe").contentDocument, "#applyButton");
