@@ -13,7 +13,7 @@
 
 	if (COMBINE_TAB_PANES) {
 		hideSecondTab();
-		waitForElement(".tabs-tab").then(updateTabName);
+		waitForElement(".tabs-tab:has(+.tabs-tab)").then(updateTabName);
 	}
 
 	waitForElement("head>link[href^='/sosyal/css.php']").then(addStyleId);
