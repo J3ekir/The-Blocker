@@ -36,18 +36,21 @@
 	noteEditor.on("changes", editorChanged);
 
 	chrome.storage.local.onChanged.addListener(changes => {
-		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-			switch (key) {
-				case notesKey:
-					// https://github.com/J3ekir/The-Blocker/issues/5
-					if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+		const notes = changes[notesKey];
 
-					// https://crbug.com/40321352
-					settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));
-					renderNotes();
-			}
-		});
+		if (typeof notes !== "undefined") {
+			storageChangedNotes(notes);
+		}
 	});
+
+	function storageChangedNotes({ oldValue, newValue }) {
+		// https://github.com/J3ekir/The-Blocker/issues/5
+		if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+
+		// https://crbug.com/40321352
+		settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));
+		renderNotes();
+	}
 
 	window.addEventListener("beforeunload", event => {
 		if (buttons.save.disabled) { return; }

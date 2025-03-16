@@ -45,16 +45,20 @@
 	editors[userKey].focus();
 
 	chrome.storage.local.onChanged.addListener(changes => {
-		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+		Object.keys(changes).forEach(key => {
 			if (FILTERS.includes(key)) {
-				// https://github.com/J3ekir/The-Blocker/issues/5
-				if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
-
-				settings[key] = newValue;
-				renderEditor(key);
+				storageChangedFilters(key, changes[key]);
 			}
 		});
 	});
+
+	function storageChangedFilters(key, { oldValue, newValue }) {
+		// https://github.com/J3ekir/The-Blocker/issues/5
+		if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+
+		settings[key] = newValue;
+		renderEditor(key);
+	}
 
 	window.addEventListener("beforeunload", event => {
 		if (buttons.save.disabled) { return; }

@@ -113,22 +113,26 @@
 	}
 
 	chrome.storage.local.onChanged.addListener(changes => {
-		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-			if (key === notesKey) {
-				// https://github.com/J3ekir/The-Blocker/issues/5
-				if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+		const notes = changes[notesKey];
 
-				// https://crbug.com/40321352
-				const oldNotes = settings.notes;
-				settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));
-
-				const allUserIds = new Set([...oldNotes.keys(), ...settings.notes.keys()]);
-				allUserIds.forEach(userId => {
-					setNewNoteValue(userId, settings.notes.get(userId));
-				});
-			}
-		});
+		if (typeof notes !== "undefined") {
+			storageChangedNotes(notes);
+		}
 	});
+
+	function storageChangedNotes({ oldValue, newValue }) {
+		// https://github.com/J3ekir/The-Blocker/issues/5
+		if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+
+		// https://crbug.com/40321352
+		const oldNotes = settings.notes;
+		settings.notes = new Map(Object.entries(newValue).map(([key, value]) => [parseInt(key, 10), value]));
+
+		const allUserIds = new Set([...oldNotes.keys(), ...settings.notes.keys()]);
+		allUserIds.forEach(userId => {
+			setNewNoteValue(userId, settings.notes.get(userId));
+		});
+	}
 
 	function setNewNoteValue(userId, note) {
 		qsa(`.memberTooltip-note[data-user-id="${ userId }"]>.input`).forEach(elem => {

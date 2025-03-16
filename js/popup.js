@@ -48,25 +48,41 @@
 	});
 
 	chrome.storage.local.onChanged.addListener(changes => {
-		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
+		const { theme, lastForum, ...stats } = changes;
+
+		if (typeof theme !== "undefined") {
+			storageChangedTheme(theme);
+		}
+
+		if (typeof lastForum !== "undefined") {
+			storageChangedLastForum(lastForum);
+		}
+
+		Object.keys(stats).forEach(key => {
 			if (STATS.includes(key)) {
-				// https://github.com/J3ekir/The-Blocker/issues/5
-				if (isFirefox && oldValue === newValue) { return; }
-
-				qs(`#${ key }`).textContent = newValue;
-			}
-			if (key === "theme") {
-				// https://github.com/J3ekir/The-Blocker/issues/5
-				if (isFirefox && oldValue === newValue) { return; }
-
-				document.documentElement.setAttribute(key, newValue);
-			}
-			if (key === "lastForum") {
-				// https://github.com/J3ekir/The-Blocker/issues/5
-				if (isFirefox && oldValue === newValue) { return; }
-
-				qs(`.tabButton[data-forum="${ newValue }"]`).click();
+				storageChangedStat(key, stats[key]);
 			}
 		});
 	});
+
+	function storageChangedTheme({ oldValue, newValue }) {
+		// https://github.com/J3ekir/The-Blocker/issues/5
+		if (isFirefox && oldValue === newValue) { return; }
+
+		document.documentElement.setAttribute("theme", newValue);
+	}
+
+	function storageChangedLastForum({ oldValue, newValue }) {
+		// https://github.com/J3ekir/The-Blocker/issues/5
+		if (isFirefox && oldValue === newValue) { return; }
+
+		qs(`.tabButton[data-forum="${ newValue }"]`).click();
+	}
+
+	function storageChangedStat(key, { oldValue, newValue }) {
+		// https://github.com/J3ekir/The-Blocker/issues/5
+		if (isFirefox && oldValue === newValue) { return; }
+
+		qs(`#${ key }`).textContent = newValue;
+	}
 })();

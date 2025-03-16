@@ -153,25 +153,19 @@
 	}
 
 	chrome.storage.local.onChanged.addListener(changes => {
+		const { theme, ...rest } = changes;
 		let callCalculateGifDataInUse = false;
 
-		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-			if (key === "theme") {
-				// https://github.com/J3ekir/The-Blocker/issues/5
-				if (isFirefox && oldValue === newValue) { return; }
+		if (typeof theme !== "undefined") {
+			storageChangedTheme(theme);
+		}
 
-				qs("#theme").value = newValue;
-			}
+		Object.keys(rest).forEach(key => {
 			if (settingKeys.includes(key)) {
-				// https://github.com/J3ekir/The-Blocker/issues/5
-				if (isFirefox && oldValue === newValue) { return; }
-
-				qs(`[data-setting-name="${ key }"]`).checked = newValue;
+				storageChangedSetting(key, rest[key]);
 			}
-			if (isGifEntry(key)) {
-				// https://github.com/J3ekir/The-Blocker/issues/5
-				if (isFirefox && oldValue.t === newValue.t) { return; }
 
+			if (!callCalculateGifDataInUse && isGifEntry(key)) {
 				callCalculateGifDataInUse = true;
 			}
 		});
@@ -180,4 +174,17 @@
 			calculateGifDataInUse();
 		}
 	});
+
+	function storageChangedTheme({ oldValue, newValue }) {
+		if (isFirefox && oldValue === newValue) { return; }
+
+		qs("#theme").value = newValue;
+	}
+
+	function storageChangedSetting(key, { oldValue, newValue }) {
+		// https://github.com/J3ekir/The-Blocker/issues/5
+		if (isFirefox && oldValue === newValue) { return; }
+
+		qs(`[data-setting-name="${ key }"]`).checked = newValue;
+	}
 })();

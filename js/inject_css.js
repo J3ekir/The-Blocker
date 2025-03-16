@@ -3,22 +3,27 @@ chrome.runtime.sendMessage({
 	forum,
 });
 
-chrome.storage.local.onChanged.addListener(changes => {
-	Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-		switch (key) {
-			case `${ forum }User`:
-			case `${ forum }Avatar`:
-			case `${ forum }Signature`:
-				// https://github.com/J3ekir/The-Blocker/issues/5
-				if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+const blockKeys = [
+	`${ forum }User`,
+	`${ forum }Avatar`,
+	`${ forum }Signature`,
+];
 
-				const oldSet = new Set(oldValue);
-				const newSet = new Set(newValue);
-				toggleCSS(true, key, [...newSet.difference(oldSet)]);
-				toggleCSS(false, key, [...oldSet.difference(newSet)]);
-		}
-	});
+chrome.storage.local.onChanged.addListener(changes => {
+	blockKeys
+		.filter(key => typeof changes[key] !== "undefined")
+		.forEach(key => storageChangedBlock(key, changes[key]));
 });
+
+function storageChangedBlock(key, { oldValue, newValue }) {
+	// https://github.com/J3ekir/The-Blocker/issues/5
+	if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+
+	const oldSet = new Set(oldValue);
+	const newSet = new Set(newValue);
+	toggleCSS(true, key, [...newSet.difference(oldSet)]);
+	toggleCSS(false, key, [...oldSet.difference(newSet)]);
+}
 
 async function toggleCSS(isBlock, key, userIds) {
 	const settings = await chrome.storage.local.get([

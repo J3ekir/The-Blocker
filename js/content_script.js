@@ -4,6 +4,7 @@
 	const userKey = `${ forum }User`;
 	const avatarKey = `${ forum }Avatar`;
 	const signatureKey = `${ forum }Signature`;
+	const blockKeys = [userKey, avatarKey, signatureKey];
 	let settings;
 
 	waitForElement(".blockMessage--none").then(main);
@@ -95,25 +96,24 @@
 		}
 
 		chrome.storage.local.onChanged.addListener(changes => {
-			Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-				switch (key) {
-					case userKey:
-					case avatarKey:
-					case signatureKey:
-						// https://github.com/J3ekir/The-Blocker/issues/5
-						if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
-
-						// https://crbug.com/40321352
-						const oldSet = new Set(oldValue);
-						const newSet = new Set(newValue);
-						toggleButtonTexts(true, key, [...newSet.difference(oldSet)]);
-						toggleButtonTexts(false, key, [...oldSet.difference(newSet)]);
-
-						settings[key.replace(forum, "").toLowerCase()] = newSet;
-						settings[`${ key }Count`] = newSet.size;
-				}
-			});
+			blockKeys
+				.filter(key => typeof changes[key] !== "undefined")
+				.forEach(key => storageChangedBlock(key, changes[key]));
 		});
+
+		function storageChangedBlock(key, { oldValue, newValue }) {
+			// https://github.com/J3ekir/The-Blocker/issues/5
+			if (isFirefox && JSON.stringify(oldValue) === JSON.stringify(newValue)) { return; }
+
+			// https://crbug.com/40321352
+			const oldSet = new Set(oldValue);
+			const newSet = new Set(newValue);
+			toggleButtonTexts(true, key, [...newSet.difference(oldSet)]);
+			toggleButtonTexts(false, key, [...oldSet.difference(newSet)]);
+
+			settings[key.replace(forum, "").toLowerCase()] = newSet;
+			settings[`${ key }Count`] = newSet.size;
+		}
 
 		function toggleButtonTexts(isBlock, key, userIds) {
 			const newText = STR[`${ key.replace(forum, "").toLowerCase() }${ isBlock ? "Unblock" : "Block" }`];

@@ -31,19 +31,14 @@ chrome.storage.local.onChanged.addListener(changes => {
 	let callSetCSS = false;
 	const setCssParams = new Set();
 
-	Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-		if (SET_CSS_TRIGGER_KEYS.includes(key)) {
-			// https://github.com/J3ekir/The-Blocker/issues/5
-			if (isFirefox && oldValue === newValue) { return; }
-
-			callSetCSS = true;
-			FORUMS.filter(forum => key.startsWith(forum)).forEach(forum => setCssParams.add(forum));
-		}
+	Object.keys(changes).forEach(key => {
 		if (key.endsWith("Gif")) {
-			// https://github.com/J3ekir/The-Blocker/issues/5
-			if (isFirefox && oldValue === newValue) { return; }
+			storageChangedGifRule(key, changes[key]);
+		}
 
-			gifRule(key, changes[key].newValue);
+		if (SET_CSS_TRIGGER_KEYS.includes(key)) {
+			callSetCSS = true;
+			storageChangedSetCss(key, changes[key])?.forEach(forum => setCssParams.add(forum));
 		}
 	});
 
@@ -51,6 +46,20 @@ chrome.storage.local.onChanged.addListener(changes => {
 		setCSS(...setCssParams);
 	}
 });
+
+function storageChangedSetCss(key, { oldValue, newValue }) {
+	// https://github.com/J3ekir/The-Blocker/issues/5
+	if (isFirefox && oldValue === newValue) { return; }
+
+	return FORUMS.filter(forum => key.startsWith(forum));
+}
+
+function storageChangedGifRule(key, { oldValue, newValue }) {
+	// https://github.com/J3ekir/The-Blocker/issues/5
+	if (isFirefox && oldValue === newValue) { return; }
+
+	gifRule(key, newValue);
+}
 
 async function setCSS(...forums) {
 	forums = forums[0] ? forums : FORUMS;

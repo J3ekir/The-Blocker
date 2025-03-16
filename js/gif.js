@@ -88,14 +88,18 @@
 	}
 
 	chrome.storage.local.onChanged.addListener(changes => {
-		Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-			if (newValue.g && key.startsWith(prefix)) {
-				// https://github.com/J3ekir/The-Blocker/issues/5
-				if (isFirefox && oldValue.t === newValue.t) { return; }
-
-				cache[key] = newValue;
-				updateAvatars(key);
+		Object.keys(changes).forEach(key => {
+			if (changes[key]?.newValue?.g && key.startsWith(prefix)) {
+				storageChangedGif(key, changes[key]);
 			}
 		});
 	});
+
+	function storageChangedGif(key, { oldValue, newValue }) {
+		/// https://github.com/J3ekir/The-Blocker/issues/5
+		if (isFirefox && oldValue.t === newValue.t) { return; }
+
+		cache[key] = newValue;
+		updateAvatars(key);
+	}
 })();

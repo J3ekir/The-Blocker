@@ -8,15 +8,19 @@ chrome.storage.local.get(["theme", "lastPane"]).then(settings => {
 });
 
 chrome.storage.local.onChanged.addListener(changes => {
-	Object.entries(changes).forEach(([key, { oldValue, newValue }]) => {
-		if (key === "theme") {
-			// https://github.com/J3ekir/The-Blocker/issues/5
-			if (isFirefox && oldValue === newValue) { return; }
+	const { theme } = changes;
 
-			document.documentElement.setAttribute(key, newValue);
-		}
-	});
+	if (typeof theme !== "undefined") {
+		storageChangedTheme(theme);
+	}
 });
+
+function storageChangedTheme({ oldValue, newValue }) {
+	// https://github.com/J3ekir/The-Blocker/issues/5
+	if (isFirefox && oldValue === newValue) { return; }
+
+	document.documentElement.setAttribute("theme", newValue);
+}
 
 qsa(".tabButton").forEach(elem => {
 	elem.addEventListener("click", event => loadPane(event.currentTarget.getAttribute("data-pane")));
