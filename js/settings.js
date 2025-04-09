@@ -116,8 +116,10 @@
 	}
 
 	async function resetGifs() {
-		const gifKeys = await getGifKeys();
-		chrome.storage.local.remove(gifKeys);
+		if (confirm("Tüm GIF verilerini sıfırlamak istediğinizden emin misiniz?")) {
+			const gifKeys = await getGifKeys();
+			chrome.storage.local.remove(gifKeys);
+		}
 	}
 
 	async function getGifKeys() {
