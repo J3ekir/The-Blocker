@@ -9,21 +9,21 @@ body {
 	background-color: var(--body-bg);
 }
 
-#controlButtons {
+#control-buttons {
 	display: flex;
 	flex-shrink: 0;
 	gap: var(--12);
 }
 
-#applyButton path {
+#apply-button path {
 	d: path("M193 409a24 24 0 01-34 0l-113-113a1 1 0 0134-34l96 96 256-256a1 1 0 0134 34z");
 }
 
-#exportButton path {
+#export-button path {
 	d: path("M239 47a24 24 0 0134 0l113 113a1 1 0 01-34 34l-72-72v198a1 1 0 01-48 0v-198l-72 72a1 1 0 01-34-34zM64 472a24 24 0 01-24-24v-128a1 1 0 0148 0v104h336v-104a1 1 0 0148 0v128a24 24 0 01-24 24z");
 }
 
-#importButton path {
+#import-button path {
 	d: path("M126 224a1 1 0 0134-34l72 72v-198a1 1 0 0148 0v198l72-72a1 1 0 0134 34l-113 113a24 24 0 01-34 0zM64 472a24 24 0 01-24-24v-128a1 1 0 0148 0v104h336v-104a1 1 0 0148 0v128a24 24 0 01-24 24z");
 }
 
@@ -38,14 +38,14 @@ main {
 	}
 }
 
-.editorContainer {
+.editor-container {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
 	gap: var(--8);
 }
 
-.editorTitle {
+.editor-title {
 	flex-shrink: 0;
 	font-family: var(--font);
 	font-size: var(--24);
@@ -54,7 +54,7 @@ main {
 	color: var(--title);
 }
 
-.codeMirrorContainer {
+.CodeMirror-container {
 	flex-grow: 1;
 	font-size: var(--16);
 	overflow: hidden;
@@ -64,6 +64,6 @@ main {
 	}
 }
 
-#filePicker {
+#file-picker {
 	display: none;
 }

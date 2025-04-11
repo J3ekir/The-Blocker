@@ -11,10 +11,10 @@
 	settings.notes = new Map(Object.entries(settings[notesKey]).map(([key, value]) => [parseInt(key, 10), value]));
 	let cache = "";
 	const buttons = {
-		save: qs("#applyButton"),
-		import: qs("#importButton"),
-		export: qs("#exportButton"),
-		filePicker: qs("#filePicker"),
+		save: qs("#apply-button"),
+		import: qs("#import-button"),
+		export: qs("#export-button"),
+		filePicker: qs("#file-picker"),
 	};
 	const codeMirrorOptions = {
 		autofocus: true,
@@ -30,8 +30,8 @@
 	CodeMirror.defineMode("theBlocker-notes", theBlockerNotes);
 	const noteEditor = new CodeMirror(qs("#note"), codeMirrorOptions);
 	document.documentElement.classList.toggle("mobile", isMobile);
-	qs("#doubleTapHint").classList.toggle("hidden", settings["hideDoubleTapHint"]);
-	qs("#doubleTapHint>b").addEventListener("click", hideDoubleTapHint);
+	qs("#double-tap-hint").classList.toggle("hidden", settings["hideDoubleTapHint"]);
+	qs("#double-tap-hint>b").addEventListener("click", hideDoubleTapHint);
 	renderNotes();
 	noteEditor.on("changes", editorChanged);
 

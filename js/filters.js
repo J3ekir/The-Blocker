@@ -17,10 +17,10 @@
 		...FILTERS,
 	]);
 	const buttons = {
-		save: qs("#applyButton"),
-		import: qs("#importButton"),
-		export: qs("#exportButton"),
-		filePicker: qs("#filePicker"),
+		save: qs("#apply-button"),
+		import: qs("#import-button"),
+		export: qs("#export-button"),
+		filePicker: qs("#file-picker"),
 	};
 	const codeMirrorOptions = {
 		autofocus: true,
@@ -36,8 +36,8 @@
 	CodeMirror.defineMode("theBlocker-filters", theBlockerFilters);
 	const editors = Object.fromEntries(FILTERS.map(value => [value, new CodeMirror(qs(`#${ value.replace(forum, "") }`), codeMirrorOptions)]));
 	document.documentElement.classList.toggle("mobile", isMobile);
-	qs("#doubleTapHint").classList.toggle("hidden", settings["hideDoubleTapHint"]);
-	qs("#doubleTapHint>b").addEventListener("click", hideDoubleTapHint);
+	qs("#double-tap-hint").classList.toggle("hidden", settings["hideDoubleTapHint"]);
+	qs("#double-tap-hint>b").addEventListener("click", hideDoubleTapHint);
 	renderEditors();
 	FILTERS.forEach(value => editors[value].on("beforeChange", beforeEditorChanged));
 	FILTERS.forEach(value => editors[value].on("changes", editorChanged));

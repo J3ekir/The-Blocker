@@ -12,7 +12,7 @@
 }
 
 .CodeMirror,
-.codeMirrorContainer {
+.CodeMirror-container {
 	background-color: var(--cm-bg);
 	border: 1px solid var(--cm-border);
 }

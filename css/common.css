@@ -20,7 +20,7 @@
 	touch-action: manipulation;
 }
 
-.actionButton {
+.action-button {
 	display: flex;
 	align-items: center;
 	gap: var(--6);
@@ -55,7 +55,7 @@
 	}
 }
 
-.tabButton {
+.tab-button {
 	padding: 0.625em 1.25em calc(0.625em - var(--3));
 	font-family: var(--font);
 	font-size: var(--16);

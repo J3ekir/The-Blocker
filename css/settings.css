@@ -8,7 +8,7 @@ body {
 	background-color: var(--body-bg);
 }
 
-#requestPermission {
+#request-permission {
 	display: flex;
 	flex-direction: column;
 	gap: var(--12);

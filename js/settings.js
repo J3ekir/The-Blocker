@@ -36,15 +36,15 @@
 	const animationPolicy = animationPolicyConfig[isFirefox ? "firefox" : "chrome"];
 
 	checkPermission();
-	qs("#requestPermission>button").addEventListener("click", requestPermission);
+	qs("#request-permission>button").addEventListener("click", requestPermission);
 	const settingElements = qsa("[data-setting-name]");
 	const settingKeys = Array.from(settingElements, elem => elem.getAttribute("data-setting-name"));
 	chrome.storage.local.get(["theme", ...settingKeys]).then(initSettings);
 	animationPolicyValue();
-	qs("#resetGifs").addEventListener("click", resetGifs);
+	qs("#reset-gifs").addEventListener("click", resetGifs);
 	qs("#theme").addEventListener("change", setTheme);
-	qs("#animationPolicy").addEventListener("change", animationPolicyChanged);
-	qs("#animationPolicyHint>b").addEventListener("click", hideAnimationPolicyHint);
+	qs("#animation-policy").addEventListener("change", animationPolicyChanged);
+	qs("#animation-policy-hint>b").addEventListener("click", hideAnimationPolicyHint);
 	animationPolicy.onChange(animationPolicyValue);
 	calculateGifDataInUse();
 
@@ -53,7 +53,7 @@
 			policyInfo = await animationPolicy.get({});
 		}
 
-		qs("#animationPolicy").value = animationPolicy[policyInfo.value];
+		qs("#animation-policy").value = animationPolicy[policyInfo.value];
 		chrome.storage.local.set({ animationPolicy: animationPolicy[policyInfo.value] });
 		animationPolicyVisibility(policyInfo.levelOfControl);
 	}
@@ -61,7 +61,7 @@
 	function animationPolicyVisibility(levelOfControl) {
 		chrome.storage.local.get("hideAnimationPolicyHint").then(({ hideAnimationPolicyHint }) => {
 			const force = hideAnimationPolicyHint || animationPolicyConfig.levelOfControl.includes(levelOfControl);
-			qs("#animationPolicyHint").classList.toggle("hidden", force);
+			qs("#animation-policy-hint").classList.toggle("hidden", force);
 		});
 	}
 
@@ -92,7 +92,7 @@
 	}
 
 	function setRequestPermissionVisibility(granted) {
-		qs("#requestPermission").classList.toggle("hidden", granted);
+		qs("#request-permission").classList.toggle("hidden", granted);
 	}
 
 	function setTheme(event) {
@@ -151,7 +151,7 @@
 			++unitIndex;
 		}
 
-		qs("#gifDataInUse").textContent = `${ bytes.toLocaleString(undefined, { maximumSignificantDigits: 3 }) } ${ DATA_SIZE_UNITS[unitIndex] }`;
+		qs("#gif-data-in-use").textContent = `${ bytes.toLocaleString(undefined, { maximumSignificantDigits: 3 }) } ${ DATA_SIZE_UNITS[unitIndex] }`;
 	}
 
 	chrome.storage.local.onChanged.addListener(changes => {

@@ -22,7 +22,7 @@ function storageChangedTheme({ oldValue, newValue }) {
 	document.documentElement.setAttribute("theme", newValue);
 }
 
-qsa(".tabButton").forEach(elem => {
+qsa(".tab-button").forEach(elem => {
 	elem.addEventListener("click", event => loadPane(event.currentTarget.getAttribute("data-pane")));
 });
 
@@ -37,7 +37,7 @@ document.addEventListener("keydown", event => {
 	if (event[ctrlKey] && event.key.toLowerCase() === "s") {
 		event.preventDefault();
 
-		const applyButton = qs(qs("#iframe").contentDocument, "#applyButton");
+		const applyButton = qs(qs("#iframe").contentDocument, "#apply-button");
 		if (applyButton && !applyButton.disabled) {
 			applyButton.click();
 		}
@@ -47,11 +47,11 @@ document.addEventListener("keydown", event => {
 function loadPane(pane) {
 	window.paneToLoad = pane;
 
-	if (qs(".tabButton.active")?.getAttribute("data-pane") === pane) { return; }
+	if (qs(".tab-button.active")?.getAttribute("data-pane") === pane) { return; }
 
 	qs("#iframe").contentWindow.location.replace(pane.replace(/([^-]*)-?.*(.html)/, "$1$2"));
 
-	switch (qs(".tabButton.active")?.getAttribute("data-pane")?.replace(/([^-]*)-?.*(.html)/, "$1$2")) {
+	switch (qs(".tab-button.active")?.getAttribute("data-pane")?.replace(/([^-]*)-?.*(.html)/, "$1$2")) {
 		case "filters.html":
 		case "notes.html":
 			return;
@@ -63,7 +63,7 @@ function loadPane(pane) {
 function setSelectedTab() {
 	const tabButton = qs(`[data-pane="${ window.paneToLoad }"]`);
 	window.location.hash = window.paneToLoad;
-	qsa(".tabButton.active").forEach(elem => elem.classList.remove("active"));
+	qsa(".tab-button.active").forEach(elem => elem.classList.remove("active"));
 	tabButton.classList.add("active");
 	tabButton.scrollIntoView();
 	qs("#iframe").contentWindow.addEventListener("beforeunload", event => {

@@ -34,7 +34,7 @@
 		});
 	});
 
-	qsa(".tabButton").forEach(elem => {
+	qsa(".tab-button").forEach(elem => {
 		elem.addEventListener("click", event => {
 			const forum = event.currentTarget.getAttribute("data-forum");
 
@@ -76,7 +76,7 @@
 		// https://github.com/J3ekir/The-Blocker/issues/5
 		if (isFirefox && oldValue === newValue) { return; }
 
-		qs(`.tabButton[data-forum="${ newValue }"]`).click();
+		qs(`.tab-button[data-forum="${ newValue }"]`).click();
 	}
 
 	function storageChangedStat(key, { oldValue, newValue }) {
