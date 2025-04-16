@@ -2,6 +2,7 @@
 	"background": {
 		"service_worker": "js/background.js"
 	},
+	"minimum_chrome_version": "132",
 	"permissions": [
 		"accessibilityFeatures.modify",
 		"accessibilityFeatures.read"

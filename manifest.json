@@ -53,6 +53,7 @@
 		"128": "img/icon_128.png"
 	},
 	"manifest_version": 3,
+	"minimum_chrome_version": "132",
 	"name": "The Blocker",
 	"options_ui": {
 		"open_in_tab": true,

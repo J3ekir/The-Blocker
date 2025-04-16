@@ -40,10 +40,9 @@ self.noteSavedMessage = ({ tab }, { message }) => {
 	});
 };
 
-const supportsResponseBytes = typeof new Response().bytes === "function";
 self.url2Base64 = (_, { url, forumUserId, t }) => {
 	fetch(url.replace(/\/avatars\/[sm]\//, "/avatars/o/"))
-		.then(response => supportsResponseBytes ? response.bytes() : response.arrayBuffer().then(buffer => new Uint8Array(buffer)))
+		.then(response => response.bytes())
 		.then(typedArray => {
 			const gifResizer = new GifResizer(typedArray);
 
