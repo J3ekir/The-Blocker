@@ -81,6 +81,8 @@
 
 	function updateTabName(elem) {
 		const nextStr = elem.nextElementSibling.textContent;
-		elem.textContent += `${ STR.combinedTabConjunction }${ nextStr.substring(nextStr.indexOf(" ")) }`;
+		const spaceIndex = nextStr.indexOf(" ");
+		const nextTabName = nextStr.substring(spaceIndex);
+		elem.textContent += STR.combinedTabConjunction + nextTabName;
 	}
 })();
