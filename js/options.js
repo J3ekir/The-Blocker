@@ -1,5 +1,6 @@
 const isMac = window.navigator.userAgent.includes("Mac OS");
 const ctrlKey = isMac ? "metaKey" : "ctrlKey";
+const extensionName = chrome.runtime.getManifest().name;
 
 chrome.storage.local.get(["theme", "lastPane"]).then(settings => {
 	document.documentElement.setAttribute("theme", settings["theme"]);
@@ -72,6 +73,6 @@ function setSelectedTab() {
 		});
 	});
 
-	document.title = `${ tabButton.textContent } - ${ chrome.runtime.getManifest().name }`;
+	document.title = `${ tabButton.textContent } - ${ extensionName }`;
 	document.documentElement.dataset.forum = tabButton.dataset.pane.replace(/[^-]*-?(.*?)\.html/, "$1");
 }
