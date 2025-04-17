@@ -151,7 +151,9 @@
 			++unitIndex;
 		}
 
-		qs("#gif-data-in-use").textContent = `${ bytes.toLocaleString(undefined, { maximumSignificantDigits: 3 }) } ${ DATA_SIZE_UNITS[unitIndex] }`;
+		const formattedBytes = bytes.toLocaleString(undefined, { maximumSignificantDigits: 3 });
+		const unit = DATA_SIZE_UNITS[unitIndex];
+		qs("#gif-data-in-use").textContent = `${ formattedBytes } ${ unit }`;
 	}
 
 	chrome.storage.local.onChanged.addListener(changes => {
