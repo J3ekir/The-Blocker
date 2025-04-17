@@ -213,8 +213,10 @@
 		const maxUserIdLength = notes.length && notes.reduce((prev, curr) => (prev && prev[0].length > curr[0].length ? prev : curr))[0].length;
 
 		notes.forEach(([userId, note]) => {
-			lines.push(`${ " ".repeat(maxUserIdLength - userId.length) }${ userId } ${ note }`);
-			cacheLines.push(`${ userId } ${ note }`);
+			const line = userId + " " + note;
+			const linePadding = " ".repeat(maxUserIdLength - userId.length);
+			lines.push(linePadding + line);
+			cacheLines.push(line);
 		});
 
 		lines.push("");
