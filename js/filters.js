@@ -205,7 +205,8 @@
 
 	function renderEditor(editor) {
 		cache[editor] = settings[editor].join("\n");
-		editors[editor].setValue(cache[editor].length === 0 ? cache[editor] : `${ cache[editor] }\n`);
+		const value = cache[editor] + (cache[editor].length ? "\n" : "");
+		editors[editor].setValue(value);
 		editors[editor].clearHistory();
 		editors[editor].setCursor(editors[editor].lineCount(), 0);
 	}
