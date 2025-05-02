@@ -7,7 +7,7 @@ self.waitForElement = selector => new Promise(resolve => {
 		const elem = qs(selector);
 		if (elem) {
 			observer.disconnect();
-			return resolve(elem);
+			resolve(elem);
 		}
 	}).observe(document, { childList: true, subtree: true });
 });
