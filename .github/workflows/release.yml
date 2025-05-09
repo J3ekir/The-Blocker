@@ -31,7 +31,8 @@ jobs:
           REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
 
       - name: Generate Firefox manifest.json
-        run: echo "$(jq -n -S -L .manifest -f .manifest/manifest.jq)" > manifest.json
+        run: echo "$(jq -n -S -f manifest.jq)" > ../manifest.json
+        working-directory: .manifest
 
       - name: Firefox
         run: npx web-ext@^8 sign

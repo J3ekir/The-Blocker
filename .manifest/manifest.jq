@@ -1,6 +1,6 @@
 include "meld";
 include "subtract_json";
-import "manifest" as $manifest;
+import "manifest" as $manifest {"search": ".."};
 import "firefox" as $firefox;
 import "chrome" as $chrome;
 
