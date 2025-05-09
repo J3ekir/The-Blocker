@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Chrome
+      - name: Submit to CWS
         run: npx chrome-webstore-upload-cli@^3
         env:
           EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
@@ -34,7 +34,7 @@ jobs:
         run: echo "$(jq -n -S -f manifest.jq)" > ../manifest.json
         working-directory: .manifest
 
-      - name: Firefox
+      - name: Submit to AMO
         run: npx web-ext@^8 sign
         env:
           WEB_EXT_API_KEY: ${{ secrets.FIREFOX_JWT_ISSUER }}
