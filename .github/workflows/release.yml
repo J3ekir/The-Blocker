@@ -22,9 +22,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install jq
-        run: sudo apt-get install jq
-
       - name: Chrome
         env:
           EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
