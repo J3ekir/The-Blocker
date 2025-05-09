@@ -1,6 +1,5 @@
 # Original source by https://stackoverflow.com/a/79370439
-def relevant_paths:
-  paths | select( .[-1] | type != "number");
+def relevant_paths: paths | select( .[-1] | type != "number");
   
 def is_scalar: type | IN("object", "array") | not;
 
