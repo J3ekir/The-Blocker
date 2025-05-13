@@ -6,7 +6,6 @@
 	display: block !important;
 }
 
-/****************************************** BUTTONS *******************************************/
 .actionBar-action {
 	&.actionBar-action--menuItem {
 		display: none !important;
@@ -27,7 +26,6 @@ a[blocktype] {
 	}
 }
 
-/* signature */
 @media (max-width: 480px) {
 	a[blocktype$="Signature"] {
 		display: none !important;
@@ -37,7 +35,6 @@ a[blocktype] {
 	}
 }
 
-/* actionBar external */
 @media (max-width: 550px) {
 	.actionBar-action::before {
 		margin: 0 !important;
@@ -59,7 +56,6 @@ a[blocktype] {
 	}
 }
 
-/***************************************** WIDGET_TABS ****************************************/
 /* 
 techolay
 	11: default
@@ -159,7 +155,7 @@ technopat
 		}
 	}
 }
-/* aurora magic */
+
 :root[data-style-id="13"] {
 	& .tab-wrapper.widget-group {
 		& > :first-child {
@@ -186,7 +182,6 @@ technopat
 	}
 }
 
-/******************************************** NOTE ********************************************/
 .memberHeader-buttons:has(.memberTooltip-note) {
 	display: flex;
 	flex-wrap: wrap;
@@ -251,7 +246,6 @@ technopat
 	margin-top: 10px !important;
 }
 
-/********************************************* GIF ********************************************/
 .avatar > img {
 	object-fit: cover !important;
 }
