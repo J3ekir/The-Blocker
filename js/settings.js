@@ -101,6 +101,7 @@
 
 	function initSettings(settings) {
 		qs("#theme").value = settings["theme"];
+		document.documentElement.setAttribute("theme", settings["theme"]);
 
 		settingElements.forEach((elem, i) => {
 			elem.checked = settings[settingKeys[i]];
@@ -183,6 +184,7 @@
 		if (isFirefox && oldValue === newValue) { return; }
 
 		qs("#theme").value = newValue;
+		document.documentElement.setAttribute("theme", newValue);
 	}
 
 	function storageChangedSetting(key, { oldValue, newValue }) {
