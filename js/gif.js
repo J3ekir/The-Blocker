@@ -3,7 +3,7 @@
 	if (!USE_GIF) { return; }
 
 	chrome.runtime.sendMessage({
-		type: "gifStopperStopper",
+		type: "disableGifStopper",
 	});
 
 	const [{ origin, prefix }] = await chrome.runtime.sendMessage({

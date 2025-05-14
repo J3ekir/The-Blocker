@@ -85,7 +85,7 @@ self.gifRule = (key, value) => {
 	});
 };
 
-self.gifStopperStopper = ({ tab }) => {
+self.disableGifStopper = ({ tab }) => {
 	chrome.scripting.executeScript({
 		target: { tabId: tab.id },
 		injectImmediately: true,
