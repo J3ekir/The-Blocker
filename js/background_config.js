@@ -49,7 +49,7 @@ self.SELECTORS = {
 		settingReportReasonExplanation: ".overlay-container form[action$='/report'] ul.inputChoices[role='radiogroup'] > li > dfn",
 		settingScheduledContent: "form[method='post'] dl:has([name='ozzmodz_sc_check'])",
 		settingSpellCheck: "form[method='post'] dl:has([name='fixDot'])",
-		settingAds: "div[data-position]:has([data-xf-init='sam-item'])",
+		settingAds: "div[data-position]:has([data-xf-init='sam-item']),div[data-empower-zone]",
 	},
 	user: {
 		settingNotifications: ".alert.js-alert",
