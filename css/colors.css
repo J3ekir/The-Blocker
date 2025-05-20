@@ -63,6 +63,7 @@
 	--stats: light-dark(var(--blue-05), var(--blue-75));
 	--text: light-dark(var(--gray-05), var(--gray-95));
 	--hr: light-dark(var(--gray-50), var(--gray-25));
+	--help: light-dark(var(--gray-40), var(--gray-60));
 
 	--cm-error: hsl(0 100 60);
 	--cm-error-bg: color-mix(in srgb, var(--cm-error) 50%, transparent);
