@@ -86,7 +86,7 @@ const storage = {
 		SignatureCount: 0,
 		Notes: {},
 		CSS: "",
-		Gif: !self.isFirefox,
+		Gif: false,
 	},
 	defaultSettings: {
 		animationPolicy: "allow",
@@ -131,7 +131,5 @@ self.defaultSettings = {
 	...storage.defaultSettings,
 	...Object.fromEntries(FORUMS.flatMap(forum => Object.entries(storage.defaultForumSettings).map(([key, value]) => ([`${ forum }${ key }`, value])))),
 };
-
-self.defaultSettings.techolayGif = false;
 
 self.defaultSettingsKeys = Object.keys(defaultSettings);
