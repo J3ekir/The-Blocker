@@ -124,6 +124,7 @@ const storage = {
 		settingScheduledContent: true,
 		settingSpellCheck: true,
 		settingAds: true,
+		settingShowPatchNotes: true,
 	},
 };
 

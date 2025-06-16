@@ -1,9 +1,19 @@
 import "./background_config.js";
 import "./background_utils.js";
 
-chrome.runtime.onInstalled.addListener(({ reason, temporary }) => {
+chrome.runtime.onInstalled.addListener(({ reason, previousVersion }) => {
 	setDefaultSettings();
 	setCSS();
+
+	const { version, homepage_url } = chrome.runtime.getManifest();
+
+	if (reason === "update" && version !== previousVersion) {
+		chrome.storage.local.get({ settingShowPatchNotes: true }).then(({ settingShowPatchNotes }) => {
+			if (settingShowPatchNotes) {
+				chrome.tabs.create({ url: `${ homepage_url }/releases/tag/${ version }` });
+			}
+		});
+	}
 
 	if (reason === "install") {
 		checkPermissions();
