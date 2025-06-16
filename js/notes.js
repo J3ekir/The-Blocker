@@ -1,6 +1,4 @@
 (async () => {
-	const isMac = window.navigator.userAgent.includes("Mac OS");
-	const ctrlKey = isMac ? "metaKey" : "ctrlKey";
 	const isMobile = /\bMobile\b/.test(window.navigator.userAgent);
 	const forum = parent.document.documentElement.dataset.forum;
 	const notesKey = `${ forum }Notes`;
@@ -64,26 +62,30 @@
 		}, "*");
 	});
 
-	document.addEventListener("keydown", event => {
-		if (event[ctrlKey] && event.key.toLowerCase() === "s") {
-			event.preventDefault();
+	chrome.runtime.getPlatformInfo().then(({ os }) => {
+		const ctrlKey = os === "mac" ? "metaKey" : "ctrlKey";
 
-			if (!buttons.save.disabled) {
-				buttons.save.click();
+		document.addEventListener("keydown", event => {
+			if (event[ctrlKey] && event.key.toLowerCase() === "s") {
+				event.preventDefault();
+
+				if (!buttons.save.disabled) {
+					buttons.save.click();
+				}
 			}
-		}
-	});
+		});
 
-	document.addEventListener("keydown", event => {
-		if (event[ctrlKey]) {
-			qsa(".cm-keyword").forEach(elem => elem.classList.add("cm-keyword-link"));
-		}
-	});
+		document.addEventListener("keydown", event => {
+			if (event[ctrlKey]) {
+				qsa(".cm-keyword").forEach(elem => elem.classList.add("cm-keyword-link"));
+			}
+		});
 
-	document.addEventListener("keyup", event => {
-		if (!event[ctrlKey]) {
-			qsa(".cm-keyword.cm-keyword-link").forEach(elem => elem.classList.remove("cm-keyword-link"));
-		}
+		document.addEventListener("keyup", event => {
+			if (!event[ctrlKey]) {
+				qsa(".cm-keyword.cm-keyword-link").forEach(elem => elem.classList.remove("cm-keyword-link"));
+			}
+		});
 	});
 
 	document.addEventListener("mousedown", event => {
@@ -258,3 +260,4 @@
 		chrome.tabs.create({ url: `https://${ forum }.net/sosyal/uye/${ userId }` });
 	}
 })();
+

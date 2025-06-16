@@ -1,5 +1,3 @@
-const isMac = window.navigator.userAgent.includes("Mac OS");
-const ctrlKey = isMac ? "metaKey" : "ctrlKey";
 const extensionName = chrome.runtime.getManifest().name;
 
 chrome.storage.local.get(["theme", "lastPane"]).then(settings => {
@@ -34,15 +32,19 @@ window.addEventListener("message", event => {
 	}
 });
 
-document.addEventListener("keydown", event => {
-	if (event[ctrlKey] && event.key.toLowerCase() === "s") {
-		event.preventDefault();
+chrome.runtime.getPlatformInfo().then(({ os }) => {
+	const ctrlKey = os === "mac" ? "metaKey" : "ctrlKey";
 
-		const applyButton = qs(qs("#iframe").contentDocument, "#apply-button");
-		if (applyButton && !applyButton.disabled) {
-			applyButton.click();
+	document.addEventListener("keydown", event => {
+		if (event[ctrlKey] && event.key.toLowerCase() === "s") {
+			event.preventDefault();
+
+			const applyButton = qs(qs("#iframe").contentDocument, "#apply-button");
+			if (applyButton && !applyButton.disabled) {
+				applyButton.click();
+			}
 		}
-	}
+	});
 });
 
 function loadPane(pane) {
