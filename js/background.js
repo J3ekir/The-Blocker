@@ -18,6 +18,7 @@ chrome.runtime.onInstalled.addListener(({ reason, previousVersion }) => {
 	if (reason === "install") {
 		checkPermissions();
 		checkAnimationPolicy();
+		chrome.tabs.create({ url: `${ chrome.runtime.getURL("options.html") }#settings.html` });
 	}
 });
 
