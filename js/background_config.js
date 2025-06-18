@@ -1,6 +1,6 @@
 self.isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
 
-self.origins = chrome.runtime.getManifest()["host_permissions"];
+self.origins = chrome.runtime.getManifest().host_permissions;
 
 self.FORUMS = origins.map(origin => new URL(origin).hostname.replace(/(?:www.)?(.*).net/, "$1"));
 
