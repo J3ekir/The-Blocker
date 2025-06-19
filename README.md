@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://chrome.google.com/webstore/detail/the-blocker/nmamfbkbakeogpleihmmgbglafohpdif"><img src="https://user-images.githubusercontent.com/53034558/254320037-35e496f8-51da-4aa6-a191-b42c662c9b64.svg" height="80"></a>
-<a href="https://addons.mozilla.org/firefox/addon/the-blocker"><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/53034558/294989034-01853ec5-4807-41b8-828a-d5115beda804.svg" height="80"></a>
+<a href="https://addons.mozilla.org/addon/the-blocker"><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/53034558/294989034-01853ec5-4807-41b8-828a-d5115beda804.svg" height="80"></a>
 </p>
 
 ***
