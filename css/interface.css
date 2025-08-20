@@ -6,6 +6,10 @@
 	display: block !important;
 }
 
+.node-extra-row > a > span:has(span.katex) {
+	display: none !important
+}
+
 .actionBar-action {
 	&.actionBar-action--menuItem {
 		display: none !important;
