@@ -17,12 +17,8 @@ self.STR = self.STR || new Proxy(
 			report: "Report",
 			find: "Find",
 			findContent: "Find content",
-			findAllContentBy(userName) {
-				return `Find all content by ${ userName }`;
-			},
-			findAllThreadsBy(userName) {
-				return `Find all threads by ${ userName }`;
-			},
+			findAllContentBy: userName => `Find all content by ${ userName }`,
+			findAllThreadsBy: userName => `Find all threads by ${ userName }`,
 		},
 		"tr-TR": {
 			userBlock: "Engelle",
@@ -40,12 +36,8 @@ self.STR = self.STR || new Proxy(
 			report: "Rapor",
 			find: "Bul",
 			findContent: "İçerik bul",
-			findAllContentBy(userName) {
-				return `${ userName } tarafından gönderilen tüm içeriği arattır`;
-			},
-			findAllThreadsBy(userName) {
-				return `${ userName } tarafından açılan tüm konuları arattır`;
-			},
+			findAllContentBy: userName => `${ userName } tarafından gönderilen tüm içeriği arattır`,
+			findAllThreadsBy: userName => `${ userName } tarafından açılan tüm konuları arattır`,
 		},
 	},
 	{
