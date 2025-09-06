@@ -2,7 +2,7 @@ import { GifResizer } from "../lib/omggif/omggif.js";
 
 self.getNestedValue = (obj, keys) => keys.reduce((acc, key) => acc && acc[key], obj);
 
-self.getVariables = (_, { variables }, sendResponse) => sendResponse(variables.map(key => getNestedValue(self, key.split("."))));
+self.getVariables = (_, { variables, sendResponse }) => sendResponse(variables.map(key => getNestedValue(self, key.split("."))));
 
 self.injectCSS = ({ tab }, { forum }) => {
 	chrome.storage.local.get(`${ forum }CSS`).then(settings => {
