@@ -40,6 +40,31 @@ self.noteSavedMessage = ({ tab }, { message }) => {
 	});
 };
 
+self.getReactionId = (_, { origin, postId, reactionCount, sendResponse }) => {
+	for (let i = 1; i <= reactionCount; ++i) {
+		fetch(`${ origin }/sosyal/posts/${ postId }/react?reaction_id=${ i }`)
+			.then(response => response.text())
+			.then(html => {
+				if (html.indexOf("reaction--inline", 50000) === -1) {
+					sendResponse(i);
+					return;
+				}
+			});
+	}
+
+	return true;
+}
+
+self.activateReaction = ({ tab }, { postId, reactionId }) => {
+	chrome.scripting.executeScript({
+		target: { tabId: tab.id },
+		injectImmediately: true,
+		world: "MAIN",
+		args: [`/sosyal/posts/${ postId }/react?reaction_id=${ reactionId }`],
+		func: href => XF.activate(document.querySelector(`a[href="${ href }"]`)),
+	});
+}
+
 self.url2Base64 = (_, { url, forumUserId, t }) => {
 	fetch(url.replace(/\/avatars\/[sm]\//, "/avatars/o/"))
 		.then(response => response.bytes())

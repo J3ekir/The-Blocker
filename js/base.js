@@ -1,5 +1,30 @@
 self.BASE = self.BASE || new Proxy(
 	{
+		baseReactionButton: (() => {
+			const element = document.createElement("a");
+			element.className = "reaction reaction--small actionBar-action actionBar-action--reaction";
+			element.setAttribute("data-xf-init", "reaction");
+			element.setAttribute("data-reaction-list", "< .js-post | .js-reactionsList");
+
+			const i = document.createElement("i");
+			i.ariaHidden = true;
+
+			const img = document.createElement("img");
+			img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+			img.loading = "lazy";
+			img.className = "reaction-sprite js-reaction"
+
+			const space = document.createTextNode(" ");
+
+			const span = document.createElement("span");
+			span.className = "reaction-text js-reactionText";
+			span.append(document.createElement("bdi"));
+
+			element.append(i, img, space, span);
+
+			return element;
+		})(),
+
 		baseReportButton: (() => {
 			const element = document.createElement("a");
 			element.className = "actionBar-action actionBar-action--report";
@@ -46,12 +71,30 @@ self.BASE = self.BASE || new Proxy(
 			return element;
 		})(),
 
+		externalActionBar: (() => {
+			const element = document.createElement("div");
+			element.className = "actionBar-set actionBar-set--external";
+
+			return element;
+		})(),
+
 		internalActionBar: (() => {
 			const element = document.createElement("div");
 			element.className = "actionBar-set actionBar-set--internal";
 
 			return element;
 		})(),
+
+		reactionButton(postId, hasReaction = false, reactionId = 1) {
+			const element = BASE.baseReactionButton;
+			element.href = `/sosyal/posts/${ postId }/react?reaction_id=${ reactionId }`;
+			element.setAttribute("data-reaction-id", reactionId);
+			element.classList.add(`reaction--${ reactionId }`, hasReaction ? "has-reaction" : "reaction--imageHidden");
+			element.children[1].alt = element.children[1].title = STR.reactionName[reactionId];
+			element.children[2].firstElementChild.textContent = STR.reactionName[reactionId];
+
+			return element;
+		},
 
 		reportButton(postId) {
 			const element = BASE.baseReportButton;

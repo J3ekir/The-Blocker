@@ -44,9 +44,39 @@
 			settings.signature = new Set(settings[signatureKey]);
 
 			messages.forEach((elem, i) => {
+				// locked thread and suggestion/reaction ban
+				if (!qs(elem, ".actionBar-set.actionBar-set--external")) {
+					elem.prepend(BASE.externalActionBar);
+				}
+				
 				// no report and no edit
 				if (!qs(elem, ".actionBar-set.actionBar-set--internal")) {
 					elem.append(BASE.internalActionBar);
+				}
+
+				// no reaction
+				if (!elem.matches?.(".tb-reaction-added") && !qs(elem, ".actionBar-action.actionBar-action--reaction") && !isSelfUserId(userIds[i])) {
+					elem.classList.add("tb-reaction-added");
+
+					const hasReacted = elem.nextElementSibling.matches?.(".reactionsBar.js-reactionsList.is-active") && elem.nextElementSibling.lastElementChild.textContent.startsWith(STR.reactionYou);
+					if (!hasReacted) {
+						elem.firstElementChild.prepend(BASE.reactionButton(postIds[i]));
+					}
+					else {
+						chrome.runtime.sendMessage({
+							type: "getReactionId",
+							origin: window.location.origin,
+							postId: postIds[i],
+							reactionCount: Object.keys(STR.reactionName).length,
+						}, reactionId => {
+							elem.firstElementChild.prepend(BASE.reactionButton(postIds[i], hasReacted, reactionId));
+							chrome.runtime.sendMessage({
+								type: "activateReaction",
+								postId: postIds[i],
+								reactionId,
+							});
+						});
+					}
 				}
 
 				// no report
