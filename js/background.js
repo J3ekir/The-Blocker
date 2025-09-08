@@ -22,7 +22,7 @@ chrome.runtime.onInstalled.addListener(({ reason, previousVersion }) => {
 	}
 });
 
-chrome.runtime.onMessage.addListener(({ type, ...params }, sender, sendResponse) => self[type](sender, { ...params, sendResponse }));
+chrome.runtime.onMessage.addListener(({ type, ...params }, sender, sendResponse) => self[type]({ ...sender, ...params, sendResponse }));
 
 function setDefaultSettings() {
 	chrome.storage.local.get(defaultSettingsKeys).then(settings => chrome.storage.local.set(Object.fromEntries(defaultSettingsKeys.map(key => [key, settings[key] ?? defaultSettings[key]]))));

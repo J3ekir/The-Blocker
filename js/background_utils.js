@@ -2,9 +2,9 @@ import { GifResizer } from "../lib/omggif/omggif.js";
 
 self.getNestedValue = (obj, keys) => keys.reduce((acc, key) => acc && acc[key], obj);
 
-self.getVariables = (_, { variables, sendResponse }) => sendResponse(variables.map(key => getNestedValue(self, key.split("."))));
+self.getVariables = ({ variables, sendResponse }) => sendResponse(variables.map(key => getNestedValue(self, key.split("."))));
 
-self.injectCSS = ({ tab }, { forum }) => {
+self.injectCSS = ({ tab, forum }) => {
 	chrome.storage.local.get(`${ forum }CSS`).then(settings => {
 		chrome.scripting.insertCSS({
 			target: { tabId: tab.id },
@@ -14,7 +14,7 @@ self.injectCSS = ({ tab }, { forum }) => {
 	});
 };
 
-self.insertCssString = ({ tab }, { css }) => {
+self.insertCssString = ({ tab, css }) => {
 	chrome.scripting.insertCSS({
 		target: { tabId: tab.id },
 		origin: "USER",
@@ -22,7 +22,7 @@ self.insertCssString = ({ tab }, { css }) => {
 	});
 };
 
-self.removeCssString = ({ tab }, { css }) => {
+self.removeCssString = ({ tab, css }) => {
 	chrome.scripting.removeCSS({
 		target: { tabId: tab.id },
 		origin: "USER",
@@ -30,7 +30,7 @@ self.removeCssString = ({ tab }, { css }) => {
 	});
 };
 
-self.noteSavedMessage = ({ tab }, { message }) => {
+self.noteSavedMessage = ({ tab, message }) => {
 	chrome.scripting.executeScript({
 		target: { tabId: tab.id },
 		injectImmediately: true,
@@ -40,7 +40,7 @@ self.noteSavedMessage = ({ tab }, { message }) => {
 	});
 };
 
-self.getReactionId = (_, { origin, postId, reactionCount, sendResponse }) => {
+self.getReactionId = ({ origin, postId, reactionCount, sendResponse }) => {
 	for (let i = 1; i <= reactionCount; ++i) {
 		fetch(`${ origin }/sosyal/posts/${ postId }/react?reaction_id=${ i }`)
 			.then(response => response.text())
@@ -55,7 +55,7 @@ self.getReactionId = (_, { origin, postId, reactionCount, sendResponse }) => {
 	return true;
 }
 
-self.activateReaction = ({ tab }, { postId, reactionId }) => {
+self.activateReaction = ({ tab, postId, reactionId }) => {
 	chrome.scripting.executeScript({
 		target: { tabId: tab.id },
 		injectImmediately: true,
@@ -65,7 +65,7 @@ self.activateReaction = ({ tab }, { postId, reactionId }) => {
 	});
 }
 
-self.url2Base64 = (_, { url, forumUserId, t }) => {
+self.url2Base64 = ({ url, forumUserId, t }) => {
 	fetch(url.replace(/\/avatars\/[sm]\//, "/avatars/o/"))
 		.then(response => response.bytes())
 		.then(typedArray => {
