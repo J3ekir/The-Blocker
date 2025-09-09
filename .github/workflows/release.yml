@@ -57,3 +57,12 @@ jobs:
           WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
           WEB_EXT_CHANNEL: listed
           WEB_EXT_APPROVAL_TIMEOUT: 0
+
+      - name: Rename Firefox XPI
+        run: mv *.xpi firefox-${{ github.ref_name }}.xpi
+        working-directory: web-ext-artifacts
+
+      - name: Upload Firefox asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: web-ext-artifacts/firefox-${{ github.ref_name }}.xpi
