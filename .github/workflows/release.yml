@@ -27,6 +27,14 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
           REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
 
+      - name: ZIP Chrome
+        run: zip -r -FS chrome-${{ github.ref_name }}.zip . --exclude '*/.*' '.*'
+
+      - name: Upload Chrome asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: chrome-${{ github.ref_name }}.zip
+
   release-firefox:
     runs-on: ubuntu-latest
     steps:
