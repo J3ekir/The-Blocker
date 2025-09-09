@@ -56,7 +56,7 @@ jobs:
           WEB_EXT_API_KEY: ${{ secrets.FIREFOX_JWT_ISSUER }}
           WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
           WEB_EXT_CHANNEL: listed
-          WEB_EXT_APPROVAL_TIMEOUT: 0
+          WEB_EXT_APPROVAL_TIMEOUT: 3600000
 
       - name: Rename Firefox XPI
         run: mv *.xpi firefox-${{ github.ref_name }}.xpi
