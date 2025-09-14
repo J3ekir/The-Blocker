@@ -11,6 +11,13 @@ nav {
 	border-bottom: 1px solid var(--nav-border);
 }
 
+.tab-button {
+	@media (max-width: 550px) {
+		font-size: 6vw;
+		width: 50%;
+	}
+}
+
 main {
 	margin-block: var(--8);
 }
@@ -24,10 +31,16 @@ article {
 
 .value-name {
 	font-size: var(--18);
+	@media (max-width: 550px) {
+		font-size: 8vw;
+	}
 }
 
 .value {
 	font-size: var(--20);
+	@media (max-width: 550px) {
+		font-size: 10vw;
+	}
 }
 
 span {
