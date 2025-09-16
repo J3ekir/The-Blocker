@@ -1,4 +1,6 @@
 (async () => {
+	const isMobile = /\bMobile\b/.test(window.navigator.userAgent);
+	document.documentElement.classList.toggle("mobile", isMobile);
 	const [forums] = await chrome.runtime.sendMessage({
 		type: "getVariables",
 		variables: ["FORUMS"],

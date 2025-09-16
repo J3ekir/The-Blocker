@@ -12,7 +12,7 @@ nav {
 }
 
 .tab-button {
-	@media (max-width: 550px) {
+	:root.mobile & {
 		font-size: 6vw;
 		width: 50%;
 	}
@@ -31,14 +31,14 @@ article {
 
 .value-name {
 	font-size: var(--18);
-	@media (max-width: 550px) {
+	:root.mobile & {
 		font-size: 8vw;
 	}
 }
 
 .value {
 	font-size: var(--20);
-	@media (max-width: 550px) {
+	:root.mobile & {
 		font-size: 10vw;
 	}
 }
