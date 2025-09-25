@@ -1,11 +1,10 @@
 self.qs = (a, b) => typeof a === "string" ? document.querySelector(a) : a.querySelector?.(b);
 self.qsa = (a, b) => typeof a === "string" ? document.querySelectorAll(a) : a.querySelectorAll?.(b);
 self.waitForElement = selector => new Promise(resolve => {
-	const elem = qs(selector);
-	if (elem) { return resolve(elem); }
+	let elem;
+	if (elem = qs(selector)) { return resolve(elem); }
 	new MutationObserver((_, observer) => {
-		const elem = qs(selector);
-		if (elem) {
+		if (elem = qs(selector)) {
 			observer.disconnect();
 			resolve(elem);
 		}
