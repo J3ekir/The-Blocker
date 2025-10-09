@@ -12,7 +12,7 @@
 	if (!COMBINE_TAB_PANES && !ADD_BOTTOM_TAB_BUTTONS) { return; }
 
 	if (COMBINE_TAB_PANES) {
-		hideSecondTab();
+		waitForElement("head").then(hideSecondTab);
 		waitForElement(".tabs-tab:has(+.tabs-tab)").then(updateTabName);
 	}
 
@@ -73,10 +73,10 @@
 		tabs.parentElement.append(bottomTabs);
 	}
 
-	function hideSecondTab() {
+	function hideSecondTab(head) {
 		const elem = document.createElement("style");
 		elem.textContent = ".tab-wrapper.widget-group .tabs-tab:nth-child(2){display:none!important;}";
-		document.head.append(elem);
+		head.append(elem);
 	}
 
 	function updateTabName(elem) {
