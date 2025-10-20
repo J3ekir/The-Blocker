@@ -33,7 +33,7 @@ jobs:
       - name: ZIP Chrome
         run: zip -r -FS chrome-${{ github.ref_name }}.zip . --exclude '*/.*' '.*'
 
-      - name: Upload Chrome asset
+      - name: Upload Chrome Asset
         uses: softprops/action-gh-release@v2
         with:
           files: chrome-${{ github.ref_name }}.zip
@@ -49,7 +49,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Generate Firefox manifest.json
+      - name: Generate Firefox Manifest
         run: echo "$(jq -n -S -f manifest.jq)" > ../manifest.json
         working-directory: .manifest
 
@@ -65,7 +65,7 @@ jobs:
         run: mv *.xpi firefox-${{ github.ref_name }}.xpi
         working-directory: web-ext-artifacts
 
-      - name: Upload Firefox asset
+      - name: Upload Firefox Asset
         uses: softprops/action-gh-release@v2
         with:
           files: web-ext-artifacts/firefox-${{ github.ref_name }}.xpi
