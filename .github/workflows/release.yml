@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  release-chrome:
+  chrome:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -38,7 +38,7 @@ jobs:
         with:
           files: chrome-${{ github.ref_name }}.zip
 
-  release-firefox:
+  firefox:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
