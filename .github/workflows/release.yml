@@ -65,7 +65,7 @@ jobs:
         run: mv *.xpi firefox-${{ github.ref_name }}.xpi
         working-directory: web-ext-artifacts
 
-      - name: Upload Firefox Asset
+      - name: Upload Firefox XPI
         uses: softprops/action-gh-release@v2
         with:
           files: web-ext-artifacts/firefox-${{ github.ref_name }}.xpi
