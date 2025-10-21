@@ -54,7 +54,7 @@ jobs:
         working-directory: .manifest
 
       - name: Submit to AMO
-        run: npx web-ext@^8 sign
+        run: npx web-ext@^9 sign
         env:
           WEB_EXT_API_KEY: ${{ secrets.FIREFOX_JWT_ISSUER }}
           WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
