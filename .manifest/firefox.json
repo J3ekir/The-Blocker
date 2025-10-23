@@ -6,6 +6,9 @@
 	},
 	"browser_specific_settings": {
 		"gecko": {
+			"data_collection_permissions": {
+				"required": ["none"]
+			},
 			"id": "the_blocker@addons.mozilla.org",
 			"strict_min_version": "128.0"
 		},
