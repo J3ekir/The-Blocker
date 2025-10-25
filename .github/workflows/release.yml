@@ -22,15 +22,11 @@ jobs:
         with:
           node-version: 22
 
-      - name: Create PEM File
-        run: echo "${{ secrets.CHROME_PRIVATE_KEY_B64 }}" | base64 --decode > ../privatekey.pem
-
-      - name: Pack Chrome
+      - name: Pack Extension
         run: |
-          EXT_DIR=$(realpath .)
-          KEY_FILE=$(realpath ../privatekey.pem)
-          google-chrome --pack-extension="$EXT_DIR" --pack-extension-key="$KEY_FILE"
-      
+          echo "${{ secrets.CHROME_PRIVATE_KEY_B64 }}" | base64 --decode > ../${{ github.event.repository.name }}.pem
+          google-chrome --pack-extension="${{ github.workspace }}" --pack-extension-key="${{ github.workspace }}.pem"
+
       - name: Rename Chrome CRX
         run: mv *.crx ${{ github.event.repository.name }}-chrome-${{ github.ref_name }}.crx
         working-directory: ..
