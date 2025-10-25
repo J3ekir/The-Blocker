@@ -63,11 +63,7 @@ jobs:
           WEB_EXT_CHANNEL: listed
           WEB_EXT_APPROVAL_TIMEOUT: 3600000
 
-      - name: Rename Firefox XPI
-        run: mv *.xpi ${{ github.event.repository.name }}-firefox-${{ github.ref_name }}.xpi
-        working-directory: web-ext-artifacts
-
       - name: Upload Firefox XPI
         uses: softprops/action-gh-release@v2
         with:
-          files: web-ext-artifacts/${{ github.event.repository.name }}-firefox-${{ github.ref_name }}.xpi
+          files: web-ext-artifacts/${{ secrets.FIREFOX_ID }}-${{ github.ref_name }}.xpi
