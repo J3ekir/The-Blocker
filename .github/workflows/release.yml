@@ -51,7 +51,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Generate Firefox Manifest
+      - name: Generate manifest.json
         run: echo "$(jq -n -S -f manifest.jq)" > ../manifest.json
         working-directory: .manifest
 
