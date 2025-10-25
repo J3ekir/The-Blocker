@@ -35,10 +35,14 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
           REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
 
-      - name: Upload Chrome Asset
-        uses: softprops/action-gh-release@v2
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
-          files: ${{ github.workspace }}.crx
+          name: ${{ github.job }}
+          retention-days: 1
+          compression-level: 0
+          if-no-files-found: error
+          path: ${{ github.workspace }}.crx
 
   firefox:
     runs-on: ubuntu-latest
@@ -63,7 +67,30 @@ jobs:
           WEB_EXT_CHANNEL: listed
           WEB_EXT_APPROVAL_TIMEOUT: 3600000
 
-      - name: Upload Firefox XPI
-        uses: softprops/action-gh-release@v2
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
-          files: web-ext-artifacts/${{ secrets.FIREFOX_ID }}-${{ github.ref_name }}.xpi
+          name: ${{ github.job }}
+          retention-days: 1
+          compression-level: 0
+          if-no-files-found: error
+          path: web-ext-artifacts/${{ secrets.FIREFOX_ID }}-${{ github.ref_name }}.xpi
+
+  release:
+    needs: [chrome, firefox]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v5
+        with:
+          merge-multiple: true
+
+      - name: Publish Release
+        run: gh release new ${{ github.ref_name }} -t ${{ github.ref_name }} --notes-from-tag '${{ github.event.repository.name }}.crx#${{ github.event.repository.name }}_${{ github.ref_name }}_chrome.crx' '${{ secrets.FIREFOX_ID }}-${{ github.ref_name }}.xpi#${{ github.event.repository.name }}_${{ github.ref_name }}_firefox.xpi'
+        env:
+          GH_TOKEN: ${{ github.token }}
