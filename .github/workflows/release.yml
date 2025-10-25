@@ -27,16 +27,8 @@ jobs:
           echo "${{ secrets.CHROME_PRIVATE_KEY_B64 }}" | base64 --decode > ../${{ github.event.repository.name }}.pem
           google-chrome --pack-extension="${{ github.workspace }}" --pack-extension-key="${{ github.workspace }}.pem"
 
-      - name: Rename Chrome CRX
-        run: mv *.crx ${{ github.event.repository.name }}-chrome-${{ github.ref_name }}.crx
-        working-directory: ..
-
-      - name: Save CRX Path
-        id: crx_path
-        run: echo "CRX_FILE=$(realpath ../${{ github.event.repository.name }}-chrome-${{ github.ref_name }}.crx)" >> $GITHUB_OUTPUT
-
       - name: Submit to CWS
-        run: npx chrome-webstore-upload-cli@next --source ${{ steps.crx_path.outputs.CRX_FILE }}
+        run: npx chrome-webstore-upload-cli@next --source ${{ github.workspace }}.crx
         env:
           EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
           CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
@@ -46,7 +38,7 @@ jobs:
       - name: Upload Chrome Asset
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ steps.crx_path.outputs.CRX_FILE }}
+          files: ${{ github.workspace }}.crx
 
   firefox:
     runs-on: ubuntu-latest
