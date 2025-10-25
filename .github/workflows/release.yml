@@ -24,8 +24,12 @@ jobs:
 
       - name: Pack Extension
         run: |
-          echo "${{ secrets.CHROME_PRIVATE_KEY_B64 }}" | base64 --decode > ../${{ github.event.repository.name }}.pem
-          google-chrome --pack-extension="${{ github.workspace }}" --pack-extension-key="${{ github.workspace }}.pem"
+          echo "${{ secrets.CHROME_PRIVATE_KEY_B64 }}" \
+            | base64 --decode \
+            > ../${{ github.event.repository.name }}.pem
+          google-chrome \
+            --pack-extension="${{ github.workspace }}" \
+            --pack-extension-key="${{ github.workspace }}.pem"
 
       - name: Submit to Store
         run: npx chrome-webstore-upload-cli@next --source ${{ github.workspace }}.crx
@@ -91,6 +95,11 @@ jobs:
           merge-multiple: true
 
       - name: Publish Release
-        run: gh release new ${{ github.ref_name }} -t ${{ github.ref_name }} --notes-from-tag '${{ github.event.repository.name }}.crx#${{ github.event.repository.name }}_${{ github.ref_name }}_chrome.crx' '${{ secrets.FIREFOX_ID }}-${{ github.ref_name }}.xpi#${{ github.event.repository.name }}_${{ github.ref_name }}_firefox.xpi'
+        run: |
+          gh release new ${{ github.ref_name }} \
+            -t ${{ github.ref_name }} \
+            --notes-from-tag \
+            '${{ github.event.repository.name }}.crx#${{ github.event.repository.name }}_${{ github.ref_name }}_chrome.crx' \
+            '${{ secrets.FIREFOX_ID }}-${{ github.ref_name }}.xpi#${{ github.event.repository.name }}_${{ github.ref_name }}_firefox.xpi'
         env:
           GH_TOKEN: ${{ github.token }}
