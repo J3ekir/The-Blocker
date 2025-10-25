@@ -27,7 +27,7 @@ jobs:
           echo "${{ secrets.CHROME_PRIVATE_KEY_B64 }}" | base64 --decode > ../${{ github.event.repository.name }}.pem
           google-chrome --pack-extension="${{ github.workspace }}" --pack-extension-key="${{ github.workspace }}.pem"
 
-      - name: Submit to CWS
+      - name: Submit to Store
         run: npx chrome-webstore-upload-cli@next --source ${{ github.workspace }}.crx
         env:
           EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
@@ -55,7 +55,7 @@ jobs:
         run: echo "$(jq -n -S -f manifest.jq)" > ../manifest.json
         working-directory: .manifest
 
-      - name: Submit to AMO
+      - name: Submit to Store
         run: npx web-ext@^9 sign
         env:
           WEB_EXT_API_KEY: ${{ secrets.FIREFOX_JWT_ISSUER }}
