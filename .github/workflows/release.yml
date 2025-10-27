@@ -90,7 +90,7 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: Download Artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           merge-multiple: true
 
