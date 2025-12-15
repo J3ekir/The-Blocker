@@ -40,7 +40,7 @@ jobs:
           REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ github.job }}
           retention-days: 1
@@ -72,7 +72,7 @@ jobs:
           WEB_EXT_APPROVAL_TIMEOUT: 3600000
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ github.job }}
           retention-days: 1
