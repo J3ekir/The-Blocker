@@ -3,6 +3,10 @@
 <a href="https://addons.mozilla.org/addon/the-blocker"><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/53034558/294989034-01853ec5-4807-41b8-828a-d5115beda804.svg" height="80"></a>
 </p>
 
+[Gizlilik Politikası](https://github.com/J3ekir/The-Blocker/wiki/Privacy-Policy)
+
+[Kullanım Şartları](https://github.com/J3ekir/The-Blocker/wiki/Terms-of-Service)
+
 ***
 
 - [Ayarlar](#ayarlar)
