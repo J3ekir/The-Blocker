@@ -1,0 +1,20 @@
+body {
+	font-family: var(--font);
+	text-align: center;
+	color: light-dark(var(--gray-05), var(--gray-95));
+}
+
+nav a {
+	margin: 0 var(--16);
+	text-decoration: none;
+	color: light-dark(var(--blue-40), var(--blue-70));
+}
+
+main {
+	display: inline-flex;
+	flex-direction: column;
+}
+
+li p {
+	text-align: left;
+}
