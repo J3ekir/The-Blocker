@@ -1,6 +1,6 @@
-name: Deploy Pages
+name: Deploy
 
-run-name: Deploy Pages
+run-name: Deploy
 
 on:
   push:
@@ -48,6 +48,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy
+      - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
