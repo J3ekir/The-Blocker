@@ -1,0 +1,40 @@
+name: Deploy Pages
+
+run-name: Deploy Pages ${{ github.ref_name }}
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy Files
+        run: |
+          cp css/colors.css docs/css/colors.css
+          cp css/common.css docs/css/common.css
+          mkdir -p docs/img
+          cp img/icon_32.png docs/img/icon_32.png
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
