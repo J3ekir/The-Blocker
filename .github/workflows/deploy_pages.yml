@@ -1,6 +1,6 @@
 name: Deploy Pages
 
-run-name: Deploy Pages ${{ github.ref_name }}
+run-name: Deploy Pages
 
 on:
   push:
