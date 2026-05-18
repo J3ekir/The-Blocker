@@ -127,3 +127,17 @@ a[blocktype] {
 .avatar > img {
 	object-fit: cover !important;
 }
+
+.tab-wrapper.widget-group .tabs-tab {
+	/* techolay widget tabs*/
+    &[aria-controls*="hepsiburada"],
+    &[aria-controls*="techolay"],
+    &[aria-controls*="konu_disi"] {
+        display: none !important;
+    }
+
+	/* technopat widget tabs */
+	&[aria-controls*="yeniBloglar"] {
+		display: none !important;
+	}
+}
