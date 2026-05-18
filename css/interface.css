@@ -157,3 +157,8 @@ a[blocktype] {
 		display: none !important;
 	}
 }
+
+/* techolay nav blog */
+.menu-content:has(> [data-nav-id="xa_ubs"]) > *:has(~ :is(.menu-separator:first-of-type + *)) {
+    display: none !important;
+}
