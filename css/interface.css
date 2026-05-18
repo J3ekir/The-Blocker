@@ -141,3 +141,19 @@ a[blocktype] {
 		display: none !important;
 	}
 }
+
+.p-body-sidebar {
+	/* techolay sidebar */
+    & > [data-widget-key="yeni_konular_techolay_kategorisi"],
+    & > .popularContent {
+		display: none !important;
+	}
+
+	/* technopat sidebar */
+	& > [data-widget-key="haberler"],
+	& > [data-widget-key="forum_overview_featured_content"],
+	& > [data-widget-key="forum_overview_trending_content"],
+	& > [data-widget-key="technopat_haberler_yeni"] {
+		display: none !important;
+	}
+}
