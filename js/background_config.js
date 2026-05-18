@@ -96,7 +96,6 @@ const storage = {
 		hideDoubleTapHint: false,
 		hideAnimationPolicyHint: false,
 		settingNotes: true,
-		settingAddBottomTabButtons: true,
 		settingCombineTabPanes: true,
 		settingUserButton: true,
 		settingAvatarButton: true,
