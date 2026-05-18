@@ -153,7 +153,8 @@ a[blocktype] {
 	& > [data-widget-key="haberler"],
 	& > [data-widget-key="forum_overview_featured_content"],
 	& > [data-widget-key="forum_overview_trending_content"],
-	& > [data-widget-key="technopat_haberler_yeni"] {
+	& > [data-widget-key="technopat_haberler_yeni"],
+	& > .block:has(> [data-widget-key="technopat_haberler_yeni"]) {
 		display: none !important;
 	}
 }
