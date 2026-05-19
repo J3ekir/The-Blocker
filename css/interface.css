@@ -145,7 +145,8 @@ a[blocktype] {
 .p-body-sidebar {
 	/* techolay sidebar */
     & > [data-widget-key="yeni_konular_techolay_kategorisi"],
-    & > .popularContent {
+    & > .popularContent,
+	& > .block:has(> [data-widget-key="sosyal_medya_butonlari"]) {
 		display: none !important;
 	}
 
@@ -154,7 +155,8 @@ a[blocktype] {
 	& > [data-widget-key="forum_overview_featured_content"],
 	& > [data-widget-key="forum_overview_trending_content"],
 	& > [data-widget-key="technopat_haberler_yeni"],
-	& > .block:has(> [data-widget-key="technopat_haberler_yeni"]) {
+	& > .block:has(> [data-widget-key="technopat_haberler_yeni"]),
+	& > .block:has(> [data-widget-key="social_media_widget"]) {
 		display: none !important;
 	}
 }
@@ -163,3 +165,5 @@ a[blocktype] {
 .menu-content:has(> [data-nav-id="xa_ubs"]) > *:has(~ :is(.menu-separator:first-of-type + *)) {
     display: none !important;
 }
+
+
