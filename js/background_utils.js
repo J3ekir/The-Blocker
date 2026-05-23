@@ -65,6 +65,18 @@ self.activateReaction = ({ tab, postId, reactionId }) => {
 	});
 }
 
+self.dismissNotice = ({ tab, noticeId }) => {
+	chrome.scripting.executeScript({
+		target: { tabId: tab.id },
+		injectImmediately: true,
+		world: "MAIN",
+		args: [noticeId],
+		func: noticeId => XF.ready(() => {
+			document.querySelector(`[data-notice-id="${ noticeId }"]`)?.querySelector(".notice-dismiss")?.click();
+		}),
+	});
+}
+
 self.url2Base64 = ({ url, forumUserId, t }) => {
 	fetch(url.replace(/\/avatars\/[sm]\//, "/avatars/o/"))
 		.then(response => response.bytes())

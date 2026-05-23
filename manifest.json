@@ -18,6 +18,7 @@
 				"js/inject_css.js",
 				"js/str.js",
 				"js/base.js",
+				"js/default.js",
 				"js/widget_tabs.js",
 				"js/content_script.js",
 				"js/gif.js",
