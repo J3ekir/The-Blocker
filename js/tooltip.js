@@ -13,11 +13,15 @@
 	function addTooltipItems(elem) {
 		if (!elem.matches?.(".tooltip--member .tooltip-content-inner")) { return; }
 
-		const userId = parseInt(qs(elem, ".memberTooltip-avatar>a").dataset.userId, 10);
+			const userId = parseInt(qs(elem, ".memberTooltip-avatar>a")?.dataset?.userId, 10);
 
-		addReportButton(elem, userId);
-		addFindButton(elem, userId);
-		addNote(elem, userId);
+			addReportButton(elem, userId);
+			addFindButton(elem, userId);
+			addNote(elem, userId);
+
+			if (forum === "technopat") {
+				fetch(qs(elem, "[href$='ignore-style']").getAttribute("href"));
+			}
 	}
 
 	function addReportButton(elem, userId) {
@@ -58,7 +62,7 @@
 	}
 
 	function addProfileNote() {
-		const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)[data-user-id]").dataset.userId, 10);
+		const userId = parseInt(qs(".memberHeader-avatar>.avatarWrapper>:is(a,span)[data-user-id]")?.dataset?.userId, 10);
 
 		if (isSelfUserId(userId)) { return; }
 
