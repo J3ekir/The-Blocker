@@ -7,7 +7,7 @@
 
 	waitForElement("head").then(hideSecondTab);
 	waitForElement(".tabs-tab:has(+.tabs-tab)").then(updateTabName);
-	waitForElement(".p-body-pageContent>.tab-wrapper.widget-group:first-child+div").then(initializaTabs);
+	waitForElement(".p-body-pageContent>.tab-wrapper.widget-group:first-child+*").then(initializaTabs);
 
 	function initializaTabs() {
 		qs(".tabs").removeAttribute("data-xf-init");
