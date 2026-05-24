@@ -91,7 +91,7 @@
 					elem.lastElementChild.append(BASE.actionBarMenu, BASE.actionBarMenuList);
 				}
 
-				if (forum === "technopat") {
+				if (forum === "technopat" && qs(elem.closest(".message-inner"), ".ap-ss-avatarFrameContainer")) {
 					fetch(`https://www.technopat.net/sosyal/uye/${ userIds[i] }/ignore-style`);
 				}
 			});
