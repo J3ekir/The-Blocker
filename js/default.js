@@ -10,6 +10,7 @@
         "kampanya",
         "indirim",
         "fırsat",
+        "haber",
     ];
 
     function executeDefaults() {
