@@ -20,7 +20,9 @@
 		addNote(elem, userId);
 
 		if (forum === "technopat" && qs(elem, ".ap-ss-avatarFrameContainer")) {
-			fetch(qs(elem, "[href$='ignore-style']").getAttribute("href"));
+			fetch(qs(elem, "[href$='ignore-style']").getAttribute("href")).then(() => {
+				window.location.reload();
+			});
 		}
 	}
 

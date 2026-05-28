@@ -92,7 +92,9 @@
 				}
 
 				if (forum === "technopat" && qs(elem.closest(".message-inner"), ".ap-ss-avatarFrameContainer")) {
-					fetch(`https://www.technopat.net/sosyal/uye/${ userIds[i] }/ignore-style`);
+					fetch(`https://www.technopat.net/sosyal/uye/${ userIds[i] }/ignore-style`).then(() => {
+						window.location.reload();
+					});
 				}
 			});
 		}
