@@ -1,5 +1,4 @@
 (async () => {
-	const supportsStorageLocalGetBytesInUse = typeof chrome.storage.local.getBytesInUse === "function";
 	const DATA_SIZE_UNITS = ["B", "KB", "MB", "GB"];
 	const [origins, gifPrefixes] = await chrome.runtime.sendMessage({
 		type: "getVariables",
@@ -131,13 +130,7 @@
 	}
 
 	async function calculateGifDataInUse() {
-		const gifKeys = await getGifKeys();
-
-		// https://github.com/J3ekir/The-Blocker/issues/3
-		// https://bugzil.la/1385832#c20
-		supportsStorageLocalGetBytesInUse
-			? chrome.storage.local.getBytesInUse(gifKeys).then(updateGifDataInUse)
-			: updateGifDataInUse(new TextEncoder().encode(gifKeys.map(key => `${ key }${ JSON.stringify(settings[key]) }`).join("")).length);
+		chrome.storage.local.getBytesInUse(await getGifKeys()).then(updateGifDataInUse);
 	}
 
 	function updateGifDataInUse(bytes) {
