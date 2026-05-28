@@ -7,6 +7,9 @@ def subtract_json($b):
   . as $a | 
   reduce ($b | relevant_paths) as $p (
     $a;
-    if (getpath($p) | type == "array") and ($b | getpath($p) | type == "array") then setpath($p; getpath($p) - ($b | getpath($p)))
-    elif (getpath($p) | is_scalar) and ($b | getpath($p) | is_scalar) then delpaths([$p]) end
+    if (getpath($p) | type == "array") and ($b | getpath($p) | type == "array")
+      then setpath($p; getpath($p) - ($b | getpath($p)))
+    elif (getpath($p) | is_scalar) and ($b | getpath($p) | is_scalar)
+      then delpaths([$p])
+    end
   );
