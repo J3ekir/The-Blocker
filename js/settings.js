@@ -1,5 +1,4 @@
 (async () => {
-	const supportsStorageLocalGetKeys = typeof chrome.storage.local.getKeys === "function";
 	const supportsStorageLocalGetBytesInUse = typeof chrome.storage.local.getBytesInUse === "function";
 	const DATA_SIZE_UNITS = ["B", "KB", "MB", "GB"];
 	const [origins, gifPrefixes] = await chrome.runtime.sendMessage({
@@ -124,10 +123,7 @@
 	}
 
 	async function getGifKeys() {
-		// https://github.com/J3ekir/The-Blocker/issues/4
-		return supportsStorageLocalGetKeys
-			? await chrome.storage.local.getKeys().then(keys => keys.filter(isGifEntry))
-			: Object.keys(await chrome.storage.local.get()).filter(isGifEntry);
+		return await chrome.storage.local.getKeys().then(keys => keys.filter(isGifEntry));
 	}
 
 	function isGifEntry(value) {
