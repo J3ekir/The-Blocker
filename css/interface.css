@@ -156,6 +156,7 @@ a[blocktype] {
 	& > [data-widget-key="forum_overview_featured_content"],
 	& > [data-widget-key="forum_overview_trending_content"],
 	& > [data-widget-key="technopat_haberler_yeni"],
+	& > [data-widget-key="wordpress_posts"],
 	& > .block:has(> [data-widget-key="technopat_haberler_yeni"]),
 	& > .block:has(> [data-widget-key="social_media_widget"]) {
 		display: none !important;
