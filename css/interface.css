@@ -143,7 +143,7 @@ a[blocktype] {
 }
 
 .p-body-sidebar {
-	/* techolay sidebar */
+	/* techolay */
     & > [data-widget-key="yeni_konular_techolay_kategorisi"],
     & > [data-widget-key="daily_streak"],
     & > .popularContent,
@@ -151,7 +151,7 @@ a[blocktype] {
 		display: none !important;
 	}
 
-	/* technopat sidebar */
+	/* technopat */
 	& > [data-widget-key="haberler"],
 	& > [data-widget-key="forum_overview_featured_content"],
 	& > [data-widget-key="forum_overview_trending_content"],
