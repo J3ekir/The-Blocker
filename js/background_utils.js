@@ -77,6 +77,10 @@ self.dismissNotice = ({ tab, noticeId }) => {
 	});
 }
 
+self.ignoreUserStyle = ({ url }) => {
+	fetch(url);
+}
+
 self.url2Base64 = ({ url, forumUserId, t }) => {
 	fetch(url.replace(/\/avatars\/[sm]\//, "/avatars/o/"))
 		.then(response => response.bytes())

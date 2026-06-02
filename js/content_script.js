@@ -90,12 +90,6 @@
 				if (!qs(elem, ".actionBar-action.actionBar-action--menuTrigger")) {
 					elem.lastElementChild.append(BASE.actionBarMenu, BASE.actionBarMenuList);
 				}
-
-				if (forum === "technopat" && qs(elem.closest(".message-inner"), ".ap-ss-avatarFrameContainer")) {
-					fetch(`https://www.technopat.net/sosyal/uye/${ userIds[i] }/ignore-style`).then(() => {
-						window.location.reload();
-					});
-				}
 			});
 		}
 

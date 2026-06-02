@@ -18,12 +18,6 @@
 		addReportButton(elem, userId);
 		addFindButton(elem, userId);
 		addNote(elem, userId);
-
-		if (forum === "technopat" && qs(elem, ".ap-ss-avatarFrameContainer")) {
-			fetch(qs(elem, "[href$='ignore-style']").getAttribute("href")).then(() => {
-				window.location.reload();
-			});
-		}
 	}
 
 	function addReportButton(elem, userId) {

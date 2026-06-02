@@ -35,7 +35,10 @@ chrome.runtime.sendMessage({
 });
 
 (async () => {
-	waitForElement("#footer").then(executeDefaults);
+	waitForElement("#footer").then(() => {
+        executeDefaults();
+		ignoreUserStyles();
+    });
 
     const noticeAds = [
         "reklam",
@@ -48,6 +51,8 @@ chrome.runtime.sendMessage({
         "fırsat",
         "haber",
     ];
+    const frameSelector = ".ap-ss-avatarFrameContainer .avatar";
+    const seenFrameIds = new Set();
 
     function executeDefaults() {
         qsa(".p-body-inner>.notices>.notice").forEach(elem => {
@@ -57,6 +62,20 @@ chrome.runtime.sendMessage({
                     noticeId: elem.dataset.noticeId,
                 });
             }
+        });
+    }
+
+    function ignoreUserStyles() {
+        if (forum !== "technopat") { return; }
+
+        qsa(frameSelector).forEach(elem => {
+            if (seenFrameIds.has(elem.dataset.userId)) { return; }
+
+            seenFrameIds.add(elem.dataset.userId);
+            chrome.runtime.sendMessage({
+                type: "ignoreUserStyle",
+                url: `${ elem.href }/ignore-style`,
+            });
         });
     }
 })();
