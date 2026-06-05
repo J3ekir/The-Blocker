@@ -1,5 +1,12 @@
 /* https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/content_scripts#browser_compatibility */
 const css = `
+/* techolay çözüm */
+.message--solution {
+    border: unset !important;
+    box-shadow: unset !important;
+    position: unset !important;
+}
+
 :is(.memberTooltip-stats, .memberHeader-stats) dl {
 	/* techolay */
 	/* yazılımlar */

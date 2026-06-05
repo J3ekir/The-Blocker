@@ -172,3 +172,8 @@ a[blocktype] {
 .reaction--9 {
 	display: none !important;
 }
+
+/* techolay çözüm */
+.message--solution .message-attribution::after {
+	content: none !important;
+}
