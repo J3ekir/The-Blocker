@@ -177,3 +177,8 @@ a[blocktype] {
 .message--solution .message-attribution::after {
 	content: none !important;
 }
+
+/* techolay nav icons */
+.p-navEl-link i:has(svg) {
+	display: none !important;
+}
