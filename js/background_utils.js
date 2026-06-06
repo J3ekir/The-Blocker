@@ -5,6 +5,13 @@ self.getNestedValue = (obj, keys) => keys.reduce((acc, key) => acc && acc[key], 
 self.getVariables = ({ variables, sendResponse }) => sendResponse(variables.map(key => getNestedValue(self, key.split("."))));
 
 self.injectCSS = ({ tab, forum }) => {
+	// https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/content_scripts#browser_compatibility
+	chrome.scripting.insertCSS({
+		target: { tabId: tab.id },
+		origin: "USER",
+		files: ["css/default.css"],
+	});
+
 	chrome.storage.local.get(`${ forum }CSS`).then(settings => {
 		chrome.scripting.insertCSS({
 			target: { tabId: tab.id },
