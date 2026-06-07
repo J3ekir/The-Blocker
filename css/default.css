@@ -86,3 +86,7 @@ html:has(link[rel="icon"][href^="https://techolay.net"]) {
 .p-navgroup.cxf-styleVariations {
 	display: none !important;
 }
+
+.ap-ss-profileBlock {
+	display: none !important;
+}
