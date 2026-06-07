@@ -7,34 +7,19 @@
 
 /* tooltip */
 :is(.memberTooltip-stats, .memberHeader-stats) dl {
-	/* techolay */
-	/* yazılımlar */
-	&:has(> dd > [href^="/sosyal/indir"]),
-	/* rozetler */
-	&:has(> dd > [href$="/badges"]),
-	/* giriş serisi */
-	&:has(> dd > [href$="/daily-login-streaks"]),
-	/* ürünler */
-	&:has(> dd > [href^="/sosyal/satis"]) {
-		display: none !important;
-	}
-
-	/* technopat */
-	/* medya */
-	&:has(> dd > [href^="/sosyal/medya"]),
-	/* blog */
-	&:has(> dd > [href^="/sosyal/blog"]),
-	/* blog girdisi yorumları*/
 	&:has(> dd > [href^="/sosyal/blog"]) + *,
-	/* rozetler */
-	&:has(> dd > [href$="/badges"]),
-	/* giriş serisi */
-	&:has(> dd > [href$="/daily-login-streaks"]) {
+	&:has(> dd > :is(
+		[href^="/sosyal/indir"],
+		[href$="/badges"],
+		[href$="/daily-login-streaks"],
+		[href^="/sosyal/satis"],
+		[href^="/sosyal/medya"],
+		[href^="/sosyal/blog"],
+	)) {
 		display: none !important;
 	}
+}
 
-	/* alıcı-satıcı geçmişi */
-	.buttonGroup:has(>[href^="/sosyal/trader"]) {
-		display: none !important;
-	}
+.buttonGroup:has(>[href^="/sosyal/trader"]) {
+	display: none !important;
 }
