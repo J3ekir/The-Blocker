@@ -90,3 +90,7 @@ html:has(link[rel="icon"][href^="https://techolay.net"]) {
 .ap-ss-profileBlock {
 	display: none !important;
 }
+
+.block:has(.petWidgetContainer) {
+	display: none !important;
+}
