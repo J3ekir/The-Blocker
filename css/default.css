@@ -12,7 +12,7 @@
 		[href$="/daily-login-streaks"],
 		[href^="/sosyal/satis"],
 		[href^="/sosyal/medya"],
-		[href^="/sosyal/blog"],
+		[href^="/sosyal/blog"]
 	)) {
 		display: none !important;
 	}
@@ -20,4 +20,53 @@
 
 .buttonGroup:has(>[href^="/sosyal/trader"]) {
 	display: none !important;
+}
+
+html:has(link[rel="icon"][href^="https://techolay.net"]) {
+	.memberTooltip-stats > .pairJustifier {
+		justify-content: flex-start !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		&::before {
+			content: "" !important;
+			display: none !important;
+		}
+		& > .pairs {
+			margin: 0 !important;
+			padding: 0 !important;
+			gap: 3px !important;
+			& > dt {
+				font-weight: 300 !important;
+				font-size: 12px !important;
+				opacity: 1 !important;
+				color: color-mix(in srgb, currentColor 50%, #8888) !important;
+			}
+			& > dd {
+				margin: 0 !important;
+				padding: 0 !important;
+				opacity: 1 !important;
+				font-weight: 400 !important;
+			}
+			&:not(:nth-child(4n))::after {
+				content: "" !important;
+				display: none !important;
+			}
+			&:not(:nth-child(4n + 1 of :not(:has(> dd :is(
+				[href^="/sosyal/indir"],
+				[href$="/badges"],
+				[href$="/daily-login-streaks"],
+				[href^="/sosyal/satis"],
+				[href^="/sosyal/medya"],
+				[href^="/sosyal/blog"]
+			)))))::before {
+				content: "";
+				position: absolute;
+				left: 0;
+				width: 1px;
+				height: 60%;
+				background: color-mix(in srgb, currentColor 50%, #8888);
+				opacity: 0.5;
+			}
+		}
+	}
 }
