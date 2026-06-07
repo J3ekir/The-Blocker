@@ -1,11 +1,9 @@
-/* techolay çözüm */
 .message--solution {
 	border: unset !important;
 	box-shadow: unset !important;
 	position: unset !important;
 }
 
-/* tooltip */
 :is(.memberTooltip-stats, .memberHeader-stats) dl {
 	&:has(> dd > [href^="/sosyal/blog"]) + *,
 	&:has(> dd > :is(
