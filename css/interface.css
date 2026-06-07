@@ -129,36 +129,31 @@ a[blocktype] {
 }
 
 .tab-wrapper.widget-group .tabs-tab {
-	/* techolay widget tabs*/
-	&[aria-controls*="hepsiburada"],
-	&[aria-controls*="techolay"],
-	&[aria-controls*="konu_disi"] {
-		display: none !important;
-	}
-
-	/* technopat widget tabs */
-	&[aria-controls*="yeniBloglar"] {
+	&:is(
+		[aria-controls*="techolay"],
+		[aria-controls*="konu_disi"],
+		[aria-controls*="hepsiburada"],
+		[aria-controls*="yeniBloglar"]
+	) {
 		display: none !important;
 	}
 }
 
 .p-body-sidebar {
 	/* techolay */
-	& > [data-widget-key="yeni_konular_techolay_kategorisi"],
-	& > [data-widget-key="daily_streak"],
-	& > .popularContent,
-	& > .block:has(> [data-widget-key="sosyal_medya_butonlari"]) {
-		display: none !important;
-	}
-
-	/* technopat */
-	& > [data-widget-key="haberler"],
-	& > [data-widget-key="forum_overview_featured_content"],
-	& > [data-widget-key="forum_overview_trending_content"],
-	& > [data-widget-key="technopat_haberler_yeni"],
-	& > [data-widget-key="wordpress_posts"],
-	& > .block:has(> [data-widget-key="technopat_haberler_yeni"]),
-	& > .block:has(> [data-widget-key="social_media_widget"]) {
+	& > :is(
+		.popularContent,
+		[data-widget-key="haberler"],
+		[data-widget-key="daily_streak"],
+		[data-widget-key="wordpress_posts"],
+		[data-widget-key="technopat_haberler_yeni"],
+		[data-widget-key="forum_overview_featured_content"],
+		[data-widget-key="forum_overview_trending_content"],
+		[data-widget-key="yeni_konular_techolay_kategorisi"],
+		.block:has(> [data-widget-key="social_media_widget"]),
+		.block:has(> [data-widget-key="sosyal_medya_butonlari"]),
+		.block:has(> [data-widget-key="technopat_haberler_yeni"])
+	) {
 		display: none !important;
 	}
 }
