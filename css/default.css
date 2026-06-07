@@ -82,3 +82,7 @@ html:has(link[rel="icon"][href^="https://techolay.net"]) {
 	border-color: currentColor !important;
 	background-color: color-mix(in srgb, currentColor 20%, contrast-color(currentColor)) !important;
 }
+
+.p-navgroup.cxf-styleVariations {
+	display: none !important;
+}
