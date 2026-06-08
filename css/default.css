@@ -29,7 +29,17 @@ html:has(link[rel="icon"][href^="https://techolay.net"]) {
 		padding: 0 !important;
 		&::before {
 			content: "" !important;
-			display: none !important;
+			position: absolute !important;
+			left: 0 !important;
+			top: 0 !important;
+			bottom: 0 !important;
+			width: 3px !important;
+			height: unset !important;
+			opacity: unset !important;
+			background-color: inherit !important;
+			background-color: hsla(var(--xf-contentBg)) !important;
+			z-index: 20 !important;
+			pointer-events: none !important;
 		}
 		& > .pairs {
 			margin: 0 !important;
@@ -51,15 +61,7 @@ html:has(link[rel="icon"][href^="https://techolay.net"]) {
 				content: "" !important;
 				display: none !important;
 			}
-			&:not(:nth-child(4n + 1 of :not(:has(> dd :is(
-				span,
-				[href$="/daily-login-streaks"],
-				[href^="/sosyal/indir"],
-				[href^="/sosyal/medya"],
-				[href^="/sosyal/satis"],
-				[href^="/sosyal/blog"]
-				[href$="/badges"]
-			)))))::before {
+			&::before {
 				content: "";
 				position: absolute;
 				left: 0;
@@ -67,6 +69,7 @@ html:has(link[rel="icon"][href^="https://techolay.net"]) {
 				height: 60%;
 				background: color-mix(in srgb, currentColor 50%, #8888);
 				opacity: 0.5;
+				z-index: 1;
 			}
 		}
 	}
