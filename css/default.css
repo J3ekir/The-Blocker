@@ -5,14 +5,14 @@
 }
 
 :is(.memberTooltip-stats, .memberHeader-stats) dl {
-	&:has(> dd > [href^="/sosyal/blog"]) + *,
 	&:has(> dd > :is(
-		[href^="/sosyal/indir"],
-		[href$="/badges"],
+		span,
 		[href$="/daily-login-streaks"],
-		[href^="/sosyal/satis"],
+		[href^="/sosyal/indir"],
 		[href^="/sosyal/medya"],
+		[href^="/sosyal/satis"],
 		[href^="/sosyal/blog"]
+		[href$="/badges"]
 	)) {
 		display: none !important;
 	}
@@ -52,12 +52,13 @@ html:has(link[rel="icon"][href^="https://techolay.net"]) {
 				display: none !important;
 			}
 			&:not(:nth-child(4n + 1 of :not(:has(> dd :is(
-				[href^="/sosyal/indir"],
-				[href$="/badges"],
+				span,
 				[href$="/daily-login-streaks"],
-				[href^="/sosyal/satis"],
+				[href^="/sosyal/indir"],
 				[href^="/sosyal/medya"],
+				[href^="/sosyal/satis"],
 				[href^="/sosyal/blog"]
+				[href$="/badges"]
 			)))))::before {
 				content: "";
 				position: absolute;
