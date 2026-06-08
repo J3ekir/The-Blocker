@@ -94,3 +94,7 @@ html:has(link[rel="icon"][href^="https://techolay.net"]) {
 .block:has(.petWidgetContainer) {
 	display: none !important;
 }
+
+.message-body span {
+	color: inherit !important;
+}
