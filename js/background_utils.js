@@ -79,7 +79,9 @@ self.dismissNotice = ({ tab, noticeId }) => {
 		world: "MAIN",
 		args: [noticeId],
 		func: noticeId => XF.ready(() => {
-			document.querySelector(`[data-notice-id="${ noticeId }"]`)?.querySelector(".notice-dismiss")?.click();
+			setTimeout(() => {
+				document.querySelector(`[data-notice-id="${ noticeId }"]`)?.querySelector(".notice-dismiss")?.click();
+			}, 1000);
 		}),
 	});
 }
