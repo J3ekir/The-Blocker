@@ -14,6 +14,7 @@
 		"indirim",
 		"fırsat",
 		"haber",
+		"canlı",
 	];
 	const frameSelector = ".ap-ss-avatarFrameContainer .avatar";
 	const seenFrameIds = new Set();
