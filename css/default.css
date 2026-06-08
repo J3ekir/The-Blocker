@@ -102,3 +102,14 @@ html:has(link[rel="icon"][href^="https://techolay.net"]) {
 .message-body span {
 	color: inherit !important;
 }
+
+.menu--account .listPlain li:has(:is(
+	[href="/sosyal/hesap/block-settings/"],
+	[href="/sosyal/hesap/style-settings/"],
+	[href="/sosyal/hesap/macros/active/"],
+	[href="/sosyal/hesap/scheduled-content"],
+	[href="/sosyal/userpetsduel/"],
+	[href="/sosyal/userpetstournaments/"]
+)) {
+	display: none !important;
+}
