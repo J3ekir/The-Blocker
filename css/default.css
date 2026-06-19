@@ -113,3 +113,7 @@ html:has(link[rel="icon"][href^="https://techolay.net"]) {
 )) {
 	display: none !important;
 }
+
+[data-notice-id="24"] {
+	display: none !important;
+}
