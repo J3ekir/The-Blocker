@@ -1,3 +1,28 @@
+# 1.3.0
+- Yeni Techolay ifadeleri eklendi.
+- Alt widget sekmesi kaldırıldı.
+- Techolay navigasyon değişikliğine uyum sağlandı.
+- Çeşitli widget sekmeleri gizlendi.
+- Techolay navigasyon blog gizlendi.
+- Technopat yeni haberler widget'ı gizlendi.
+- Technopat sosyal medya widget'ı gizlendi.
+- Technopat kullanıcı stilleri göz ardı ediliyor.
+- Reklam içerikli notlar kapatılıyor.
+- Widget stil değişikliğine uyum sağlandı.
+- Techolay kalp ifadesi gizlendi.
+- Technopt teşekkürler ifadesi gizlendi.
+- Techolay günlük giriş serisi widget'ı gizlendi.
+- Technopat teknoloji haberleri widget'ı gizlendi.
+- Üye istatistiklerinde medya, blog, giriş serisi, rozetler, alıcı-satıcı geçmişi, yazılımlar ve ürünler gizlendi.
+- Techolay çözüm efektleri kaldırıldı.
+- Techolay navigasyon ikonları gizlendi.
+- Techolay tooltip stili değiştirildi.
+- Techolay rol stili okunurluğu artırmak için değiştirildi.
+- Navigasyondaki tema seçici gizlendi.
+- Technopat profil blokları gizlendi.
+- Technopat pet widget gizlendi.
+- Çeşitli ögeler profil menüsünden gizlendi.
+
 # 1.2.0
 - Eklenti yüklendiğinde ayarlar sayfası açma işlevi eklendi.
 - Eklenti güncellendiğinde yama notları sayfasını açma ayarı eklendi.
