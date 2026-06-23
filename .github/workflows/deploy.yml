@@ -4,6 +4,8 @@ run-name: Deploy
 
 on:
   push:
+    branches:
+      - main
     paths:
       - docs/**
 
@@ -22,8 +24,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-        with:
-          ref: ${{ github.ref }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
