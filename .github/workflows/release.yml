@@ -104,12 +104,15 @@ jobs:
         with:
           merge-multiple: true
 
+      - name: Prepare Release Notes
+        run: awk '/^#.*'"${{ github.ref_name }}"'/{flag=1;next}/^#/{flag=0}flag' CHANGELOG.md > release_body.md
+
       - name: Publish Release
         run: |
           gh release new ${{ github.ref_name }} \
             --verify-tag \
             -t ${{ github.ref_name }} \
-            --notes-from-tag \
+            -F release_body.md \
             ${{ env.CHROME_NAME }} \
             ${{ env.FIREFOX_NAME }}
         env:
