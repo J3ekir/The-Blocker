@@ -107,6 +107,7 @@ jobs:
       - name: Publish Release
         run: |
           gh release new ${{ github.ref_name }} \
+            --verify-tag \
             -t ${{ github.ref_name }} \
             --notes-from-tag \
             ${{ env.CHROME_NAME }} \
