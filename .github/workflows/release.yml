@@ -10,6 +10,9 @@ on:
 permissions:
   contents: write
 
+env:
+  CHROME_NAME: ${{ github.event.repository.name }}_${{ github.ref_name }}_chrome.crx
+
 jobs:
   chrome:
     runs-on: ubuntu-latest
@@ -40,6 +43,9 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
           REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
 
+      - name: Rename Artifact
+        run: mv ../*.crx ./${{ env.CHROME_NAME }}
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
         with:
@@ -47,7 +53,7 @@ jobs:
           retention-days: 1
           compression-level: 0
           if-no-files-found: error
-          path: ${{ github.workspace }}.crx
+          path: ${{ env.CHROME_NAME }}
 
   firefox:
     runs-on: ubuntu-latest
@@ -98,7 +104,7 @@ jobs:
           gh release new ${{ github.ref_name }} \
             -t ${{ github.ref_name }} \
             --notes-from-tag \
-            '${{ github.event.repository.name }}.crx#${{ github.event.repository.name }}_${{ github.ref_name }}_chrome.crx' \
+            ${{ env.CHROME_NAME }} \
             '${{ secrets.FIREFOX_ID }}-${{ github.ref_name }}.xpi#${{ github.event.repository.name }}_${{ github.ref_name }}_firefox.xpi'
         env:
           GH_TOKEN: ${{ github.token }}
