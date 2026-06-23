@@ -12,6 +12,7 @@ permissions:
 
 env:
   CHROME_NAME: ${{ github.event.repository.name }}_${{ github.ref_name }}_chrome.crx
+  FIREFOX_NAME: ${{ github.event.repository.name }}_${{ github.ref_name }}_firefox.xpi
 
 jobs:
   chrome:
@@ -78,6 +79,10 @@ jobs:
           WEB_EXT_CHANNEL: listed
           WEB_EXT_APPROVAL_TIMEOUT: 3600000
 
+      - name: Rename Artifact
+        run: mv *.xpi ${{ env.FIREFOX_NAME }}
+        working-directory: web-ext-artifacts
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
         with:
@@ -85,7 +90,7 @@ jobs:
           retention-days: 1
           compression-level: 0
           if-no-files-found: error
-          path: web-ext-artifacts/${{ secrets.FIREFOX_ID }}-${{ github.ref_name }}.xpi
+          path: web-ext-artifacts/${{ env.FIREFOX_NAME }}
 
   release:
     needs: [chrome, firefox]
@@ -105,6 +110,6 @@ jobs:
             -t ${{ github.ref_name }} \
             --notes-from-tag \
             ${{ env.CHROME_NAME }} \
-            '${{ secrets.FIREFOX_ID }}-${{ github.ref_name }}.xpi#${{ github.event.repository.name }}_${{ github.ref_name }}_firefox.xpi'
+            ${{ env.FIREFOX_NAME }}
         env:
           GH_TOKEN: ${{ github.token }}
