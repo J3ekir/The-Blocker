@@ -1,3 +1,6 @@
+# 1.3.1
+- Doğrulanmış CRX yüklemesine geçildi.
+
 # 1.3.0
 - Yeni Techolay ifadeleri eklendi.
 - Alt widget sekmesi kaldırıldı.
