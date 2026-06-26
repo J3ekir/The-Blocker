@@ -140,10 +140,10 @@ a[blocktype] {
 }
 
 .p-body-sidebar {
-	/* techolay */
 	& > :is(
 		.popularContent,
 		[data-widget-key="haberler"],
+		[data-widget-key="gunluk_seri"],
 		[data-widget-key="daily_streak"],
 		[data-widget-key="wordpress_posts"],
 		[data-widget-key="technopat_haberler_yeni"],
