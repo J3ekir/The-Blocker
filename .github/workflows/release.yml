@@ -35,6 +35,14 @@ jobs:
             --pack-extension="${{ github.workspace }}" \
             --pack-extension-key="${{ github.workspace }}.pem"
 
+      - name: Upload Packed Extension
+        uses: actions/upload-artifact@v7
+        with:
+          retention-days: 1
+          compression-level: 0
+          if-no-files-found: error
+          path: ${{ github.workspace }}.crx
+
       - name: Submit to Store
         run: npx chrome-webstore-upload-cli@next --source ${{ github.workspace }}.crx
         env:
